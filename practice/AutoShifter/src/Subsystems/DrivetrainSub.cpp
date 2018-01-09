@@ -5,15 +5,18 @@
 
 // Drivetrain values
 
-constexpr float DRIVETRAIN_DIS_PER_PULSE_LEFT = 5000.0/6550.0;
-constexpr float DRIVETRAIN_DIS_PER_PULSE_RIGHT = 5000.0/6600.0;
+constexpr float DRIVETRAIN_DIS_PER_PULSE_LEFT = 3000.0/1925.0;
+constexpr float DRIVETRAIN_DIS_PER_PULSE_RIGHT = 3000.0/-1764.3939225673676;
 constexpr int ENCODER_CONVERSION_FACTOR = 4;
-constexpr double SHIFT_HIGH_SPEED = 1000.0;
-constexpr double SHIFT_LOW_SPEED = 750.0;
+constexpr double SHIFT_HIGH_SPEED = 5000.0;
+constexpr double SHIFT_LOW_SPEED = 1000.0;
 
 
 DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 	highGear = false;
+	shiftHighSpeed = SHIFT_HIGH_SPEED;
+	shiftLowSpeed = SHIFT_LOW_SPEED;
+
 }
 
 void DrivetrainSub::InitDefaultCommand() {
@@ -51,17 +54,24 @@ void DrivetrainSub::initHardware() {
 // here. Call these from Commands.
 void DrivetrainSub::drive(double lPower, double rPower)
 {
-	// Speed is in mm/second
-	double curSpeed = rightMotorEnc->GetRate();
-	if( !highGear && (curSpeed > SHIFT_HIGH_SPEED) )
+#if 1
+	frc::Preferences *prefs = Preferences::GetInstance();
+	if( prefs )
 	{
-		std::cout << "Shifting into high gear\n";
+		shiftHighSpeed = prefs->GetDouble("HighGearShiftSpeed", SHIFT_HIGH_SPEED);
+		shiftLowSpeed = prefs->GetDouble("LowGearShiftSpeed", SHIFT_LOW_SPEED);
+	}
+#endif
+
+	// Speed is in mm/second
+	double curSpeed = fabs(leftMotorEnc->GetRate());
+	if( !highGear && (curSpeed > shiftHighSpeed) )
+	{
 		setShifter(SOLENOID_HIGH_GEAR);
 		highGear = true;
 	}
-	else if( highGear && (curSpeed < SHIFT_LOW_SPEED) )
+	else if( highGear && (curSpeed < shiftLowSpeed) )
 	{
-		std::cout << "Shifting into low gear\n";
 		setShifter(SOLENOID_LOW_GEAR);
 		highGear = false;
 	}

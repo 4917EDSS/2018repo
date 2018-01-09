@@ -22,6 +22,8 @@ private:
 	std::shared_ptr<frc::Encoder> rightMotorEnc;
 	std::shared_ptr<frc::DoubleSolenoid> shifter;
 	bool highGear;
+	double shiftHighSpeed;
+	double shiftLowSpeed;
 
 public:
 	DrivetrainSub();
