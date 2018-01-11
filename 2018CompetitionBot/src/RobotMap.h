@@ -18,4 +18,12 @@
 // constexpr int RANGE_FINDER_PORT = 1;
 // constexpr int RANGE_FINDER_MODULE = 1;
 
+//CAN IDs
+constexpr int LEFT1_DRIVE_MOTOR_CANID = 1;
+constexpr int LEFT2_DRIVE_MOTOR_CANID = 3;
+constexpr int LEFT3_DRIVE_MOTOR_CANID = 5; 
+constexpr int RIGHT1_DRIVE_MOTOR_CANID = 0;
+constexpr int RIGHT2_DRIVE_MOTOR_CANID = 2;
+constexpr int RIGHT3_DRIVE_MOTOR_CANID = 4;
+
 #endif  // ROBOTMAP_H
