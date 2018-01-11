@@ -7,7 +7,6 @@
 #include <Commands/Command.h>
 
 #include "OI.h"
-#include "Subsystems/ExampleSubsystem.h"
 #include "Subsystems/DrivetrainSub.h"
 
 /**
@@ -23,8 +22,7 @@ public:
 	static void Init();
 
 	// Create a single static instance of all of your subsystems
-	static std::unique_ptr<ExampleSubsystem> exampleSubsystem;
-	static std::unique_ptr<DrivetainSub> drivetrainSub;
+	static std::unique_ptr<DrivetrainSub> drivetrainSub;
 	static std::unique_ptr<OI> oi;
 };
 

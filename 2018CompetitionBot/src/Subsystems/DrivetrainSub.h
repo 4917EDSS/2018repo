@@ -2,6 +2,8 @@
 #define DrivetrainSub_H
 
 #include <Commands/Subsystem.h>
+#include "WPILib.h"
+#include "ctre/Phoenix.h"
 
 class DrivetrainSub : public Subsystem {
 private:
@@ -14,11 +16,6 @@ private:
   std::shared_ptr<TalonSRX> rightMotor1;
   std::shared_ptr<TalonSRX> rightMotor2;
   std::shared_ptr<TalonSRX> rightMotor3;
- 
-
-
-
-
 
 public:
 
@@ -26,12 +23,6 @@ public:
 	
  void InitDefaultCommand();
  void drive( double lSpeed, double rSpeed );
- 
-
-
-
-
-
 
 };
 
