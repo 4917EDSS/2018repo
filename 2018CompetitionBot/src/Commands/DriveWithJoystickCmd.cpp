@@ -16,15 +16,15 @@ void DriveWithJoystickCmd::Initialize() {
 void DriveWithJoystickCmd::Execute() {
 	std::shared_ptr<frc::Joystick> driverJoystick = oi->getDriverController();
 
-  double rightStick = driverJoystick->GetRawAxis(DRIVER_RIGHT_TANK_DRIVER_AXIS);
-  double leftStick = driverJoystick->GetRawAxis(DRIVER_LEFT_FPS_DRIVER_AXIS);
+  double rightStick = driverJoystick->GetX();
+  double leftStick = driverJoystick->GetY();
   if (leftStick < 0.1 && leftStick > -0.1) {
-    Drive(rightStick, -rightStick);
+    drivetrainSub->drive(rightStick, -rightStick);
   } else {
     if (rightStick < 0) {
-      drivetrainSub->drive(leftstick - rightStick * leftStick / 2, leftStick);
+      drivetrainSub->drive(leftStick - rightStick * leftStick / 2, leftStick);
     } else {
-      drivetrainSub->drive(leftStick, leftStick - rightstick * leftStick / 2);
+      drivetrainSub->drive(leftStick, leftStick - rightStick * leftStick / 2);
     }
   }
 }

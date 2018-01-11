@@ -9,6 +9,8 @@ class OI {
 public:
 	OI();
 
+	std::shared_ptr<frc::Joystick> getDriverController();
+
 private:
 	std::shared_ptr<frc::Joystick> driverController;
 };
