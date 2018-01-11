@@ -16,17 +16,26 @@ void DriveWithJoystickCmd::Initialize() {
 void DriveWithJoystickCmd::Execute() {
 	std::shared_ptr<frc::Joystick> driverJoystick = oi->getDriverController();
 
-  double rightStick = driverJoystick->GetX();
-  double leftStick = driverJoystick->GetY();
-  if (leftStick < 0.1 && leftStick > -0.1) {
-    drivetrainSub->drive(rightStick, -rightStick);
-  } else {
-    if (rightStick < 0) {
-      drivetrainSub->drive(leftStick - rightStick * leftStick / 2, leftStick);
-    } else {
-      drivetrainSub->drive(leftStick, leftStick - rightStick * leftStick / 2);
-    }
-  }
+	double rightStick = driverJoystick->GetX();
+	double leftStick = driverJoystick->GetY();
+	if (leftStick < 0.1 && leftStick > -0.1) {
+		drivetrainSub->drive(rightStick, -rightStick);
+	} else {
+		if (leftStick > 0) {
+			if (rightStick < 0) {
+				drivetrainSub->drive(leftStick - fabs(rightStick) * leftStick / 2.0, leftStick);
+			} else {
+				drivetrainSub->drive(leftStick, leftStick - fabs(rightStick) * leftStick / 2.0);
+			}
+		}
+		else {
+			if (rightStick > 0) {
+				drivetrainSub->drive(leftStick - fabs(rightStick) * leftStick / 2.0, leftStick);
+			} else {
+				drivetrainSub->drive(leftStick, leftStick - fabs(rightStick) * leftStick / 2.0);
+			}
+		}
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
