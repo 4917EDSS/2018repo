@@ -35,6 +35,7 @@ constexpr int RIGHT_MOTOR_ENC1_DIO = 2;
 constexpr int RIGHT_MOTOR_ENC2_DIO = 3;
 constexpr int ELEVATOR_MOTOR_ENC1_DIO = 4;
 constexpr int ELEVATOR_MOTOR_ENC2_DIO = 5;
+constexpr int INTAKE_LIMIT_SWITCH = 6;
 
 //Drive Tolerances
 const float DRIVE_BALANCE_TOLERANCE = 1.0;

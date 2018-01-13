@@ -3,9 +3,9 @@
 
 #include "../CommandBase.h"
 
-class RunIntakeCmd : public CommandBase {
+class IntakeBoxCmd : public CommandBase {
 public:
-	RunIntakeCmd();
+	IntakeBoxCmd();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
