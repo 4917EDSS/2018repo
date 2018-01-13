@@ -1,11 +1,12 @@
 #include <memory>
-
+#include <string>
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
 #include <IterativeRobot.h>
 #include <LiveWindow/LiveWindow.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
+#include <Components/AutoDecider/AutoDecider.h>
 
 
 #include "CommandBase.h"
@@ -42,15 +43,11 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-		/* std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
-		if (autoSelected == "My Auto") {
-			autonomousCommand.reset(new MyAutoCommand());
-		}
-		else {
-			autonomousCommand.reset(new ExampleCommand());
-		} */
 
-		autonomousCommand.reset(chooser.GetSelected());
+		std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+		frc4917::AutoDecider* autoDecider = (frc4917::AutoDecider*) chooser.GetSelected();
+
+		autonomousCommand.reset();
 
 		if (autonomousCommand.get() != nullptr) {
 			autonomousCommand->Start();
