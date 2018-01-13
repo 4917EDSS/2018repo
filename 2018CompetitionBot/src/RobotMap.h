@@ -22,8 +22,20 @@
 constexpr int LEFT1_DRIVE_MOTOR_CANID = 1;
 constexpr int LEFT2_DRIVE_MOTOR_CANID = 3;
 constexpr int LEFT3_DRIVE_MOTOR_CANID = 5; 
-constexpr int RIGHT1_DRIVE_MOTOR_CANID = 0;
-constexpr int RIGHT2_DRIVE_MOTOR_CANID = 2;
-constexpr int RIGHT3_DRIVE_MOTOR_CANID = 4;
+constexpr int RIGHT1_DRIVE_MOTOR_CANID = 2;
+constexpr int RIGHT2_DRIVE_MOTOR_CANID = 4;
+constexpr int RIGHT3_DRIVE_MOTOR_CANID = 6;
+
+//DIOs
+constexpr int LEFT_MOTOR_ENC1_DIO = 0;
+constexpr int LEFT_MOTOR_ENC2_DIO = 1;
+constexpr int RIGHT_MOTOR_ENC1_DIO = 2;
+constexpr int RIGHT_MOTOR_ENC2_DIO = 3;
+
+
+//Drive Tolerances
+const float DRIVE_BALANCE_TOLERANCE = 1.0;
+const float DRIVE_DISTANCE_TOLERANCE = 1.0;
+const float DISTANCE_SPEED_TOLERANCE = 40.0;
 
 #endif  // ROBOTMAP_H
