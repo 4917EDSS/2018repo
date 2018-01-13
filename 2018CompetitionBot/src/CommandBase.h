@@ -8,6 +8,7 @@
 
 #include "OI.h"
 #include "Subsystems/DrivetrainSub.h"
+#include "Subsystems/IntakeSub.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -23,6 +24,7 @@ public:
 
 	// Create a single static instance of all of your subsystems
 	static std::unique_ptr<DrivetrainSub> drivetrainSub;
+	static std::unique_ptr<IntakeSub> intakeSub;
 	static std::unique_ptr<OI> oi;
 };
 

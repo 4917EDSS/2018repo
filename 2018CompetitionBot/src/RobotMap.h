@@ -25,5 +25,6 @@ constexpr int LEFT3_DRIVE_MOTOR_CANID = 5;
 constexpr int RIGHT1_DRIVE_MOTOR_CANID = 0;
 constexpr int RIGHT2_DRIVE_MOTOR_CANID = 2;
 constexpr int RIGHT3_DRIVE_MOTOR_CANID = 4;
+constexpr int INTAKE_MOTOR_CANID = 7;
 
 #endif  // ROBOTMAP_H
