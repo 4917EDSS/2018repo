@@ -8,7 +8,7 @@ OI::OI() {
 	// Process operator interface input here.
 	driverController.reset(new frc::Joystick(DRIVER_CONTROLLER_PORT));
 	intakeBtn.reset(new frc::JoystickButton(driverController.get(), INTAKE_BTN));
-	intakeBtn->WhileHeld(new RunIntakeCmd());
+	intakeBtn->WhenPressed(new RunIntakeCmd());
 	reverseIntakeBtn.reset(new frc::JoystickButton(driverController.get(), REVERSE_INTAKE_BTN));
 	reverseIntakeBtn->WhileHeld(new ReverseIntakeCmd());
 }

@@ -19,7 +19,7 @@ void RunIntakeCmd::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool RunIntakeCmd::IsFinished() {
-	return false;
+	return intakeSub->IsLimitHit();
 }
 
 // Called once after isFinished returns true

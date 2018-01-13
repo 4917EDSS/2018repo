@@ -11,11 +11,13 @@ private:
 	// for methods that implement subsystem capabilities
 
 	std::shared_ptr<TalonSRX> intakeMotor;
+	std::shared_ptr<DigitalInput> intakeLimit;
 
 public:
 	IntakeSub();
 	void InitDefaultCommand();
 	void intake(double speed);
+	bool IsLimitHit();
 };
 
 #endif  // IntakeSub_H

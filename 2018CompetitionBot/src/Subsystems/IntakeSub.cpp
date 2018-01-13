@@ -3,6 +3,8 @@
 
 IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 	intakeMotor.reset(new TalonSRX(INTAKE_MOTOR_CANID));
+	intakeLimit.reset(new DigitalInput(INTAKE_LIMIT_SWITCH));
+
 }
 
 void IntakeSub::InitDefaultCommand() {
@@ -14,4 +16,8 @@ void IntakeSub::InitDefaultCommand() {
 // here. Call these from Commands.
 void IntakeSub::intake(double speed) {
 	intakeMotor->Set(ControlMode::PercentOutput, speed);
+}
+
+bool IntakeSub::IsLimitHit() {
+	return !intakeLimit->Get();
 }
