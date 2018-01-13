@@ -41,5 +41,6 @@ constexpr int INTAKE_LIMIT_SWITCH = 6;
 const float DRIVE_BALANCE_TOLERANCE = 1.0;
 const float DRIVE_DISTANCE_TOLERANCE = 1.0;
 const float DISTANCE_SPEED_TOLERANCE = 40.0;
+const float ELEVATOR_POSITION_TOLERANCE = 40.0;
 
 #endif  // ROBOTMAP_H

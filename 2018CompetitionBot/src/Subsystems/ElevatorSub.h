@@ -13,12 +13,20 @@ private:
 	std::shared_ptr<TalonSRX> elevatorMotor;
 	std::shared_ptr<frc::Encoder> elevatorMotorEnc;
 
+	double target;
+
+
 public:
 	ElevatorSub();
 	void InitDefaultCommand();
 	void setElevatorMotor(float speed);
 	double getElevatorEncoder();
 	void resetElevatorEncoder();
+	void elevatorMotorUp();
+	void elevatorMotorDown();
+	void update();
+	void setTarget(int newTarget);
+
 
 
 };
