@@ -1,7 +1,7 @@
 #ifndef AutoSwitchLeftGrp_H
 #define AutoSwitchLeftGrp_H
 
-#include <Commands/CommandGroup.h>
+#include <WPILib.h>
 
 class AutoSwitchLeftGrp : public CommandGroup {
 public:
