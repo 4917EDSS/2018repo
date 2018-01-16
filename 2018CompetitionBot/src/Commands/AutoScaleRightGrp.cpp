@@ -12,6 +12,11 @@ AutoScaleRightGrp::AutoScaleRightGrp() {
 	//      AddSequential(new Command2());
 	// Command1 and Command2 will run in parallel.
 
+	AddSequential(new DriveStraightCmd(7734));
+
+	AddSequential(new DriveTurnCmd(270));
+
+
 	// A command group will require all of the subsystems that each member
 	// would require.
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
