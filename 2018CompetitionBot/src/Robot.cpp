@@ -75,7 +75,10 @@ public:
 	void TestPeriodic() override {
 
 	}
-
+	void UpdateSmartDashboard(){
+		SmartDashboard::PutNumber("Left Drive Motor Enc", CommandBase::drivetrainSub->getLeftEncoder());
+		SmartDashboard::PutNumber("Right Drive Motor Enc", CommandBase::drivetrainSub->getRightEncoder());
+	}
 private:
 	std::unique_ptr<frc::Command> autonomousCommand;
 	frc::SendableChooser<frc::Command*> chooser;
