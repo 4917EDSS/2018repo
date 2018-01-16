@@ -1,5 +1,6 @@
 #include "DriveWithJoystickCmd.h"
 #include "OI.h"
+#include <iostream>
 
 DriveWithJoystickCmd::DriveWithJoystickCmd() {
 	// Use Requires() here to declare subsystem dependencies
@@ -18,6 +19,7 @@ void DriveWithJoystickCmd::Execute() {
 
 	double rightStick = driverJoystick->GetX();
 	double leftStick = driverJoystick->GetY();
+	std::cout << leftStick << rightStick;
 	if (leftStick < 0.1 && leftStick > -0.1) {
 		drivetrainSub->drive(rightStick, -rightStick);
 	} else {
