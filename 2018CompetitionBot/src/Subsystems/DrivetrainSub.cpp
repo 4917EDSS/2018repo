@@ -12,10 +12,18 @@ DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 	rightMotor2.reset(new TalonSRX(RIGHT2_DRIVE_MOTOR_CANID));
 	rightMotor3.reset(new TalonSRX(RIGHT3_DRIVE_MOTOR_CANID));
 	rightMotorEnc.reset(new frc::Encoder(RIGHT_MOTOR_ENC1_DIO, RIGHT_MOTOR_ENC2_DIO));
+	turnBalancer.reset(new MotorBalancer());
 	driveBalancer.reset(new MotorBalancer());
 	distanceBalancer.reset(new MotorBalancer());
+	ahrs.reset(new AHRS(AHRSInterface));
 	driveBalancePID.reset(new PIDController(1.0, 0.0, 0.0, gyro.get(), driveBalancer.get()));
 	driveDistancePID.reset(new PIDController(1.0, 0.0, 0.0, leftMotorEnc.get(), distanceBalancer.get()));
+	driveTurnPID.reset(new frc::PIDController(prefs->GetFloat("DriveTurnP", DRIVE_TURN_P),
+				   	   	   	   	   	   	   	  prefs->GetFloat("DriveTurnI", DRIVE_TURN_I),
+											  prefs->GetFloat("DriveTurnD", DRIVE_TURN_D),
+											  ahrs.get(),
+											  turnBalancer.get()));
+
 }
 
 double DrivetrainSub::getLeftEncoderSpeed() {
@@ -80,8 +88,40 @@ void DrivetrainSub::disableDistancePID(){
 	driveDistancePID->Disable();
 }
 
+// PIDTurn functions
+void DrivetrainSub::enableTurnPID(double setPoint){
+	Preferences *prefs = Preferences::GetInstance();
+	driveTurnPID->SetPID(prefs->GetFloat("DriveTurnP", DRIVE_TURN_P), prefs->GetFloat("DriveTurnI", DRIVE_TURN_I), prefs->GetFloat("DriveTurnD", DRIVE_TURN_D));
+	driveTurnPID->SetAbsoluteTolerance(prefs->GetFloat("DriveTurnTolerance", DRIVE_TURN_TOLERANCE));
+	driveTurnPID->SetSetpoint(setPoint);
+	driveTurnPID->Enable();
+}
+void DrivetrainSub::disableTurnPID(){
+	driveTurnPID->Disable();
+}
+void DrivetrainSub::PIDTurn(){
+	leftMotor1->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
+	leftMotor2->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
+	leftMotor3->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
+	rightMotor1->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
+	rightMotor2->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
+	rightMotor3->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
+}
+bool DrivetrainSub::isTurnFinished(){
+	return driveTurnPID->OnTarget();
+}
 
+void DrivetrainSub::resetAHRS(){
+	ahrs->ZeroYaw();
+}
 
+double DrivetrainSub::getAngle(){
+	return ahrs->GetAngle();
+}
+
+double DrivetrainSub::getRate(){
+	return ahrs->GetRate();
+}
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

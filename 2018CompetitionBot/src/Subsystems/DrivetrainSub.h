@@ -22,8 +22,11 @@ private:
   std::shared_ptr<frc::Encoder> leftMotorEnc;
   std::shared_ptr<frc::Encoder> rightMotorEnc;
   std::shared_ptr<AHRS> gyro;
+  std::shared_ptr<AHRS> ahrs;
+  std::shared_ptr<MotorBalancer> turnBalancer;
   std::shared_ptr<MotorBalancer> driveBalancer;
   std::shared_ptr<MotorBalancer> distanceBalancer;
+  std::shared_ptr<frc::PIDController> driveTurnPID;
   std::shared_ptr<frc::PIDController> driveBalancePID;
   std::shared_ptr<frc::PIDController> driveDistancePID;
 
@@ -33,7 +36,9 @@ private:
   const float DRIVE_DISTANCE_P = 1.0;
   const float DRIVE_DISTANCE_I = 0.0;
   const float DRIVE_DISTANCE_D = 0.0;
-
+  constexpr float DRIVE_TURN_P = 0.1;
+  constexpr float DRIVE_TURN_I = 0.001;
+  constexpr float DRIVE_TURN_D = 0.0;
 
 public:
 
@@ -50,7 +55,13 @@ public:
  void resetEncoders();
  void enableBalancerPID(float setPoint);
  void enableDistancePID(float speed, float setPoint);
-
+ void DrivetrainSub::enableTurnPID(double setPoint);
+ void DrivetrainSub::disableTurnPID();
+ void DrivetrainSub::PIDTurn();
+ bool DrivetrainSub::isTurnFinished();
+ void DrivetrainSub::resetAHRS();
+ double DrivetrainSub::getAngle();
+ double DrivetrainSub::getRate();
 };
 
 #endif  // DrivetrainSub_H
