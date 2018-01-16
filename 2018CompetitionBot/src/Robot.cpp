@@ -70,6 +70,7 @@ public:
 
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+		UpdateSmartDashboard();
 	}
 
 	void TestPeriodic() override {
@@ -78,6 +79,8 @@ public:
 	void UpdateSmartDashboard(){
 		SmartDashboard::PutNumber("Left Drive Motor Enc", CommandBase::drivetrainSub->getLeftEncoder());
 		SmartDashboard::PutNumber("Right Drive Motor Enc", CommandBase::drivetrainSub->getRightEncoder());
+		SmartDashboard::PutNumber("Right Encoder Speed", CommandBase::drivetrainSub->getRightEncoderSpeed());
+		SmartDashboard::PutNumber("Left Encoder Speed", CommandBase::drivetrainSub->getLeftEncoderSpeed());
 	}
 private:
 	std::unique_ptr<frc::Command> autonomousCommand;
