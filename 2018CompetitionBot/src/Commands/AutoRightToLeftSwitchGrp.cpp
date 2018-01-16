@@ -1,4 +1,6 @@
 #include "AutoRightToLeftSwitchGrp.h"
+#include "Commands/DriveStraightCmd.cpp"
+#include "Commands/DriveTurnCmd.cpp"
 
 AutoRightToLeftSwitchGrp::AutoRightToLeftSwitchGrp() {
 	// Add Commands here:
@@ -17,4 +19,13 @@ AutoRightToLeftSwitchGrp::AutoRightToLeftSwitchGrp() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
+
+	AddSequential(new DriveStrightCmd(5340));
+	AddSequential(new DriveTurnCmd(-90));
+	AddSequential(new DriveStrightCmd(7032));
+	AddSequential(new DriveTurnCmd(-90));
+	AddSequential(new DriveStrightCmd(1400));
+	AddSequential(new DriveTurnCmd(-90));
+	AddSequential(new DriveStraightCmd(202));
+
 }
