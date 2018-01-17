@@ -2,7 +2,7 @@
 #include "../RobotMap.h"
 
 ElevatorSub::ElevatorSub() : Subsystem("ExampleSubsystem") {
-	elevatorMotor.reset(new TalonSRX(ELEVATOR_MOTOR_CANID));
+	//elevatorMotor.reset(new TalonSRX(ELEVATOR_MOTOR_CANID));
 	elevatorMotorEnc.reset(new frc::Encoder(ELEVATOR_MOTOR_ENC1_DIO, ELEVATOR_MOTOR_ENC2_DIO));
 	target = 0;
 }
@@ -16,7 +16,7 @@ void ElevatorSub::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void ElevatorSub::setElevatorMotor(float speed){
-	elevatorMotor->Set(ControlMode::PercentOutput,-speed);
+	//elevatorMotor->Set(ControlMode::PercentOutput,-speed);
 }
 
 double ElevatorSub::getElevatorEncoder() {

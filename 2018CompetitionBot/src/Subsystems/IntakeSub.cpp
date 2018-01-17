@@ -2,7 +2,7 @@
 #include "../RobotMap.h"
 
 IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
-	intakeMotor.reset(new TalonSRX(INTAKE_MOTOR_CANID));
+	//intakeMotor.reset(new TalonSRX(INTAKE_MOTOR_CANID));
 	intakeLimit.reset(new DigitalInput(INTAKE_LIMIT_SWITCH));
 	compressors.reset(new frc::DoubleSolenoid(COMPRESSORS_PCM_ID1, COMPRESSORS_PCM_ID2));
 
@@ -18,7 +18,7 @@ void IntakeSub::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void IntakeSub::intake(double speed) {
-	intakeMotor->Set(ControlMode::PercentOutput, speed);
+	//intakeMotor->Set(ControlMode::PercentOutput, speed);
 }
 
 void IntakeSub::openCompressor() {
