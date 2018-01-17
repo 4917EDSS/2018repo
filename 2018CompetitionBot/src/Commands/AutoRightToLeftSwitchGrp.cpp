@@ -1,6 +1,6 @@
 #include "AutoRightToLeftSwitchGrp.h"
-#include "Commands/DriveStraightCmd.cpp"
-#include "Commands/DriveTurnCmd.cpp"
+#include "Commands/DriveStraightCmd.h"
+#include "Commands/DriveTurnCmd.h"
 
 AutoRightToLeftSwitchGrp::AutoRightToLeftSwitchGrp() {
 	// Add Commands here:
