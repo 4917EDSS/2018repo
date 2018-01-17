@@ -2,6 +2,15 @@
 #include "../RobotMap.h"
 #include "Commands/DriveWithJoystickCmd.h"
 
+constexpr float DRIVE_BALANCE_P = 1.0;
+constexpr float DRIVE_BALANCE_I = 0.0;
+constexpr float DRIVE_BALANCE_D = 0.0;
+constexpr float DRIVE_DISTANCE_P = 1.0;
+constexpr float DRIVE_DISTANCE_I = 0.0;
+constexpr float DRIVE_DISTANCE_D = 0.0;
+constexpr float DRIVE_TURN_P = 0.1;
+constexpr float DRIVE_TURN_I = 0.001;
+constexpr float DRIVE_TURN_D = 0.0;
 
 DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 	leftMotor1.reset(new TalonSRX(LEFT1_DRIVE_MOTOR_CANID));
@@ -18,6 +27,7 @@ DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 	ahrs.reset(new AHRS(AHRSInterface));
 	driveBalancePID.reset(new PIDController(1.0, 0.0, 0.0, gyro.get(), driveBalancer.get()));
 	driveDistancePID.reset(new PIDController(1.0, 0.0, 0.0, leftMotorEnc.get(), distanceBalancer.get()));
+	Preferences *prefs = Preferences::GetInstance();
 	driveTurnPID.reset(new frc::PIDController(prefs->GetFloat("DriveTurnP", DRIVE_TURN_P),
 				   	   	   	   	   	   	   	  prefs->GetFloat("DriveTurnI", DRIVE_TURN_I),
 											  prefs->GetFloat("DriveTurnD", DRIVE_TURN_D),

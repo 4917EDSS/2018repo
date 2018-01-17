@@ -3,6 +3,7 @@
 
 #include <WPILib.h>
 #include "Commands/ReverseIntakeCmd.h"
+#include "Commands/OpenCompressorsHeldCmd.h"
 
 OI::OI() {
 	// Process operator interface input here.
@@ -13,6 +14,9 @@ OI::OI() {
 	intakeBtn->WhenPressed(new IntakeBoxCmd());
 	reverseIntakeBtn.reset(new frc::JoystickButton(driverController.get(), REVERSE_INTAKE_BTN));
 	reverseIntakeBtn->WhileHeld(new ReverseIntakeCmd());
+
+	compressorsBtn.reset(new JoystickButton(driverController.get(), COMPRESSOR_BTN));
+	compressorsBtn->WhileHeld(new OpenCompressorsHeldCmd());
 }
 
 std::shared_ptr<frc::Joystick> OI::getDriverController() {

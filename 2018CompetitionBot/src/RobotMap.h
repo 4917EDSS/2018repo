@@ -18,6 +18,9 @@
 // constexpr int RANGE_FINDER_PORT = 1;
 // constexpr int RANGE_FINDER_MODULE = 1;
 
+// Compressor Enabled
+constexpr bool compressorsEnabled = true;
+
 //CAN IDs
 constexpr int LEFT1_DRIVE_MOTOR_CANID = 1;
 constexpr int LEFT2_DRIVE_MOTOR_CANID = 3;
@@ -44,5 +47,12 @@ const float DISTANCE_SPEED_TOLERANCE = 40.0;
 const float ELEVATOR_POSITION_TOLERANCE = 40.0;
 const float DRIVE_TURN_TOLERANCE = 0.5;
 const float DRIVE_RATE_TOLERANCE = 1;
+
+// Pneumatic control module outputs
+constexpr int COMPRESSORS_PCM_ID1 = 1;
+constexpr int COMPRESSORS_PCM_ID2 = 2;
+
+#define AHRSInterface	frc::SPI::kMXP
+
 
 #endif  // ROBOTMAP_H

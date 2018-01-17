@@ -1,3 +1,5 @@
+#include "Commands/DriveStraightCmd.h"
+#include "Commands/DriveTurnCmd.h"
 #include "AutoScaleRightGrp.h"
 
 AutoScaleRightGrp::AutoScaleRightGrp() {
