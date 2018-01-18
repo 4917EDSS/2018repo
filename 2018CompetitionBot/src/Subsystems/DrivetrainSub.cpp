@@ -16,11 +16,13 @@ DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 	leftMotor1.reset(new TalonSRX(LEFT1_DRIVE_MOTOR_CANID));
 	leftMotor2.reset(new TalonSRX(LEFT2_DRIVE_MOTOR_CANID));
 	leftMotor3.reset(new TalonSRX(LEFT3_DRIVE_MOTOR_CANID));
-	leftMotorEnc.reset(new frc::Encoder(LEFT_MOTOR_ENC1_DIO, LEFT_MOTOR_ENC2_DIO));
 	rightMotor1.reset(new TalonSRX(RIGHT1_DRIVE_MOTOR_CANID));
 	rightMotor2.reset(new TalonSRX(RIGHT2_DRIVE_MOTOR_CANID));
 	rightMotor3.reset(new TalonSRX(RIGHT3_DRIVE_MOTOR_CANID));
 	rightMotorEnc.reset(new frc::Encoder(RIGHT_MOTOR_ENC1_DIO, RIGHT_MOTOR_ENC2_DIO));
+	leftMotorEnc.reset(new frc::Encoder(LEFT_MOTOR_ENC1_DIO, LEFT_MOTOR_ENC2_DIO));
+	leftMotorEnc->SetDistancePerPulse(DRIVETRAIN_DIS_PER_PULSE * 4);
+	rightMotorEnc->SetDistancePerPulse(DRIVETRAIN_DIS_PER_PULSE * 4);
 	turnBalancer.reset(new MotorBalancer());
 	driveBalancer.reset(new MotorBalancer());
 	distanceBalancer.reset(new MotorBalancer());
@@ -45,20 +47,20 @@ double DrivetrainSub::getRightEncoderSpeed() {
 }
 double DrivetrainSub::getLeftEncoder()
 {
-	return leftMotorEnc->GetDistance();
+	return leftMotorEnc->GetRaw();
 }
 double DrivetrainSub::getRightEncoder()
 {
-	return rightMotorEnc->GetDistance();
+	return rightMotorEnc->GetRaw();
 }
 
 void DrivetrainSub::drive(double lSpeed, double rSpeed) {
-	leftMotor1->Set(ControlMode::PercentOutput, -lSpeed);
-	leftMotor2->Set(ControlMode::PercentOutput, -lSpeed);
-	leftMotor3->Set(ControlMode::PercentOutput, -lSpeed);
-	rightMotor1->Set(ControlMode::PercentOutput, rSpeed);
-	rightMotor2->Set(ControlMode::PercentOutput, rSpeed);
-	rightMotor3->Set(ControlMode::PercentOutput, rSpeed);
+	leftMotor1->Set(ControlMode::PercentOutput, lSpeed);
+	leftMotor2->Set(ControlMode::PercentOutput, lSpeed);
+	leftMotor3->Set(ControlMode::PercentOutput, lSpeed);
+	rightMotor1->Set(ControlMode::PercentOutput, -rSpeed);
+	rightMotor2->Set(ControlMode::PercentOutput, -rSpeed);
+	rightMotor3->Set(ControlMode::PercentOutput, -rSpeed);
 }
 
 void DrivetrainSub::InitDefaultCommand() {

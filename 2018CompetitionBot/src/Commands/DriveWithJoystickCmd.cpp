@@ -19,22 +19,23 @@ void DriveWithJoystickCmd::Execute() {
 
 	double rightStick = driverJoystick->GetZ();
 	double leftStick = driverJoystick->GetY();
+
 	std::cout << leftStick << rightStick;
 	if (leftStick < 0.1 && leftStick > -0.1) {
 		drivetrainSub->drive(rightStick, -rightStick);
 	} else {
-		if (leftStick > 0) {
+		if (leftStick < 0) {
 			if (rightStick < 0) {
-				drivetrainSub->drive(leftStick - fabs(rightStick) * leftStick / 2.0, leftStick);
+				drivetrainSub->drive(-leftStick + fabs(rightStick) * leftStick / 2.0, -leftStick);
 			} else {
-				drivetrainSub->drive(leftStick, leftStick - fabs(rightStick) * leftStick / 2.0);
+				drivetrainSub->drive(-leftStick, -leftStick + fabs(rightStick) * leftStick / 2.0);
 			}
 		}
 		else {
 			if (rightStick > 0) {
-				drivetrainSub->drive(leftStick - fabs(rightStick) * leftStick / 2.0, leftStick);
+				drivetrainSub->drive(-leftStick + fabs(rightStick) * leftStick / 2.0, -leftStick);
 			} else {
-				drivetrainSub->drive(leftStick, leftStick - fabs(rightStick) * leftStick / 2.0);
+				drivetrainSub->drive(-leftStick, -leftStick + fabs(rightStick) * leftStick / 2.0);
 			}
 		}
 	}
