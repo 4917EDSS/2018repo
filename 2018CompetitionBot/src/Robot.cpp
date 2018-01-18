@@ -91,6 +91,8 @@ public:
 	}
 	void SetSmartDashboardDriverContent(){
 		SmartDashboard::PutData("2m Drive straight", new DriveStraightCmd(2000));
+		SmartDashboard::PutData("300mm Drive straight", new DriveStraightCmd(300));
+
 	}
 
 private:
