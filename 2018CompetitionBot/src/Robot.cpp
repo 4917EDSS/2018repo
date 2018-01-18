@@ -10,6 +10,8 @@
 #include <Components/AutoDecider/AutoDecider.h>
 #include <Components/LidarLite.h>
 #include <Commands/DriveTurnCmd.h>
+#include <Commands/DriveStraightCmd.h>
+
 
 
 
@@ -20,6 +22,7 @@ public:
 	void RobotInit() override {
 		// chooser.AddObject("My Auto", new MyAutoCommand());
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
+		SetSmartDashboardDriverContent();
 	}
 
 	/**
@@ -90,15 +93,25 @@ public:
 
 	}
 
-	void SetSmartDashboardDriverContent() {
+
+	void SetSmartDashboardDriverContent(){
+		SmartDashboard::PutData("2m Drive straight", new DriveStraightCmd(2000));
+		SmartDashboard::PutData("300mm Drive straight", new DriveStraightCmd(300));
 		SmartDashboard::PutData("Drive Turn 45", new DriveTurnCmd(45));
 
-		}
+	}
+
+
 private:
 	std::unique_ptr<frc::Command> autonomousCommand;
 	//std::unique_ptr <LidarLite> lidarLite;
 	frc::SendableChooser<frc::Command*> chooser;
 };
+
+
+
+
+
 
 
 
