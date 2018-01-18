@@ -98,6 +98,8 @@ public:
 		SmartDashboard::PutData("2m Drive straight", new DriveStraightCmd(2000));
 		SmartDashboard::PutData("300mm Drive straight", new DriveStraightCmd(300));
 		SmartDashboard::PutData("Drive Turn 45", new DriveTurnCmd(45));
+		SmartDashboard::PutData("Drive Turn 10", new DriveTurnCmd(10));
+		SmartDashboard::PutData("Drive Turn 90", new DriveTurnCmd(90));
 
 	}
 
