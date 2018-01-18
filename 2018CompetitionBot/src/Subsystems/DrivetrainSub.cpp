@@ -5,9 +5,9 @@
 constexpr float DRIVE_BALANCE_P = 1.0;
 constexpr float DRIVE_BALANCE_I = 0.0;
 constexpr float DRIVE_BALANCE_D = 0.0;
-constexpr float DRIVE_DISTANCE_P = 1.0;
+constexpr float DRIVE_DISTANCE_P = 0.009;
 constexpr float DRIVE_DISTANCE_I = 0.0;
-constexpr float DRIVE_DISTANCE_D = 0.0;
+constexpr float DRIVE_DISTANCE_D = 0.001;
 constexpr float DRIVE_TURN_P = 0.1;
 constexpr float DRIVE_TURN_I = 0.001;
 constexpr float DRIVE_TURN_D = 0.0;
@@ -68,6 +68,7 @@ void DrivetrainSub::InitDefaultCommand() {
 }
 
 void DrivetrainSub::PIDDrive() {
+	std::cout<<gyro->GetYaw()<<std::endl;
 	drive(distanceBalancer->GetDifference() + driveBalancer->GetDifference(), distanceBalancer->GetDifference() - driveBalancer->GetDifference());
 }
 void DrivetrainSub::resetEncoders() {
