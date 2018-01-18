@@ -21,7 +21,6 @@ private:
   std::shared_ptr<TalonSRX> rightMotor3;
   std::shared_ptr<frc::Encoder> leftMotorEnc;
   std::shared_ptr<frc::Encoder> rightMotorEnc;
-  std::shared_ptr<AHRS> gyro;
   std::shared_ptr<AHRS> ahrs;
   std::shared_ptr<MotorBalancer> turnBalancer;
   std::shared_ptr<MotorBalancer> driveBalancer;

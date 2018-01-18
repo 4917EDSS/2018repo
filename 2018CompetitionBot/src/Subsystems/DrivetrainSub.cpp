@@ -1,8 +1,9 @@
 #include "DrivetrainSub.h"
 #include "../RobotMap.h"
 #include "Commands/DriveWithJoystickCmd.h"
+#include <iostream>
 
-constexpr float DRIVE_BALANCE_P = 1.0;
+constexpr float DRIVE_BALANCE_P = 0.02;
 constexpr float DRIVE_BALANCE_I = 0.0;
 constexpr float DRIVE_BALANCE_D = 0.0;
 constexpr float DRIVE_DISTANCE_P = 0.009;
@@ -27,7 +28,7 @@ DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 	driveBalancer.reset(new MotorBalancer());
 	distanceBalancer.reset(new MotorBalancer());
 	ahrs.reset(new AHRS(AHRSInterface));
-	driveBalancePID.reset(new PIDController(1.0, 0.0, 0.0, gyro.get(), driveBalancer.get()));
+	driveBalancePID.reset(new PIDController(1.0, 0.0, 0.0, ahrs.get(), driveBalancer.get()));
 	driveDistancePID.reset(new PIDController(1.0, 0.0, 0.0, leftMotorEnc.get(), distanceBalancer.get()));
 	Preferences *prefs = Preferences::GetInstance();
 	driveTurnPID.reset(new frc::PIDController(prefs->GetFloat("DriveTurnP", DRIVE_TURN_P),
@@ -68,7 +69,7 @@ void DrivetrainSub::InitDefaultCommand() {
 }
 
 void DrivetrainSub::PIDDrive() {
-	std::cout<<gyro->GetYaw()<<std::endl;
+	std::cout<<ahrs->GetYaw()<<std::endl;
 	drive(distanceBalancer->GetDifference() + driveBalancer->GetDifference(), distanceBalancer->GetDifference() - driveBalancer->GetDifference());
 }
 void DrivetrainSub::resetEncoders() {
@@ -81,6 +82,7 @@ void DrivetrainSub::enableBalancerPID(float setPoint){
 	driveBalancePID->SetAbsoluteTolerance(prefs->GetFloat("DriveBalanceTolerance", DRIVE_BALANCE_TOLERANCE));
 	driveBalancePID->SetSetpoint(setPoint);
 	driveBalancer->Reset();
+	ahrs->Reset();
 	driveBalancePID->Enable();
 }
 
