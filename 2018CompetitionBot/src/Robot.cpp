@@ -9,6 +9,7 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include <Components/AutoDecider/AutoDecider.h>
 #include <Components/LidarLite.h>
+#include <Commands/DriveTurnCmd.h>
 
 
 
@@ -86,11 +87,19 @@ public:
 		SmartDashboard::PutNumber("Right Drive Motor Enc", CommandBase::drivetrainSub->getRightEncoder());
 		SmartDashboard::PutNumber("Right Encoder Speed", CommandBase::drivetrainSub->getRightEncoderSpeed());
 		SmartDashboard::PutNumber("Left Encoder Speed", CommandBase::drivetrainSub->getLeftEncoderSpeed());
+
 	}
+
+	void SetSmartDashboardDriverContent() {
+		SmartDashboard::PutData("Drive Turn 45", new DriveTurnCmd(45));
+
+		}
 private:
 	std::unique_ptr<frc::Command> autonomousCommand;
 	//std::unique_ptr <LidarLite> lidarLite;
 	frc::SendableChooser<frc::Command*> chooser;
 };
+
+
 
 START_ROBOT_CLASS(Robot)
