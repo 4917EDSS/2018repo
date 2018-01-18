@@ -19,6 +19,8 @@ void DriveWithJoystickCmd::Execute() {
 
 	double rightStick = driverJoystick->GetZ();
 	double leftStick = driverJoystick->GetY();
+	rightStick = pow(rightStick, 3);
+	leftStick = pow(leftStick, 3);
 
 	std::cout << leftStick << rightStick;
 	if (leftStick < 0.1 && leftStick > -0.1) {
