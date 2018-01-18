@@ -1,4 +1,5 @@
 #include <memory>
+#include <iostream>
 #include <string>
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
@@ -7,6 +8,8 @@
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <Components/AutoDecider/AutoDecider.h>
+#include <Components/LidarLite.h>
+
 
 
 #include "CommandBase.h"
@@ -66,11 +69,13 @@ public:
 		if (autonomousCommand != nullptr) {
 			autonomousCommand->Cancel();
 		}
+	    //lidarLite.reset(new LidarLite());
 	}
 
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 		UpdateSmartDashboard();
+		//std::cout<<lidarLite->getDistance()<<std::endl;
 	}
 
 	void TestPeriodic() override {
@@ -84,6 +89,7 @@ public:
 	}
 private:
 	std::unique_ptr<frc::Command> autonomousCommand;
+	//std::unique_ptr <LidarLite> lidarLite;
 	frc::SendableChooser<frc::Command*> chooser;
 };
 
