@@ -17,7 +17,7 @@ void DriveWithJoystickCmd::Initialize() {
 void DriveWithJoystickCmd::Execute() {
 	std::shared_ptr<frc::Joystick> driverJoystick = oi->getDriverController();
 
-	double rightStick = driverJoystick->GetX();
+	double rightStick = driverJoystick->GetZ();
 	double leftStick = driverJoystick->GetY();
 	std::cout << leftStick << rightStick;
 	if (leftStick < 0.1 && leftStick > -0.1) {
