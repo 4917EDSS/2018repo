@@ -9,6 +9,7 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include <Components/AutoDecider/AutoDecider.h>
 #include <Components/LidarLite.h>
+#include <Commands/DriveStraightCmd.h>
 
 
 
@@ -19,6 +20,7 @@ public:
 	void RobotInit() override {
 		// chooser.AddObject("My Auto", new MyAutoCommand());
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
+		SetSmartDashboardDriverContent();
 	}
 
 	/**
@@ -87,10 +89,18 @@ public:
 		SmartDashboard::PutNumber("Right Encoder Speed", CommandBase::drivetrainSub->getRightEncoderSpeed());
 		SmartDashboard::PutNumber("Left Encoder Speed", CommandBase::drivetrainSub->getLeftEncoderSpeed());
 	}
+	void SetSmartDashboardDriverContent(){
+		SmartDashboard::PutData("2m Drive straight", new DriveStraightCmd(2000));
+	}
+
 private:
 	std::unique_ptr<frc::Command> autonomousCommand;
 	//std::unique_ptr <LidarLite> lidarLite;
 	frc::SendableChooser<frc::Command*> chooser;
 };
+
+
+
+
 
 START_ROBOT_CLASS(Robot)
