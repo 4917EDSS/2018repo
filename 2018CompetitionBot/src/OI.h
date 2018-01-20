@@ -27,7 +27,7 @@
 const int DRIVER_CONTROLLER_PORT = 0;
 const int INTAKE_BTN = 2;
 constexpr int REVERSE_INTAKE_BTN = 3;
-constexpr int COMPRESSOR_BTN = 1;
+constexpr int HIGH_GEAR_BTN = 8;
 
 class OI {
 public:
@@ -39,7 +39,7 @@ private:
 	std::shared_ptr<frc::Joystick> driverController;
 	std::shared_ptr<frc::JoystickButton> intakeBtn;
 	std::shared_ptr<frc::JoystickButton> reverseIntakeBtn;
-	std::shared_ptr<frc::JoystickButton> compressorsBtn;
+	std::shared_ptr<frc::JoystickButton> highGearBtn;
 };
 
 #endif  // OI_H

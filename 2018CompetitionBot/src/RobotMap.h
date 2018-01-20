@@ -42,8 +42,8 @@ constexpr int INTAKE_LIMIT_SWITCH = 6;
 
 //Drive Tolerances
 const float DRIVE_BALANCE_TOLERANCE = 1.0;
-const float DRIVE_DISTANCE_TOLERANCE = 1.0;
-const float DISTANCE_SPEED_TOLERANCE = 40.0;
+const float DRIVE_DISTANCE_TOLERANCE = 15.0;
+const float DISTANCE_SPEED_TOLERANCE = 10.0;
 const float ELEVATOR_POSITION_TOLERANCE = 40.0;
 const float DRIVE_TURN_TOLERANCE = 0.5;
 const float DRIVE_RATE_TOLERANCE = 1;

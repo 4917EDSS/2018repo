@@ -26,6 +26,7 @@ void DriveWithJoystickCmd::Execute() {
 		if (wasDrivingStraight) {
 			drivetrainSub->disableBalancerPID();
 			wasDrivingStraight = false;
+			std::cout << "In Disable PID one" << std::endl;;
 		}
 
 		drivetrainSub->drive(rightStick, -rightStick);
@@ -34,12 +35,14 @@ void DriveWithJoystickCmd::Execute() {
 			drivetrainSub->resetAHRS();
 			wasDrivingStraight = true;
 			drivetrainSub->enableBalancerPID(0);
+			std::cout << "In Enable PID" << std::endl;
 		}
-		drivetrainSub->driverDriveStraight(leftStick);
+		drivetrainSub->driverDriveStraight(-leftStick);
 	} else {
 		if (wasDrivingStraight) {
 			drivetrainSub->disableBalancerPID();
 			wasDrivingStraight = false;
+			std::cout << "In Disable PID two" << std::endl;
 		}
 		if (leftStick < 0) {
 			if (rightStick < 0) {

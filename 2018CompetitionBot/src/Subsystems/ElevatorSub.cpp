@@ -1,9 +1,15 @@
 #include "ElevatorSub.h"
 #include "../RobotMap.h"
 
+constexpr float LIFT_P = 1;
+constexpr float LIFT_I = 0;
+constexpr float LIFT_D = 0;
+const float LIFT_TOLERANCE = 1;
+
 ElevatorSub::ElevatorSub() : Subsystem("ExampleSubsystem") {
 	elevatorMotor.reset(new TalonSRX(ELEVATOR_MOTOR_CANID));
 	elevatorMotorEnc.reset(new frc::Encoder(ELEVATOR_MOTOR_ENC1_DIO, ELEVATOR_MOTOR_ENC2_DIO));
+	// NEED TO DO liftPID.reset(new PIDController(LIFT_P, LIFT_I, LIFT_D, elevatorMotorEnc.get(), elevatorMotor.get()));
 	target = 0;
 }
 
@@ -44,4 +50,18 @@ void ElevatorSub::update(){
 	}
 }
 
+void ElevatorSub::enableLiftPID(float setPoint){
+	Preferences *prefs = Preferences::GetInstance();
+	liftPID->SetPID(prefs->GetFloat("LiftP", LIFT_P), prefs->GetFloat("LiftI", LIFT_I), prefs->GetFloat("LiftD", LIFT_D));
+	liftPID->SetAbsoluteTolerance(prefs->GetFloat("LiftTolerance", LIFT_TOLERANCE));
+	liftPID->SetSetpoint(setPoint);
+	liftPID->Enable();
+}
 
+void ElevatorSub::disableLiftPID(){
+	liftPID->Disable();
+}
+
+bool ElevatorSub::PIDLiftIsFinished(){
+	return liftPID->OnTarget();
+}

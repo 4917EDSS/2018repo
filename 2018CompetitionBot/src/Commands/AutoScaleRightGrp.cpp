@@ -9,7 +9,7 @@ AutoScaleRightGrp::AutoScaleRightGrp() {
 	// these will run in order.
 
 
-	AddSequential(new DriveStraightCmd(7734));
+	AddSequential(new DriveStraightCmd(7734,0.0));
 
 	AddSequential(new DriveTurnCmd(-90));
 

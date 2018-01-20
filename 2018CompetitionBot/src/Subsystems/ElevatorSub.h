@@ -12,6 +12,7 @@ private:
 	// for methods that implement subsystem capabilities
 	std::shared_ptr<TalonSRX> elevatorMotor;
 	std::shared_ptr<frc::Encoder> elevatorMotorEnc;
+	std::shared_ptr<frc::PIDController> liftPID;
 
 	double target;
 
@@ -26,9 +27,9 @@ public:
 	void elevatorMotorDown();
 	void update();
 	void setTarget(int newTarget);
-
-
-
+	void enableLiftPID(float setPoint);
+	void disableLiftPID();
+	bool PIDLiftIsFinished();
 };
 
 #endif  // ElevatorSub_H

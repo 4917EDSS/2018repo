@@ -82,7 +82,6 @@ void DrivetrainSub::enableBalancerPID(float setPoint){
 	driveBalancePID->SetAbsoluteTolerance(prefs->GetFloat("DriveBalanceTolerance", DRIVE_BALANCE_TOLERANCE));
 	driveBalancePID->SetSetpoint(setPoint);
 	driveBalancer->Reset();
-	ahrs->Reset();
 	driveBalancePID->Enable();
 }
 
