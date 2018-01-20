@@ -27,7 +27,7 @@
 const int DRIVER_CONTROLLER_PORT = 0;
 const int INTAKE_BTN = 2;
 constexpr int REVERSE_INTAKE_BTN = 3;
-constexpr int HIGH_GEAR_BTN = 11;
+constexpr int HIGH_GEAR_BTN = 8;
 
 class OI {
 public:

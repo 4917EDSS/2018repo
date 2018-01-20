@@ -35,7 +35,7 @@ void DriveWithJoystickCmd::Execute() {
 			wasDrivingStraight = true;
 			drivetrainSub->enableBalancerPID(0);
 		}
-		drivetrainSub->driverDriveStraight(leftStick);
+		drivetrainSub->driverDriveStraight(-leftStick);
 	} else {
 		if (wasDrivingStraight) {
 			drivetrainSub->disableBalancerPID();

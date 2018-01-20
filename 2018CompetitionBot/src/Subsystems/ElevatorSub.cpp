@@ -9,7 +9,7 @@ const float LIFT_TOLERANCE = 1;
 ElevatorSub::ElevatorSub() : Subsystem("ExampleSubsystem") {
 	elevatorMotor.reset(new TalonSRX(ELEVATOR_MOTOR_CANID));
 	elevatorMotorEnc.reset(new frc::Encoder(ELEVATOR_MOTOR_ENC1_DIO, ELEVATOR_MOTOR_ENC2_DIO));
-	liftPID.reset(new PIDController(LIFT_P, LIFT_I, LIFT_D, elevatorMotorEnc.get()));
+	// NEED TO DO liftPID.reset(new PIDController(LIFT_P, LIFT_I, LIFT_D, elevatorMotorEnc.get(), elevatorMotor.get()));
 	target = 0;
 }
 
