@@ -11,6 +11,7 @@ OI::OI() {
 	driverController->SetXChannel(0);
 	driverController->SetYChannel(1);
 	driverController->SetZChannel(2);
+	driverController->SetThrottleChannel(3);
 	intakeBtn.reset(new frc::JoystickButton(driverController.get(), INTAKE_BTN));
 	intakeBtn->WhenPressed(new IntakeBoxCmd());
 	reverseIntakeBtn.reset(new frc::JoystickButton(driverController.get(), REVERSE_INTAKE_BTN));
