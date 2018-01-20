@@ -13,6 +13,7 @@
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <TimedRobot.h>
+#include <I2C.h>
 
 #include "Commands/ExampleCommand.h"
 #include "Commands/MyAutoCommand.h"
@@ -23,6 +24,8 @@ public:
 		m_chooser.AddDefault("Default Auto", &m_defaultAuto);
 		m_chooser.AddObject("My Auto", &m_myAuto);
 		frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+
+		std::cout << "Starting SensorsTest ...\n";
 	}
 
 	/**
@@ -85,14 +88,19 @@ public:
 		m_hcsr04 = new frc::Ultrasonic(0, 1, frc::Ultrasonic::kMilliMeters);
 		m_hcsr04->SetAutomaticMode(true);
 		count = 0;
+
+		m_tinyLidar = new frc::I2C (frc::I2C::kOnboard, 0x10);
+		m_lidarLite = new frc::I2C(frc::I2C::kOnboard, 0x62);
 	}
 
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
-		if( count++ > 5 )
 		{
-			std::cout << "Ultrasonic dist = " << m_hcsr04->GetRangeInches() << std::endl;
-			count = 0;
+			std::cout << "#" << count++
+					  << " | U = " << m_hcsr04->GetRangeInches()
+//					  << " | TL = " << getTinyLidarDistance()
+					  << " | LL = " << getLidarLiteDistance()
+					  << std::endl;
 		}
 	}
 
@@ -106,7 +114,44 @@ private:
 	MyAutoCommand m_myAuto;
 	frc::SendableChooser<frc::Command*> m_chooser;
 	frc::Ultrasonic * m_hcsr04;
+	frc::I2C * m_tinyLidar;
+	frc::I2C * m_lidarLite;
 	int count;
+
+	int getTinyLidarDistance()
+	{
+		uint8_t command = 'D';
+		uint8_t data [2];
+		uint16_t distance;
+
+		m_tinyLidar->Transaction(&command, 1, data, 2);
+		distance = (((uint16_t)data[0]) << 8) | data[1];
+
+		return distance;
+	}
+
+	int getLidarLiteDistance()
+	{
+		uint8_t status;
+		uint8_t data[2];
+		int tries = 500;
+		uint16_t distanceInCm;
+
+		// Initiate measurement
+		m_lidarLite->Write(0x00, 0x04);
+
+		// Wait for measurement to complete
+		do {
+			m_lidarLite->Read(0x01, 1, &status);
+		} while((status & 0x01) && (--tries > 0));
+
+		// Get 16-bit measurement as two 8-bit bytes. MSB in first byte
+		m_lidarLite->Read(0x8f, 2, data);
+		distanceInCm = ((uint16_t)data[0] << 8) | data[1];
+
+		// Convert cm to mm
+		return distanceInCm * 10.0;
+	}
 };
 
 START_ROBOT_CLASS(Robot)
