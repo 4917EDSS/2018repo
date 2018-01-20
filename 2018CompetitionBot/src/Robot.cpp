@@ -56,7 +56,6 @@ public:
 
 		std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 		std::shared_ptr<frc4917::AutoDecider> autoDecider {chooser->GetSelected()};
-
 		autonomousCommand.reset(autoDecider->getCommand());
 
 		if (autonomousCommand.get() != nullptr) {
@@ -98,12 +97,12 @@ public:
 
 
 	void SetSmartDashboardDriverContent(){
-		SmartDashboard::PutData("2m Drive straight", new DriveStraightCmd(2000));
-		SmartDashboard::PutData("300mm Drive straight", new DriveStraightCmd(300));
+		SmartDashboard::PutData("2m Drive straight", new DriveStraightCmd(2000,0.0));
+		SmartDashboard::PutData("300mm Drive straight", new DriveStraightCmd(300,0.0));
 		SmartDashboard::PutData("Drive Turn 45", new DriveTurnCmd(45));
 		SmartDashboard::PutData("Drive Turn 10", new DriveTurnCmd(10));
 		SmartDashboard::PutData("Drive Turn 90", new DriveTurnCmd(90));
-		SmartDashboard::PutData("7.5m Drive Straight", new DriveStraightCmd(7500));
+		SmartDashboard::PutData("7.5m Drive Straight", new DriveStraightCmd(7500,0.0));
 		SmartDashboard::PutData("Reset Encoders", new ResetEncodersCmd());
 		SmartDashboard::PutData("Victory Lap Auto", new AutoScaleLeftToRightGrp());
 

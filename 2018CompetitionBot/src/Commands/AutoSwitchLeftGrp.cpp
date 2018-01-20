@@ -7,7 +7,7 @@ AutoSwitchLeftGrp::AutoSwitchLeftGrp() {
 	//      AddSequential(new Command2());
 	// these will run in order.
 
-	AddSequential(new DriveStraightCmd(7734));
+	AddSequential(new DriveStraightCmd(7734,0.0));
 
 	// To run multiple commands at the same time,
 	// use AddParallel()

@@ -9,7 +9,6 @@ DriveTurnCmd::DriveTurnCmd(double angle) {
 
 // Called just before this Command runs the first time
 void DriveTurnCmd::Initialize() {
-	drivetrainSub->resetAHRS();
 	drivetrainSub->enableTurnPID(turnDegrees);
 }
 

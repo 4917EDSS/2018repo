@@ -20,12 +20,12 @@ AutoRightToLeftSwitchGrp::AutoRightToLeftSwitchGrp() {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 
-	AddSequential(new DriveStraightCmd(5340));
+	AddSequential(new DriveStraightCmd(5340,0.0));
 	AddSequential(new DriveTurnCmd(-90));
-	AddSequential(new DriveStraightCmd(7032));
+	AddSequential(new DriveStraightCmd(7032,-90.0));
 	AddSequential(new DriveTurnCmd(-90));
-	AddSequential(new DriveStraightCmd(1400));
+	AddSequential(new DriveStraightCmd(1400,-180.0));
 	AddSequential(new DriveTurnCmd(-90));
-	AddSequential(new DriveStraightCmd(202));
+	AddSequential(new DriveStraightCmd(202,-270.0));
 
 }

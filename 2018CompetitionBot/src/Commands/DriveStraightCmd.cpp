@@ -2,15 +2,16 @@
 #include <iostream>
 #include <cmath>
 
-DriveStraightCmd::DriveStraightCmd(int distance) {
+DriveStraightCmd::DriveStraightCmd(int distance, float currentAngle) {
 	this->targetDistance = distance;
+	this->targetAngle = currentAngle;
 	Requires(drivetrainSub.get());
 }
 
 // Called just before this Command runs the first time
 void DriveStraightCmd::Initialize() {
 	drivetrainSub->resetEncoders();
-	drivetrainSub->enableBalancerPID(0);
+	drivetrainSub->enableBalancerPID(targetAngle);
 	drivetrainSub->enableDistancePID(0.7, targetDistance);
 	timeFromLastMove = 0;
 	lastMoveTime = 0;
@@ -35,6 +36,7 @@ bool DriveStraightCmd::IsFinished() {
 	else{
 		return false;
 	}
+
 }
 
 // Called once after isFinished returns true

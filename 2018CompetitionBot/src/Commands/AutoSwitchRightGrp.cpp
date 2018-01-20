@@ -9,7 +9,7 @@ AutoSwitchRightGrp::AutoSwitchRightGrp() {
 
 	AddSequential(new DriveTurnCmd(30)); // Need to just turn one side, other side wont be able to go back since on wall
 
-	AddSequential(new DriveStraightCmd(3766));
+	AddSequential(new DriveStraightCmd(3766,0.0));
 
 
 	// Deliver box

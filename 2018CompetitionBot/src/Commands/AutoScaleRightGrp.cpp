@@ -14,7 +14,7 @@ AutoScaleRightGrp::AutoScaleRightGrp() {
 	//      AddSequential(new Command2());
 	// Command1 and Command2 will run in parallel.
 
-	AddSequential(new DriveStraightCmd(7734));
+	AddSequential(new DriveStraightCmd(7734,0.0));
 
 	AddSequential(new DriveTurnCmd(270));
 
