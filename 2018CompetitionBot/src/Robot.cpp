@@ -11,6 +11,12 @@
 #include <Components/LidarLite.h>
 #include <Commands/DriveTurnCmd.h>
 #include <Commands/DriveStraightCmd.h>
+#include <Components/AutoDecider/AutoScaleBackupSwitchLeft.h>
+#include <Components/AutoDecider/AutoScaleBackupSwitchRight.h>
+#include <Components/AutoDecider/AutoScaleLeft.h>
+#include <Components/AutoDecider/AutoScaleRight.h>
+#include <Components/AutoDecider/AutoSwitch.h>
+
 
 
 
@@ -21,7 +27,6 @@ class Robot: public frc::IterativeRobot {
 public:
 	void RobotInit() override {
 		// chooser.AddObject("My Auto", new MyAutoCommand());
-		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 		SetSmartDashboardDriverContent();
 	}
 
@@ -52,9 +57,9 @@ public:
 	void AutonomousInit() override {
 
 		std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
-		frc4917::AutoDecider* autoDecider = (frc4917::AutoDecider*) chooser.GetSelected();
+		std::shared_ptr<frc4917::AutoDecider> autoDecider {chooser->GetSelected()};
 
-		autonomousCommand.reset();
+		autonomousCommand.reset(autoDecider->getCommand());
 
 		if (autonomousCommand.get() != nullptr) {
 			autonomousCommand->Start();
@@ -105,11 +110,22 @@ public:
 
 
 private:
-	std::unique_ptr<frc::Command> autonomousCommand;
+	std::shared_ptr<frc::Command> autonomousCommand;
 	//std::unique_ptr <LidarLite> lidarLite;
-	frc::SendableChooser<frc::Command*> chooser;
-};
+	std::unique_ptr<frc::SendableChooser<std::shared_ptr<frc4917::AutoDecider>>> chooser;
 
+
+	void SetSamrtDashboardAutoOptions() {
+		chooser.reset(new frc::SendableChooser<std::shared_ptr<frc4917::AutoDecider>>());
+		chooser->AddObject("Auto Scale Backup Switch Left", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleBackupSwitchLeft()));
+		chooser->AddObject("Auto Scale Backup Switch Left", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleBackupSwitchRight()));
+		chooser->AddObject("Auto Scale Left", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleLeft()));
+		chooser->AddObject("Auto Scale Right", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleRight()));
+		chooser->AddObject("Auto Switch", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoSwitch()));
+
+		SmartDashboard::PutData("Auto Modes", chooser.get());
+	}
+};
 
 
 
