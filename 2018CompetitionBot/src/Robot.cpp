@@ -16,10 +16,7 @@
 #include <Components/AutoDecider/AutoScaleLeft.h>
 #include <Components/AutoDecider/AutoScaleRight.h>
 #include <Components/AutoDecider/AutoSwitch.h>
-
-
-
-
+#include <Commands/ResetEncodersCmd.h>
 
 #include "CommandBase.h"
 
@@ -105,6 +102,8 @@ public:
 		SmartDashboard::PutData("Drive Turn 45", new DriveTurnCmd(45));
 		SmartDashboard::PutData("Drive Turn 10", new DriveTurnCmd(10));
 		SmartDashboard::PutData("Drive Turn 90", new DriveTurnCmd(90));
+		SmartDashboard::PutData("7.5m Drive Straight", new DriveStraightCmd(7500));
+		SmartDashboard::PutData("Reset Encoders", new ResetEncodersCmd());
 
 	}
 
