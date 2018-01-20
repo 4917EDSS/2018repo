@@ -15,4 +15,6 @@ AutoScaleLeftToRightGrp::AutoScaleLeftToRightGrp() {
 	AddSequential(new DriveTurnCmd(-90));
 	AddSequential(new DriveStraightCmd(3000));
 	AddSequential(new DriveTurnCmd(-90));
+	AddSequential(new DriveStraightCmd(-4000));
+	AddSequential(new DriveTurnCmd(720));
 }
