@@ -22,6 +22,8 @@ void DriveWithJoystickCmd::Execute() {
 	rightStick = pow(rightStick, 3);
 	leftStick = pow(leftStick, 3);
 
+	//drivetrainSub->drive(-leftStick, -rightStick);
+
 	if (leftStick < 0.01 && leftStick > -0.01) {
 		if (wasDrivingStraight) {
 			drivetrainSub->disableBalancerPID();
@@ -46,19 +48,19 @@ void DriveWithJoystickCmd::Execute() {
 		}
 		if (leftStick < 0) {
 			if (rightStick < 0) {
-				drivetrainSub->drive(-leftStick + fabs(rightStick) * leftStick / 2.0, -leftStick);
+				drivetrainSub->drive(-leftStick + fabs(rightStick) * leftStick / 1.5, -leftStick);
 
 			} else {
-				drivetrainSub->drive(-leftStick, -leftStick + fabs(rightStick) * leftStick / 2.0);
+				drivetrainSub->drive(-leftStick, -leftStick + fabs(rightStick) * leftStick / 1.5);
 
 			}
 		}
 		else {
 			if (rightStick > 0) {
-				drivetrainSub->drive(-leftStick + fabs(rightStick) * leftStick / 2.0, -leftStick);
+				drivetrainSub->drive(-leftStick + fabs(rightStick) * leftStick / 1.5, -leftStick);
 
 			} else {
-				drivetrainSub->drive(-leftStick, -leftStick + fabs(rightStick) * leftStick / 2.0);
+				drivetrainSub->drive(-leftStick, -leftStick + fabs(rightStick) * leftStick / 1.5);
 
 			}
 		}
