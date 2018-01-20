@@ -12,6 +12,7 @@
 #include <Commands/DriveTurnCmd.h>
 #include <Commands/DriveStraightCmd.h>
 #include <Commands/ResetEncodersCmd.h>
+#include <Commands/AutoScaleLeftToRightGrp.h>
 
 
 
@@ -103,6 +104,7 @@ public:
 		SmartDashboard::PutData("Drive Turn 90", new DriveTurnCmd(90));
 		SmartDashboard::PutData("7.5m Drive Straight", new DriveStraightCmd(7500));
 		SmartDashboard::PutData("Reset Encoders", new ResetEncodersCmd());
+		SmartDashboard::PutData("Victory Lap Auto", new AutoScaleLeftToRightGrp());
 
 	}
 
