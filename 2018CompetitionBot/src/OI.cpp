@@ -15,8 +15,8 @@ OI::OI() {
 	reverseIntakeBtn.reset(new frc::JoystickButton(driverController.get(), REVERSE_INTAKE_BTN));
 	reverseIntakeBtn->WhileHeld(new ReverseIntakeCmd());
 
-	compressorsBtn.reset(new JoystickButton(driverController.get(), COMPRESSOR_BTN));
-	compressorsBtn->WhileHeld(new OpenCompressorsHeldCmd());
+	highGearBtn.reset(new JoystickButton(driverController.get(), HIGH_GEAR_BTN));
+	highGearBtn->WhileHeld(new OpenCompressorsHeldCmd());
 }
 
 std::shared_ptr<frc::Joystick> OI::getDriverController() {
