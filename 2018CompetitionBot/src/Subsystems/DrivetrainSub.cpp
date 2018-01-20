@@ -48,11 +48,11 @@ double DrivetrainSub::getRightEncoderSpeed() {
 }
 double DrivetrainSub::getLeftEncoder()
 {
-	return leftMotorEnc->GetRaw();
+	return leftMotorEnc->GetDistance();
 }
 double DrivetrainSub::getRightEncoder()
 {
-	return rightMotorEnc->GetRaw();
+	return rightMotorEnc->GetDistance();
 }
 
 void DrivetrainSub::drive(double lSpeed, double rSpeed) {
