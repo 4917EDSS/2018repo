@@ -138,5 +138,6 @@ double DrivetrainSub::getRate(){
 	return ahrs->GetRate();
 }
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+void DrivetrainSub::driverDriveStraight(float speed){
+	drive(speed + driveBalancer->GetDifference(), speed - driveBalancer->GetDifference());
+}
