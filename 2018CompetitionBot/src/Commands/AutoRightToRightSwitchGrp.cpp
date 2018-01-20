@@ -1,4 +1,6 @@
 #include "AutoRightToRightSwitchGrp.h"
+#include "Commands/DriveStraightCmd.h"
+#include "Commands/DriveTurnCmd.h"
 
 AutoRightToRightSwitchGrp::AutoRightToRightSwitchGrp() {
 	// Add Commands here:
@@ -6,11 +8,11 @@ AutoRightToRightSwitchGrp::AutoRightToRightSwitchGrp() {
 	//      AddSequential(new Command2());
 	// these will run in order.
 
-	// To run multiple commands at the same time,
-	// use AddParallel()
-	// e.g. AddParallel(new Command1());
-	//      AddSequential(new Command2());
-	// Command1 and Command2 will run in parallel.
+
+	//If you start from the right corner:
+	AddSequential(new DriveStraightCmd(4508));
+	AddSequential(new DriveTurnCmd(-90));
+	AddSequential(new DriveStraightCmd(1000));
 
 	// A command group will require all of the subsystems that each member
 	// would require.

@@ -1,17 +1,17 @@
 #include "AutoScaleRightToLeftGrp.h"
-
+#include "Commands/DriveStraightCmd.h"
+#include "Commands/DriveTurnCmd.h"
 AutoScaleRightToLeftGrp::AutoScaleRightToLeftGrp() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
 
-	// To run multiple commands at the same time,
-	// use AddParallel()
-	// e.g. AddParallel(new Command1());
-	//      AddSequential(new Command2());
-	// Command1 and Command2 will run in parallel.
-
+	AddSequential(new DriveStraightCmd(6171));
+		AddSequential(new DriveTurnCmd(-90));
+	AddSequential(new DriveStraightCmd(6147));
+		AddSequential(new DriveTurnCmd(90));
+	AddSequential(new DriveStraightCmd(500));
 	// A command group will require all of the subsystems that each member
 	// would require.
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
