@@ -22,10 +22,25 @@ void DriveWithJoystickCmd::Execute() {
 	rightStick = pow(rightStick, 3);
 	leftStick = pow(leftStick, 3);
 
-	if (leftStick < 0.1 && leftStick > -0.1) {
-		drivetrainSub->drive(rightStick, -rightStick);
+	if (leftStick < 0.01 && leftStick > -0.01) {
+		if (wasDrivingStraight) {
+			drivetrainSub->disableBalancerPID();
+			wasDrivingStraight = false;
+		}
 
+		drivetrainSub->drive(rightStick, -rightStick);
+	} else if (rightStick < 0.01 && rightStick > -0.01) {
+		if (!wasDrivingStraight){
+			drivetrainSub->resetAHRS();
+			wasDrivingStraight = true;
+			drivetrainSub->enableBalancerPID(0);
+		}
+		drivetrainSub->driverDriveStraight(leftStick);
 	} else {
+		if (wasDrivingStraight) {
+			drivetrainSub->disableBalancerPID();
+			wasDrivingStraight = false;
+		}
 		if (leftStick < 0) {
 			if (rightStick < 0) {
 				drivetrainSub->drive(-leftStick + fabs(rightStick) * leftStick / 2.0, -leftStick);

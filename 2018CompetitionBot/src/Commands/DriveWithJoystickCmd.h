@@ -11,6 +11,9 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+
+private:
+	bool wasDrivingStraight;
 };
 
 #endif  // DriveWithJoystickCmd_H
