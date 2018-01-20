@@ -22,22 +22,32 @@ void DriveWithJoystickCmd::Execute() {
 	rightStick = pow(rightStick, 3);
 	leftStick = pow(leftStick, 3);
 
-	std::cout << leftStick << rightStick;
+	std::cout << "Left Stick : " << leftStick;
+	std::cout << "Right Stick : " << rightStick;
 	if (leftStick < 0.1 && leftStick > -0.1) {
 		drivetrainSub->drive(rightStick, -rightStick);
+
 	} else {
 		if (leftStick < 0) {
 			if (rightStick < 0) {
 				drivetrainSub->drive(-leftStick + fabs(rightStick) * leftStick / 2.0, -leftStick);
+				std::cout << "Left Drive : " << -leftStick + fabs(rightStick) * leftStick / 2.0;
+				std::cout << "Right Drive : " << -leftStick;
 			} else {
 				drivetrainSub->drive(-leftStick, -leftStick + fabs(rightStick) * leftStick / 2.0);
+				std::cout << "Left Drive : " << -leftStick;
+				std::cout << "Right Drive : " << -leftStick + fabs(rightStick) * leftStick / 2.0;
 			}
 		}
 		else {
 			if (rightStick > 0) {
 				drivetrainSub->drive(-leftStick + fabs(rightStick) * leftStick / 2.0, -leftStick);
+				std::cout << "Left Drive : " << -leftStick + fabs(rightStick) * leftStick / 2.0;
+				std::cout << "Right Drive : " << -leftStick;
 			} else {
 				drivetrainSub->drive(-leftStick, -leftStick + fabs(rightStick) * leftStick / 2.0);
+				std::cout << "Left Drive : " << -leftStick;
+				std::cout << "Right Drive : " << -leftStick + fabs(rightStick) * leftStick / 2.0;
 			}
 		}
 	}
