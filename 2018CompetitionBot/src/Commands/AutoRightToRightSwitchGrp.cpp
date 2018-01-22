@@ -9,10 +9,10 @@ AutoRightToRightSwitchGrp::AutoRightToRightSwitchGrp() {
 	// these will run in order.
 
 
-	//If you start from the right corner:
-	AddSequential(new DriveStraightCmd(4508));
+//	If you start from the right corner:
+	AddSequential(new DriveStraightCmd(4508,0));
 	AddSequential(new DriveTurnCmd(-90));
-	AddSequential(new DriveStraightCmd(1000));
+	AddSequential(new DriveStraightCmd(1000,-90));
 
 	// A command group will require all of the subsystems that each member
 	// would require.

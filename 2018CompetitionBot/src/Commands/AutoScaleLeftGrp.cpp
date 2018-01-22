@@ -7,13 +7,13 @@ AutoScaleLeftGrp::AutoScaleLeftGrp() {
 	//      AddSequential(new Command2());
 	// these will run in order.
 
-	AddSequential(new DriveStraightCmd(2019));
+	AddSequential(new DriveStraightCmd(2019,0));
 	AddSequential(new DriveTurnCmd(-90));
-	AddSequential(new DriveStraightCmd(3310));
+	AddSequential(new DriveStraightCmd(3310,-90));
 	AddSequential(new DriveTurnCmd(90));
-	AddSequential(new DriveStraightCmd(6325));
+	AddSequential(new DriveStraightCmd(6325,0));
 	AddSequential(new DriveTurnCmd(90));
-	AddSequential(new DriveStraightCmd(859));
+	AddSequential(new DriveStraightCmd(859,90));
 	// A command group will require all of the subsystems that each member
 	// would require.
 	// e.g. if Command1 requires chassis, and Command2 requires arm,

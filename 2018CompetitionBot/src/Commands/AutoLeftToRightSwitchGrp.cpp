@@ -8,17 +8,21 @@ AutoLeftToRightSwitchGrp::AutoLeftToRightSwitchGrp() {
 	//      AddSequential(new Command2());
 	// these will run in order.
 
-	AddSequential(new DriveStraightCmd(6223));
+	AddSequential(new DriveStraightCmd(6223,0));
 
 	AddSequential(new DriveTurnCmd(90));
 
-	AddSequential(new DriveStraightCmd(4385));
+	AddSequential(new DriveStraightCmd(4385, 90));
 
 	AddSequential(new DriveTurnCmd(90));
 
-	AddSequential(new DriveStraightCmd(2679));
+	AddSequential(new DriveStraightCmd(2679,180));
 
 	AddSequential(new DriveTurnCmd(90));
+
+	//Then go forward until it hits the switch
+
+
 
 	// A command group will require all of the subsystems that each member
 	// would require.
