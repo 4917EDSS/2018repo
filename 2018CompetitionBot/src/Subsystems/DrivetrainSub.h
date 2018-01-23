@@ -28,6 +28,7 @@ private:
 	std::shared_ptr<frc::PIDController> driveTurnPID;
 	std::shared_ptr<frc::PIDController> driveBalancePID;
 	std::shared_ptr<frc::PIDController> driveDistancePID;
+	std::shared_ptr<frc::Ultrasonic> hcsr04;
 
 public:
 
@@ -52,6 +53,8 @@ public:
 	double getAngle();
 	double getRate();
 	void driverDriveStraight(float speed);
+	void enableFrontUltrasonic(bool enable);
+	double getFrontUltrasonicDist();
 };
 
 #endif  // DrivetrainSub_H

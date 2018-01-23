@@ -3,7 +3,7 @@
 
 IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 	intakeMotor.reset(new TalonSRX(INTAKE_MOTOR_CANID));
-	intakeLimit.reset(new DigitalInput(INTAKE_LIMIT_SWITCH));
+	intakeLimit.reset(new DigitalInput(INTAKE_LIMIT_SWITCH_DIO));
 	compressors.reset(new frc::DoubleSolenoid(COMPRESSORS_PCM_ID1, COMPRESSORS_PCM_ID2));
 
 //	frc::LiveWindow *lw = frc::LiveWindow::GetInstance();

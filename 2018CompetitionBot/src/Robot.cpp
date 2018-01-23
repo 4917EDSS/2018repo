@@ -18,6 +18,7 @@
 #include <Components/AutoDecider/AutoSwitch.h>
 #include <Commands/ResetEncodersCmd.h>
 #include <Commands/AutoScaleLeftToRightGrp.h>
+#include <Commands/DriveUntilDistanceCmd.h>
 
 #include "CommandBase.h"
 
@@ -105,7 +106,7 @@ public:
 		SmartDashboard::PutData("7.5m Drive Straight", new DriveStraightCmd(7500,0.0));
 		SmartDashboard::PutData("Reset Encoders", new ResetEncodersCmd());
 		SmartDashboard::PutData("Victory Lap Auto", new AutoScaleLeftToRightGrp());
-
+		SmartDashboard::PutData("Drive until 100 mm", new DriveUntilDistanceCmd(100));
 	}
 
 

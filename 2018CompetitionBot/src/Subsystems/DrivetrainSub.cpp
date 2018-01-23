@@ -24,6 +24,8 @@ DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 	leftMotorEnc.reset(new frc::Encoder(LEFT_MOTOR_ENC1_DIO, LEFT_MOTOR_ENC2_DIO));
 	leftMotorEnc->SetDistancePerPulse(DRIVETRAIN_DIS_PER_PULSE * 4);
 	rightMotorEnc->SetDistancePerPulse(DRIVETRAIN_DIS_PER_PULSE * 4);
+	hcsr04.reset(new frc::Ultrasonic(DRIVE_TRAIN_ULTRASONIC_TRIG_DIO, DRIVE_TRAIN_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
+
 	turnBalancer.reset(new MotorBalancer());
 	driveBalancer.reset(new MotorBalancer());
 	distanceBalancer.reset(new MotorBalancer());
@@ -139,4 +141,12 @@ double DrivetrainSub::getRate(){
 
 void DrivetrainSub::driverDriveStraight(float speed){
 	drive(speed + driveBalancer->GetDifference(), speed - driveBalancer->GetDifference());
+}
+
+void DrivetrainSub::enableFrontUltrasonic(bool enable){
+	hcsr04->SetAutomaticMode(enable);
+}
+
+double DrivetrainSub::getFrontUltrasonicDist(){
+	return hcsr04->GetRangeMM();
 }
