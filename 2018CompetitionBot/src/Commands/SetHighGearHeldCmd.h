@@ -1,11 +1,11 @@
-#ifndef OpenCompressorsHeldCmd_H
-#define OpenCompressorsHeldCmd_H
+#ifndef SetHighGearHeldCmd_H
+#define SetHighGearHeldCmd_H
 
 #include "../CommandBase.h"
 
-class OpenCompressorsHeldCmd : public CommandBase {
+class SetHighGearHeldCmd : public CommandBase {
 public:
-	OpenCompressorsHeldCmd();
+	SetHighGearHeldCmd();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
