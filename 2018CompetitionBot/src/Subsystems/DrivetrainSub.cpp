@@ -152,9 +152,9 @@ double DrivetrainSub::getFrontUltrasonicDist(){
 	return hcsr04->GetRangeMM();
 }
 void DrivetrainSub::setHighGear() {
-	shifters->Set(frc::DoubleSolenoid::Value::kForward);
+	shifters->Set(frc::DoubleSolenoid::Value::kReverse);
 }
 
 void DrivetrainSub::setLowGear() {
-	shifters->Set(frc::DoubleSolenoid::Value::kReverse);
+	shifters->Set(frc::DoubleSolenoid::Value::kForward);
 }

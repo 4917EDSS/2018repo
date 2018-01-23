@@ -2,9 +2,8 @@
 #include "Subsystems/DriveTrainSub.h"
 
 SetHighGearHeldCmd::SetHighGearHeldCmd() {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
-	Requires(drivetrainSub.get());
+	// Requiring this does not allow us to drive with joystick command
+	// Requires(drivetrainSub.get());
 }
 
 // Called just before this Command runs the first time
