@@ -41,6 +41,8 @@ constexpr int ELEVATOR_MOTOR_ENC2_DIO = 5;
 constexpr int INTAKE_LIMIT_SWITCH_DIO = 6;
 constexpr int DRIVE_TRAIN_ULTRASONIC_TRIG_DIO = 7;
 constexpr int DRIVE_TRAIN_ULTRASONIC_ECHO_DIO = 8;
+constexpr int INTAKE_ULTRASONIC_TRIG_DIO = 9;
+constexpr int INTAKE_ULTRASONIC_ECHO_DIO = 10;
 
 
 //Drive Tolerances
@@ -54,6 +56,9 @@ const float DRIVE_RATE_TOLERANCE = 1;
 // Pneumatic control module outputs
 constexpr int COMPRESSORS_PCM_ID1 = 1;
 constexpr int COMPRESSORS_PCM_ID2 = 2;
+
+// Ultrasonic distances
+constexpr double ULTRASONIC_BOX_DISTANCE = 50.0;
 
 
 #define AHRSInterface	frc::SPI::kMXP

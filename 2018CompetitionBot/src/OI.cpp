@@ -1,4 +1,4 @@
-#include <Commands/IntakeBoxCmd.h>
+#include <Commands/IntakeUntilDistanceCmd.h>
 #include "OI.h"
 
 #include <WPILib.h>
@@ -13,7 +13,7 @@ OI::OI() {
 	driverController->SetZChannel(2);
 	driverController->SetThrottleChannel(3);
 	intakeBtn.reset(new frc::JoystickButton(driverController.get(), INTAKE_BTN));
-	intakeBtn->WhenPressed(new IntakeBoxCmd());
+	intakeBtn->WhenPressed(new IntakeUntilDistanceCmd(ULTRASONIC_BOX_DISTANCE));
 	reverseIntakeBtn.reset(new frc::JoystickButton(driverController.get(), REVERSE_INTAKE_BTN));
 	reverseIntakeBtn->WhileHeld(new ReverseIntakeCmd());
 

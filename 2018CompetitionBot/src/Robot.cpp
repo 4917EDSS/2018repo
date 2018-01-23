@@ -18,8 +18,8 @@
 #include <Components/AutoDecider/AutoSwitch.h>
 #include <Commands/ResetEncodersCmd.h>
 #include <Commands/AutoScaleLeftToRightGrp.h>
+#include <Commands/IntakeUntilDistanceCmd.h>
 #include <Commands/DriveUntilDistanceCmd.h>
-
 #include "CommandBase.h"
 
 class Robot: public frc::IterativeRobot {
