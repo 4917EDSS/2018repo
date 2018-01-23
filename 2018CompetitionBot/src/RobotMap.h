@@ -19,7 +19,7 @@
 // constexpr int RANGE_FINDER_MODULE = 1;
 
 // Compressor Enabled
-constexpr bool compressorsEnabled = true;
+constexpr bool shiftersEnabled = true;
 
 //CAN IDs
 constexpr int LEFT1_DRIVE_MOTOR_CANID = 4;
@@ -52,8 +52,8 @@ const float DRIVE_TURN_TOLERANCE = 0.5;
 const float DRIVE_RATE_TOLERANCE = 1;
 
 // Pneumatic control module outputs
-constexpr int COMPRESSORS_PCM_ID1 = 1;
-constexpr int COMPRESSORS_PCM_ID2 = 2;
+constexpr int SHIFTERS_PCM1 = 1;
+constexpr int SHIFTERS_PCM2 = 2;
 
 
 #define AHRSInterface	frc::SPI::kMXP

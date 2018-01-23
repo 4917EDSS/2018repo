@@ -19,8 +19,9 @@
 #include <Commands/ResetEncodersCmd.h>
 #include <Commands/AutoScaleLeftToRightGrp.h>
 #include <Commands/DriveUntilDistanceCmd.h>
-
+#include <Commands/SetHighGearHeldCmd.h>
 #include "CommandBase.h"
+#include "Subsystems/DrivetrainSub.h"
 
 class Robot: public frc::IterativeRobot {
 public:
@@ -62,6 +63,7 @@ public:
 		if (autonomousCommand.get() != nullptr) {
 			autonomousCommand->Start();
 		}
+		CommandBase::drivetrainSub->setLowGear();
 	}
 
 	void AutonomousPeriodic() override {

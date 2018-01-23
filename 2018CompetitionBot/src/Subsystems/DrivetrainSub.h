@@ -29,6 +29,7 @@ private:
 	std::shared_ptr<frc::PIDController> driveBalancePID;
 	std::shared_ptr<frc::PIDController> driveDistancePID;
 	std::shared_ptr<frc::Ultrasonic> hcsr04;
+	std::shared_ptr<frc::DoubleSolenoid> shifters;
 
 public:
 
@@ -55,6 +56,8 @@ public:
 	void driverDriveStraight(float speed);
 	void enableFrontUltrasonic(bool enable);
 	double getFrontUltrasonicDist();
+	void setHighGear();
+	void setLowGear();
 };
 
 #endif  // DrivetrainSub_H

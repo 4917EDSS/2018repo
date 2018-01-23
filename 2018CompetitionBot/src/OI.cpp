@@ -1,9 +1,9 @@
 #include <Commands/IntakeBoxCmd.h>
+#include <Commands/SetHighGearHeldCmd.h>
 #include "OI.h"
 
 #include <WPILib.h>
 #include "Commands/ReverseIntakeCmd.h"
-#include "Commands/OpenCompressorsHeldCmd.h"
 
 OI::OI() {
 	// Process operator interface input here.
@@ -18,7 +18,7 @@ OI::OI() {
 	reverseIntakeBtn->WhileHeld(new ReverseIntakeCmd());
 
 	highGearBtn.reset(new JoystickButton(driverController.get(), HIGH_GEAR_BTN));
-	highGearBtn->WhileHeld(new OpenCompressorsHeldCmd());
+	highGearBtn->WhileHeld(new SetHighGearHeldCmd());
 }
 
 std::shared_ptr<frc::Joystick> OI::getDriverController() {

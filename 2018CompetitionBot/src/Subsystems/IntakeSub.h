@@ -12,14 +12,11 @@ private:
 
 	std::shared_ptr<TalonSRX> intakeMotor;
 	std::shared_ptr<DigitalInput> intakeLimit;
-	std::shared_ptr<frc::DoubleSolenoid> compressors;
 
 public:
 	IntakeSub();
 	void InitDefaultCommand();
 	void intake(double speed);
-	void openCompressor();
-	void closeCompressor();
 	bool IsLimitHit();
 };
 
