@@ -25,27 +25,29 @@ void DriveWithJoystickCmd::Execute() {
 	//drivetrainSub->drive(-leftStick, -rightStick);
 
 	if (leftStick < 0.01 && leftStick > -0.01) {
-		if (wasDrivingStraight) {
-			drivetrainSub->disableBalancerPID();
-			wasDrivingStraight = false;
-			std::cout << "In Disable PID one" << std::endl;;
-		}
+//		if (wasDrivingStraight) {
+//			drivetrainSub->disableBalancerPID();
+//			wasDrivingStraight = false;
+//			std::cout << "In Disable PID one" << std::endl;;
+//		}
 
 		drivetrainSub->drive(rightStick, -rightStick);
 	} else if (rightStick < 0.01 && rightStick > -0.01) {
-		if (!wasDrivingStraight){
-			drivetrainSub->resetAHRS();
-			wasDrivingStraight = true;
-			drivetrainSub->enableBalancerPID(0);
-			std::cout << "In Enable PID" << std::endl;
-		}
+//		if (!wasDrivingStraight){
+//			std::cout << "I'm not straight" << std::endl;
+//			drivetrainSub->resetAHRS();
+//			wasDrivingStraight = true;
+//			drivetrainSub->enableBalancerPID(0);
+//			std::cout << "In Enable PID" << std::endl;
+//		}
 		drivetrainSub->driverDriveStraight(-leftStick);
 	} else {
-		if (wasDrivingStraight) {
-			drivetrainSub->disableBalancerPID();
-			wasDrivingStraight = false;
-			std::cout << "In Disable PID two" << std::endl;
-		}
+//		if (wasDrivingStraight) {
+//			std::cout << drivetrainSub->getAngle();
+//			drivetrainSub->disableBalancerPID();
+//			wasDrivingStraight = false;
+//			std::cout << "In Disable PID two" << std::endl;
+//		}
 		if (leftStick < 0) {
 			if (rightStick < 0) {
 				drivetrainSub->drive(-leftStick + fabs(rightStick) * leftStick / 1.5, -leftStick);

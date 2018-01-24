@@ -129,7 +129,7 @@ bool DrivetrainSub::isTurnFinished(){
 }
 
 void DrivetrainSub::resetAHRS(){
-	ahrs->ZeroYaw();
+	ahrs->Reset();
 }
 
 double DrivetrainSub::getAngle(){
