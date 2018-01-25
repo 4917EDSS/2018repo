@@ -10,6 +10,7 @@
 #include "Subsystems/DrivetrainSub.h"
 #include "Subsystems/IntakeSub.h"
 #include "Subsystems/ElevatorSub.h"
+#include "Subsystems/LiftSub.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -27,6 +28,7 @@ public:
 	static std::unique_ptr<DrivetrainSub> drivetrainSub;
 	static std::unique_ptr<IntakeSub> intakeSub;
 	static std::unique_ptr<ElevatorSub> elevatorSub;
+	static std::unique_ptr<LiftSub> liftSub;
 	static std::unique_ptr<OI> oi;
 };
 
