@@ -45,14 +45,20 @@ private:
 	double getAngularTime();
 	double getLinearTime();
 
+	double planMotion(double dis, double ang);
+
 public:
 	SilkyMotionManager(std::vector<double> dis, std::vector<double> ang,
-			double maxAccel, double maxDecel, double maxVel,
-			double stoppingDistanceTolerance, double stoppingSpeedTolerance);
+			double maxLinAccel, double maxLinDecel, double maxLinVel,
+			double maxAngAccel, double maxAngDecel, double maxAngVel,
+			double stoppingDistanceTolerance, double stoppingSpeedTolerance,
+			double stoppingAngleTolerance);
+
+
 	void setFeedbackConstants(double dis_v, double dis_a, double dis_p, double dis_d,
 			double ang_v, double ang_a, double ang_p, double ang_d);
 	std::pair<double, double> execute(double currentLeftPos, double currentRightPos); // returns left speed, right speed to set motors
-	bool isFinished(double leftPos, double leftVel, double rightPos, double rightVel);
+	bool isFinished(double leftPos, double leftVel, double rightPos, double rightVel, double angle);
 	void reset();
 };
 

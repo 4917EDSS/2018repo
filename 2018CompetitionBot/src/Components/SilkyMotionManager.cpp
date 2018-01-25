@@ -18,6 +18,9 @@ double SilkyMotionManager::getAngularTime(){
 	//have to do hard math
 	return (1.0);
 }
+double SilkyMotionManager::planMotion(double dis, double ang){
+	return (1.0);
+}
 
 double SilkyMotionManager::getLinearTime(){
 	//have to do hard math
@@ -40,12 +43,31 @@ void SilkyMotionManager::setFeedbackConstants(double dis_v, double dis_a, double
 std::pair<double, double> SilkyMotionManager::execute(double currentLeftPos, double currentRightPos){
 	return std::make_pair(1.0, 1.0);
 }
-bool SilkyMotionManager::isFinished(double leftPos, double leftVel, double rightPos, double rightVel){
+bool SilkyMotionManager::isFinished(double leftPos, double leftVel, double rightPos, double rightVel, double angle){
 	return false;
 }
 void SilkyMotionManager::reset(){
 
 }
+SilkyMotionManager::SilkyMotionManager(std::vector<double> dis, std::vector<double> ang,
+			double maxLinAccel, double maxLinDecel, double maxLinVel,
+			double maxAngAccel, double maxAngDecel, double maxAngVel,
+			double stoppingDistanceTolerance, double stoppingSpeedTolerance,
+			double stoppingAngleTolerance) :
+			maxLinAccel(maxLinAccel), maxLinDecel(maxLinDecel), maxLinVel(maxLinVel),
+			maxAngAccel(maxAngAccel), maxAngDecel(maxAngDecel), maxAngVel(maxAngVel),
+			stoppingDistanceTolerance(stoppingDistanceTolerance),
+			stoppingSpeedTolerance(stoppingSpeedTolerance),
+			stoppingAngleTolerance(stoppingAngleTolerance),
+			dis_v(0), dis_a(0), dis_p(0), dis_d(0),
+			ang_v(0), ang_a(0), ang_p(0), ang_d(0),
+			lastDistanceError(0), lastAngleError(0),
+			startTime(-1),
+			lastTime(0){
+		for(int i = 0; i<dis.size();i++){
+				planMotion(dis[i], ang[i]);
+		}
+	}
 
 /*
 SilkyMotionManager::SilkyMotionManager(std::vector<double> leftWheel, std::vector<double> rightWheel,
