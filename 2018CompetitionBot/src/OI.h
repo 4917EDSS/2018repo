@@ -25,6 +25,7 @@
  */
 
 const int DRIVER_CONTROLLER_PORT = 0;
+const int OPERATOR_CONTROLLER_PORT = 1;
 const int INTAKE_BTN = 2;
 constexpr int REVERSE_INTAKE_BTN = 3;
 constexpr int HIGH_GEAR_BTN = 8;
@@ -37,9 +38,26 @@ public:
 
 private:
 	std::shared_ptr<frc::Joystick> driverController;
+	std::shared_ptr<frc::Joystick> operatorController;
 	std::shared_ptr<frc::JoystickButton> intakeBtn;
 	std::shared_ptr<frc::JoystickButton> reverseIntakeBtn;
 	std::shared_ptr<frc::JoystickButton> highGearBtn;
+    std::shared_ptr<frc::JoystickButton> placeBoxBtn;
+    std::shared_ptr<frc::JoystickButton> flaps;
+    std::shared_ptr<frc::JoystickButton> placeBoxHighScale;
+    std::shared_ptr<frc::JoystickButton> placeBoxMediumScale;
+    std::shared_ptr<frc::JoystickButton> placeBoxLowScale;
+    std::shared_ptr<frc::JoystickButton> placeBoxSwitch;
+    std::shared_ptr<frc::JoystickButton> moveBoxIn;
+    std::shared_ptr<frc::JoystickButton> moveBoxOut;
+    std::shared_ptr<frc::JoystickButton> rotateBoxRight;
+    std::shared_ptr<frc::JoystickButton> rotateBoxLeft;
+    std::shared_ptr<frc::JoystickButton> elevatorUp;
+    std::shared_ptr<frc::JoystickButton> elevatorDown;
+
+
+
+
 };
 
 #endif  // OI_H
