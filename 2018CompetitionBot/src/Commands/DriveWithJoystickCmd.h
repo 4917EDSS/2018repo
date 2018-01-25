@@ -3,6 +3,8 @@
 
 #include "../CommandBase.h"
 
+constexpr uint64_t AHRS_DELAY_TIME = 200000;
+
 class DriveWithJoystickCmd : public CommandBase {
 public:
 	DriveWithJoystickCmd();
@@ -13,7 +15,8 @@ public:
 	void Interrupted();
 
 private:
-	bool wasDrivingStraight;
+	int wasDrivingStraight;
+	uint64_t timeSinceDrivingStraight;
 };
 
 #endif  // DriveWithJoystickCmd_H
