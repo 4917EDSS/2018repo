@@ -1,0 +1,3 @@
+This is an Arduino sketch.  Download the Arduino code tool to edit.  
+
+You also need to copy the libraries folder into your Documents/Arduino/libraries folder
