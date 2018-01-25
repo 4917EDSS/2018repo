@@ -29,6 +29,7 @@ public:
 	void RobotInit() override {
 		// chooser.AddObject("My Auto", new MyAutoCommand());
 		SetSmartDashboardDriverContent();
+		SetSmartDashboardAutoOptions();
 	}
 
 	/**
@@ -59,6 +60,7 @@ public:
 
 		std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 		std::shared_ptr<frc4917::AutoDecider> autoDecider {chooser->GetSelected()};
+		autoDecider->setGameData(gameData);
 		autonomousCommand.reset(autoDecider->getCommand());
 
 		if (autonomousCommand.get() != nullptr) {
@@ -119,15 +121,15 @@ private:
 	std::unique_ptr<frc::SendableChooser<std::shared_ptr<frc4917::AutoDecider>>> chooser;
 
 
-	void SetSamrtDashboardAutoOptions() {
+	void SetSmartDashboardAutoOptions() {
 		chooser.reset(new frc::SendableChooser<std::shared_ptr<frc4917::AutoDecider>>());
 		chooser->AddObject("Auto Scale Backup Switch Left", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleBackupSwitchLeft()));
-		chooser->AddObject("Auto Scale Backup Switch Left", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleBackupSwitchRight()));
+		chooser->AddObject("Auto Scale Backup Switch Right", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleBackupSwitchRight()));
 		chooser->AddObject("Auto Scale Left", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleLeft()));
 		chooser->AddObject("Auto Scale Right", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleRight()));
 		chooser->AddObject("Auto Switch", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoSwitch()));
 
-		SmartDashboard::PutData("Auto Modes", chooser.get());
+		SmartDashboard::PutData("Auto Mode", chooser.get());
 	}
 };
 
