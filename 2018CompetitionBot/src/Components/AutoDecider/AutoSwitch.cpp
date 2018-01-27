@@ -8,7 +8,7 @@
 #include <Components/AutoDecider/AutoSwitch.h>
 #include <Commands/AutoSwitchLeftGrp.h>
 #include <Commands/AutoSwitchRightGrp.h>
-
+#include "iostream"
 namespace frc4917 {
 
 AutoSwitch::AutoSwitch() {
@@ -16,6 +16,7 @@ AutoSwitch::AutoSwitch() {
 
 }
 frc::Command* AutoSwitch::getCommand(){
+	std::cout << "command got gotten" << std::endl;
 	if (ourSwitchIsRight) {
 		return new AutoSwitchRightGrp();
 	}
