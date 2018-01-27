@@ -19,13 +19,13 @@ private:
 public:
 	LiftSub();
 	void InitDefaultCommand();
-	void LiftSub::lowerRamp();
-	void LiftSub::extendRamp();
-	void LiftSub::raiseLift();
-	void LiftSub::stopRamp();
-	void LiftSub::stopLift();
-	bool LiftSub::isRampLowered();
-	bool LiftSub::isRampExtended();
+	void lowerRamp();
+	void extendRamp();
+	void raiseLift();
+	void stopRamp();
+	void stopLift();
+	bool isRampLowered();
+	bool isRampExtended();
 };
 
 #endif  // LiftSub_H
