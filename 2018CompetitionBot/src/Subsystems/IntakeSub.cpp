@@ -5,7 +5,7 @@ IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 	intakeMotor.reset(new TalonSRX(INTAKE_MOTOR_CANID));
 	intakeLimit.reset(new DigitalInput(INTAKE_LIMIT_SWITCH_DIO));
 	jaws.reset(new frc::DoubleSolenoid(JAWS_PCM_ID1, JAWS_PCM_ID2));
-	hcsr04.reset(new frc::Ultrasonic(DRIVE_TRAIN_ULTRASONIC_TRIG_DIO, DRIVE_TRAIN_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
+	hcsr04.reset(new frc::Ultrasonic(INTAKE_ULTRASONIC_TRIG_DIO, INTAKE_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
 
 //	frc::LiveWindow *lw = frc::LiveWindow::GetInstance();
 //	lw->AddActuator("Intake", "Compressor Solenoid", compressors);
