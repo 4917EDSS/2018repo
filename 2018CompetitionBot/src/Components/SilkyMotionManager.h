@@ -26,16 +26,20 @@ struct PathInfo {
 
 class SilkyMotionManager {
 private:
+	std::vector<double> actualSpeed;
+	std::vector<double> maxSpeed;
+	std::vector<double> dis;
+	std::vector<double> ang;
 	double maxLinAccel, maxLinDecel, maxLinVel;
 	double maxAngAccel, maxAngDecel, maxAngVel;
 	double stoppingDistanceTolerance, stoppingSpeedTolerance, stoppingAngleTolerance;
 	double startTime;
+	double lastTime;
 	double dis_v, dis_a, dis_p, dis_d;
 	double ang_v, ang_a, ang_p, ang_d;
 
 	double lastDistanceError;
 	double lastAngleError;
-	double lastTime;
 
 	double getTimeSinceStart();
 	PathInfo getLeftSide(double t);
@@ -45,8 +49,8 @@ private:
 	double getAngularTime();
 	double getLinearTime();
 
-	double planMotion(double dis, double ang);
-
+	double getMaxSpeed(double dis, double ang, double maxSpeed);
+	double getActualSpeed(double dis, double ang, double previousActualSpeed, double maxSpeed);
 public:
 	SilkyMotionManager(std::vector<double> dis, std::vector<double> ang,
 			double maxLinAccel, double maxLinDecel, double maxLinVel,

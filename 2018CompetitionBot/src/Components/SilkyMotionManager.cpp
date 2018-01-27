@@ -18,15 +18,17 @@ double SilkyMotionManager::getAngularTime(){
 	//have to do hard math
 	return (1.0);
 }
-double SilkyMotionManager::planMotion(double dis, double ang){
-	return (1.0);
-}
 
 double SilkyMotionManager::getLinearTime(){
 	//have to do hard math
 	return (1.0);
 }
-
+double SilkyMotionManager::getMaxSpeed(double dis, double ang, double maxSpeed){
+	return(1.0);
+}
+double SilkyMotionManager::getActualSpeed(double dis, double ang, double previousActualSpeed, double maxSpeed){
+	return(1.0);
+}
 void SilkyMotionManager::setFeedbackConstants(double dis_v, double dis_a, double dis_p, double dis_d,
 		double ang_v, double ang_a, double ang_p, double ang_d) {
 	this->dis_a = dis_a;
@@ -54,7 +56,7 @@ SilkyMotionManager::SilkyMotionManager(std::vector<double> dis, std::vector<doub
 			double maxAngAccel, double maxAngDecel, double maxAngVel,
 			double stoppingDistanceTolerance, double stoppingSpeedTolerance,
 			double stoppingAngleTolerance) :
-			maxLinAccel(maxLinAccel), maxLinDecel(maxLinDecel), maxLinVel(maxLinVel),
+			dis(dis), ang(ang), maxLinAccel(maxLinAccel), maxLinDecel(maxLinDecel), maxLinVel(maxLinVel),
 			maxAngAccel(maxAngAccel), maxAngDecel(maxAngDecel), maxAngVel(maxAngVel),
 			stoppingDistanceTolerance(stoppingDistanceTolerance),
 			stoppingSpeedTolerance(stoppingSpeedTolerance),
@@ -63,11 +65,18 @@ SilkyMotionManager::SilkyMotionManager(std::vector<double> dis, std::vector<doub
 			ang_v(0), ang_a(0), ang_p(0), ang_d(0),
 			lastDistanceError(0), lastAngleError(0),
 			startTime(-1),
-			lastTime(0){
-		for(int i = 0; i<dis.size();i++){
-				planMotion(dis[i], ang[i]);
+			lastTime(0) {
+		maxSpeed.resize(dis.size() + 1);
+		maxSpeed[maxSpeed.size() - 1] = 0;
+		for(unsigned int i = dis.size(); i>=0; i--){
+			maxSpeed[i] = getMaxSpeed(dis[i], ang[i], maxSpeed[i+1]);
 		}
-	}
+		actualSpeed.resize(dis.size() + 1);
+		actualSpeed[0] = 0;
+		for(unsigned int i = 1; i != dis.size(); i++){
+			actualSpeed[i] = getActualSpeed(dis[i], ang[i], actualSpeed[i-1], maxSpeed[i]);
+		}
+}
 
 /*
 SilkyMotionManager::SilkyMotionManager(std::vector<double> leftWheel, std::vector<double> rightWheel,
