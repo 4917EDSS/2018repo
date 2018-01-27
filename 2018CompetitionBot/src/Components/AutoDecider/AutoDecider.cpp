@@ -28,15 +28,15 @@ void AutoDecider::setGameData(std::string gameData) {
 	oppSwitchIsRight = false;
 
 	if (gameData[0] == 'R') {
-		std::cout << "at 0 True";
+		std::cout << "at 0 True" << std::endl;
 		ourSwitchIsRight = true;
 	}
 	if (gameData[1] == 'R') {
-		std::cout << "at 1 True";
+		std::cout << "at 1 True" << std::endl;
 		scaleIsRight = true;
 	}
 	if (gameData[2] == 'R') {
-		std::cout << "at 2 True";
+		std::cout << "at 2 True" << std::endl;
 		oppSwitchIsRight = true;
 
 	}
