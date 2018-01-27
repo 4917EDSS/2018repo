@@ -62,8 +62,8 @@ public:
 		std::shared_ptr<frc4917::AutoDecider> autoDecider {chooser->GetSelected()};
 		autoDecider->setGameData(gameData);
 		autonomousCommand.reset(autoDecider->getCommand());
-
 		if (autonomousCommand.get() != nullptr) {
+			std::cout << "startign auto command";
 			autonomousCommand->Start();
 		}
 		CommandBase::drivetrainSub->setLowGear();
