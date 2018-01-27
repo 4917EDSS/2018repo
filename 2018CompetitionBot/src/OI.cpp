@@ -22,7 +22,6 @@ OI::OI() {
 	operatorController->SetYChannel(1);
 	operatorController->SetZChannel(2);
 	operatorController->SetThrottleChannel(3);
-	operatorController->
 	intakeBtn.reset(new frc::JoystickButton(operatorController.get(), INTAKE_BTN));
 	intakeBtn->WhenPressed(new IntakeUntilDistanceCmd(ULTRASONIC_BOX_DISTANCE));
 	reverseIntakeBtn.reset(new frc::JoystickButton(operatorController.get(), REVERSE_INTAKE_BTN));
