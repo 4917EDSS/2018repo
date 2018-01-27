@@ -64,7 +64,6 @@ public:
 		autoDecider->setGameData(gameData);
 		autonomousCommand.reset(autoDecider->getCommand());
 		if (autonomousCommand.get() != nullptr) {
-			std::cout << "starting auto command" << std::endl;
 			autonomousCommand->Start();
 		}
 	}
@@ -79,7 +78,6 @@ public:
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		if (autonomousCommand != nullptr) {
-			std::cout << "Teleop start" << std::endl;
 			autonomousCommand->Cancel();
 		}
 	    //lidarLite.reset(new LidarLite());

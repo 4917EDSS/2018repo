@@ -16,7 +16,6 @@ AutoSwitch::AutoSwitch() {
 
 }
 frc::Command* AutoSwitch::getCommand(){
-	std::cout << "command got gotten" << std::endl;
 	if (ourSwitchIsRight) {
 		return new AutoSwitchRightGrp();
 	}
