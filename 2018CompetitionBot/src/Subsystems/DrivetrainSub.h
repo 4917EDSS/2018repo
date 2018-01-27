@@ -12,7 +12,7 @@ class DrivetrainSub : public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	const float DRIVETRAIN_DIS_PER_PULSE = 2000.0/4975.0;
+	const float DRIVETRAIN_DIS_PER_PULSE = 3000.0/6150.0;
 	std::shared_ptr<TalonSRX> leftMotor1;
 	std::shared_ptr<TalonSRX> leftMotor2;
 	std::shared_ptr<TalonSRX> leftMotor3;

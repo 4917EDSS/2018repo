@@ -63,7 +63,6 @@ public:
 		std::shared_ptr<frc4917::AutoDecider> autoDecider {chooser->GetSelected()};
 		autoDecider->setGameData(gameData);
 		autonomousCommand.reset(autoDecider->getCommand());
-
 		if (autonomousCommand.get() != nullptr) {
 			autonomousCommand->Start();
 		}
@@ -98,6 +97,7 @@ public:
 		SmartDashboard::PutNumber("Right Drive Motor Enc", CommandBase::drivetrainSub->getRightEncoder());
 		SmartDashboard::PutNumber("Right Encoder Speed", CommandBase::drivetrainSub->getRightEncoderSpeed());
 		SmartDashboard::PutNumber("Left Encoder Speed", CommandBase::drivetrainSub->getLeftEncoderSpeed());
+		SmartDashboard::PutNumber("Cureent Angle", CommandBase::drivetrainSub->getAngle());
 
 	}
 

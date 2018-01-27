@@ -6,7 +6,7 @@
  */
 
 #include <Components/AutoDecider/AutoDecider.h>
-
+#include "iostream"
 namespace frc4917 {
 
 
@@ -35,6 +35,7 @@ void AutoDecider::setGameData(std::string gameData) {
 	}
 	if (gameData[2] == 'R') {
 		oppSwitchIsRight = true;
+
 	}
 }
 

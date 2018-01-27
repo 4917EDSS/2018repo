@@ -8,7 +8,7 @@
 #include <Components/AutoDecider/AutoSwitch.h>
 #include <Commands/AutoSwitchLeftGrp.h>
 #include <Commands/AutoSwitchRightGrp.h>
-
+#include "iostream"
 namespace frc4917 {
 
 AutoSwitch::AutoSwitch() {
