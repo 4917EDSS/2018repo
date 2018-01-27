@@ -43,7 +43,7 @@ public:
 	OI();
 
 	std::shared_ptr<frc::Joystick> getDriverController();
-
+	std::shared_ptr<frc::Joystick> getOperatorController();
 private:
 	std::shared_ptr<frc::Joystick> driverController;
 	std::shared_ptr<frc::Joystick> operatorController;
@@ -55,7 +55,7 @@ private:
     std::shared_ptr<frc::JoystickButton> placeBoxHighScale;
     std::shared_ptr<frc::JoystickButton> placeBoxMediumScale;
     std::shared_ptr<frc::JoystickButton> placeBoxLowScale;
-    std::shared_ptr<frc::JoystickButton> placeBoxSwitch;
+    std::shared_ptr<frc::JoystickButton> placeBoxSwitchBtn;
     std::shared_ptr<frc::JoystickButton> moveBoxInOut;
     std::shared_ptr<frc::JoystickButton> rotateBoxBtn;
     std::shared_ptr<frc::JoystickButton> elevatorUp;

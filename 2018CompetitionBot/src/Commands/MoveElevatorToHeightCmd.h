@@ -3,14 +3,16 @@
 
 #include "../CommandBase.h"
 
-class MoveElevatorToHeight : public CommandBase {
+class MoveElevatorToHeightCmd : public CommandBase {
 public:
-	MoveElevatorToHeight();
+	MoveElevatorToHeightCmd(double height);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
 	void End();
 	void Interrupted();
+private:
+	double height;
 };
 
 #endif  // MoveElevatorToHeight_H
