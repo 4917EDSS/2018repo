@@ -97,6 +97,7 @@ public:
 		SmartDashboard::PutNumber("Right Drive Motor Enc", CommandBase::drivetrainSub->getRightEncoder());
 		SmartDashboard::PutNumber("Right Encoder Speed", CommandBase::drivetrainSub->getRightEncoderSpeed());
 		SmartDashboard::PutNumber("Left Encoder Speed", CommandBase::drivetrainSub->getLeftEncoderSpeed());
+		SmartDashboard::PutNumber("Cureent Angle", CommandBase::drivetrainSub->getAngle());
 
 	}
 
