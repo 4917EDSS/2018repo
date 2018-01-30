@@ -3,6 +3,7 @@
 
 #include "../CommandBase.h"
 
+constexpr uint64_t AHRS_DELAY_TIME = 350000;
 
 class DriveWithJoystickCmd : public CommandBase {
 public:
