@@ -39,7 +39,7 @@ DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 											  ahrs.get(),
 											  turnBalancer.get()));
 	shifters.reset(new frc::DoubleSolenoid(SHIFTERS_PCM1, SHIFTERS_PCM2));
-
+	setLowGear();
 }
 
 double DrivetrainSub::getLeftEncoderSpeed() {
