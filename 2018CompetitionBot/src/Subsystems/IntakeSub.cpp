@@ -8,19 +8,13 @@ IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 	intakeLimit.reset(new DigitalInput(INTAKE_LIMIT_SWITCH_DIO));
 	jaws.reset(new frc::DoubleSolenoid(JAWS_PCM_ID1, JAWS_PCM_ID2));
 	hcsr04.reset(new frc::Ultrasonic(INTAKE_ULTRASONIC_TRIG_DIO, INTAKE_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
-
-//	frc::LiveWindow *lw = frc::LiveWindow::GetInstance();
-//	lw->AddActuator("Intake", "Compressor Solenoid", compressors);
 }
-//
+
 void IntakeSub::InitDefaultCommand() {
 	SetDefaultCommand(new IntakeWithJoystickCmd());
-	// Set the default command for a subsystem here.
-	// SetDefaultCommand(new MySpecialCommand());
 }
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+//Positive is expelling the box, Negative is intaking the box
 void IntakeSub::intake(double speed) {
 	intake(speed, speed);
 }

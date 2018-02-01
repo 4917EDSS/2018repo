@@ -49,12 +49,12 @@ double DrivetrainSub::getLeftEncoderSpeed() {
 double DrivetrainSub::getRightEncoderSpeed() {
 	return rightMotorEnc->GetRate();
 }
-double DrivetrainSub::getLeftEncoder()
-{
+
+double DrivetrainSub::getLeftEncoder() {
 	return leftMotorEnc->GetDistance();
 }
-double DrivetrainSub::getRightEncoder()
-{
+
+double DrivetrainSub::getRightEncoder() {
 	return rightMotorEnc->GetDistance();
 }
 
@@ -79,7 +79,8 @@ void DrivetrainSub::resetEncoders() {
 	leftMotorEnc->Reset();
 	rightMotorEnc->Reset();
 }
-void DrivetrainSub::enableBalancerPID(float setPoint){
+
+void DrivetrainSub::enableBalancerPID(float setPoint) {
 	Preferences *prefs = Preferences::GetInstance();
 	driveBalancePID->SetPID(prefs->GetFloat("DriveBalanceP", DRIVE_BALANCE_P), prefs->GetFloat("DriveBalanceI", DRIVE_BALANCE_I), prefs->GetFloat("DriveBalanceD", DRIVE_BALANCE_D));
 	driveBalancePID->SetAbsoluteTolerance(prefs->GetFloat("DriveBalanceTolerance", DRIVE_BALANCE_TOLERANCE));
@@ -88,11 +89,11 @@ void DrivetrainSub::enableBalancerPID(float setPoint){
 	driveBalancePID->Enable();
 }
 
-void DrivetrainSub::disableBalancerPID(){
+void DrivetrainSub::disableBalancerPID() {
 	driveBalancePID->Disable();
 }
 
-void DrivetrainSub::enableDistancePID(float speed, float setPoint){
+void DrivetrainSub::enableDistancePID(float speed, float setPoint) {
 	Preferences *prefs = Preferences::GetInstance();
 	driveDistancePID->SetPID(prefs->GetFloat("DriveDistanceP", DRIVE_DISTANCE_P), prefs->GetFloat("DriveDistanceI", DRIVE_DISTANCE_I), prefs->GetFloat("DriveDistanceD", DRIVE_DISTANCE_D));
 	driveDistancePID->SetAbsoluteTolerance(prefs->GetFloat("DriveDistanceTolerance", DRIVE_DISTANCE_TOLERANCE));
@@ -101,22 +102,25 @@ void DrivetrainSub::enableDistancePID(float speed, float setPoint){
 	distanceBalancer->Reset();
 	driveDistancePID->Enable();
 }
-void DrivetrainSub::disableDistancePID(){
+
+void DrivetrainSub::disableDistancePID() {
 	driveDistancePID->Disable();
 }
 
 // PIDTurn functions
-void DrivetrainSub::enableTurnPID(double setPoint){
+void DrivetrainSub::enableTurnPID(double setPoint) {
 	Preferences *prefs = Preferences::GetInstance();
 	driveTurnPID->SetPID(prefs->GetFloat("DriveTurnP", DRIVE_TURN_P), prefs->GetFloat("DriveTurnI", DRIVE_TURN_I), prefs->GetFloat("DriveTurnD", DRIVE_TURN_D));
 	driveTurnPID->SetAbsoluteTolerance(prefs->GetFloat("DriveTurnTolerance", DRIVE_TURN_TOLERANCE));
 	driveTurnPID->SetSetpoint(setPoint);
 	driveTurnPID->Enable();
 }
-void DrivetrainSub::disableTurnPID(){
+
+void DrivetrainSub::disableTurnPID() {
 	driveTurnPID->Disable();
 }
-void DrivetrainSub::PIDTurn(){
+
+void DrivetrainSub::PIDTurn() {
 	leftMotor1->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
 	leftMotor2->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
 	leftMotor3->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
@@ -124,33 +128,35 @@ void DrivetrainSub::PIDTurn(){
 	rightMotor2->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
 	rightMotor3->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
 }
-bool DrivetrainSub::isTurnFinished(){
+
+bool DrivetrainSub::isTurnFinished() {
 	return driveTurnPID->OnTarget();
 }
 
-void DrivetrainSub::resetAHRS(){
+void DrivetrainSub::resetAHRS() {
 	ahrs->Reset();
 }
 
-double DrivetrainSub::getAngle(){
+double DrivetrainSub::getAngle() {
 	return ahrs->GetAngle();
 }
 
-double DrivetrainSub::getRate(){
+double DrivetrainSub::getRate() {
 	return ahrs->GetRate();
 }
 
-void DrivetrainSub::driverDriveStraight(float speed){
+void DrivetrainSub::driverDriveStraight(float speed) {
 	drive(speed + driveBalancer->GetDifference(), speed - driveBalancer->GetDifference());
 }
 
-void DrivetrainSub::enableFrontUltrasonic(bool enable){
+void DrivetrainSub::enableFrontUltrasonic(bool enable) {
 	hcsr04->SetAutomaticMode(enable);
 }
 
-double DrivetrainSub::getFrontUltrasonicDist(){
+double DrivetrainSub::getFrontUltrasonicDist() {
 	return hcsr04->GetRangeMM();
 }
+
 void DrivetrainSub::setHighGear() {
 	shifters->Set(frc::DoubleSolenoid::Value::kReverse);
 }

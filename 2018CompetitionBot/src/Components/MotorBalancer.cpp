@@ -16,7 +16,7 @@ void MotorBalancer::PIDWrite(double output) {
 }
 
 double MotorBalancer::GetDifference() {
-	return difference; //always equal to 0
+	return difference;
 }
 
 void MotorBalancer::Reset() {
