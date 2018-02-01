@@ -1,8 +1,10 @@
 #include "IntakeSub.h"
 #include "../RobotMap.h"
+#include "Commands/IntakeWithJoystickCmd.h"
 
 IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
-	intakeMotor.reset(new TalonSRX(INTAKE_MOTOR_CANID));
+	intakeMotorLeft.reset(new TalonSRX(INTAKE_MOTOR_LEFT_CANID));
+	intakeMotorRight.reset(new TalonSRX(INTAKE_MOTOR_RIGHT_CANID));
 	intakeLimit.reset(new DigitalInput(INTAKE_LIMIT_SWITCH_DIO));
 	jaws.reset(new frc::DoubleSolenoid(JAWS_PCM_ID1, JAWS_PCM_ID2));
 	hcsr04.reset(new frc::Ultrasonic(INTAKE_ULTRASONIC_TRIG_DIO, INTAKE_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
@@ -12,6 +14,7 @@ IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 }
 //
 void IntakeSub::InitDefaultCommand() {
+	SetDefaultCommand(new IntakeWithJoystickCmd());
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
 }
@@ -19,7 +22,12 @@ void IntakeSub::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 void IntakeSub::intake(double speed) {
-	intakeMotor->Set(ControlMode::PercentOutput, speed);
+	intake(speed, speed);
+}
+
+void IntakeSub::intake(double leftSpeed, double rightSpeed) {
+	intakeMotorLeft->Set(ControlMode::PercentOutput, leftSpeed);
+	intakeMotorRight->Set(ControlMode::PercentOutput, -rightSpeed);
 }
 
 bool IntakeSub::IsLimitHit() {
