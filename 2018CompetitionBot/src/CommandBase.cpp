@@ -16,9 +16,3 @@ CommandBase::CommandBase(const std::string &name) :
 
 }
 
-void CommandBase::Init(){
-	drivetrainSub.reset(new DrivetrainSub());
-	intakeSub.reset(new IntakeSub());
-	elevatorSub.reset(new ElevatorSub());
-	liftSub.reset(new LiftSub());
-}
