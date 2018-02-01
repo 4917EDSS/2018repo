@@ -35,3 +35,11 @@ void IntakeSub::enableFrontUltrasonic(bool enable){
 double IntakeSub::getFrontUltrasonicDist(){
 	return hcsr04->GetRangeMM();
 }
+
+void IntakeSub::setOpen() {
+	jaws->Set(frc::DoubleSolenoid::Value::kReverse);
+}
+
+void IntakeSub::setClose() {
+	jaws->Set(frc::DoubleSolenoid::Value::kForward);
+}

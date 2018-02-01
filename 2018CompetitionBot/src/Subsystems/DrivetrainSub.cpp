@@ -164,3 +164,4 @@ void DrivetrainSub::setHighGear() {
 void DrivetrainSub::setLowGear() {
 	shifters->Set(frc::DoubleSolenoid::Value::kForward);
 }
+

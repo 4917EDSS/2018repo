@@ -21,6 +21,8 @@ public:
 	bool IsLimitHit();
 	void enableFrontUltrasonic(bool enable);
 	double getFrontUltrasonicDist();
+	void setOpen();
+	void setClose();
 };
 
 #endif  // IntakeSub_H
