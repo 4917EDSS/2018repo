@@ -13,18 +13,44 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Components/SilkyMotionManager.h"
 
-double SilkyMotionManager::getTotalTime(){
-	return getAngularTime() + getLinearTime();
+PathInfo SilkyMotionManager::getCurrentPathInfo(double t) {
+	PathInfo pi; // dis, ang, lin_vel, lin_accel, ang_vel
+	double time = 0;
+	double totalTime = 0;
+//	double dist = 0;
+	double angle = 0;
+	double startSpeed = 0;
+	double endSpeed = 0;
+	for (unsigned int i = 1; i < timestamps.size(); i++) {
+		if ((t > timestamps[i - 1]) && (t < timestamps[i])) {
+			time = t - timestamps[i - 1];
+			totalTime = timestamps[i] - timestamps[i - 1];
+			angle = ang[i - 1];
+//			dist = dis[i - 1];
+			startSpeed = actualSpeed[i - 1];
+			endSpeed = actualSpeed[i];
+		}
+	}
+	// TODO if t is past all timestamps need to do something special
+	pi.ang_vel = angle / totalTime;
+	pi.ang = pi.ang_vel * time;
+	pi.lin_accel = (endSpeed - startSpeed) / totalTime; // assuming const accel
+	pi.lin_vel = pi.lin_accel * time + startSpeed;
+	pi.dis = startSpeed * time + 0.5 * pi.lin_accel * pow(time, 2);
+
+	return pi;
 }
 
-double SilkyMotionManager::getAngularTime() {
+double SilkyMotionManager::getAngularTime(double angle) {
 	//have to do hard math
-	return (1.0);
+	//assuming we can ignore acceleration, deceleration, and angular component
+	return (angle / maxAngVel);
 }
 
-double SilkyMotionManager::getLinearTime() {
+double SilkyMotionManager::getLinearTime(double dis, double startSpeed, double endSpeed) {
 	//have to do hard math
-	return (1.0);
+	//could go a lot faster using max accel and max decel
+	return (2 * dis / (startSpeed + endSpeed));
 }
 
 // Getting the absolute fastest we can start the current motion, given the absolute fastest we can be going at the end of the motion.
@@ -46,8 +72,8 @@ double SilkyMotionManager::getActualSpeed(double dis, double ang, double startin
 	return std::min(maxAchievableSpeed, maxEndSpeed);
 }
 
-double getTimestamp(double dis, double ang, double startingSpeed, double endingSpeed, double prevTime) {
-	return 0.0;
+double SilkyMotionManager::getTimestamp(double dis, double ang, double startingSpeed, double endingSpeed, double prevTime) {
+	return prevTime + getAngularTime(ang) + getLinearTime(dis, startingSpeed, endingSpeed);
 }
 
 void SilkyMotionManager::setFeedbackConstants(double dis_v, double dis_a, double dis_p, double dis_d,

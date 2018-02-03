@@ -21,7 +21,6 @@ struct PathInfo {
 	double lin_vel;
 	double lin_accel;
 	double ang_vel;
-	double ang_accel;
 };
 
 class SilkyMotionManager {
@@ -43,12 +42,10 @@ private:
 	double lastTime;
 
 	double getTimeSinceStart();
-	PathInfo getLeftSide(double t);
-	PathInfo getRightSide(double t);
+	PathInfo getCurrentPathInfo(double t);
 
-	double getTotalTime();
-	double getAngularTime();
-	double getLinearTime();
+	double getAngularTime(double angle);
+	double getLinearTime(double dis, double startSpeed, double endSpeed);
 
 	double getMaxSpeed(double dis, double ang, double maxEndSpeed);
 	double getActualSpeed(double dis, double ang, double startingActualSpeed, double maxEndSpeed);
