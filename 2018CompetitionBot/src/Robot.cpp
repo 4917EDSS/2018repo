@@ -16,6 +16,7 @@
 #include <Components/AutoDecider/AutoScaleLeft.h>
 #include <Components/AutoDecider/AutoScaleRight.h>
 #include <Components/AutoDecider/AutoSwitch.h>
+#include <Components/Logging/Log.h>
 #include <Commands/ResetEncodersCmd.h>
 #include <Commands/AutoScaleLeftToRightGrp.h>
 #include <Commands/IntakeUntilDistanceCmd.h>
@@ -26,10 +27,17 @@
 
 class Robot: public frc::IterativeRobot {
 public:
+	frc4917::Log logger;
+
 	void RobotInit() override {
 		// chooser.AddObject("My Auto", new MyAutoCommand());
 		SetSmartDashboardDriverContent();
 		SetSmartDashboardAutoOptions();
+		logger.enableChannels(logger.ERRORS);
+		logger.enableChannels(logger.WARNINGS | logger.ASSERTS | logger.DEBUG);	// Should look at these during development
+		logger.addOutputPath(new frc4917::ConsoleOutput());						// Enable console output and/or
+//		logger.addOutputPath(new frc4917::SyslogOutput("10.49.17.20"));			// Enable syslog output
+		logger.send(logger.DEBUG, "Robot code started @ %f\n", GetTime());
 	}
 
 	/**
