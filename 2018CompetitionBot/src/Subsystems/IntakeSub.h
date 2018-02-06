@@ -18,7 +18,7 @@ public:
 	void InitDefaultCommand();
 	void intake(double speed);
 	void intake(double leftSpeed, double rightSpeed);
-	bool IsLimitHit();
+	bool isBoxIn();
 	void enableFrontUltrasonic(bool enable);
 	double getFrontUltrasonicDist();
 	void setOpen();

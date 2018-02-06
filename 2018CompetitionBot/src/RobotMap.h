@@ -67,6 +67,27 @@ constexpr int JAWS_PCM_ID2 = 4;
 // Ultrasonic distances
 constexpr double ULTRASONIC_BOX_DISTANCE = 50.0;
 
+/* Limelight Values
+ * Vision Cam:
+ * Exposure: 2
+ * Red Balance: 1456
+ * Blue Balance: 1472
+ * Hue: 55 - 72
+ * Saturation: 152 - 255
+ * Value: 216 - 255
+ * Drive Cam:
+ * Light must be off
+ * Exposure: 34
+ * Red Balance: 1361
+ * Blue Balance: 2500
+ * Hue: 21 - 56
+ * Saturation: 240 - 255
+ * Value: 129 - 236
+ *
+ *
+ *
+ *
+ */
 
 #define AHRSInterface	frc::SPI::kMXP
 

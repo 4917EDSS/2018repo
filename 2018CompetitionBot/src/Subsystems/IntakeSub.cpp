@@ -24,7 +24,7 @@ void IntakeSub::intake(double leftSpeed, double rightSpeed) {
 	intakeMotorRight->Set(ControlMode::PercentOutput, -rightSpeed);
 }
 
-bool IntakeSub::IsLimitHit() {
+bool IntakeSub::isBoxIn() {
 	return !intakeLimit->Get();
 }
 
