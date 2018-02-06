@@ -50,7 +50,30 @@ double SilkyMotionManager::getAngularTime(double angle) {
 double SilkyMotionManager::getLinearTime(double dis, double startSpeed, double endSpeed) {
 	//have to do hard math
 	//could go a lot faster using max accel and max decel
-	return (2 * dis / (startSpeed + endSpeed));
+
+
+	//Assuming no crazy curves in spline, and giving reasonable headroom for acceleration + speed. We will tell program "max" is actually lower than max, since we are only programming for the left side. If the right side needs to turn faster than the right, the combination of a smaller max and a reasonable curvature will allow it to get ahead.
+	//This means the left side will go "as fast as possible" in this model.
+	double adjustedMaxVel = maxLinVel;
+
+	double disToMaxVel = 0.5 * pow(maxLinVel - startSpeed , 2) / maxLinAccel;
+	double disToEndVel = 0.5 * pow(maxLinVel - endSpeed, 2) / maxLinDecel;
+	if (disToMaxVel + disToEndVel > dis) {
+		// Don't get to full speed, so triangle instead of trapezoid
+		// d_accel = (v-startSpeed)^2/(2*a_accel)
+		// d_decel = (v-endSpeed)v^2/(2*a_decel)
+		// d_total = (v-startSpeed)^2/(2*a_accel) + (v-endSpeed)^2/(2*a_decel)
+		// Rearranging for v gives
+		adjustedMaxVel = (sqrt(2 * dis * maxLinAccel * maxLinDecel) + startSpeed * sqrt(maxLinDecel) + endSpeed * sqrt(maxLinAccel)) / (sqrt(maxLinAccel) + sqrt(maxLinDecel));
+		disToMaxVel = 0.5 * pow(adjustedMaxVel - startSpeed, 2) / maxLinAccel;
+		disToEndVel = 0.5 * pow(adjustedMaxVel - endSpeed, 2) / maxLinDecel;
+	}
+	double timeToMaxVel = (adjustedMaxVel - startSpeed) / maxLinAccel;
+	double timeAtMaxVel = (dis - disToMaxVel - disToEndVel) / adjustedMaxVel;
+
+	double timeToEnd = (adjustedMaxVel - endSpeed)  / maxLinDecel;
+
+	return timeToEnd + timeToMaxVel + timeAtMaxVel;
 }
 
 // Getting the absolute fastest we can start the current motion, given the absolute fastest we can be going at the end of the motion.
