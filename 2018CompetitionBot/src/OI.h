@@ -29,6 +29,7 @@ const int OPERATOR_CONTROLLER_PORT = 1;
 
 const int INTAKE_BTN = 2;
 constexpr int REVERSE_INTAKE_BTN = 3;
+constexpr int DROP_BOX_BTN = 9;
 constexpr int HIGH_GEAR_BTN = 8;
 const int PLACE_BOX_BTN = 2;
 const int FLAPS_BTN = 4;
@@ -59,7 +60,7 @@ private:
     std::shared_ptr<frc::JoystickButton> placeBoxMediumScale;
     std::shared_ptr<frc::JoystickButton> placeBoxLowScale;
     std::shared_ptr<frc::JoystickButton> placeBoxSwitchBtn;
-    std::shared_ptr<frc::JoystickButton> moveBoxInOut;
+    std::shared_ptr<frc::JoystickButton> dropBox;
     std::shared_ptr<frc::JoystickButton> rotateBoxBtn;
     std::shared_ptr<frc::JoystickButton> elevatorUp;
     std::shared_ptr<frc::JoystickButton> elevatorDown;

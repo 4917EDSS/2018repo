@@ -25,7 +25,7 @@ void ElevatorSub::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void ElevatorSub::setElevatorMotor(float speed){
-	std::cout << "Setting elevator = " << speed << std::endl;
+	//std::cout << "Setting elevator = " << speed << std::endl;
 	elevatorMotor1->Set(ControlMode::PercentOutput,speed);
 	elevatorMotor2->Set(ControlMode::PercentOutput,speed);
 }
