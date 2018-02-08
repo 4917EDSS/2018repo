@@ -17,7 +17,7 @@ void DropBoxCmd::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool DropBoxCmd::IsFinished() {
-	if (TimeSinceInitialized() > 5.0) return true;
+	if (TimeSinceInitialized() > 2.0) return true;
 	return false;
 }
 

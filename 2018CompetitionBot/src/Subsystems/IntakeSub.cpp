@@ -41,10 +41,10 @@ double IntakeSub::getFrontUltrasonicDist(){
 
 void IntakeSub::setOpen() {
 	std::cout << "Its Opening" << std::endl;
-	jaws->Set(frc::DoubleSolenoid::Value::kReverse);
+	jaws->Set(frc::DoubleSolenoid::Value::kForward);
 }
 
 void IntakeSub::setClose() {
 	std::cout << "Its Closing" << std::endl;
-	jaws->Set(frc::DoubleSolenoid::Value::kForward);
+	jaws->Set(frc::DoubleSolenoid::Value::kReverse);
 }
