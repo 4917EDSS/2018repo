@@ -19,8 +19,8 @@
 #include <Components/Logging/Log.h>
 #include <Commands/ResetEncodersCmd.h>
 #include <Commands/AutoScaleLeftToRightGrp.h>
-#include <Commands/IntakeUntilDistanceCmd.h>
 #include <Commands/DriveUntilDistanceCmd.h>
+#include <Commands/IntakeUntilLimitCmd.h>
 #include <Commands/SetHighGearHeldCmd.h>
 #include "CommandBase.h"
 #include "Subsystems/DrivetrainSub.h"

@@ -1,4 +1,4 @@
-#include <Commands/IntakeUntilDistanceCmd.h>
+#include <Commands/IntakeUntilLimitCmd.h>
 #include <Commands/SetHighGearHeldCmd.h>
 #include "OI.h"
 #include <Commands/RaiseRampCmd.h>
@@ -25,7 +25,7 @@ OI::OI() {
 	operatorController->SetThrottleChannel(3);
 
 	intakeBtn.reset(new frc::JoystickButton(operatorController.get(), INTAKE_BTN));
-	intakeBtn->WhenPressed(new IntakeUntilDistanceCmd(ULTRASONIC_BOX_DISTANCE));
+	intakeBtn->WhenPressed(new IntakeUntilLimitCmd());
 	flapsBtn.reset(new frc::JoystickButton(operatorController.get(), FLAPS_BTN));
 	flapsBtn ->WhenPressed(new RaiseRampCmd());
 	placeBoxHighScale.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_HIGH_SCALE));

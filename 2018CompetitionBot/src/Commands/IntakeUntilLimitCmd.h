@@ -3,12 +3,10 @@
 
 #include "../CommandBase.h"
 
-class IntakeUntilDistanceCmd : public CommandBase {
-private:
-	double targetDistance;
+class IntakeUntilLimitCmd : public CommandBase {
 
 public:
-	IntakeUntilDistanceCmd(double distance);
+	IntakeUntilLimitCmd();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
