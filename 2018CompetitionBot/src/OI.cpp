@@ -1,4 +1,4 @@
-#include <Commands/IntakeUntilLimitCmd.h>
+#include <Commands/ZeroAndIntakeGrp.h>
 #include <Commands/SetHighGearHeldCmd.h>
 #include "OI.h"
 #include <Commands/RaiseRampCmd.h>
@@ -6,6 +6,7 @@
 #include "Commands/ReverseIntakeCmd.h"
 #include "Commands/DropBoxCmd.h"
 #include <Commands/MoveElevatorToHeightCmd.h>
+#include "Commands/KillEverythingCmd.h"
 
 OI::OI() {
 	// Process operator interface input here.
@@ -18,6 +19,10 @@ OI::OI() {
 
 	highGearBtn.reset(new JoystickButton(driverController.get(), HIGH_GEAR_BTN));
 	highGearBtn->WhileHeld(new SetHighGearHeldCmd());
+	killEverythingD1.reset(new frc::JoystickButton(driverController.get(), KILL_EVERYTHING_BTN_1));
+	killEverythingD1->WhenPressed(new KillEverythingCmd());
+	killEverythingD2.reset(new frc::JoystickButton(driverController.get(), KILL_EVERYTHING_BTN_2));
+	killEverythingD2->WhenPressed(new KillEverythingCmd());
 
 	operatorController.reset(new frc::Joystick(OPERATOR_CONTROLLER_PORT));
 	operatorController->SetXChannel(0);
@@ -26,7 +31,7 @@ OI::OI() {
 	operatorController->SetThrottleChannel(3);
 
 	intakeBtn.reset(new frc::JoystickButton(operatorController.get(), INTAKE_BTN));
-	intakeBtn->WhenPressed(new IntakeUntilLimitCmd());
+	intakeBtn->WhenPressed(new ZeroAndIntakeGrp());
 	flapsBtn.reset(new frc::JoystickButton(operatorController.get(), FLAPS_BTN));
 	flapsBtn ->WhenPressed(new RaiseRampCmd());
 	placeBoxHighScale.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_HIGH_SCALE));
@@ -41,7 +46,10 @@ OI::OI() {
 	reverseIntakeBtn->WhileHeld(new ReverseIntakeCmd());
 	dropBox.reset(new frc::JoystickButton(operatorController.get(), DROP_BOX_BTN));
 	dropBox->WhenPressed(new DropBoxCmd());
-
+	killEverythingO1.reset(new frc::JoystickButton(operatorController.get(), KILL_EVERYTHING_BTN_1));
+	killEverythingO1->WhenPressed(new KillEverythingCmd());
+	killEverythingO2.reset(new frc::JoystickButton(operatorController.get(), KILL_EVERYTHING_BTN_2));
+	killEverythingO2->WhenPressed(new KillEverythingCmd());
 
 
 }

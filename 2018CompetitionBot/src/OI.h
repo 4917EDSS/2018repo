@@ -39,6 +39,8 @@ const int PLACE_BOX_LOW_SCALE = 5;
 const int PLACE_BOX_SWITCH_BTN = 7;
 const int MOVE_BOX_IN_OUT = 1;
 const int ROTATE_BOX_BTN =0;
+const int KILL_EVERYTHING_BTN_1 =11;
+const int KILL_EVERYTHING_BTN_2 =12;
 
 constexpr int OPERATOR_ELEVATOR_AXIS = 3;
 
@@ -64,6 +66,10 @@ private:
     std::shared_ptr<frc::JoystickButton> rotateBoxBtn;
     std::shared_ptr<frc::JoystickButton> elevatorUp;
     std::shared_ptr<frc::JoystickButton> elevatorDown;
+    std::shared_ptr<frc::JoystickButton> killEverythingD1;
+    std::shared_ptr<frc::JoystickButton> killEverythingD2;
+    std::shared_ptr<frc::JoystickButton> killEverythingO1;
+    std::shared_ptr<frc::JoystickButton> killEverythingO2;
 
 
 
