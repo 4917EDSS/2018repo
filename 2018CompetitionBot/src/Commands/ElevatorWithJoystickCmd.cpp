@@ -18,7 +18,7 @@ void ElevatorWithJoystickCmd::Execute() {
 
 	double verticalStick = operatorJoystick->GetRawAxis(OPERATOR_ELEVATOR_AXIS);
 
-	elevatorSub->setElevatorMotor(verticalStick);
+	elevatorSub->setElevatorMotor(-verticalStick);
 
 }
 

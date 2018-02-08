@@ -14,6 +14,7 @@ private:
 	std::shared_ptr<TalonSRX> elevatorMotor2;
 	std::shared_ptr<frc::Encoder> elevatorMotorEnc;
 	std::shared_ptr<frc::PIDController> liftPID;
+	std::shared_ptr<DigitalInput> lowerLimit;
 
 	double target;
 
@@ -31,6 +32,9 @@ public:
 	void enableLiftPID(float setPoint);
 	void disableLiftPID();
 	bool PIDLiftIsFinished();
+	bool isElevatorDown();
+
+
 };
 
 #endif  // ElevatorSub_H

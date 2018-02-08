@@ -13,6 +13,7 @@ ElevatorSub::ElevatorSub() : Subsystem("ExampleSubsystem") {
 	elevatorMotor2.reset(new TalonSRX(ELEVATOR_MOTOR2_CANID));
 	elevatorMotorEnc.reset(new frc::Encoder(ELEVATOR_MOTOR_ENC1_DIO, ELEVATOR_MOTOR_ENC2_DIO));
 	// NEED TO DO liftPID.reset(new PIDController(LIFT_P, LIFT_I, LIFT_D, elevatorMotorEnc.get(), elevatorMotor.get()));
+	lowerLimit.reset(new DigitalInput(LIFT_LOWER_LIMIT_DIO));
 	target = 0;
 }
 
@@ -26,8 +27,17 @@ void ElevatorSub::InitDefaultCommand() {
 
 void ElevatorSub::setElevatorMotor(float speed){
 	std::cout << "Setting elevator = " << speed << std::endl;
-	elevatorMotor1->Set(ControlMode::PercentOutput,speed);
-	elevatorMotor2->Set(ControlMode::PercentOutput,speed);
+	if (isElevatorDown() && speed < 0){
+		speed = 0;
+	}
+	elevatorMotor1->Set(ControlMode::PercentOutput, -speed);
+	elevatorMotor2->Set(ControlMode::PercentOutput, -speed);
+
+
+
+}
+bool ElevatorSub::isElevatorDown() {
+	return lowerLimit->Get();
 }
 
 double ElevatorSub::getElevatorEncoder() {

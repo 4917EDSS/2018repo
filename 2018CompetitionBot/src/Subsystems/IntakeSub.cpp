@@ -7,7 +7,7 @@ IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 	intakeMotorRight.reset(new TalonSRX(INTAKE_MOTOR_RIGHT_CANID));
 	intakeLimit.reset(new DigitalInput(INTAKE_LIMIT_SWITCH_DIO));
 	jaws.reset(new frc::DoubleSolenoid(JAWS_PCM_ID1, JAWS_PCM_ID2));
-	hcsr04.reset(new frc::Ultrasonic(INTAKE_ULTRASONIC_TRIG_DIO, INTAKE_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
+	//hcsr04.reset(new frc::Ultrasonic(INTAKE_ULTRASONIC_TRIG_DIO, INTAKE_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
 }
 
 void IntakeSub::InitDefaultCommand() {
@@ -29,11 +29,12 @@ bool IntakeSub::isBoxIn() {
 }
 
 void IntakeSub::enableFrontUltrasonic(bool enable){
-	hcsr04->SetAutomaticMode(enable);
+	//hcsr04->SetAutomaticMode(enable);
 }
 
 double IntakeSub::getFrontUltrasonicDist(){
-	return hcsr04->GetRangeMM();
+	//return hcsr04->GetRangeMM();
+	return 0.0;
 }
 
 void IntakeSub::setOpen() {
