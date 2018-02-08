@@ -1,7 +1,7 @@
 #ifndef ROBOTMAP_H
 #define ROBOTMAP_H
 
-/**
+/*
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
  * the wiring easier and significantly reduces the number of magic numbers
@@ -61,7 +61,7 @@ const float DRIVE_RATE_TOLERANCE = 1;
 // Pneumatic control module outputs
 constexpr int SHIFTERS_PCM1 = 1;
 constexpr int SHIFTERS_PCM2 = 2;
-constexpr int JAWS_PCM_ID1 = 3;
+constexpr int JAWS_PCM_ID1 = 0;
 constexpr int JAWS_PCM_ID2 = 4;
 
 // Ultrasonic distances

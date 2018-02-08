@@ -1,6 +1,7 @@
 #include "IntakeSub.h"
 #include "../RobotMap.h"
 #include "Commands/IntakeWithJoystickCmd.h"
+#include "iostream"
 
 IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 	intakeMotorLeft.reset(new TalonSRX(INTAKE_MOTOR_LEFT_CANID));
@@ -25,6 +26,7 @@ void IntakeSub::intake(double leftSpeed, double rightSpeed) {
 }
 
 bool IntakeSub::isBoxIn() {
+
 	return !intakeLimit->Get();
 }
 
@@ -38,9 +40,11 @@ double IntakeSub::getFrontUltrasonicDist(){
 }
 
 void IntakeSub::setOpen() {
-	jaws->Set(frc::DoubleSolenoid::Value::kReverse);
+	std::cout << "Its Opening" << std::endl;
+	jaws->Set(frc::DoubleSolenoid::Value::kForward);
 }
 
 void IntakeSub::setClose() {
-	jaws->Set(frc::DoubleSolenoid::Value::kForward);
+	std::cout << "Its Closing" << std::endl;
+	jaws->Set(frc::DoubleSolenoid::Value::kReverse);
 }
