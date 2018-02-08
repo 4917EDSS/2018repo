@@ -4,6 +4,7 @@
 #include <Commands/RaiseRampCmd.h>
 #include <WPILib.h>
 #include "Commands/ReverseIntakeCmd.h"
+#include "Commands/DropBoxCmd.h"
 #include <Commands/MoveElevatorToHeightCmd.h>
 
 OI::OI() {
@@ -38,7 +39,8 @@ OI::OI() {
 	placeBoxSwitchBtn ->WhenPressed(new MoveElevatorToHeightCmd(4));
 	reverseIntakeBtn.reset(new frc::JoystickButton(operatorController.get(), REVERSE_INTAKE_BTN));
 	reverseIntakeBtn->WhileHeld(new ReverseIntakeCmd());
-
+	dropBox.reset(new frc::JoystickButton(operatorController.get(), DROP_BOX_BTN));
+	dropBox->WhenPressed(new DropBoxCmd());
 
 
 

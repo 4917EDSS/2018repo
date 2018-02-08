@@ -105,9 +105,9 @@ public:
 		SmartDashboard::PutNumber("Right Drive Motor Enc", CommandBase::drivetrainSub->getRightEncoder());
 		SmartDashboard::PutNumber("Right Encoder Speed", CommandBase::drivetrainSub->getRightEncoderSpeed());
 		SmartDashboard::PutNumber("Left Encoder Speed", CommandBase::drivetrainSub->getLeftEncoderSpeed());
+		SmartDashboard::PutNumber("Elevator Down", CommandBase::elevatorSub->isElevatorDown());
 		SmartDashboard::PutNumber("Current Angle", CommandBase::drivetrainSub->getAngle());
 		SmartDashboard::PutNumber("Is box in?", CommandBase::intakeSub->isBoxIn());
-
 	}
 
 
