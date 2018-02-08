@@ -1,39 +1,39 @@
-#include "IntakeWithJoystickCmd.h"
-#include "OI.H"
-#include <iostream>
+#include "ElevatorWithJoystickCmd.h"
 
-IntakeWithJoystickCmd::IntakeWithJoystickCmd() {
+ElevatorWithJoystickCmd::ElevatorWithJoystickCmd() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(intakeSub.get());
+	Requires(elevatorSub.get());
 }
 
 // Called just before this Command runs the first time
-void IntakeWithJoystickCmd::Initialize() {
+void ElevatorWithJoystickCmd::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void IntakeWithJoystickCmd::Execute() {
+void ElevatorWithJoystickCmd::Execute() {
+
 	std::shared_ptr<frc::Joystick> operatorJoystick = oi->getOperatorController();
 
-	double verticalStick = operatorJoystick->GetY();
+	double verticalStick = operatorJoystick->GetRawAxis(OPERATOR_ELEVATOR_AXIS);
 
-	intakeSub->intake(verticalStick);
+	elevatorSub->setElevatorMotor(verticalStick);
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool IntakeWithJoystickCmd::IsFinished() {
+bool ElevatorWithJoystickCmd::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void IntakeWithJoystickCmd::End() {
-	intakeSub->intake(0.0);
+void ElevatorWithJoystickCmd::End() {
+
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void IntakeWithJoystickCmd::Interrupted() {
-	End();
+void ElevatorWithJoystickCmd::Interrupted() {
+
 }

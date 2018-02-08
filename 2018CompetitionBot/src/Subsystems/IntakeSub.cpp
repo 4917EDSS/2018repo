@@ -20,8 +20,8 @@ void IntakeSub::intake(double speed) {
 }
 
 void IntakeSub::intake(double leftSpeed, double rightSpeed) {
-	intakeMotorLeft->Set(ControlMode::PercentOutput, leftSpeed);
-	intakeMotorRight->Set(ControlMode::PercentOutput, -rightSpeed);
+	intakeMotorLeft->Set(ControlMode::PercentOutput, -leftSpeed);
+	intakeMotorRight->Set(ControlMode::PercentOutput, rightSpeed);
 }
 
 bool IntakeSub::isBoxIn() {
