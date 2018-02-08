@@ -26,6 +26,7 @@
 
 const int DRIVER_CONTROLLER_PORT = 0;
 const int OPERATOR_CONTROLLER_PORT = 1;
+
 const int INTAKE_BTN = 2;
 constexpr int REVERSE_INTAKE_BTN = 3;
 constexpr int HIGH_GEAR_BTN = 8;
@@ -37,6 +38,8 @@ const int PLACE_BOX_LOW_SCALE = 5;
 const int PLACE_BOX_SWITCH_BTN = 7;
 const int MOVE_BOX_IN_OUT = 1;
 const int ROTATE_BOX_BTN =0;
+
+constexpr int OPERATOR_ELEVATOR_AXIS = 3;
 
 class OI {
 public:

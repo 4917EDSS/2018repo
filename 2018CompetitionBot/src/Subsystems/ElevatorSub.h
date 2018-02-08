@@ -10,7 +10,8 @@ class ElevatorSub : public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	std::shared_ptr<TalonSRX> elevatorMotor;
+	std::shared_ptr<TalonSRX> elevatorMotor1;
+	std::shared_ptr<TalonSRX> elevatorMotor2;
 	std::shared_ptr<frc::Encoder> elevatorMotorEnc;
 	std::shared_ptr<frc::PIDController> liftPID;
 
