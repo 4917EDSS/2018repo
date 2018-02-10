@@ -121,12 +121,7 @@ void DrivetrainSub::disableTurnPID() {
 }
 
 void DrivetrainSub::PIDTurn() {
-	leftMotor1->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
-	leftMotor2->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
-	leftMotor3->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
-	rightMotor1->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
-	rightMotor2->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
-	rightMotor3->Set(ControlMode::PercentOutput, turnBalancer->GetDifference());
+	drive(turnBalancer->GetDifference(), -turnBalancer->GetDifference());
 }
 
 bool DrivetrainSub::isTurnFinished() {
