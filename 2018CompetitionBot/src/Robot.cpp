@@ -24,6 +24,7 @@
 #include <Commands/SetHighGearHeldCmd.h>
 #include "CommandBase.h"
 #include "Subsystems/DrivetrainSub.h"
+#include <Components/LinearInterpolation.h>
 
 class Robot: public frc::IterativeRobot {
 public:
@@ -38,6 +39,14 @@ public:
 		logger.addOutputPath(new frc4917::ConsoleOutput());						// Enable console output and/or
 //		logger.addOutputPath(new frc4917::SyslogOutput("10.49.17.20"));			// Enable syslog output
 		logger.send(logger.DEBUG, "Robot code started @ %f\n", GetTime());
+
+		std::vector<DataPoints> table = {{100, 8}, {1000, 12}, {2000, 18}, {4000, 40}, {6000, 80}};
+		LinearInterpolation4917 encoderHeightTable(table);
+		logger.send(logger.DEBUG, "Linear Interpolation Test Results: %f; Expected: 2363.6\n", encoderHeightTable.computeX(22));
+		logger.send(logger.DEBUG, "Linear Interpolation Test Results: %f; Expected: 4000\n", encoderHeightTable.computeX(40));
+		logger.send(logger.DEBUG, "Linear Interpolation Test Results: %f; Expected: 6000\n", encoderHeightTable.computeX(80));
+		logger.send(logger.DEBUG, "Linear Interpolation Test Results: %f; Expected: 100\n", encoderHeightTable.computeX(2));
+		logger.send(logger.DEBUG, "Linear Interpolation Test Results: %f; Expected: 6000\n", encoderHeightTable.computeX(800));
 	}
 
 	/**

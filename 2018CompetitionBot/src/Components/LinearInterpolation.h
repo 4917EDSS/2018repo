@@ -15,10 +15,10 @@ struct DataPoints {
 	double y;
 };
 
-class LinearInterpolation {
+class LinearInterpolation4917 {
 public:
 	// assuming that y values are monotonically increasing in the data table
-	LinearInterpolation(std::vector<DataPoints> _table);
+	LinearInterpolation4917(const std::vector<DataPoints> &_table);
 	// y must be >= first table entry and < last table entry
 	double computeX(double y);
 private:
