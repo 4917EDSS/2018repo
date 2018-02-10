@@ -1,5 +1,5 @@
 #include "DropBoxCmd.h"
-
+#include "iostream"
 DropBoxCmd::DropBoxCmd() {
 	// Use Requires() here to declare subsystem dependencies
 	Requires(intakeSub.get());
@@ -23,11 +23,13 @@ bool DropBoxCmd::IsFinished() {
 // Called once after isFinished returns true
 void DropBoxCmd::End() {
 	intakeSub->setClose();
+
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DropBoxCmd::Interrupted() {
+
 	End();
 }
 
