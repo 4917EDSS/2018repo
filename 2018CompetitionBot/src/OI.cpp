@@ -45,7 +45,7 @@ OI::OI() {
 	reverseIntakeBtn.reset(new frc::JoystickButton(operatorController.get(), REVERSE_INTAKE_BTN));
 	reverseIntakeBtn->WhileHeld(new ReverseIntakeCmd());
 	dropBox.reset(new frc::JoystickButton(operatorController.get(), DROP_BOX_BTN));
-	dropBox->WhenPressed(new DropBoxCmd());
+	dropBox->WhileHeld(new DropBoxCmd());
 	killEverythingO1.reset(new frc::JoystickButton(operatorController.get(), KILL_EVERYTHING_BTN_1));
 	killEverythingO1->WhenPressed(new KillEverythingCmd());
 	killEverythingO2.reset(new frc::JoystickButton(operatorController.get(), KILL_EVERYTHING_BTN_2));
