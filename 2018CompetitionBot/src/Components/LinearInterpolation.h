@@ -22,7 +22,7 @@ public:
 	// y must be >= first table entry and < last table entry
 	double computeX(double y);
 private:
-	constexpr std::vector<DataPoints> table;
+	std::vector<DataPoints> table;
 };
 
 #endif /* SRC_COMPONENTS_LINEARINTERPOLATION_H_ */

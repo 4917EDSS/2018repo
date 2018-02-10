@@ -15,8 +15,9 @@ LinearInterpolation::LinearInterpolation(std::vector<DataPoints> _table):table(_
 double LinearInterpolation::computeX(double y) {
 	for(auto i: table){
 		if (y >= i.y){
-			double x = (y - i.y) * ((i+1).x - i.x) / ((i+1).y - i.y);
-			return i.x + x;
+//			double x = (y - i.y) * ((i+1).x - i.x) / ((i+1).y - i.y);
+//			return i.x + x;
 		}
 	}
+	return -1;
 }
