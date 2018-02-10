@@ -29,7 +29,7 @@ private:
 	std::shared_ptr<frc::PIDController> driveBalancePID;
 	std::shared_ptr<frc::PIDController> driveDistancePID;
 	std::shared_ptr<frc::Ultrasonic> hcsr04;
-	std::shared_ptr<frc::DoubleSolenoid> shifters;
+	std::shared_ptr<frc::Solenoid> shifters;
 
 public:
 

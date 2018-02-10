@@ -10,7 +10,7 @@ private:
 	std::shared_ptr<TalonSRX> intakeMotorLeft;
 	std::shared_ptr<TalonSRX> intakeMotorRight;
 	std::shared_ptr<DigitalInput> intakeLimit;
-	std::shared_ptr<frc::DoubleSolenoid> jaws;
+	std::shared_ptr<frc::Solenoid> jaws;
 	std::shared_ptr<frc::Ultrasonic> hcsr04;
 
 public:

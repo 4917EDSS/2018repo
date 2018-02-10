@@ -7,7 +7,7 @@ IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 	intakeMotorLeft.reset(new TalonSRX(INTAKE_MOTOR_LEFT_CANID));
 	intakeMotorRight.reset(new TalonSRX(INTAKE_MOTOR_RIGHT_CANID));
 	intakeLimit.reset(new DigitalInput(INTAKE_LIMIT_SWITCH_DIO));
-	jaws.reset(new frc::DoubleSolenoid(JAWS_PCM_ID1, JAWS_PCM_ID2));
+	jaws.reset(new frc::Solenoid(JAWS_PCM_ID1));
 	//hcsr04.reset(new frc::Ultrasonic(INTAKE_ULTRASONIC_TRIG_DIO, INTAKE_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
 }
 
@@ -40,11 +40,9 @@ double IntakeSub::getFrontUltrasonicDist(){
 }
 
 void IntakeSub::setOpen() {
-	std::cout << "Its Opening" << std::endl;
-	jaws->Set(frc::DoubleSolenoid::Value::kForward);
+	jaws->Set(true);
 }
 
 void IntakeSub::setClose() {
-	std::cout << "Its Closing" << std::endl;
-	jaws->Set(frc::DoubleSolenoid::Value::kReverse);
+	jaws->Set(false);
 }
