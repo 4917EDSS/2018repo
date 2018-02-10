@@ -78,18 +78,22 @@ public:
 		CommandBase::drivetrainSub->setLowGear();
 		std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 		std::cerr<<"1"<<std::endl;
-		autoDecider.reset(chooser.GetSelected());
+		//autoDecider.reset(chooser.GetSelected());
 		std::cerr<<"2"<<std::endl;
-		if (autoDecider == nullptr) {
-			std::cerr << "auto decider null : (" << std::endl;
-		}
+		//if (autoDecider == nullptr) {
+		//	std::cerr << "auto decider null : (" << std::endl;
+		//}
 		std::cerr << "3" << std::endl;
-		autoDecider->setGameData(gameData);
+		//autoDecider->setGameData(gameData);
 		std::cerr<<"4"<<std::endl;
-		autonomousCommand.reset(autoDecider->getCommand());
+		autonomousCommand = chooser->GetSelected().lock();
 		std::cerr<<"5"<<std::endl;
 		if (autonomousCommand.get() != nullptr) {
+			std::cerr<<"6"<<std::endl;
 			autonomousCommand->Start();
+		} else {
+
+			std::cerr<<"7BADDDDDD"<<std::endl;
 		}
 	}
 
@@ -146,18 +150,19 @@ private:
 	std::shared_ptr<frc::Command> autonomousCommand;
 	std::shared_ptr<frc4917::AutoDecider> autoDecider;
 	//std::unique_ptr <LidarLite> lidarLite;
-	frc::SendableChooser<frc4917::AutoDecider*> chooser;
+	std::unique_ptr<frc::SendableChooser<std::shared_ptr<frc::Command> > > chooser;
 
 
 	void SetSmartDashboardAutoOptions() {
-		chooser.AddDefault("Auto Scale Backup Switch Left", new frc4917::AutoScaleBackupSwitchLeft());
+		chooser.reset(new frc::SendableChooser<std::shared_ptr<frc::Command> >());
+		chooser->AddDefault("Auto Scale Backup Switch Left", std::shared_ptr<frc::Command>(new DriveStraightCmd(1000,0.0)));
 		//chooser->AddObject("Auto Scale Backup Switch Right", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleBackupSwitchRight()));
 		//chooser->AddObject("Auto Scale Left", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleLeft()));
 		//chooser->AddObject("Auto Scale Right", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleRight()));
 		//chooser->AddObject("Auto Switch", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoSwitch()));
 
 
-		SmartDashboard::PutData("Auto Mode", &chooser);
+		SmartDashboard::PutData("Auto Mode", chooser.get());
 	}
 };
 
