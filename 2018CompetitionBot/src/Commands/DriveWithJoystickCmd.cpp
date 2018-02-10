@@ -48,21 +48,23 @@ void DriveWithJoystickCmd::Execute() {
 			wasDrivingStraight = 0;
 			std::cout << "In Disable PID two" << std::endl;
 		}
+		std::max(2, 1);
+		std::min(2,1);
 		if (leftStick < 0) {
 			if (rightStick < 0) {
-				drivetrainSub->drive(-leftStick + fabs(rightStick) * leftStick / 1.5, -leftStick);
+				drivetrainSub->drive(-leftStick + fabs(rightStick) * leftStick / 1.5, std::max(fabs(leftStick), fabs(rightStick)));
 
 			} else {
-				drivetrainSub->drive(-leftStick, -leftStick + fabs(rightStick) * leftStick / 1.5);
+				drivetrainSub->drive(std::max(fabs(leftStick), fabs(rightStick)), -leftStick + fabs(rightStick) * leftStick / 1.5);
 
 			}
 		}
 		else {
 			if (rightStick > 0) {
-				drivetrainSub->drive(-leftStick + fabs(rightStick) * leftStick / 1.5, -leftStick);
+				drivetrainSub->drive(-leftStick + fabs(rightStick) * leftStick / 1.5, -std::max(fabs(leftStick), fabs(rightStick)));
 
 			} else {
-				drivetrainSub->drive(-leftStick, -leftStick + fabs(rightStick) * leftStick / 1.5);
+				drivetrainSub->drive(-std::max(fabs(leftStick), fabs(rightStick)), -leftStick + fabs(rightStick) * leftStick / 1.5);
 
 			}
 		}
