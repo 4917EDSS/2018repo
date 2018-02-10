@@ -131,7 +131,7 @@ public:
 		SmartDashboard::PutNumber("Elevator Down", CommandBase::elevatorSub->isElevatorDown());
 		SmartDashboard::PutNumber("Elevator Encoder", CommandBase::elevatorSub->getElevatorEncoder());
 		SmartDashboard::PutNumber("Current Angle", CommandBase::drivetrainSub->getAngle());
-		SmartDashboard::PutNumber("Is box in?", CommandBase::intakeSub->isBoxIn());
+		SmartDashboard::PutBoolean("Is box in?", CommandBase::intakeSub->isBoxIn());
 	}
 
 
