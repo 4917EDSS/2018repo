@@ -2,6 +2,7 @@
 #include "ElevatorSub.h"
 #include "../RobotMap.h"
 #include "Commands/ElevatorWithJoystickCmd.h"
+#include "Components/LinearInterpolation.h"
 
 constexpr float LIFT_P = 1;
 constexpr float LIFT_I = 0;
@@ -15,6 +16,8 @@ ElevatorSub::ElevatorSub() : Subsystem("ExampleSubsystem") {
 	// NEED TO DO liftPID.reset(new PIDController(LIFT_P, LIFT_I, LIFT_D, elevatorMotorEnc.get(), elevatorMotor.get()));
 	lowerLimit.reset(new DigitalInput(LIFT_LOWER_LIMIT_DIO));
 	target = 0;
+
+//	LinearInterpolation encoderHeightTable = LinearInterpolation({{100, 8}, {1000, 12}, {2000, 18), {4000, 40}, {6000, 80}});
 }
 
 void ElevatorSub::InitDefaultCommand() {

@@ -18,7 +18,6 @@ private:
 
 	double target;
 
-
 public:
 	ElevatorSub();
 	void InitDefaultCommand();
@@ -33,7 +32,6 @@ public:
 	void disableLiftPID();
 	bool PIDLiftIsFinished();
 	bool isElevatorDown();
-
 
 };
 
