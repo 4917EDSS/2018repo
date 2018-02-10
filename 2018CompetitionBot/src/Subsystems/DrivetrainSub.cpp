@@ -38,7 +38,7 @@ DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 											  prefs->GetFloat("DriveTurnD", DRIVE_TURN_D),
 											  ahrs.get(),
 											  turnBalancer.get()));
-	shifters.reset(new frc::DoubleSolenoid(SHIFTERS_PCM1, SHIFTERS_PCM2));
+	shifters.reset(new frc::Solenoid(SHIFTERS_PCM1));
 	setLowGear();
 }
 
@@ -153,10 +153,10 @@ double DrivetrainSub::getFrontUltrasonicDist() {
 }
 
 void DrivetrainSub::setHighGear() {
-	shifters->Set(frc::DoubleSolenoid::Value::kReverse);
+	shifters->Set(true);
 }
 
 void DrivetrainSub::setLowGear() {
-	shifters->Set(frc::DoubleSolenoid::Value::kForward);
+	shifters->Set(false);
 }
 
