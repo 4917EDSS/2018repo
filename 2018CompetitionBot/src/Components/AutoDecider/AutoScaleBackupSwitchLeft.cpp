@@ -11,12 +11,14 @@
 #include <Commands/AutoScaleLeftGrp.h>
 #include <Commands/AutoLeftToLeftSwitchGrp.h>
 #include <Commands/AutoLeftToRightSwitchGrp.h>
+#include <iostream>
 
 
 namespace frc4917 {
-
 AutoScaleBackupSwitchLeft::AutoScaleBackupSwitchLeft() {
 	// TODO Auto-generated constructor stub
+
+	std::cerr << "init asbsl" << std::endl;
 
 }
 frc::Command* AutoScaleBackupSwitchLeft::getCommand() {
