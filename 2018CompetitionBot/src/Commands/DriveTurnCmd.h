@@ -13,6 +13,8 @@ public:
 	void Interrupted();
 private:
 	double turnDegrees;
+	float lastMoveTime;
+	int targetDistance;
 };
 
 #endif  // DriveTurnCmd_H

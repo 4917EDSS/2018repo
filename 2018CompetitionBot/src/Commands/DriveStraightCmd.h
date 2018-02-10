@@ -14,7 +14,6 @@ public:
 private:
 	int targetDistance;
 	float targetSpeed;
-	float timeFromLastMove;
 	float lastMoveTime;
 	float targetAngle;
 };

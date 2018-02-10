@@ -6,6 +6,7 @@ DriveStraightCmd::DriveStraightCmd(int distance, float currentAngle) {
 	this->targetDistance = distance;
 	this->targetAngle = currentAngle;
 	Requires(drivetrainSub.get());
+	lastMoveTime = 0;
 }
 
 // Called just before this Command runs the first time
@@ -13,7 +14,6 @@ void DriveStraightCmd::Initialize() {
 	drivetrainSub->resetEncoders();
 	drivetrainSub->enableBalancerPID(targetAngle);
 	drivetrainSub->enableDistancePID(0.7, targetDistance);
-	timeFromLastMove = 0;
 	lastMoveTime = 0;
 }
 
@@ -24,6 +24,7 @@ void DriveStraightCmd::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveStraightCmd::IsFinished() {
+	double timeFromLastMove = 0;
 	if(fabs(drivetrainSub->getLeftEncoderSpeed()) < DISTANCE_SPEED_TOLERANCE && fabs(drivetrainSub->getRightEncoderSpeed()) < DISTANCE_SPEED_TOLERANCE){
 		timeFromLastMove = TimeSinceInitialized() - lastMoveTime;
 	} else {
