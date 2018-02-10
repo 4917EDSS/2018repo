@@ -8,22 +8,23 @@ MoveElevatorToHeightCmd::MoveElevatorToHeightCmd(double height) : height(height)
 
 // Called just before this Command runs the first time
 void MoveElevatorToHeightCmd::Initialize() {
-	elevatorSub->enableLiftPID(height);
+//	elevatorSub->enableLiftPID(elevatorSub->convertHeightToEncoder(height));
+	elevatorSub->setTarget(elevatorSub->convertHeightToEncoder(height));
 }
 
 // Called repeatedly when this Command is scheduled to run
 void MoveElevatorToHeightCmd::Execute() {
-
+	elevatorSub->update();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool MoveElevatorToHeightCmd::IsFinished() {
-	return elevatorSub->PIDLiftIsFinished();
+	return elevatorSub->isFinishedMove();
 }
 
 // Called once after isFinished returns true
 void MoveElevatorToHeightCmd::End() {
-	elevatorSub->disableLiftPID();
+//	elevatorSub->disableLiftPID();
 	elevatorSub->setElevatorMotor(0.0);
 }
 

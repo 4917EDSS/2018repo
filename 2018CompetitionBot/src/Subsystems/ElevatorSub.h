@@ -13,10 +13,11 @@ private:
 	std::shared_ptr<TalonSRX> elevatorMotor1;
 	std::shared_ptr<TalonSRX> elevatorMotor2;
 	std::shared_ptr<frc::Encoder> elevatorMotorEnc;
-	std::shared_ptr<frc::PIDController> liftPID;
+//	std::shared_ptr<frc::PIDController> liftPID;
 	std::shared_ptr<DigitalInput> lowerLimit;
 
 	double target;
+	bool finishedMove;
 
 public:
 	ElevatorSub();
@@ -28,11 +29,14 @@ public:
 	void elevatorMotorDown();
 	void update();
 	void setTarget(int newTarget);
-	void enableLiftPID(float setPoint);
-	void disableLiftPID();
-	bool PIDLiftIsFinished();
+//	void enableLiftPID(float setPoint);
+//	void disableLiftPID();
+//	bool PIDLiftIsFinished();
 	bool isElevatorDown();
-
+	double convertHeightToEncoder(double cm);
+	bool isFinishedMove() {
+		return finishedMove;
+	}
 };
 
 #endif  // ElevatorSub_H

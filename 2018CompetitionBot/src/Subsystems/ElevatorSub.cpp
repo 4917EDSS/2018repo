@@ -10,13 +10,14 @@ constexpr float LIFT_I = 0;
 constexpr float LIFT_D = 0;
 const float LIFT_TOLERANCE = 1;
 
-ElevatorSub::ElevatorSub() : Subsystem("ExampleSubsystem") {
+ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
 	elevatorMotor1.reset(new TalonSRX(ELEVATOR_MOTOR1_CANID));
 	elevatorMotor2.reset(new TalonSRX(ELEVATOR_MOTOR2_CANID));
 	elevatorMotorEnc.reset(new frc::Encoder(ELEVATOR_MOTOR_ENC1_DIO, ELEVATOR_MOTOR_ENC2_DIO));
-	// NEED TO DO liftPID.reset(new PIDController(LIFT_P, LIFT_I, LIFT_D, elevatorMotorEnc.get(), elevatorMotor.get()));
+//	liftPID.reset(new PIDController(LIFT_P, LIFT_I, LIFT_D, elevatorMotorEnc.get(), elevatorMotor1.get()));
 	lowerLimit.reset(new DigitalInput(LIFT_LOWER_LIMIT_DIO));
 	target = 0;
+	finishedMove = true;
 
 //	std::vector<DataPoints> table = {{100, 8}, {1000, 12}, {2000, 18}, {4000, 40}, {6000, 80}};
 //	LinearInterpolation4917 encoderHeightTable(table);	// where x = encoder value and y = height in inches
@@ -33,6 +34,7 @@ void ElevatorSub::InitDefaultCommand() {
 void ElevatorSub::setElevatorMotor(float speed){
 	if (isElevatorDown() && speed < 0){
 		speed = 0;
+		resetElevatorEncoder();
 	}
 	elevatorMotor1->Set(ControlMode::PercentOutput, -speed);
 	elevatorMotor2->Set(ControlMode::PercentOutput, -speed);
@@ -52,33 +54,50 @@ void ElevatorSub::resetElevatorEncoder() {
 
 void ElevatorSub::setTarget(int newTarget) {
 	target = newTarget;
+	finishedMove = false;
 }
 
 void ElevatorSub::update(){
-	double currentPosition = getElevatorEncoder();
-	if (currentPosition < target - ELEVATOR_POSITION_TOLERANCE){
-		setElevatorMotor(1.0);
-	}
-	else if (currentPosition > target + ELEVATOR_POSITION_TOLERANCE){
-		setElevatorMotor(-1.0);
-	}
-	else{
-		setElevatorMotor(0.0);
+	if (!finishedMove) {
+		double currentPosition = getElevatorEncoder();
+		if (currentPosition < target - ELEVATOR_POSITION_TOLERANCE){
+			setElevatorMotor(1.0);
+		}
+		else if (currentPosition > target + ELEVATOR_POSITION_TOLERANCE){
+			setElevatorMotor(-1.0);
+		}
+		else{
+			setElevatorMotor(0.0);
+			finishedMove = true;
+		}
 	}
 }
 
-void ElevatorSub::enableLiftPID(float setPoint){
-	Preferences *prefs = Preferences::GetInstance();
-	liftPID->SetPID(prefs->GetFloat("LiftP", LIFT_P), prefs->GetFloat("LiftI", LIFT_I), prefs->GetFloat("LiftD", LIFT_D));
-	liftPID->SetAbsoluteTolerance(prefs->GetFloat("LiftTolerance", LIFT_TOLERANCE));
-	liftPID->SetSetpoint(setPoint);
-	liftPID->Enable();
-}
+//void ElevatorSub::enableLiftPID(float setPoint){
+//	std::cout<<"EnableLiftPID"<<std::endl;
+//	Preferences *prefs = Preferences::GetInstance();
+//	std::cout<<"EnableLiftPID - preferences"<<std::endl;
+//	liftPID->SetPID(prefs->GetFloat("LiftP", LIFT_P), prefs->GetFloat("LiftI", LIFT_I), prefs->GetFloat("LiftD", LIFT_D));
+//	std::cout<<"EnableLiftPID - setPID"<<std::endl;
+//	liftPID->SetAbsoluteTolerance(prefs->GetFloat("LiftTolerance", LIFT_TOLERANCE));
+//	std::cout<<"EnableLiftPID - setTol"<<std::endl;
+//	liftPID->SetSetpoint(setPoint);
+//	std::cout<<"EnableLiftPID - set point"<<std::endl;
+//	liftPID->Enable();
+//	std::cout<<"EnableLiftPID - enabled"<<std::endl;
+//}
+//
+//void ElevatorSub::disableLiftPID(){
+//	liftPID->Disable();
+//}
+//
+//bool ElevatorSub::PIDLiftIsFinished(){
+//	return liftPID->OnTarget();
+//}
 
-void ElevatorSub::disableLiftPID(){
-	liftPID->Disable();
-}
+double ElevatorSub::convertHeightToEncoder(double cm){
+	std::vector<DataPoints> table = {{0, 22}, {82.5, 40}, {154.75, 60}, {219, 80}, {335, 118}, {465.25, 160}, {523.75, 180}, {643.75, 220}};
+	LinearInterpolation4917 encoderHeightTable(table);	// where x = encoder value and y = height in cm
 
-bool ElevatorSub::PIDLiftIsFinished(){
-	return liftPID->OnTarget();
+	return encoderHeightTable.computeX(cm);
 }
