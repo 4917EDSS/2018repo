@@ -6,10 +6,9 @@
  */
 
 #include <Components/AutoDecider/AutoDecider.h>
-#include "iostream"
+#include <iostream>
+#include "Commands/KillEverythingCmd.h"
 namespace frc4917 {
-
-
 
 
 AutoDecider::AutoDecider() {
@@ -17,9 +16,12 @@ AutoDecider::AutoDecider() {
 	ourSwitchIsRight = false;
 	scaleIsRight = false;
 	oppSwitchIsRight = false;
+	std::cerr << "autodecider init" << std::endl;
 }
 
-AutoDecider::~AutoDecider() {}
+AutoDecider::~AutoDecider() {
+	std::cerr << "DELETED" << std::endl;
+}
 
 void AutoDecider::setGameData(std::string gameData) {
 	//determine side of our switch, opponents switch, and scale
@@ -38,8 +40,6 @@ void AutoDecider::setGameData(std::string gameData) {
 
 	}
 }
-
-
 
 
 } /* namespace frc4917 */

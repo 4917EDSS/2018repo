@@ -77,9 +77,17 @@ public:
 
 		CommandBase::drivetrainSub->setLowGear();
 		std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
-		std::shared_ptr<frc4917::AutoDecider> autoDecider {chooser->GetSelected()};
+		std::cerr<<"1"<<std::endl;
+		autoDecider.reset(chooser.GetSelected());
+		std::cerr<<"2"<<std::endl;
+		if (autoDecider == nullptr) {
+			std::cerr << "auto decider null : (" << std::endl;
+		}
+		std::cerr << "3" << std::endl;
 		autoDecider->setGameData(gameData);
+		std::cerr<<"4"<<std::endl;
 		autonomousCommand.reset(autoDecider->getCommand());
+		std::cerr<<"5"<<std::endl;
 		if (autonomousCommand.get() != nullptr) {
 			autonomousCommand->Start();
 		}
@@ -136,19 +144,20 @@ public:
 
 private:
 	std::shared_ptr<frc::Command> autonomousCommand;
+	std::shared_ptr<frc4917::AutoDecider> autoDecider;
 	//std::unique_ptr <LidarLite> lidarLite;
-	std::unique_ptr<frc::SendableChooser<std::shared_ptr<frc4917::AutoDecider>>> chooser;
+	frc::SendableChooser<frc4917::AutoDecider*> chooser;
 
 
 	void SetSmartDashboardAutoOptions() {
-		chooser.reset(new frc::SendableChooser<std::shared_ptr<frc4917::AutoDecider>>());
-		chooser->AddObject("Auto Scale Backup Switch Left", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleBackupSwitchLeft()));
-		chooser->AddObject("Auto Scale Backup Switch Right", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleBackupSwitchRight()));
-		chooser->AddObject("Auto Scale Left", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleLeft()));
-		chooser->AddObject("Auto Scale Right", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleRight()));
-		chooser->AddObject("Auto Switch", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoSwitch()));
+		chooser.AddDefault("Auto Scale Backup Switch Left", new frc4917::AutoScaleBackupSwitchLeft());
+		//chooser->AddObject("Auto Scale Backup Switch Right", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleBackupSwitchRight()));
+		//chooser->AddObject("Auto Scale Left", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleLeft()));
+		//chooser->AddObject("Auto Scale Right", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleRight()));
+		//chooser->AddObject("Auto Switch", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoSwitch()));
 
-		SmartDashboard::PutData("Auto Mode", chooser.get());
+
+		SmartDashboard::PutData("Auto Mode", &chooser);
 	}
 };
 
