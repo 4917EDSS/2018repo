@@ -76,6 +76,8 @@ public:
 	void AutonomousInit() override {
 
 		CommandBase::drivetrainSub->setLowGear();
+		CommandBase::drivetrainSub->resetAHRS();
+		CommandBase::drivetrainSub->resetEncoders();
 		std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 		std::shared_ptr<frc4917::AutoDecider> autoDecider {chooser->GetSelected()};
 		autoDecider->setGameData(gameData);
