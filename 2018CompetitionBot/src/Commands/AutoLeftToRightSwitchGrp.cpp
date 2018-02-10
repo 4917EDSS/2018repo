@@ -20,6 +20,8 @@ AutoLeftToRightSwitchGrp::AutoLeftToRightSwitchGrp() {
 
 	AddSequential(new DriveTurnCmd(90));
 
+	AddSequential(new DriveStraightCmd(300,270));
+
 	//Then go forward until it hits the switch
 
 
