@@ -3,6 +3,7 @@
 #include "../RobotMap.h"
 #include "Commands/ElevatorWithJoystickCmd.h"
 #include "Components/LinearInterpolation.h"
+#include <Components/Logging/Log.h>
 
 constexpr float LIFT_P = 1;
 constexpr float LIFT_I = 0;
@@ -17,7 +18,8 @@ ElevatorSub::ElevatorSub() : Subsystem("ExampleSubsystem") {
 	lowerLimit.reset(new DigitalInput(LIFT_LOWER_LIMIT_DIO));
 	target = 0;
 
-//	LinearInterpolation encoderHeightTable = LinearInterpolation({{100, 8}, {1000, 12}, {2000, 18), {4000, 40}, {6000, 80}});
+//	std::vector<DataPoints> table = {{100, 8}, {1000, 12}, {2000, 18}, {4000, 40}, {6000, 80}};
+//	LinearInterpolation4917 encoderHeightTable(table);	// where x = encoder value and y = height in inches
 }
 
 void ElevatorSub::InitDefaultCommand() {
