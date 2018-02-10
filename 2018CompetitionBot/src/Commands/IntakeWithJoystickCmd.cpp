@@ -20,10 +20,11 @@ void IntakeWithJoystickCmd::Execute() {
 	double horizontalStick = operatorJoystick->GetX();
 	double verticalStick = operatorJoystick->GetY();
 
-	if (horizontalStick > 0.25 || horizontalStick < -0.25){
-		intakeSub->intake(horizontalStick, -horizontalStick);
-	}
-	else {
+	if (horizontalStick > 0.25){
+		intakeSub->intake(0, horizontalStick);
+	} else if (horizontalStick < -0.25){
+		intakeSub->intake(-horizontalStick, 0);
+	} else {
 		intakeSub->intake(verticalStick);
 	}
 }
