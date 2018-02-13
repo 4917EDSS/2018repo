@@ -22,19 +22,19 @@
 constexpr bool shiftersEnabled = true;
 
 //CAN IDs
-constexpr int LEFT1_DRIVE_MOTOR_CANID = 1;
-constexpr int LEFT2_DRIVE_MOTOR_CANID = 3;
-constexpr int LEFT3_DRIVE_MOTOR_CANID = 5;
-constexpr int RIGHT1_DRIVE_MOTOR_CANID = 2;
-constexpr int RIGHT2_DRIVE_MOTOR_CANID = 4;
-constexpr int RIGHT3_DRIVE_MOTOR_CANID = 6;
-constexpr int INTAKE_MOTOR_LEFT_CANID = 9;
-constexpr int INTAKE_MOTOR_RIGHT_CANID = 11;
-constexpr int ELEVATOR_MOTOR1_CANID = 8;
-constexpr int ELEVATOR_MOTOR2_CANID = 7;
-constexpr int RAMP1_MOTOR_CANID = 9;
-constexpr int RAMP2_MOTOR_CANID = 10;
-constexpr int LIFT1_MOTOR_CANID = 12;
+constexpr int LEFT1_DRIVE_MOTOR_CANID = 5;
+constexpr int LEFT2_DRIVE_MOTOR_CANID = 7;
+constexpr int LEFT3_DRIVE_MOTOR_CANID = 9;
+constexpr int RIGHT1_DRIVE_MOTOR_CANID = 6;
+constexpr int RIGHT2_DRIVE_MOTOR_CANID = 8;
+constexpr int RIGHT3_DRIVE_MOTOR_CANID = 10;
+constexpr int INTAKE_MOTOR_LEFT_CANID = 2;
+constexpr int INTAKE_MOTOR_RIGHT_CANID = 4;
+constexpr int ELEVATOR_MOTOR1_CANID = 1;
+constexpr int ELEVATOR_MOTOR2_CANID = 3;
+constexpr int RAMP1_MOTOR_CANID = 11;
+constexpr int RAMP2_MOTOR_CANID = 12;
+constexpr int LIFT1_MOTOR_CANID = 13;
 
 //DIOs
 constexpr int LEFT_MOTOR_ENC1_DIO = 0;
