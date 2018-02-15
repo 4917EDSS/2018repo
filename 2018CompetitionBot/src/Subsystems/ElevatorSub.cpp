@@ -11,6 +11,7 @@ constexpr float LIFT_D = 0;
 const float LIFT_TOLERANCE = 1;
 
 ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
+	tinyLidar.reset(new frc::Ultrasonic(ELEVATOR_LIDAR_TRIG_DIO, ELEVATOR_LIDAR_ECHO_DIO));
 	elevatorMotor1.reset(new TalonSRX(ELEVATOR_MOTOR1_CANID));
 	elevatorMotor2.reset(new TalonSRX(ELEVATOR_MOTOR2_CANID));
 	elevatorMotorEnc.reset(new frc::Encoder(ELEVATOR_MOTOR_ENC1_DIO, ELEVATOR_MOTOR_ENC2_DIO));
