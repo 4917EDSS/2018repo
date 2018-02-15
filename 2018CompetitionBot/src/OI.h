@@ -31,7 +31,6 @@ const int INTAKE_BTN = 2;
 constexpr int REVERSE_INTAKE_BTN = 3;
 constexpr int DROP_BOX_BTN = 4;
 constexpr int HIGH_GEAR_BTN = 8;
-const int PLACE_BOX_BTN = 2;
 const int FLAPS_BTN = 9;
 const int PLACE_BOX_HIGH_SCALE = 6;
 const int PLACE_BOX_MEDIUM_SCALE = 8;
