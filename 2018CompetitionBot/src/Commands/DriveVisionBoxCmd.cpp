@@ -13,12 +13,10 @@ void DriveVisionBoxCmd::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DriveVisionBoxCmd::Execute() {
 	float Kp = 0.1;  // Proportional control constant
-	//nt::NetworkTableInstance::GetDefault().GetTable("limelight");
 	std::shared_ptr<NetworkTable> table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
 	float tx = table->GetNumber("tx", 0.0);
 	float steering_adjust = Kp*tx;
 	drivetrainSub->drive(0.5+steering_adjust, 0.5-steering_adjust);
-	//NetworkTable::GetTable("limelight");
 }
 
 // Make this return true when this Command no longer needs to run execute()
