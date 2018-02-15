@@ -31,7 +31,18 @@ void ElevatorSub::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-
+void ElevatorSub::startTinyLidar(){
+	tinyLidar->SetAutomaticMode(true);
+}
+void ElevatorSub::getLidarValues(){
+	tinyLidar->GetRangeMM();
+}
+void ElevatorSub::endTinyLidar(){
+	tinyLidar->SetAutomaticMode(false);
+}
+void ElevatorSub::isAtTop(){
+	//check for limit switch or max encoder
+}
 void ElevatorSub::setElevatorMotor(float speed){
 	if (isElevatorDown() && speed < 0){
 		speed = 0;
