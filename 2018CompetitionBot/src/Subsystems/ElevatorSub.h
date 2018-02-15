@@ -15,7 +15,7 @@ private:
 	std::shared_ptr<frc::Encoder> elevatorMotorEnc;
 //	std::shared_ptr<frc::PIDController> liftPID;
 	std::shared_ptr<DigitalInput> lowerLimit;
-
+	std::shared_ptr<Ultrasonic> tinyLidar;
 	double target;
 	bool finishedMove;
 
