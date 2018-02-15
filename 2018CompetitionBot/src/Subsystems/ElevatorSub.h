@@ -28,11 +28,11 @@ public:
 	void elevatorMotorUp();
 	void elevatorMotorDown();
 	void update();
-	void setTarget(int newTarget);
+	void setTarget(double newTarget);
 	void startTinyLidar();
 	void getLidarValues();
 	void endTinyLidar();
-	void isAtTop();
+	bool isAtTop();
 //	void enableLiftPID(float setPoint);
 //	void disableLiftPID();
 //	bool PIDLiftIsFinished();

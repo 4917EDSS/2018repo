@@ -9,7 +9,7 @@ MoveElevatorToHeightCmd::MoveElevatorToHeightCmd(double height) : height(height)
 // Called just before this Command runs the first time
 void MoveElevatorToHeightCmd::Initialize() {
 //	elevatorSub->enableLiftPID(elevatorSub->convertHeightToEncoder(height));
-	elevatorSub->setTarget(elevatorSub->convertHeightToEncoder(height));
+	elevatorSub->setTarget (height);
 }
 
 // Called repeatedly when this Command is scheduled to run

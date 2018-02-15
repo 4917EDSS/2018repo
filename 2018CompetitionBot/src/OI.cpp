@@ -32,13 +32,13 @@ OI::OI() {
 	intakeBtn.reset(new frc::JoystickButton(operatorController.get(), INTAKE_BTN));
 	intakeBtn->WhenPressed(new ZeroAndIntakeGrp());
 	placeBoxHighScale.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_HIGH_SCALE));
-	placeBoxHighScale ->WhenPressed(new MoveElevatorToHeightCmd(200));
+	placeBoxHighScale ->WhenPressed(new MoveElevatorToHeightCmd(584));
 	placeBoxMediumScale.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_MEDIUM_SCALE));
-	placeBoxMediumScale ->WhenPressed(new MoveElevatorToHeightCmd(170));
+	placeBoxMediumScale ->WhenPressed(new MoveElevatorToHeightCmd(495));
 	placeBoxLowScale.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_LOW_SCALE));
-	placeBoxLowScale ->WhenPressed(new MoveElevatorToHeightCmd(120));
+	placeBoxLowScale ->WhenPressed(new MoveElevatorToHeightCmd(352));
 	placeBoxSwitchBtn.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_SWITCH_BTN));
-	placeBoxSwitchBtn ->WhenPressed(new MoveElevatorToHeightCmd(75));
+	placeBoxSwitchBtn ->WhenPressed(new MoveElevatorToHeightCmd(187));
 	reverseIntakeBtn.reset(new frc::JoystickButton(operatorController.get(), REVERSE_INTAKE_BTN));
 	reverseIntakeBtn->WhileHeld(new ReverseIntakeCmd());
 	dropBox.reset(new frc::JoystickButton(operatorController.get(), DROP_BOX_BTN));

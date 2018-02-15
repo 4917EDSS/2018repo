@@ -40,8 +40,9 @@ void ElevatorSub::getLidarValues(){
 void ElevatorSub::endTinyLidar(){
 	tinyLidar->SetAutomaticMode(false);
 }
-void ElevatorSub::isAtTop(){
+bool ElevatorSub::isAtTop(){
 	//check for limit switch or max encoder
+	return false;
 }
 void ElevatorSub::setElevatorMotor(float speed){
 	if (isElevatorDown() && speed < 0){
@@ -64,7 +65,7 @@ void ElevatorSub::resetElevatorEncoder() {
 	elevatorMotorEnc->Reset();
 }
 
-void ElevatorSub::setTarget(int newTarget) {
+void ElevatorSub::setTarget(double newTarget) {
 	target = newTarget;
 	finishedMove = false;
 }
