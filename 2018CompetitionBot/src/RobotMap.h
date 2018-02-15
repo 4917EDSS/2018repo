@@ -32,9 +32,6 @@ constexpr int INTAKE_MOTOR_LEFT_CANID = 2;
 constexpr int INTAKE_MOTOR_RIGHT_CANID = 4;
 constexpr int ELEVATOR_MOTOR1_CANID = 1;
 constexpr int ELEVATOR_MOTOR2_CANID = 3;
-constexpr int RAMP1_MOTOR_CANID = 11;
-constexpr int RAMP2_MOTOR_CANID = 12;
-constexpr int LIFT1_MOTOR_CANID = 13;
 
 //DIOs
 constexpr int LEFT_MOTOR_ENC1_DIO = 0;
@@ -46,9 +43,8 @@ constexpr int ELEVATOR_MOTOR_ENC2_DIO = 5;
 constexpr int INTAKE_LIMIT_SWITCH_DIO = 6;
 constexpr int DRIVE_TRAIN_ULTRASONIC_TRIG_DIO = 7;
 constexpr int DRIVE_TRAIN_ULTRASONIC_ECHO_DIO = 8;
-constexpr int LIFT_LOWER_LIMIT_DIO = 9;
-constexpr int RAMP_LOWER_LIMIT_SWITCH_DIO = 11;
-constexpr int RAMP_EXTENSION_LIMIT_SWITCH_DIO = 12;
+constexpr int ELEVATOR_LOWER_LIMIT_DIO = 9;
+constexpr int ELEVATOR_UPPER_LIMIT_DIO = 10;
 
 //Drive Tolerances
 const float DRIVE_BALANCE_TOLERANCE = 1.0;

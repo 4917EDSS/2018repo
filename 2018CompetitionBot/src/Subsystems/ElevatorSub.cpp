@@ -15,7 +15,7 @@ ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
 	elevatorMotor2.reset(new TalonSRX(ELEVATOR_MOTOR2_CANID));
 	elevatorMotorEnc.reset(new frc::Encoder(ELEVATOR_MOTOR_ENC1_DIO, ELEVATOR_MOTOR_ENC2_DIO));
 //	liftPID.reset(new PIDController(LIFT_P, LIFT_I, LIFT_D, elevatorMotorEnc.get(), elevatorMotor1.get()));
-	lowerLimit.reset(new DigitalInput(LIFT_LOWER_LIMIT_DIO));
+	lowerLimit.reset(new DigitalInput(ELEVATOR_LOWER_LIMIT_DIO));
 	target = 0;
 	finishedMove = true;
 

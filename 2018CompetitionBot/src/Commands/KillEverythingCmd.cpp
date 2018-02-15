@@ -4,7 +4,6 @@ KillEverythingCmd::KillEverythingCmd() {
 	Requires(elevatorSub.get());
 	Requires(drivetrainSub.get());
 	Requires(intakeSub.get());
-	Requires(liftSub.get());
 }
 
 // Called just before this Command runs the first time
