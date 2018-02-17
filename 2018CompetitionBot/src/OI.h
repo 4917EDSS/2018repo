@@ -27,8 +27,8 @@
 const int DRIVER_CONTROLLER_PORT = 0;
 const int OPERATOR_CONTROLLER_PORT = 1;
 
-const int INTAKE_BTN = 2;
-constexpr int REVERSE_INTAKE_BTN = 3;
+const int GROUND_INTAKE_BTN = 2;
+constexpr int INTAKE_BTN = 3;
 constexpr int DROP_BOX_BTN = 4;
 constexpr int HIGH_GEAR_BTN = 8;
 const int FLAPS_BTN = 9;
@@ -52,8 +52,8 @@ public:
 private:
 	std::shared_ptr<frc::Joystick> driverController;
 	std::shared_ptr<frc::Joystick> operatorController;
+	std::shared_ptr<frc::JoystickButton> groundIntakeBtn;
 	std::shared_ptr<frc::JoystickButton> intakeBtn;
-	std::shared_ptr<frc::JoystickButton> reverseIntakeBtn;
 	std::shared_ptr<frc::JoystickButton> highGearBtn;
     std::shared_ptr<frc::JoystickButton> placeBoxBtn;
     std::shared_ptr<frc::JoystickButton> flapsBtn;

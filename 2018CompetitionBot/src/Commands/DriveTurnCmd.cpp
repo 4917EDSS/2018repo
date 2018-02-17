@@ -1,4 +1,5 @@
 #include "DriveTurnCmd.h"
+#include <iostream>
 
 DriveTurnCmd::DriveTurnCmd(double angle) {
 	// Use Requires() here to declare subsystem dependencies
@@ -11,6 +12,7 @@ DriveTurnCmd::DriveTurnCmd(double angle) {
 // Called just before this Command runs the first time
 void DriveTurnCmd::Initialize() {
 	drivetrainSub->enableTurnPID(turnDegrees);
+	std::cout << "In DriveTurn Initialize" << std::endl;
 }
 
 // Called repeatedly when this Command is scheduled to run
