@@ -27,7 +27,7 @@ public:
 	static constexpr double SWITCH_BOX_HEIGHT = 205;
 	ElevatorSub();
 	void InitDefaultCommand();
-	void setElevatorMotor(float speed);
+	void setElevatorMotor(double speed);
 	double getElevatorEncoder();
 	void resetElevatorEncoder();
 	void elevatorMotorUp();
