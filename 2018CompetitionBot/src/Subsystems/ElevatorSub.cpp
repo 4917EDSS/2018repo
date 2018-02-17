@@ -63,8 +63,8 @@ void ElevatorSub::setElevatorMotor(float speed){
 		speed = 0;
 		resetElevatorEncoder();
 	}
-	elevatorMotor1->Set(ControlMode::PercentOutput, speed);
-	elevatorMotor2->Set(ControlMode::PercentOutput, speed);
+	elevatorMotor1->Set(ControlMode::PercentOutput, -speed);
+	elevatorMotor2->Set(ControlMode::PercentOutput, -speed);
 }
 
 bool ElevatorSub::isElevatorDown() {

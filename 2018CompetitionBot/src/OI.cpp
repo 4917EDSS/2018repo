@@ -4,9 +4,11 @@
 #include <WPILib.h>
 #include "Commands/ReverseIntakeCmd.h"
 #include "Commands/DropBoxCmd.h"
+#include "Commands/HoldBoxCmd.h"
 #include <Commands/MoveElevatorToHeightCmd.h>
 #include "Commands/KillEverythingCmd.h"
 #include "Subsystems/ElevatorSub.h"
+
 
 OI::OI() {
 	// Process operator interface input here.
@@ -43,6 +45,8 @@ OI::OI() {
 	reverseIntakeBtn->WhileHeld(new ReverseIntakeCmd(20));
 	dropBox.reset(new frc::JoystickButton(operatorController.get(), DROP_BOX_BTN));
 	dropBox->WhileHeld(new DropBoxCmd());
+	holdBox.reset(new frc::JoystickButton(operatorController.get(), HOLD_BOX_BTN));
+	holdBox->WhileHeld(new HoldBoxCmd());
 	killEverythingO1.reset(new frc::JoystickButton(operatorController.get(), KILL_EVERYTHING_BTN_1));
 	killEverythingO1->WhenPressed(new KillEverythingCmd());
 	killEverythingO2.reset(new frc::JoystickButton(operatorController.get(), KILL_EVERYTHING_BTN_2));

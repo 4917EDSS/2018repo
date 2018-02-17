@@ -41,7 +41,7 @@ constexpr int PLACE_BOX_HIGH_SCALE_BTN = 6;
 constexpr int PLACE_BOX_SWITCH_BTN = 7;
 constexpr int PLACE_BOX_MEDIUM_SCALE_BTN = 8;
 constexpr int FLAPS_BTN = 9;
-//constexpr int SPARE = 10;
+constexpr int HOLD_BOX_BTN = 10;
 constexpr int KILL_EVERYTHING_BTN_1 = 11;
 constexpr int KILL_EVERYTHING_BTN_2 = 12;
 
@@ -66,6 +66,7 @@ private:
     std::shared_ptr<frc::JoystickButton> placeBoxLowScale;
     std::shared_ptr<frc::JoystickButton> placeBoxSwitchBtn;
     std::shared_ptr<frc::JoystickButton> dropBox;
+    std::shared_ptr<frc::JoystickButton> holdBox;
     std::shared_ptr<frc::JoystickButton> rotateBoxBtn;
     std::shared_ptr<frc::JoystickButton> elevatorUp;
     std::shared_ptr<frc::JoystickButton> elevatorDown;
