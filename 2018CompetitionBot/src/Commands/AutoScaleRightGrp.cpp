@@ -3,8 +3,12 @@
 #include "AutoScaleRightGrp.h"
 #include "MoveElevatorToHeightCmd.h"
 #include "ReverseIntakeCmd.h"
+#include "Commands/ZeroElevatorCmd.h"
 
 AutoScaleRightGrp::AutoScaleRightGrp() {
+
+	AddSequential(new ZeroElevatorCmd());
+
 	AddParallel(new MoveElevatorToHeightCmd(20));
 
 	AddSequential(new DriveStraightCmd(7500,0.0));

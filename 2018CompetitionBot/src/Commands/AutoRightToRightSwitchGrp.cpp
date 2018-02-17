@@ -1,6 +1,7 @@
 #include "AutoRightToRightSwitchGrp.h"
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
+#include "Commands/ZeroElevatorCmd.h"
 
 AutoRightToRightSwitchGrp::AutoRightToRightSwitchGrp() {
 	// Add Commands here:
@@ -10,6 +11,7 @@ AutoRightToRightSwitchGrp::AutoRightToRightSwitchGrp() {
 
 
 //	If you start from the right corner:
+	AddSequential(new ZeroElevatorCmd());
 	AddSequential(new DriveStraightCmd(4508,0));
 	AddSequential(new DriveTurnCmd(-90));
 	AddSequential(new DriveStraightCmd(1000,-90));

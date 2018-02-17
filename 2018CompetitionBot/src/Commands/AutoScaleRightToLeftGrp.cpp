@@ -1,13 +1,16 @@
 #include "AutoScaleRightToLeftGrp.h"
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
+#include "Commands/ZeroElevatorCmd.h"
+
 AutoScaleRightToLeftGrp::AutoScaleRightToLeftGrp() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
+	AddSequential(new ZeroElevatorCmd());
 	AddSequential(new DriveStraightCmd(250,0));
-			AddSequential(new DriveTurnCmd(-90));
+	AddSequential(new DriveTurnCmd(-90));
 
 	/*AddSequential(new DriveStraightCmd(6171,0));
 		AddSequential(new DriveTurnCmd(-90));
