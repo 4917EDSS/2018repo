@@ -2,7 +2,9 @@
 #include <networktables/NetworkTableInstance.h>
 
 DriveVisionBoxCmd::DriveVisionBoxCmd() {
+	Requires(drivetrainSub.get());
 }
+
 
 // Called just before this Command runs the first time
 void DriveVisionBoxCmd::Initialize() {
@@ -12,7 +14,7 @@ void DriveVisionBoxCmd::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveVisionBoxCmd::Execute() {
-	float Kp = 0.1;  // Proportional control constant
+	float Kp = 0.01;  // Proportional control constant
 	std::shared_ptr<NetworkTable> table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
 	float tx = table->GetNumber("tx", 0.0);
 	float steering_adjust = Kp*tx;

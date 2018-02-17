@@ -24,8 +24,10 @@
 #include <Commands/IntakeUntilLimitCmd.h>
 #include <Commands/SetHighGearHeldCmd.h>
 #include "CommandBase.h"
+#include <Commands/DriveVisionBoxCmd.h>
 #include "Subsystems/DrivetrainSub.h"
 #include <Components/LinearInterpolation.h>
+#include <networktables/NetworkTableInstance.h>
 
 class Robot: public frc::IterativeRobot {
 public:
@@ -92,6 +94,8 @@ public:
 		if (autonomousCommand != nullptr) {
 			autonomousCommand->Cancel();
 		}
+		nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("pipeline").SetDouble(1.0);
+		nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("ledMode").SetDouble(1.0);
 	}
 
 	void TeleopPeriodic() override {
@@ -126,6 +130,7 @@ public:
 		SmartDashboard::PutData("Reset AHRS", new ResetAHRSCmd());
 		SmartDashboard::PutData("Victory Lap Auto", new AutoScaleLeftToRightGrp());
 		SmartDashboard::PutData("Drive until 100 mm", new DriveUntilDistanceCmd(100));
+		SmartDashboard::PutData("Drive to vision", new DriveVisionBoxCmd());
 	}
 
 private:
