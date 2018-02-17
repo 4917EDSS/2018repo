@@ -10,6 +10,7 @@
 #include "Subsystems/DrivetrainSub.h"
 #include "Subsystems/IntakeSub.h"
 #include "Subsystems/ElevatorSub.h"
+#include "Components/Logging/Log.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
