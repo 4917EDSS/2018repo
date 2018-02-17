@@ -58,10 +58,16 @@ bool ElevatorSub::isAtMaxDropHeight(){
 
 	return false;
 }
-void ElevatorSub::setElevatorMotor(float speed){
+void ElevatorSub::setElevatorMotor(double speed){
 	if (isElevatorDown() && speed < 0){
 		speed = 0;
 		resetElevatorEncoder();
+	}
+	else if ( getElevatorEncoder()< 50 && speed < 0 ){
+		speed = std::max(speed, -0.25);
+	}
+	else if (getElevatorEncoder()>600 && speed > 0){
+		speed = std::min(speed, 0.25);
 	}
 	elevatorMotor1->Set(ControlMode::PercentOutput, -speed);
 	elevatorMotor2->Set(ControlMode::PercentOutput, -speed);

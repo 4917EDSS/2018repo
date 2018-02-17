@@ -11,11 +11,13 @@ AutoScaleRightGrp::AutoScaleRightGrp() {
 
 	AddParallel(new MoveElevatorToHeightCmd(20));
 
-	AddSequential(new DriveStraightCmd(7500,0.0));
+	AddSequential(new DriveStraightCmd(6500,0.0));
 
-	AddSequential(new MoveElevatorToHeightCmd(500));
+	AddParallel(new MoveElevatorToHeightCmd(500));
 
-	AddSequential(new DriveTurnCmd(-90));
+	AddSequential(new DriveTurnCmd(-45));
+
+	AddSequential(new DriveStraightCmd(500,-45));
 
 	AddSequential(new ReverseIntakeCmd(1));
 

@@ -33,7 +33,7 @@ constexpr int HIGH_GEAR_BTN = 8;
 // Operator
 constexpr int ROTATE_BOX_BTN = 0;
 constexpr int MOVE_BOX_IN_OUT = 1;
-constexpr int INTAKE_BTN = 2;
+constexpr int GROUND_INTAKE_BTN = 2;
 constexpr int REVERSE_INTAKE_BTN = 3;
 constexpr int DROP_BOX_BTN = 4;
 constexpr int PLACE_BOX_LOW_SCALE_BTN = 5;
@@ -56,8 +56,8 @@ public:
 private:
 	std::shared_ptr<frc::Joystick> driverController;
 	std::shared_ptr<frc::Joystick> operatorController;
+	std::shared_ptr<frc::JoystickButton> groundIntakeBtn;
 	std::shared_ptr<frc::JoystickButton> intakeBtn;
-	std::shared_ptr<frc::JoystickButton> reverseIntakeBtn;
 	std::shared_ptr<frc::JoystickButton> highGearBtn;
     std::shared_ptr<frc::JoystickButton> placeBoxBtn;
     std::shared_ptr<frc::JoystickButton> flapsBtn;

@@ -8,6 +8,7 @@
 #include <Commands/MoveElevatorToHeightCmd.h>
 #include "Commands/KillEverythingCmd.h"
 #include "Subsystems/ElevatorSub.h"
+#include "Commands/IntakeUntilLimitCmd.h"
 
 
 OI::OI() {
@@ -31,8 +32,8 @@ OI::OI() {
 	operatorController->SetZChannel(2);
 	operatorController->SetThrottleChannel(3);
 
-	intakeBtn.reset(new frc::JoystickButton(operatorController.get(), INTAKE_BTN));
-	intakeBtn->WhenPressed(new ZeroAndIntakeGrp());
+	groundIntakeBtn.reset(new frc::JoystickButton(operatorController.get(), GROUND_INTAKE_BTN));
+	groundIntakeBtn->WhenPressed(new ZeroAndIntakeGrp());
 	placeBoxHighScale.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_HIGH_SCALE_BTN));
 	placeBoxHighScale ->WhenPressed(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 	placeBoxMediumScale.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_MEDIUM_SCALE_BTN));
@@ -41,8 +42,8 @@ OI::OI() {
 	placeBoxLowScale ->WhenPressed(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_LOW_HEIGHT));
 	placeBoxSwitchBtn.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_SWITCH_BTN));
 	placeBoxSwitchBtn ->WhenPressed(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-	reverseIntakeBtn.reset(new frc::JoystickButton(operatorController.get(), REVERSE_INTAKE_BTN));
-	reverseIntakeBtn->WhileHeld(new ReverseIntakeCmd(20));
+	intakeBtn.reset(new frc::JoystickButton(operatorController.get(), INTAKE_BTN));
+	intakeBtn->WhenPressed(new IntakeUntilLimitCmd());
 	dropBox.reset(new frc::JoystickButton(operatorController.get(), DROP_BOX_BTN));
 	dropBox->WhileHeld(new DropBoxCmd());
 	holdBox.reset(new frc::JoystickButton(operatorController.get(), HOLD_BOX_BTN));
