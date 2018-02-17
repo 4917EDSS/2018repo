@@ -10,7 +10,8 @@ private:
 	std::shared_ptr<TalonSRX> intakeMotorLeft;
 	std::shared_ptr<TalonSRX> intakeMotorRight;
 	std::shared_ptr<DigitalInput> intakeLimit;
-	std::shared_ptr<frc::Solenoid> jaws;
+	std::shared_ptr<frc::Solenoid> jawOpenSolenoid;
+	std::shared_ptr<frc::Solenoid> jawCloseSolenoid;
 	std::shared_ptr<frc::Ultrasonic> hcsr04;
 
 public:
@@ -21,8 +22,9 @@ public:
 	bool isBoxIn();
 	void enableFrontUltrasonic(bool enable);
 	double getFrontUltrasonicDist();
-	void setOpen();
-	void setClose();
+	void setJawsOpen();
+	void setJawsClose();
+	void setJawsOnSpring();
 };
 
 #endif  // IntakeSub_H

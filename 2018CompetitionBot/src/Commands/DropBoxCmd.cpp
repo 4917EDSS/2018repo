@@ -7,7 +7,7 @@ DropBoxCmd::DropBoxCmd() {
 
 // Called just before this Command runs the first time
 void DropBoxCmd::Initialize() {
-	intakeSub->setOpen();
+	intakeSub->setJawsOpen();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -22,7 +22,7 @@ bool DropBoxCmd::IsFinished() {
 
 // Called once after isFinished returns true
 void DropBoxCmd::End() {
-	intakeSub->setClose();
+	intakeSub->setJawsClose();
 
 }
 
