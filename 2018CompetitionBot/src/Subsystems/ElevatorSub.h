@@ -24,7 +24,7 @@ public:
 	static constexpr double SCALE_BOX_HIGH_HEIGHT = 584;
 	static constexpr double SCALE_BOX_MEDIUM_HEIGHT = 528;
 	static constexpr double SCALE_BOX_LOW_HEIGHT = 433;
-	static constexpr double SWITCH_BOX_HEIGHT = 195;
+	static constexpr double SWITCH_BOX_HEIGHT = 205;
 	ElevatorSub();
 	void InitDefaultCommand();
 	void setElevatorMotor(float speed);

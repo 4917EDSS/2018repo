@@ -1,13 +1,21 @@
 #include "AutoSwitchLeftGrp.h"
 #include "Commands/DriveStraightCmd.h"
+#include "DriveTurnCmd.h"
+#include "MoveElevatorToHeightCmd.h"
+#include "ReverseIntakeCmd.h"
 
 AutoSwitchLeftGrp::AutoSwitchLeftGrp() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
+	AddParallel(new MoveElevatorToHeightCmd(205));
 
-	AddSequential(new DriveStraightCmd(7734,0.0));
+	AddSequential(new DriveTurnCmd(-28));
+
+	AddSequential(new DriveStraightCmd(3000,-28));
+
+	AddSequential(new ReverseIntakeCmd(2));
 
 	// To run multiple commands at the same time,
 	// use AddParallel()

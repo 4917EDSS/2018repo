@@ -1,9 +1,10 @@
 #include "ReverseIntakeCmd.h"
 
-ReverseIntakeCmd::ReverseIntakeCmd() {
+ReverseIntakeCmd::ReverseIntakeCmd(double time) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(intakeSub.get());
+	timeExpelling = time;
 }
 
 // Called just before this Command runs the first time
@@ -18,6 +19,9 @@ void ReverseIntakeCmd::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ReverseIntakeCmd::IsFinished() {
+	if(TimeSinceInitialized() > timeExpelling){
+		return true;
+	}
 	return false;
 }
 

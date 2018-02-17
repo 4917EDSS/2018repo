@@ -41,7 +41,7 @@ OI::OI() {
 	placeBoxSwitchBtn.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_SWITCH_BTN));
 	placeBoxSwitchBtn ->WhenPressed(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 	reverseIntakeBtn.reset(new frc::JoystickButton(operatorController.get(), REVERSE_INTAKE_BTN));
-	reverseIntakeBtn->WhileHeld(new ReverseIntakeCmd());
+	reverseIntakeBtn->WhileHeld(new ReverseIntakeCmd(20));
 	dropBox.reset(new frc::JoystickButton(operatorController.get(), DROP_BOX_BTN));
 	dropBox->WhileHeld(new DropBoxCmd());
 	killEverythingO1.reset(new frc::JoystickButton(operatorController.get(), KILL_EVERYTHING_BTN_1));
