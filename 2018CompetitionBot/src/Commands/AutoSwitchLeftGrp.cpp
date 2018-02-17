@@ -11,9 +11,9 @@ AutoSwitchLeftGrp::AutoSwitchLeftGrp() {
 	// these will run in order.
 	AddParallel(new MoveElevatorToHeightCmd(205));
 
-	AddSequential(new DriveTurnCmd(-28));
+	AddSequential(new DriveTurnCmd(-24));
 
-	AddSequential(new DriveStraightCmd(3000,-28));
+	AddSequential(new DriveStraightCmd(3000,-24));
 
 	AddSequential(new ReverseIntakeCmd(2));
 
