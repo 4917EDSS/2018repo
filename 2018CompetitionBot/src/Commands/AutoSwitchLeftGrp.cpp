@@ -3,12 +3,15 @@
 #include "DriveTurnCmd.h"
 #include "MoveElevatorToHeightCmd.h"
 #include "ReverseIntakeCmd.h"
+#include "Commands/ZeroElevatorCmd.h"
 
 AutoSwitchLeftGrp::AutoSwitchLeftGrp() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
+	AddSequential(new ZeroElevatorCmd());
+
 	AddParallel(new MoveElevatorToHeightCmd(205));
 
 	AddSequential(new DriveTurnCmd(-24));

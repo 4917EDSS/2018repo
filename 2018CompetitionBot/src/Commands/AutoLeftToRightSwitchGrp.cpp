@@ -1,12 +1,15 @@
 #include "AutoLeftToRightSwitchGrp.h"
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
+#include "Commands/ZeroElevatorCmd.h"
 
 AutoLeftToRightSwitchGrp::AutoLeftToRightSwitchGrp() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
+
+	AddSequential(new ZeroElevatorCmd());
 
 	AddSequential(new DriveStraightCmd(6223,0));
 
