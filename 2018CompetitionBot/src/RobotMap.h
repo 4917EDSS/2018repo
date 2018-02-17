@@ -49,7 +49,7 @@ constexpr int ELEVATOR_LIDAR_TRIG_DIO = 13;
 constexpr int ELEVATOR_LIDAR_ECHO_DIO = 14;
 
 //Drive Tolerances
-const float DRIVE_BALANCE_TOLERANCE = 11.0;
+const float DRIVE_BALANCE_TOLERANCE = 0.5;
 const float DRIVE_DISTANCE_TOLERANCE = 15.0;
 const float DISTANCE_SPEED_TOLERANCE = 10.0;
 const float ELEVATOR_POSITION_TOLERANCE = 15.0;

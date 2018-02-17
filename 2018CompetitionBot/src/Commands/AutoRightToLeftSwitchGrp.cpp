@@ -1,6 +1,7 @@
 #include "AutoRightToLeftSwitchGrp.h"
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
+#include "Commands/ZeroElevatorCmd.h"
 
 AutoRightToLeftSwitchGrp::AutoRightToLeftSwitchGrp() {
 	// Add Commands here:
@@ -20,6 +21,7 @@ AutoRightToLeftSwitchGrp::AutoRightToLeftSwitchGrp() {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 
+	AddSequential(new ZeroElevatorCmd());
 	AddSequential(new DriveStraightCmd(5340,0.0));
 	AddSequential(new DriveTurnCmd(-90));
 	AddSequential(new DriveStraightCmd(7032,-90.0));

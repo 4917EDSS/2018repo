@@ -20,6 +20,7 @@
 #include <Commands/DriveTurnCmd.h>
 #include <Commands/DriveStraightCmd.h>
 #include <Commands/ResetEncodersCmd.h>
+#include <Commands/ResetAHRSCmd.h>
 #include <Commands/AutoScaleLeftToRightGrp.h>
 #include <Commands/DriveUntilDistanceCmd.h>
 #include <Commands/IntakeUntilLimitCmd.h>
@@ -36,7 +37,7 @@ public:
 		logger.enableChannels(logger.WARNINGS | logger.ERRORS | logger.ASSERTS | logger.DRIVETRAIN);
 		logger.enableChannels( logger.DEBUG);	// Should look at these during development
 		logger.addOutputPath(new frc4917::ConsoleOutput());						// Enable console output and/or
-//		logger.addOutputPath(new frc4917::SyslogOutput("10.49.17.20"));			// Enable syslog output
+		logger.addOutputPath(new frc4917::SyslogOutput("10.49.17.20"));			// Enable syslog output
 		logger.send(logger.DEBUG, "Robot code started @ %f\n", GetTime());
 	}
 
@@ -121,6 +122,7 @@ public:
 		SmartDashboard::PutData("Drive Turn 90", new DriveTurnCmd(90));
 		SmartDashboard::PutData("7.5m Drive Straight", new DriveStraightCmd(7500,0.0));
 		SmartDashboard::PutData("Reset Encoders", new ResetEncodersCmd());
+		SmartDashboard::PutData("Reset AHRS", new ResetAHRSCmd());
 		SmartDashboard::PutData("Victory Lap Auto", new AutoScaleLeftToRightGrp());
 		SmartDashboard::PutData("Drive until 100 mm", new DriveUntilDistanceCmd(100));
 	}

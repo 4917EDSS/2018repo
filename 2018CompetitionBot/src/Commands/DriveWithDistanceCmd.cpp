@@ -1,4 +1,6 @@
 #include <Commands/DriveWithDistanceCmd.h>
+#include <networktables/NetworkTableInstance.h>
+
 
 DriveToVisionCmd::DriveToVisionCmd(int distance) {
 	this->targetDistance = distance;
@@ -13,7 +15,7 @@ void DriveToVisionCmd::Initialize() {
 void DriveToVisionCmd::Execute() {
 	float Kp = 0.1;  // Proportional control constant
 
-	std::shared_ptr<NetworkTable> table = NetworkTable::GetTable("limelight");
+	std::shared_ptr<NetworkTable> table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
 	float tx = table->GetNumber("tx", 0.0);
 	float steering_adjust = Kp*tx;
 	drivetrainSub->drive(0.5+steering_adjust, 0.5-steering_adjust);
