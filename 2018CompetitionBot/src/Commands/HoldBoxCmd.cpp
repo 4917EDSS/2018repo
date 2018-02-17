@@ -6,7 +6,7 @@ HoldBoxCmd::HoldBoxCmd() {
 
 // Called just before this Command runs the first time
 void HoldBoxCmd::Initialize() {
-	intakeSub->setJawsOpen();
+	intakeSub->setJawsClose();
 }
 
 // Called repeatedly when this Command is scheduled to run
