@@ -1,5 +1,4 @@
 #include "DriveTurnCmd.h"
-#include <iostream>
 
 DriveTurnCmd::DriveTurnCmd(double angle) {
 	// Use Requires() here to declare subsystem dependencies
@@ -32,8 +31,6 @@ bool DriveTurnCmd::IsFinished() {
 		return true;
 	}
 	else{
-		std::cout << "GetRate" << drivetrainSub->getRate() << std::endl;
-		std::cout << "GetAngle" << drivetrainSub->getAngle() << std::endl;
 		return false;
 	}
 }
