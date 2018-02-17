@@ -9,9 +9,11 @@ AutoScaleRightGrp::AutoScaleRightGrp() {
 	// these will run in order.
 
 
-	AddSequential(new DriveStraightCmd(500,0.0));
+	AddSequential(new DriveStraightCmd(7500,0.0));
 
-	AddSequential(new DriveTurnCmd(90));
+	AddSequential(new DriveTurnCmd(-90));
+
+	AddSequential(new DriveStraightCmd(200,-90.0));
 
 
 	// A command group will require all of the subsystems that each member
