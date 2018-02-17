@@ -21,8 +21,8 @@ private:
 	double lastLidarValue;
 
 public:
-	static constexpr double SCALE_BOX_HIGH_HEIGHT = 584;
-	static constexpr double SCALE_BOX_MEDIUM_HEIGHT = 528;
+	static constexpr double SCALE_BOX_HIGH_HEIGHT = 600;
+	static constexpr double SCALE_BOX_MEDIUM_HEIGHT = 564;
 	static constexpr double SCALE_BOX_LOW_HEIGHT = 433;
 	static constexpr double SWITCH_BOX_HEIGHT = 205;
 	ElevatorSub();
