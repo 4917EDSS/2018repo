@@ -5,37 +5,36 @@
 #include <Commands/Scheduler.h>
 #include <IterativeRobot.h>
 #include <LiveWindow/LiveWindow.h>
+#include <CommandBase.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
-#include <Components/AutoDecider/AutoDecider.h>
 #include <Components/LidarLite.h>
-#include <Commands/DriveTurnCmd.h>
-#include <Commands/DriveStraightCmd.h>
+#include <Components/AutoDecider/AutoDecider.h>
 #include <Components/AutoDecider/AutoScaleBackupSwitchLeft.h>
 #include <Components/AutoDecider/AutoScaleBackupSwitchRight.h>
 #include <Components/AutoDecider/AutoScaleLeft.h>
 #include <Components/AutoDecider/AutoScaleRight.h>
 #include <Components/AutoDecider/AutoSwitch.h>
 #include <Components/Logging/Log.h>
+#include <Components/LinearInterpolation.h>
+#include <Commands/DriveTurnCmd.h>
+#include <Commands/DriveStraightCmd.h>
 #include <Commands/ResetEncodersCmd.h>
 #include <Commands/AutoScaleLeftToRightGrp.h>
 #include <Commands/DriveUntilDistanceCmd.h>
 #include <Commands/IntakeUntilLimitCmd.h>
 #include <Commands/SetHighGearHeldCmd.h>
-#include "CommandBase.h"
-#include "Subsystems/DrivetrainSub.h"
-#include <Components/LinearInterpolation.h>
+#include <Subsystems/DrivetrainSub.h>
 
 class Robot: public frc::IterativeRobot {
 public:
-	frc4917::Log logger;
 
 	void RobotInit() override {
 		// chooser.AddObject("My Auto", new MyAutoCommand());
 		SetSmartDashboardDriverContent();
 		SetSmartDashboardAutoOptions();
-		logger.enableChannels(logger.ERRORS);
-		logger.enableChannels(logger.WARNINGS | logger.ASSERTS | logger.DEBUG);	// Should look at these during development
+		logger.enableChannels(logger.WARNINGS | logger.ERRORS | logger.ASSERTS | logger.DRIVETRAIN);
+		logger.enableChannels( logger.DEBUG);	// Should look at these during development
 		logger.addOutputPath(new frc4917::ConsoleOutput());						// Enable console output and/or
 //		logger.addOutputPath(new frc4917::SyslogOutput("10.49.17.20"));			// Enable syslog output
 		logger.send(logger.DEBUG, "Robot code started @ %f\n", GetTime());

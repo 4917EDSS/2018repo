@@ -15,7 +15,6 @@ OI::OI() {
 	driverController->SetZChannel(2);
 	driverController->SetThrottleChannel(3);
 
-
 	highGearBtn.reset(new JoystickButton(driverController.get(), HIGH_GEAR_BTN));
 	highGearBtn->WhileHeld(new SetHighGearHeldCmd());
 	killEverythingD1.reset(new frc::JoystickButton(driverController.get(), KILL_EVERYTHING_BTN_1));
@@ -47,7 +46,6 @@ OI::OI() {
 	killEverythingO1->WhenPressed(new KillEverythingCmd());
 	killEverythingO2.reset(new frc::JoystickButton(operatorController.get(), KILL_EVERYTHING_BTN_2));
 	killEverythingO2->WhenPressed(new KillEverythingCmd());
-
 
 }
 

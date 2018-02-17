@@ -1,6 +1,7 @@
 #include "DriveStraightCmd.h"
 #include <iostream>
 #include <cmath>
+#include "Components/Logging/Log.h"
 
 DriveStraightCmd::DriveStraightCmd(int distance, float currentAngle) {
 	this->targetDistance = distance;
@@ -20,6 +21,7 @@ void DriveStraightCmd::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DriveStraightCmd::Execute() {
 	drivetrainSub->PIDDrive();
+	drivetrainSub->logMotorCurrents();
 }
 
 // Make this return true when this Command no longer needs to run execute()
