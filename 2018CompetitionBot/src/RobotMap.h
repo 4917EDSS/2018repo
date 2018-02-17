@@ -57,9 +57,9 @@ const float DRIVE_TURN_TOLERANCE = 0.5;
 const float DRIVE_RATE_TOLERANCE = 1;
 
 // Pneumatic control module outputs
-constexpr int SHIFTERS_PCM1 = 1;
-constexpr int JAWS_PCM_ID1 = 0;
-constexpr int SPARE_PCM = 3;
+constexpr int SHIFTERS_PCM_ID = 1;
+constexpr int JAWS_OPEN_PCM_ID = 2;
+constexpr int JAWS_CLOSE_PCM_ID = 3;
 
 // Ultrasonic distances
 constexpr double ULTRASONIC_BOX_DISTANCE = 50.0;

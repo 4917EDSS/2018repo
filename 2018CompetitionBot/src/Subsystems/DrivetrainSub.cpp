@@ -39,7 +39,7 @@ DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 											  prefs->GetFloat("DriveTurnD", DRIVE_TURN_D),
 											  ahrs.get(),
 											  turnBalancer.get()));
-	shifters.reset(new frc::Solenoid(SHIFTERS_PCM1));
+	shifters.reset(new frc::Solenoid(SHIFTERS_PCM_ID));
 	setLowGear();
 }
 
@@ -166,5 +166,5 @@ void DrivetrainSub::logMotorCurrents() {
 	for(int i = 0; i < 16; i++) {
 		line << ", " << pdp->GetCurrent(i);
 	}
-	logger.send(logger.DRIVETRAIN, "%s\n", line.str().c_str());
+	logger.send(logger.POWER, "%s\n", line.str().c_str());
 }
