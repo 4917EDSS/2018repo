@@ -74,12 +74,12 @@ constexpr double ULTRASONIC_BOX_DISTANCE = 50.0;
  * Value: 216 - 255
  * Drive Cam:
  * Light must be off
- * Exposure: 34
+ * Exposure: 90
  * Red Balance: 1361
  * Blue Balance: 2500
- * Hue: 21 - 56
- * Saturation: 240 - 255
- * Value: 129 - 236
+ * Hue: 19 - 26
+ * Saturation: 249 - 255
+ * Value: 165 - 255
  *
  *
  *

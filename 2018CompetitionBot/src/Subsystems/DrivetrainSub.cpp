@@ -1,6 +1,8 @@
 #include "DrivetrainSub.h"
 #include "../RobotMap.h"
 #include "Commands/DriveWithJoystickCmd.h"
+#include <iostream>
+#include <sstream>
 
 constexpr float DRIVE_BALANCE_P = 0.018;
 constexpr float DRIVE_BALANCE_I = 0.0;
@@ -158,3 +160,11 @@ void DrivetrainSub::setLowGear() {
 	shifters->Set(false);
 }
 
+void DrivetrainSub::logMotorCurrents() {
+	std::stringstream line;
+	line << "pdp channels V:" << pdp->GetVoltage() << " T:" << pdp->GetTemperature();
+	for(int i = 0; i < 16; i++) {
+		line << ", " << pdp->GetCurrent(i);
+	}
+	logger.send(logger.DRIVETRAIN, "%s\n", line.str().c_str());
+}

@@ -32,7 +32,6 @@ private:
 	std::shared_ptr<frc::Solenoid> shifters;
 
 public:
-
 	DrivetrainSub();
 	double getLeftEncoder();
 	double getRightEncoder();
@@ -58,6 +57,7 @@ public:
 	double getFrontUltrasonicDist();
 	void setHighGear();
 	void setLowGear();
+	void logMotorCurrents();
 };
 
 #endif  // DrivetrainSub_H

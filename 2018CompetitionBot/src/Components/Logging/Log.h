@@ -10,6 +10,7 @@
 
 #include <vector>
 #include "LogOutput.h"
+#include <PowerDistributionPanel.h>
 
 namespace frc4917 {
 
@@ -23,9 +24,9 @@ namespace frc4917 {
 		static constexpr unsigned long WARNINGS		= 0x00000002;		// For things that we should look at but that aren't critical
 		static constexpr unsigned long ASSERTS		= 0x00000004;		// For sections of code that should never execute
 		static constexpr unsigned long DEBUG		= 0x00000008;		// For general debugging (don't overuse, add new channels instead)
-//		static constexpr unsigned long DRIVETRAIN	= 0x00000010;
+		static constexpr unsigned long DRIVETRAIN	= 0x00000010;
 //		static constexpr unsigned long VISION		= 0x00000020;
-//		static constexpr unsigned long chan7		= 0x00000040;
+		static constexpr unsigned long DRIVETRAIN_POWER	= 0x00000040;
 //		static constexpr unsigned long chan8		= 0x00000080;
 
 		Log();
@@ -42,7 +43,10 @@ namespace frc4917 {
 		std::vector<frc4917::LogOutput *> outputs;	// Where the log messages go
 		unsigned long channelMask;					// Which log channels are active/inactive
 	};
-}
 
+
+}
+extern frc4917::Log logger;
+extern frc::PowerDistributionPanel *pdp;
 
 #endif /* SRC_LOG_H_ */

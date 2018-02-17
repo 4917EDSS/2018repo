@@ -15,6 +15,8 @@ void DriveWithJoystickCmd::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoystickCmd::Execute() {
+	drivetrainSub->logMotorCurrents();
+
 	std::shared_ptr<frc::Joystick> driverJoystick = oi->getDriverController();
 
 	double rightStick = driverJoystick->GetZ();
