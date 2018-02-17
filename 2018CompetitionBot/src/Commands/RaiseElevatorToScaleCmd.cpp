@@ -20,8 +20,10 @@ void RaiseElevatorToScaleCmd::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool RaiseElevatorToScaleCmd::IsFinished() {
-
-	if (elevatorSub->isAtTop()) {
+	if (elevatorSub->atScaleHeight()){
+		return true;
+	}
+	if (elevatorSub->isAtMaxDropHeight()) {
 		return true;
 	}
 	//TO DO check for distance to tell us if we are at the scale.
@@ -37,5 +39,5 @@ void RaiseElevatorToScaleCmd::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void RaiseElevatorToScaleCmd::Interrupted() {
-
+	End();
 }

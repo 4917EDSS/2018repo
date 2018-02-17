@@ -6,6 +6,7 @@
 #include "Commands/DropBoxCmd.h"
 #include <Commands/MoveElevatorToHeightCmd.h>
 #include "Commands/KillEverythingCmd.h"
+#include "Subsystems/ElevatorSub.h"
 
 OI::OI() {
 	// Process operator interface input here.
@@ -31,14 +32,14 @@ OI::OI() {
 
 	intakeBtn.reset(new frc::JoystickButton(operatorController.get(), INTAKE_BTN));
 	intakeBtn->WhenPressed(new ZeroAndIntakeGrp());
-	placeBoxHighScale.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_HIGH_SCALE));
-	placeBoxHighScale ->WhenPressed(new MoveElevatorToHeightCmd(584));
-	placeBoxMediumScale.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_MEDIUM_SCALE));
-	placeBoxMediumScale ->WhenPressed(new MoveElevatorToHeightCmd(528));
-	placeBoxLowScale.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_LOW_SCALE));
-	placeBoxLowScale ->WhenPressed(new MoveElevatorToHeightCmd(433));
+	placeBoxHighScale.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_HIGH_SCALE_BTN));
+	placeBoxHighScale ->WhenPressed(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
+	placeBoxMediumScale.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_MEDIUM_SCALE_BTN));
+	placeBoxMediumScale ->WhenPressed(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_MEDIUM_HEIGHT));
+	placeBoxLowScale.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_LOW_SCALE_BTN));
+	placeBoxLowScale ->WhenPressed(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_LOW_HEIGHT));
 	placeBoxSwitchBtn.reset(new frc::JoystickButton(operatorController.get(),PLACE_BOX_SWITCH_BTN));
-	placeBoxSwitchBtn ->WhenPressed(new MoveElevatorToHeightCmd(205));
+	placeBoxSwitchBtn ->WhenPressed(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 	reverseIntakeBtn.reset(new frc::JoystickButton(operatorController.get(), REVERSE_INTAKE_BTN));
 	reverseIntakeBtn->WhileHeld(new ReverseIntakeCmd(20));
 	dropBox.reset(new frc::JoystickButton(operatorController.get(), DROP_BOX_BTN));

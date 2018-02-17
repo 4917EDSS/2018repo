@@ -8,7 +8,8 @@
 constexpr float LIFT_P = 1;
 constexpr float LIFT_I = 0;
 constexpr float LIFT_D = 0;
-const float LIFT_TOLERANCE = 1;
+constexpr float LIFT_TOLERANCE = 1;
+constexpr double SCALE_HEIGHT_SUDDEN_CHANGE_TOLERANCE = 400;
 
 ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
 	tinyLidar.reset(new frc::Ultrasonic(ELEVATOR_LIDAR_TRIG_DIO, ELEVATOR_LIDAR_ECHO_DIO));
@@ -19,6 +20,7 @@ ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
 	lowerLimit.reset(new DigitalInput(ELEVATOR_LOWER_LIMIT_DIO));
 	target = 0;
 	finishedMove = true;
+	lastLidarValue = -1.0;
 
 //	std::vector<DataPoints> table = {{100, 8}, {1000, 12}, {2000, 18}, {4000, 40}, {6000, 80}};
 //	LinearInterpolation4917 encoderHeightTable(table);	// where x = encoder value and y = height in inches
@@ -31,17 +33,29 @@ void ElevatorSub::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+bool ElevatorSub::atScaleHeight(){
+	double currentLidarValue = getLidarValue();
+	if (lastLidarValue - currentLidarValue >= SCALE_HEIGHT_SUDDEN_CHANGE_TOLERANCE){
+	return true;
+	}
+	lastLidarValue = currentLidarValue;
+	return false;
+}
 void ElevatorSub::startTinyLidar(){
 	tinyLidar->SetAutomaticMode(true);
+	lastLidarValue = getLidarValue();
 }
-void ElevatorSub::getLidarValues(){
-	tinyLidar->GetRangeMM();
+double ElevatorSub::getLidarValue(){
+	return tinyLidar->GetRangeMM();
 }
 void ElevatorSub::endTinyLidar(){
 	tinyLidar->SetAutomaticMode(false);
 }
-bool ElevatorSub::isAtTop(){
-	//check for limit switch or max encoder
+bool ElevatorSub::isAtMaxDropHeight(){
+	if (getElevatorEncoder() >= SCALE_BOX_HIGH_HEIGHT){
+		return true;
+	}
+
 	return false;
 }
 void ElevatorSub::setElevatorMotor(float speed){

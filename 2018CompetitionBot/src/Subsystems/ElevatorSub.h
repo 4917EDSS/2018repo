@@ -18,8 +18,13 @@ private:
 	std::shared_ptr<Ultrasonic> tinyLidar;
 	double target;
 	bool finishedMove;
+	double lastLidarValue;
 
 public:
+	static constexpr double SCALE_BOX_HIGH_HEIGHT = 584;
+	static constexpr double SCALE_BOX_MEDIUM_HEIGHT = 528;
+	static constexpr double SCALE_BOX_LOW_HEIGHT = 433;
+	static constexpr double SWITCH_BOX_HEIGHT = 205;
 	ElevatorSub();
 	void InitDefaultCommand();
 	void setElevatorMotor(float speed);
@@ -30,9 +35,10 @@ public:
 	void update();
 	void setTarget(double newTarget);
 	void startTinyLidar();
-	void getLidarValues();
+	double getLidarValue();
 	void endTinyLidar();
-	bool isAtTop();
+	bool isAtMaxDropHeight();
+	bool atScaleHeight();
 //	void enableLiftPID(float setPoint);
 //	void disableLiftPID();
 //	bool PIDLiftIsFinished();
