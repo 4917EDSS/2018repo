@@ -13,19 +13,11 @@ AutoSwitchLeftToRightGrp::AutoSwitchLeftToRightGrp() {
 	// these will run in order.
 
 		AddSequential(new ZeroElevatorCmd());
-
-		AddSequential(new DriveStraightCmd(5500,0.0));
-
-		AddSequential(new DriveTurnCmd(90));
-
-		AddSequential(new DriveStraightCmd(3700,90));
-
+		AddSequential(new DriveTurnCmd(30));
+		AddSequential(new DriveStraightCmd(4500,30));
+		AddSequential(new DriveTurnCmd(0));
 		AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-
-		AddSequential(new DriveTurnCmd(180));
-
-		AddSequential(new DriveStraightCmd(650,180));
-
+		AddSequential(new DriveStraightCmd(1000,0));
 		AddSequential(new ReverseIntakeCmd(1));
 	}
 

@@ -1,5 +1,4 @@
 #include <Commands/MoveElevatorToHeightCmd.h>
-#include <iostream>
 
 MoveElevatorToHeightCmd::MoveElevatorToHeightCmd(double height) : height(height) {
 	// Use Requires() here to declare subsystem dependencies
@@ -11,7 +10,6 @@ MoveElevatorToHeightCmd::MoveElevatorToHeightCmd(double height) : height(height)
 void MoveElevatorToHeightCmd::Initialize() {
 //	elevatorSub->enableLiftPID(elevatorSub->convertHeightToEncoder(height));
 	elevatorSub->setTarget (height);
-	std::cout << "In MoveElevatorToHeight Initialize" << std::endl;
 }
 
 // Called repeatedly when this Command is scheduled to run
