@@ -11,7 +11,6 @@
 
 
 frc4917::Log logger; // this is the global instance
-frc::PowerDistributionPanel *pdp = new frc::PowerDistributionPanel;
 
 namespace frc4917 {
 

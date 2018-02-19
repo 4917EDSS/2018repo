@@ -16,6 +16,7 @@
 #include <Components/AutoDecider/AutoScaleRight.h>
 #include <Components/AutoDecider/AutoSwitch.h>
 #include <Components/Logging/Log.h>
+#include <Components/Logging/GeneralLogging.h>
 #include <Components/LinearInterpolation.h>
 #include <Commands/DriveTurnCmd.h>
 #include <Commands/DriveStraightCmd.h>
@@ -36,8 +37,8 @@ public:
 		// chooser.AddObject("My Auto", new MyAutoCommand());
 		SetSmartDashboardDriverContent();
 		SetSmartDashboardAutoOptions();
-		logger.enableChannels(logger.WARNINGS | logger.ERRORS | logger.ASSERTS | logger.DRIVETRAIN);
-		logger.enableChannels( logger.DEBUG);	// Should look at these during development
+		logger.enableChannels(logger.WARNINGS | logger.ERRORS | logger.ASSERTS | logger.DRIVETRAIN | logger.POWER);
+		logger.enableChannels( logger.DEBUG);									// Should look at these during development
 		logger.addOutputPath(new frc4917::ConsoleOutput());						// Enable console output and/or
 		logger.addOutputPath(new frc4917::SyslogOutput("10.49.17.20"));			// Enable syslog output
 		logger.send(logger.DEBUG, "Robot code started @ %f\n", GetTime());
@@ -83,6 +84,7 @@ public:
 
 	void AutonomousPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+		logging.logPowerStuff();
 	}
 
 	void TeleopInit() override {
@@ -100,6 +102,7 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 		UpdateSmartDashboard();
+		logging.logPowerStuff();
 		//std::cout<<lidarLite->getDistance()<<std::endl;
 	}
 

@@ -47,6 +47,5 @@ namespace frc4917 {
 
 }
 extern frc4917::Log logger;
-extern frc::PowerDistributionPanel *pdp;
 
 #endif /* SRC_LOG_H_ */
