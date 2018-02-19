@@ -57,7 +57,6 @@ public:
 	double getFrontUltrasonicDist();
 	void setHighGear();
 	void setLowGear();
-	void logMotorCurrents();
 };
 
 #endif  // DrivetrainSub_H
