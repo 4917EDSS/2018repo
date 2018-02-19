@@ -13,6 +13,7 @@ private:
 	std::shared_ptr<frc::Solenoid> jawOpenSolenoid;
 	std::shared_ptr<frc::Solenoid> jawCloseSolenoid;
 	std::shared_ptr<frc::Ultrasonic> hcsr04;
+	std::shared_ptr<frc::AnalogInput> intakeDistance;
 
 public:
 	IntakeSub();
@@ -20,11 +21,13 @@ public:
 	void intake(double speed);
 	void intake(double leftSpeed, double rightSpeed);
 	bool isBoxIn();
+	bool isBoxAtJaws();
 	void enableFrontUltrasonic(bool enable);
 	double getFrontUltrasonicDist();
 	void setJawsOpen();
 	void setJawsClose();
 	void setJawsOnSpring();
+	double getBoxDistance();
 };
 
 #endif  // IntakeSub_H

@@ -120,6 +120,7 @@ public:
 		SmartDashboard::PutNumber("Elevator Encoder", CommandBase::elevatorSub->getElevatorEncoder());
 		SmartDashboard::PutNumber("Current Angle", CommandBase::drivetrainSub->getAngle());
 		SmartDashboard::PutBoolean("Is box in?", CommandBase::intakeSub->isBoxIn());
+		SmartDashboard::PutNumber("Intake Distance", CommandBase::intakeSub->getBoxDistance());
 	}
 
 
