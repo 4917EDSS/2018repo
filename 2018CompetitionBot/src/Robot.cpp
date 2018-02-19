@@ -82,9 +82,6 @@ public:
 		nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("pipeline").SetDouble(0.0);
 		nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("ledMode").SetDouble(0.0);
 		std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
-	//	std::shared_ptr<frc4917::AutoDecider> autoDecider = chooser->GetSelected().lock();
-	//	autoDecider->setGameData(gameData);
-	//	autonomousCommand.reset(autoDecider->getCommand());
 		if(gameData[0] == 'R' && gameData[1] == 'R'){
 			autonomousCommand = chooserRR->GetSelected().lock();
 		}

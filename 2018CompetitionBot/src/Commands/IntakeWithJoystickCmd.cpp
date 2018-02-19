@@ -31,9 +31,6 @@ void IntakeWithJoystickCmd::Execute() {
 		}
 
 	}
-	if(!(intakeSub->isBoxIn())){
-		intakeSub->setJawsOnSpring();
-	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
