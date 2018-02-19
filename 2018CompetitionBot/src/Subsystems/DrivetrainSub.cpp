@@ -90,6 +90,7 @@ void DrivetrainSub::enableBalancerPID(float setPoint) {
 }
 
 void DrivetrainSub::disableBalancerPID() {
+	distanceBalancer->Reset();
 	driveBalancePID->Disable();
 }
 
