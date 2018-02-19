@@ -14,6 +14,9 @@ void ReverseIntakeCmd::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ReverseIntakeCmd::Execute() {
+	if(!(intakeSub->isBoxIn())){
+		intakeSub->setJawsOnSpring();
+	}
 
 }
 

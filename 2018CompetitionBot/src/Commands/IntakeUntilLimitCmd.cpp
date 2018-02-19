@@ -24,6 +24,7 @@ bool IntakeUntilLimitCmd::IsFinished() {
 
 // Called once after isFinished returns true
 void IntakeUntilLimitCmd::End() {
+	intakeSub->setJawsClose();
 	intakeSub->intake(0.0);
 
 }
