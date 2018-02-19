@@ -2,7 +2,8 @@
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
-
+#include "Commands/ReverseIntakeCmd.h"
+#include "Commands/MoveElevatorToHeightCmd.h"
 AutoSwitchRightToLeftGrp::AutoSwitchRightToLeftGrp() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
@@ -22,12 +23,11 @@ AutoSwitchRightToLeftGrp::AutoSwitchRightToLeftGrp() {
 	// arm.
 
 	AddSequential(new ZeroElevatorCmd());
-	AddSequential(new DriveStraightCmd(5340,0.0));
+	AddSequential(new DriveStraightCmd(5500,0.0));
 	AddSequential(new DriveTurnCmd(-90));
-	AddSequential(new DriveStraightCmd(7032,-90.0));
-	AddSequential(new DriveTurnCmd(-90));
-	AddSequential(new DriveStraightCmd(1400,-180.0));
-	AddSequential(new DriveTurnCmd(-90));
-	AddSequential(new DriveStraightCmd(202,-270.0));
-
+	AddSequential(new DriveStraightCmd(3700,-90));
+	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+	AddSequential(new DriveTurnCmd(-180));
+	AddSequential(new DriveStraightCmd(650,-180));
+	AddSequential(new ReverseIntakeCmd(1));
 }
