@@ -12,6 +12,9 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+
+private:
+	bool jawsSetToSpring;
 };
 
 #endif  // IntakeeUntilDistanceCmd_H
