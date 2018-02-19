@@ -9,7 +9,7 @@
 #include "Commands/KillEverythingCmd.h"
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/IntakeUntilLimitCmd.h"
-
+#include "Commands/ElevatorFullPowerDownCmd.h"
 
 OI::OI() {
 	// Process operator interface input here.
@@ -52,6 +52,8 @@ OI::OI() {
 	killEverythingO1->WhenPressed(new KillEverythingCmd());
 	killEverythingO2.reset(new frc::JoystickButton(operatorController.get(), KILL_EVERYTHING_BTN_2));
 	killEverythingO2->WhenPressed(new KillEverythingCmd());
+	climbBtn.reset(new frc::JoystickButton(operatorController.get(), CLIMB_BTN));
+	climbBtn->WhileHeld(new ElevatorFullPowerDownCmd());
 
 }
 

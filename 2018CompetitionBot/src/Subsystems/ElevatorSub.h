@@ -29,6 +29,7 @@ public:
 	void InitDefaultCommand();
 	void setElevatorMotor(double speed);
 	double getElevatorEncoder();
+	void setElevatorMotorRaw(double speed);
 	void resetElevatorEncoder();
 	void elevatorMotorUp();
 	void elevatorMotorDown();

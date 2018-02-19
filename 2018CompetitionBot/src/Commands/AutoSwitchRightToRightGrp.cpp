@@ -1,33 +1,20 @@
-#include "AutoLeftToRightSwitchGrp.h"
+#include <Commands/AutoSwitchRightToRightGrp.h>
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
 
-AutoLeftToRightSwitchGrp::AutoLeftToRightSwitchGrp() {
+AutoSwitchRightToRightGrp::AutoSwitchRightToRightGrp() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
 
+
+//	If you start from the right corner:
 	AddSequential(new ZeroElevatorCmd());
-
-	AddSequential(new DriveStraightCmd(6223,0));
-
-	AddSequential(new DriveTurnCmd(90));
-
-	AddSequential(new DriveStraightCmd(4385, 90));
-
-	AddSequential(new DriveTurnCmd(90));
-
-	AddSequential(new DriveStraightCmd(2679,180));
-
-	AddSequential(new DriveTurnCmd(90));
-
-	AddSequential(new DriveStraightCmd(300,270));
-
-	//Then go forward until it hits the switch
-
-
+	AddSequential(new DriveStraightCmd(4508,0));
+	AddSequential(new DriveTurnCmd(-90));
+	AddSequential(new DriveStraightCmd(1000,-90));
 
 	// A command group will require all of the subsystems that each member
 	// would require.
