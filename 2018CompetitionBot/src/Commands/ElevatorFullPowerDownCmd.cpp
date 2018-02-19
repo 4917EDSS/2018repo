@@ -9,7 +9,7 @@ ElevatorFullPowerDownCmd::ElevatorFullPowerDownCmd() {
 
 // Called just before this Command runs the first time
 void ElevatorFullPowerDownCmd::Initialize() {
-elevatorSub->setElevatorMotorRaw(1.0);
+elevatorSub->setElevatorMotorRaw(-1.0);
 
 }
 
