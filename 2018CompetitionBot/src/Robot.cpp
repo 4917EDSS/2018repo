@@ -195,10 +195,10 @@ private:
 		chooserRL->AddObject("R Scale", std::shared_ptr<frc::Command>(new AutoScaleRightToLeftGrp()));
 		chooserRL->AddObject("C Switch", std::shared_ptr<frc::Command>(new AutoSwitchCenterToRightGrp()));
 
-		SmartDashboard::PutData("Switch Right Scale Right", chooserRR.get());
-		SmartDashboard::PutData("Switch Right Scale Left", chooserRL.get());
-		SmartDashboard::PutData("Switch Left Scale Left", chooserLL.get());
-		SmartDashboard::PutData("Switch Left Scale Right", chooserLR.get());
+		SmartDashboard::PutData("Sw R Sc R", chooserRR.get());
+		SmartDashboard::PutData("Sw R Sc L", chooserRL.get());
+		SmartDashboard::PutData("Sw L Sc L", chooserLL.get());
+		SmartDashboard::PutData("Sw L Sc R", chooserLR.get());
 	}
 };
 
