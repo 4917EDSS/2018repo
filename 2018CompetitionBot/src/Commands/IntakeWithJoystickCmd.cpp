@@ -26,6 +26,10 @@ void IntakeWithJoystickCmd::Execute() {
 		intakeSub->intake(-horizontalStick, horizontalStick/2.0);
 	} else {
 		intakeSub->intake(verticalStick);
+		if(verticalStick<-0.1){
+			intakeSub->setJawsOnSpring();
+		}
+
 	}
 	if(!(intakeSub->isBoxIn())){
 		intakeSub->setJawsOnSpring();

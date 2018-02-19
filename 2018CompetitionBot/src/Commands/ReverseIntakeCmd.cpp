@@ -10,13 +10,11 @@ ReverseIntakeCmd::ReverseIntakeCmd(double time) {
 // Called just before this Command runs the first time
 void ReverseIntakeCmd::Initialize() {
 	intakeSub->intake(-1.0);
+	intakeSub->setJawsOnSpring();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ReverseIntakeCmd::Execute() {
-	if(!(intakeSub->isBoxIn())){
-		intakeSub->setJawsOnSpring();
-	}
 
 }
 
