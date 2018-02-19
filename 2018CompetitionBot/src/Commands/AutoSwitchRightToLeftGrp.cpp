@@ -1,9 +1,9 @@
-#include "AutoRightToLeftSwitchGrp.h"
+#include <Commands/AutoSwitchRightToLeftGrp.h>
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
 
-AutoRightToLeftSwitchGrp::AutoRightToLeftSwitchGrp() {
+AutoSwitchRightToLeftGrp::AutoSwitchRightToLeftGrp() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

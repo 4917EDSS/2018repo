@@ -9,12 +9,6 @@
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <Components/LidarLite.h>
-#include <Components/AutoDecider/AutoDecider.h>
-#include <Components/AutoDecider/AutoScaleBackupSwitchLeft.h>
-#include <Components/AutoDecider/AutoScaleBackupSwitchRight.h>
-#include <Components/AutoDecider/AutoScaleLeft.h>
-#include <Components/AutoDecider/AutoScaleRight.h>
-#include <Components/AutoDecider/AutoSwitch.h>
 #include <Components/Logging/Log.h>
 #include <Components/LinearInterpolation.h>
 #include <Commands/DriveTurnCmd.h>
@@ -28,7 +22,11 @@
 #include <Commands/DriveVisionBoxCmd.h>
 #include "Subsystems/DrivetrainSub.h"
 #include <networktables/NetworkTableInstance.h>
-
+#include <Commands/AutoSwitchLeftToLeftGrp.h>
+#include<Commands/AutoSwitchRightToRightGrp.h>
+#include<Commands/AutoScaleLeftToLeftGrp.h>
+#include <Commands/AutoScaleRightToRightGrp.h>
+#include <Commands/AutoSwitchCenterToRightGrp.h>
 class Robot: public frc::IterativeRobot {
 public:
 
@@ -72,9 +70,9 @@ public:
 		CommandBase::drivetrainSub->resetAHRS();
 		CommandBase::drivetrainSub->resetEncoders();
 		std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
-		std::shared_ptr<frc4917::AutoDecider> autoDecider = chooser->GetSelected().lock();
-		autoDecider->setGameData(gameData);
-		autonomousCommand.reset(autoDecider->getCommand());
+	//	std::shared_ptr<frc4917::AutoDecider> autoDecider = chooser->GetSelected().lock();
+	//	autoDecider->setGameData(gameData);
+	//	autonomousCommand.reset(autoDecider->getCommand());
 
 		if (autonomousCommand != nullptr) {
 			autonomousCommand->Start();
@@ -134,25 +132,21 @@ public:
 
 private:
 	std::shared_ptr<frc::Command> autonomousCommand;
-	std::unique_ptr<frc::SendableChooser<std::shared_ptr<frc4917::AutoDecider>> > chooser;
+	std::unique_ptr<frc::SendableChooser<std::shared_ptr<frc::Command>> > chooser;
 
 
 	void SetSmartDashboardAutoOptions() {
-		chooser.reset(new frc::SendableChooser<std::shared_ptr<frc4917::AutoDecider>>());
+		chooser.reset(new frc::SendableChooser<std::shared_ptr<frc::Command>>());
 		//ALL AUTO NAMES MUST BE EQUAL TO OR LESS THAN 15 CHARACTERS LONG
-		chooser->AddDefault("L Scale switch", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleBackupSwitchLeft()));
-		chooser->AddObject("R Scale Switch", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleBackupSwitchRight()));
-		chooser->AddObject("L Scale", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleLeft()));
-		chooser->AddObject("R Scale", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoScaleRight()));
-		chooser->AddObject("M Switch", std::shared_ptr<frc4917::AutoDecider>(new frc4917::AutoSwitch()));
+		chooser->AddDefault("L Switch", std::shared_ptr<frc::Command>(new AutoSwitchLeftToLeftGrp()));
+		chooser->AddObject("R Switch", std::shared_ptr<frc::Command>(new AutoSwitchRightToRightGrp()));
+		chooser->AddObject("L Scale", std::shared_ptr<frc::Command>(new AutoScaleLeftToLeftGrp()));
+		chooser->AddObject("R Scale", std::shared_ptr<frc::Command>(new AutoScaleRightToRightGrp()));
+		chooser->AddObject("M Switch", std::shared_ptr<frc::Command>(new AutoSwitchCenterToRightGrp()));
 
 		SmartDashboard::PutData("Auto Mode", chooser.get());
 	}
 };
-
-
-
-
 
 
 

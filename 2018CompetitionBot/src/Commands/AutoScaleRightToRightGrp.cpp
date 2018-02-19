@@ -1,13 +1,13 @@
+#include <Commands/AutoScaleRightToRightGrp.h>
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
-#include "AutoScaleRightGrp.h"
 #include "MoveElevatorToHeightCmd.h"
 #include "ReverseIntakeCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
 #include "Commands/DriveVisionBoxCmd.h"
 #include "Subsystems/ElevatorSub.h"
 
-AutoScaleRightGrp::AutoScaleRightGrp() {
+AutoScaleRightToRightGrp::AutoScaleRightToRightGrp() {
 
 	AddSequential(new ZeroElevatorCmd());
 
