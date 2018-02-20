@@ -13,30 +13,71 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Components/SilkyMotionManager.h"
 
-PathInfo SilkyMotionManager::getCurrentPathInfo(double t) {
+PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 	PathInfo pi; // dis, ang, lin_vel, lin_accel, ang_vel
 	double time = 0;
 	double totalTime = 0;
-//	double dist = 0;
+	double dist = 0;
 	double angle = 0;
 	double startSpeed = 0;
 	double endSpeed = 0;
 	for (unsigned int i = 1; i < timestamps.size(); i++) {
-		if ((t > timestamps[i - 1]) && (t < timestamps[i])) {
-			time = t - timestamps[i - 1];
+		if ((currentTime > timestamps[i - 1]) && (currentTime < timestamps[i])) {
+			time = currentTime - timestamps[i - 1];
 			totalTime = timestamps[i] - timestamps[i - 1];
 			angle = ang[i - 1];
-//			dist = dis[i - 1];
+			dist = dis[i - 1];
 			startSpeed = actualSpeed[i - 1];
 			endSpeed = actualSpeed[i];
 		}
 	}
-	// TODO if t is past all timestamps need to do something special
+	if (currentTime > timestamps[timestamps.size() - 1]){
+		pi.ang_vel = 0;
+		pi.ang = ang[ang.size() - 1];
+		pi.lin_accel = 0;
+		pi.lin_vel = 0;
+		pi.dis = dis[dis.size() - 1];
+		return pi;
+	}
+
 	pi.ang_vel = angle / totalTime;
 	pi.ang = pi.ang_vel * time;
+
+	double adjustedMaxVel = maxLinVel;
+
+	double disToMaxVel = 0.5 * pow(maxLinVel - startSpeed , 2) / maxLinAccel;
+	double disToEndVel = 0.5 * pow(maxLinVel - endSpeed, 2) / maxLinDecel;
+	if (disToMaxVel + disToEndVel > dist) {
+		// Don't get to full speed, so triangle instead of trapezoid
+		// d_accel = (v^2-startSpeed^2)/(2*a_accel)
+		// d_decel = (v^2-endSpeed^2)/(2*a_decel)
+		// d_total = (v^2-startSpeed^2)/(2*a_accel) + (v^2-endSpeed^2)/(2*a_decel)
+		// Rearranging for v gives
+		adjustedMaxVel = sqrt((2 * maxLinAccel * maxLinDecel) * (dist) + (maxLinDecel * pow(startSpeed, 2)) + (maxLinAccel * pow(endSpeed, 2)) / (maxLinDecel + maxLinAccel));
+		disToMaxVel = 0.5 * pow(adjustedMaxVel - startSpeed, 2) / maxLinAccel;
+		disToEndVel = 0.5 * pow(adjustedMaxVel - endSpeed, 2) / maxLinDecel;
+	}
+	double timeToMaxVel = (adjustedMaxVel - startSpeed) / maxLinAccel;
+	double timeAtMaxVel = (dist - disToMaxVel - disToEndVel) / adjustedMaxVel;
+
+	if (time < timeToMaxVel) {
+		// We are currently accelerating
+		pi.lin_accel = maxLinAccel;
+		pi.lin_vel = startSpeed + maxLinAccel * time;
+		pi.dis = (startSpeed * time) + (0.5 * maxLinAccel * pow(time, 2));
+	} else if (time < (timeToMaxVel + timeAtMaxVel)) {
+		pi.lin_accel = 0;
+		pi.lin_vel = adjustedMaxVel;
+		pi.dis = adjustedMaxVel * (time - timeToMaxVel);
+	} else {
+		pi.lin_accel = -maxLinDecel;
+		double decelTime = time - timeAtMaxVel - timeToMaxVel;
+		pi.lin_vel = adjustedMaxVel - (maxLinDecel * decelTime);
+		pi.dis = (adjustedMaxVel * decelTime) - (0.5 * maxLinDecel * pow(decelTime, 2));
+	}
+
 	pi.lin_accel = (endSpeed - startSpeed) / totalTime; // assuming const accel
 	pi.lin_vel = pi.lin_accel * time + startSpeed;
-	pi.dis = startSpeed * time + 0.5 * pi.lin_accel * pow(time, 2);
 
 	return pi;
 }
@@ -48,10 +89,6 @@ double SilkyMotionManager::getAngularTime(double angle) {
 }
 
 double SilkyMotionManager::getLinearTime(double dis, double startSpeed, double endSpeed) {
-	//have to do hard math
-	//could go a lot faster using max accel and max decel
-
-
 	//Assuming no crazy curves in spline, and giving reasonable headroom for acceleration + speed. We will tell program "max" is actually lower than max, since we are only programming for the left side. If the right side needs to turn faster than the right, the combination of a smaller max and a reasonable curvature will allow it to get ahead.
 	//This means the left side will go "as fast as possible" in this model.
 	double adjustedMaxVel = maxLinVel;
@@ -60,18 +97,18 @@ double SilkyMotionManager::getLinearTime(double dis, double startSpeed, double e
 	double disToEndVel = 0.5 * pow(maxLinVel - endSpeed, 2) / maxLinDecel;
 	if (disToMaxVel + disToEndVel > dis) {
 		// Don't get to full speed, so triangle instead of trapezoid
-		// d_accel = (v-startSpeed)^2/(2*a_accel)
-		// d_decel = (v-endSpeed)v^2/(2*a_decel)
-		// d_total = (v-startSpeed)^2/(2*a_accel) + (v-endSpeed)^2/(2*a_decel)
+		// d_accel = (v^2-startSpeed^2)/(2*a_accel)
+		// d_decel = (v^2-endSpeed^2)/(2*a_decel)
+		// d_total = (v^2-startSpeed^2)/(2*a_accel) + (v^2-endSpeed^2)/(2*a_decel)
 		// Rearranging for v gives
-		adjustedMaxVel = (sqrt(2 * dis * maxLinAccel * maxLinDecel) + startSpeed * sqrt(maxLinDecel) + endSpeed * sqrt(maxLinAccel)) / (sqrt(maxLinAccel) + sqrt(maxLinDecel));
+		adjustedMaxVel = (sqrt(2 * maxLinAccel * maxLinDecel) * (dis) + (maxLinDecel * pow(startSpeed, 2)) + (maxLinAccel * pow(endSpeed, 2)) / (maxLinDecel + maxLinAccel));
 		disToMaxVel = 0.5 * pow(adjustedMaxVel - startSpeed, 2) / maxLinAccel;
 		disToEndVel = 0.5 * pow(adjustedMaxVel - endSpeed, 2) / maxLinDecel;
 	}
 	double timeToMaxVel = (adjustedMaxVel - startSpeed) / maxLinAccel;
 	double timeAtMaxVel = (dis - disToMaxVel - disToEndVel) / adjustedMaxVel;
 
-	double timeToEnd = (adjustedMaxVel - endSpeed)  / maxLinDecel;
+	double timeToEnd = (adjustedMaxVel - endSpeed) / maxLinDecel;
 
 	return timeToEnd + timeToMaxVel + timeAtMaxVel;
 }
