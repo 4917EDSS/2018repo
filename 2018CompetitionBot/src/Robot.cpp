@@ -8,7 +8,6 @@
 #include <CommandBase.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
-#include <Components/LidarLite.h>
 #include <Components/Logging/Log.h>
 #include <Components/Logging/GeneralLogging.h>
 #include <Components/LinearInterpolation.h>

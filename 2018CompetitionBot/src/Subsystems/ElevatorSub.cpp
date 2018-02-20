@@ -5,6 +5,7 @@
 #include "Components/LinearInterpolation.h"
 #include <Components/Logging/Log.h>
 
+constexpr float ELEVATOR_POSITION_TOLERANCE = 15.0;
 constexpr float LIFT_P = 1;
 constexpr float LIFT_I = 0;
 constexpr float LIFT_D = 0;

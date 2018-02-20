@@ -4,6 +4,8 @@
 #include <iostream>
 #include <sstream>
 
+constexpr float DRIVE_BALANCE_TOLERANCE = 0.5;
+
 constexpr float DRIVE_BALANCE_P = 0.018;
 constexpr float DRIVE_BALANCE_I = 0.0;
 constexpr float DRIVE_BALANCE_D = 0.0;
@@ -15,17 +17,17 @@ constexpr float DRIVE_TURN_I = 0.0;
 constexpr float DRIVE_TURN_D = 0.017;
 
 DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
-	leftMotor1.reset(new VictorSPX(LEFT1_DRIVE_MOTOR_CANID));
-	leftMotor2.reset(new VictorSPX(LEFT2_DRIVE_MOTOR_CANID));
-	leftMotor3.reset(new VictorSPX(LEFT3_DRIVE_MOTOR_CANID));
-	rightMotor1.reset(new VictorSPX(RIGHT1_DRIVE_MOTOR_CANID));
-	rightMotor2.reset(new VictorSPX(RIGHT2_DRIVE_MOTOR_CANID));
-	rightMotor3.reset(new VictorSPX(RIGHT3_DRIVE_MOTOR_CANID));
-	rightMotorEnc.reset(new frc::Encoder(RIGHT_MOTOR_ENC1_DIO, RIGHT_MOTOR_ENC2_DIO));
-	leftMotorEnc.reset(new frc::Encoder(LEFT_MOTOR_ENC1_DIO, LEFT_MOTOR_ENC2_DIO));
+	leftMotor1.reset(new VictorSPX(DRIVE_MOTOR_LEFT1_CANID));
+	leftMotor2.reset(new VictorSPX(DRIVE_MOTOR_LEFT2_CANID));
+	leftMotor3.reset(new VictorSPX(DRIVE_MOTOR_LEFT3_CANID));
+	rightMotor1.reset(new VictorSPX(DRIVE_MOTOR_RIGHT1_CANID));
+	rightMotor2.reset(new VictorSPX(DRIVE_MOTOR_RIGHT2_CANID));
+	rightMotor3.reset(new VictorSPX(DRIVE_MOTOR_RIGHT3_CANID));
+	rightMotorEnc.reset(new frc::Encoder(DRIVE_MOTOR_RIGHT_ENC1_DIO, DRIVE_MOTOR_RIGHT_ENC2_DIO));
+	leftMotorEnc.reset(new frc::Encoder(DRIVE_MOTOR_LEFT_ENC1_DIO, DRIVE_MOTOR_LEFT_ENC2_DIO));
 	leftMotorEnc->SetDistancePerPulse(DRIVETRAIN_DIS_PER_PULSE * 4);
 	rightMotorEnc->SetDistancePerPulse(DRIVETRAIN_DIS_PER_PULSE * 4);
-	hcsr04.reset(new frc::Ultrasonic(DRIVE_TRAIN_ULTRASONIC_TRIG_DIO, DRIVE_TRAIN_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
+	frontUltrasonic.reset(new frc::Ultrasonic(DRIVETRAIN_FRONT_ULTRASONIC_TRIG_DIO, DRIVETRAIN_FRONT_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
 
 	turnBalancer.reset(new MotorBalancer());
 	driveBalancer.reset(new MotorBalancer());
@@ -146,11 +148,11 @@ void DrivetrainSub::driverDriveStraight(float speed) {
 }
 
 void DrivetrainSub::enableFrontUltrasonic(bool enable) {
-	hcsr04->SetAutomaticMode(enable);
+	frontUltrasonic->SetAutomaticMode(enable);
 }
 
 double DrivetrainSub::getFrontUltrasonicDist() {
-	return hcsr04->GetRangeMM();
+	return frontUltrasonic->GetRangeMM();
 }
 
 void DrivetrainSub::setHighGear() {
