@@ -1,13 +1,17 @@
 #include "DriveVisionSwitchCmd.h"
 #include <networktables/NetworkTableInstance.h>
 
-DriveVisionSwitchCmd::DriveVisionSwitchCmd() {
+DriveVisionSwitchCmd::DriveVisionSwitchCmd(double distance) {
+	targetDistance = distance;
+	lastMoveTime=0;
 	Requires(drivetrainSub.get());
 }
 
 void DriveVisionSwitchCmd::Initialize() {
 	nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("pipeline").SetDouble(0.0);
 	nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("ledMode").SetDouble(0.0);
+	drivetrainSub->resetEncoders();
+
 
 }
 
@@ -22,6 +26,21 @@ void DriveVisionSwitchCmd::Execute() {
 
 
 bool DriveVisionSwitchCmd::IsFinished() {
+	double timeFromLastMove = 0;
+	double leftAndRightEncoderAvg = (fabs(drivetrainSub->getLeftEncoder()) + fabs(drivetrainSub->getRightEncoder()))/2;
+
+	if(fabs(drivetrainSub->getLeftEncoderSpeed()) < DISTANCE_SPEED_TOLERANCE && fabs(drivetrainSub->getRightEncoderSpeed()) < DISTANCE_SPEED_TOLERANCE){
+		timeFromLastMove = TimeSinceInitialized() - lastMoveTime;
+	} else {
+		lastMoveTime = TimeSinceInitialized();
+	}
+
+	if((fabs(leftAndRightEncoderAvg) >= targetDistance) || (timeFromLastMove > 1)){
+		return true;
+	} //if enough distance, true
+	else{
+		return false;
+	}
 
 	return false;
 }

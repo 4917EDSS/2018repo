@@ -33,7 +33,8 @@
 #include <Commands/AutoScaleRightToLeftGrp.h>
 #include <Commands/AutoScaleLeftToRightGrp.h>
 #include <Commands/AutoSwitchRightToLeftGrp.h>
-#include<Commands/AutoSwitchLeftToRightGrp.h>
+#include <Commands/AutoSwitchLeftToRightGrp.h>
+#include <Commands/DriveVisionSwitchCmd.h>
 
 
 class Robot: public frc::IterativeRobot {
@@ -143,7 +144,7 @@ public:
 		SmartDashboard::PutData("2m Drive straight", new DriveStraightCmd(2000,0.0));
 		SmartDashboard::PutData("300mm Drive straight", new DriveStraightCmd(300,0.0));
 		SmartDashboard::PutData("Drive Turn 45", new DriveTurnCmd(45));
-		SmartDashboard::PutData("Drive Turn 10", new DriveTurnCmd(10));
+		SmartDashboard::PutData("Drive Turn 20", new DriveTurnCmd(20));
 		SmartDashboard::PutData("Drive Turn 90", new DriveTurnCmd(90));
 		SmartDashboard::PutData("7.5m Drive Straight", new DriveStraightCmd(7500,0.0));
 		SmartDashboard::PutData("Reset Encoders", new ResetEncodersCmd());
@@ -151,6 +152,7 @@ public:
 		SmartDashboard::PutData("Victory Lap Auto", new AutoScaleLeftToRightGrp());
 		SmartDashboard::PutData("Drive until 100 mm", new DriveUntilDistanceCmd(100));
 		SmartDashboard::PutData("Drive to vision", new DriveVisionBoxCmd());
+		SmartDashboard::PutData("Drive to vision switch 1500mm", new DriveVisionSwitchCmd(1500));
 	}
 
 private:

@@ -5,12 +5,15 @@
 
 class DriveVisionSwitchCmd : public CommandBase {
 public:
-	DriveVisionSwitchCmd();
+	DriveVisionSwitchCmd(double distance);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
 	void End();
 	void Interrupted();
+private:
+	double targetDistance;
+	double lastMoveTime;
 };
 
 #endif  // DriveVisionSwitchCmd_H
