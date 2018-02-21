@@ -44,10 +44,6 @@ namespace frc4917 {
 	}
 
 	void SyslogOutput::updateRemoteAddress(std::string ipAddress) {
-// Need to figure out how to write this file into an area owned by 'admin'
-// For now, need to login to the roboRio as 'admin' and edit SYSLOG_4917_CONFIG_FILE manually to
-// set the IP address of the computer that wants the syslog messages
-#if 0
 		// Need to make sure that syslog is sending messages to the right address.
 		// Although we could just write the new configuration and restart the syslog service
 		// every time, this is time consuming and could wear down flash.  Instead, check to see
@@ -85,7 +81,6 @@ namespace frc4917 {
 				outFile.close();
 			}
 		}
-#endif
 	}
 
 	// Send the message to Syslog

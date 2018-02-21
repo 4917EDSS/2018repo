@@ -44,10 +44,13 @@ public:
 		// chooser.AddObject("My Auto", new MyAutoCommand());
 		SetSmartDashboardDriverContent();
 		SetSmartDashboardAutoOptions();
-		logger.enableChannels(logger.WARNINGS | logger.ERRORS | logger.ASSERTS | logger.DRIVETRAIN | logger.POWER);
-		logger.enableChannels( logger.DEBUG);									// Should look at these during development
+
+		// Setup logging system
+		std::string syslogTargetAddress = (Preferences::GetInstance())->GetString("SyslogTargetAddress", "10.49.17.100");
+		logger.enableChannels(logger.WARNINGS | logger.ERRORS | logger.ASSERTS);	// These should stay on during competition
+		logger.enableChannels(logger.DEBUG | logger.DRIVETRAIN | logger.POWER );	// Should look at these during development
 		//logger.addOutputPath(new frc4917::ConsoleOutput());						// Enable console output and/or
-		logger.addOutputPath(new frc4917::SyslogOutput("10.49.17.100"));		// Enable syslog output
+		logger.addOutputPath(new frc4917::SyslogOutput(syslogTargetAddress));		// Enable syslog output
 		logger.send(logger.DEBUG, "Robot code started @ %f\n", GetTime());
 	}
 
