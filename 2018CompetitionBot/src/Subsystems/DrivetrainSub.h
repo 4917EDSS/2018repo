@@ -8,6 +8,11 @@
 #include "RobotMap.h"
 #include "AHRS.h"
 
+constexpr float DRIVE_DISTANCE_TOLERANCE = 15.0;
+constexpr float DISTANCE_SPEED_TOLERANCE = 10.0;
+constexpr float DRIVE_TURN_TOLERANCE = 0.5;
+constexpr float DRIVE_RATE_TOLERANCE = 1;
+
 class DrivetrainSub : public Subsystem {
 private:
 	// It's desirable that everything possible under private except
@@ -28,7 +33,7 @@ private:
 	std::shared_ptr<frc::PIDController> driveTurnPID;
 	std::shared_ptr<frc::PIDController> driveBalancePID;
 	std::shared_ptr<frc::PIDController> driveDistancePID;
-	std::shared_ptr<frc::Ultrasonic> hcsr04;
+	std::shared_ptr<frc::Ultrasonic> frontUltrasonic;
 	std::shared_ptr<frc::Solenoid> shifters;
 
 public:
