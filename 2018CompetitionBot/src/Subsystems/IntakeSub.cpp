@@ -3,8 +3,8 @@
 #include "Commands/IntakeWithJoystickCmd.h"
 #include "iostream"
 
-constexpr double BOX_IN_DISTANCE_MM = 150;
-constexpr double BOX_AT_JAWS_DISTANCE_MM = 350;
+constexpr double BOX_IN_DISTANCE_MM = 270;
+constexpr double BOX_AT_JAWS_DISTANCE_MM = 500;
 
 IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 	intakeMotorLeft.reset(new TalonSRX(INTAKE_MOTOR_LEFT_CANID));
@@ -32,12 +32,12 @@ void IntakeSub::intake(double leftSpeed, double rightSpeed) {
 }
 
 bool IntakeSub::isBoxIn() {
-	//return !intakeLimit->Get();
-	if(getBoxDistance() < BOX_IN_DISTANCE_MM){
+	return !intakeLimit->Get();
+	/*if(getBoxDistance() < BOX_IN_DISTANCE_MM || !intakeLimit->Get()){
 		return true;
 	} else {
 		return false;
-	}
+	}*/
 }
 
 bool IntakeSub::isBoxAtJaws() {
