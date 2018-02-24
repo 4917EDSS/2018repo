@@ -42,7 +42,6 @@ private:
 	double lastTime;
 
 	double getTimeSinceStart();
-	PathInfo getCurrentPathInfo(double t);
 
 	double getAngularTime(double angle);
 	double getLinearTime(double dis, double startSpeed, double endSpeed);
@@ -51,6 +50,7 @@ private:
 	double getActualSpeed(double dis, double ang, double startingActualSpeed, double maxEndSpeed);
 	double getTimestamp(double dis, double ang, double startingSpeed, double endingSpeed, double prevTime);
 public:
+	PathInfo getCurrentPathInfo(double t);
 	SilkyMotionManager(std::vector<double> dis, std::vector<double> ang,
 			double maxLinAccel, double maxLinDecel, double maxLinVel,
 			double maxAngAccel, double maxAngDecel, double maxAngVel,

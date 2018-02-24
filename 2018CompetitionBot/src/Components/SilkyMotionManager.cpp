@@ -21,6 +21,8 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 	double angle = 0;
 	double startSpeed = 0;
 	double endSpeed = 0;
+	double accmulatedAng = 0;
+	double accmulatedDist = 0;
 	for (unsigned int i = 1; i < timestamps.size(); i++) {
 		if ((currentTime > timestamps[i - 1]) && (currentTime < timestamps[i])) {
 			time = currentTime - timestamps[i - 1];
@@ -29,14 +31,17 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 			dist = dis[i - 1];
 			startSpeed = actualSpeed[i - 1];
 			endSpeed = actualSpeed[i];
+		} else {
+			accmulatedAng += ang[i - 1];
+			accmulatedDist += dis[i - 1];
 		}
 	}
 	if (currentTime > timestamps[timestamps.size() - 1]){
 		pi.ang_vel = 0;
-		pi.ang = ang[ang.size() - 1];
+		pi.ang = ang[ang.size() - 1] + accmulatedAng;
 		pi.lin_accel = 0;
 		pi.lin_vel = 0;
-		pi.dis = dis[dis.size() - 1];
+		pi.dis = dis[dis.size() - 1] + accmulatedDist;
 		return pi;
 	}
 
@@ -76,8 +81,8 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 		pi.dis = (adjustedMaxVel * decelTime) - (0.5 * maxLinDecel * pow(decelTime, 2));
 	}
 
-	pi.lin_accel = (endSpeed - startSpeed) / totalTime; // assuming const accel
-	pi.lin_vel = pi.lin_accel * time + startSpeed;
+	pi.dis += accmulatedDist;
+	pi.ang += accmulatedAng;
 
 	return pi;
 }
@@ -178,16 +183,17 @@ SilkyMotionManager::SilkyMotionManager(std::vector<double> dis, std::vector<doub
 			lastTime(0) {
 		maxSpeed.resize(dis.size() + 1);
 		maxSpeed[maxSpeed.size() - 1] = 0;
-		for(unsigned int i = dis.size(); i>=0; i--){
+		for(int i = dis.size()-1; i>=0; i--){
 			maxSpeed[i] = getMaxSpeed(dis[i], ang[i], maxSpeed[i+1]);
 		}
 		actualSpeed.resize(dis.size() + 1);
 		actualSpeed[0] = 0;
 		timestamps.resize(dis.size() + 1);
 		timestamps[0] = 0;
-		for(unsigned int i = 1; i != dis.size(); i++){
-			actualSpeed[i] = getActualSpeed(dis[i], ang[i], actualSpeed[i-1], maxSpeed[i]);
-			timestamps[i] = getTimestamp(dis[i], ang[i], actualSpeed[i-1], actualSpeed[i], timestamps[i-1]);
+		for(unsigned int i = 1; i <= dis.size(); i++){
+			actualSpeed[i] = getActualSpeed(dis[i-1], ang[i-1], actualSpeed[i-1], maxSpeed[i]);
+			timestamps[i] = getTimestamp(dis[i-1], ang[i-1], actualSpeed[i-1], actualSpeed[i], timestamps[i-1]);
+			std::cout << actualSpeed[i] << " " << timestamps[i] << std::endl;
 		}
 }
 

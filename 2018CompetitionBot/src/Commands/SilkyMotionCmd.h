@@ -4,12 +4,12 @@
 #include  "Components/SilkyMotionManager.h"
 #include "../CommandBase.h"
 
-const double MAX_LIN_ACCEL=1.0;
-const double MAX_LIN_DECEL=1.0;
-const double MAX_LIN_VEL=1.0;
-const double MAX_ANG_ACCEL=1.0;
-const double MAX_ANG_DECEL=1.0;
-const double MAX_ANG_VEL=1.0;
+const double MAX_LIN_ACCEL=1475.0;
+const double MAX_LIN_DECEL=3000.0;
+const double MAX_LIN_VEL=3000.0;
+const double MAX_ANG_ACCEL=250.0;
+const double MAX_ANG_DECEL=10.0;
+const double MAX_ANG_VEL=70.0;
 const double STOPPING_DISTANCE_TOLERANCE=1.0;
 const double STOPPING_SPEED_TOLERANCE=1.0;
 const double STOPPING_ANGLE_TOLERANCE=1.0;
