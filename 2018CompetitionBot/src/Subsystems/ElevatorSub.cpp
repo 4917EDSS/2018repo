@@ -72,8 +72,8 @@ void ElevatorSub::setElevatorMotor(double speed){
 	else if ( getElevatorEncoder()< 50 && speed < 0 ){
 		speed = std::max(speed, -0.25);
 	}
-	else if (getElevatorEncoder()>600 && speed > 0){
-		speed = std::min(speed, 0.25);
+	else if (getElevatorEncoder()>625 && speed > 0){
+		speed = std::min(speed, 0.5);
 	}
 	setElevatorMotorRaw(speed);
 }

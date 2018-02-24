@@ -1,6 +1,7 @@
 #include "DriveWithJoystickCmd.h"
 #include "OI.h"
 #include <iostream>
+#include "Subsystems/ElevatorSub.h"
 
 DriveWithJoystickCmd::DriveWithJoystickCmd() {
 	// Use Requires() here to declare subsystem dependencies
@@ -17,18 +18,29 @@ void DriveWithJoystickCmd::Initialize() {
 void DriveWithJoystickCmd::Execute() {
 	std::shared_ptr<frc::Joystick> driverJoystick = oi->getDriverController();
 
+	double heightPercentage = elevatorSub->getElevatorEncoder() / ElevatorSub::MAX_ELEVATOR_HEIGHT;
+	double maxPower = 1 - (heightPercentage * 0.5);
+	if (heightPercentage <= 0.1){
+		maxPower = 1;
+	}
 	double rightStick = driverJoystick->GetZ();
 	double leftStick = driverJoystick->GetY();
 	rightStick = pow(rightStick, 3);
 	leftStick = pow(leftStick, 3);
 
 	if (leftStick < 0.01 && leftStick > -0.01) {
+
 		if (wasDrivingStraight > 0) {
 			drivetrainSub->disableBalancerPID();
 			wasDrivingStraight = 0;
 			std::cout << "In Disable PID one" << std::endl;;
 		}
-
+		if (rightStick >= 0){
+			rightStick = std:: min(rightStick, maxPower);
+		}
+		else{
+			rightStick = std::max(rightStick, -maxPower);
+		}
 		drivetrainSub->drive(rightStick, -rightStick);
 	} else if (rightStick < 0.01 && rightStick > -0.01) {
 		if (wasDrivingStraight == 0) {
@@ -41,14 +53,26 @@ void DriveWithJoystickCmd::Execute() {
 			drivetrainSub->enableBalancerPID(0);
 			wasDrivingStraight = 2;
 		}
-		drivetrainSub->driverDriveStraight(-leftStick);
+
+		if (leftStick >= 0){
+			leftStick = std:: min(leftStick, maxPower);
+		}
+		else{
+			leftStick = std::max(leftStick, -maxPower);
+		}
+		drivetrainSub->driverDriveStraight(-(leftStick));
 	} else {
 		if (wasDrivingStraight > 0) {
 			drivetrainSub->disableBalancerPID();
 			wasDrivingStraight = 0;
 			std::cout << "In Disable PID two" << std::endl;
 		}
-
+		if (leftStick >= 0){
+			leftStick = std:: min(leftStick, maxPower);
+		}
+		else{
+			leftStick = std::max(leftStick, -maxPower);
+		}
 		if (leftStick < 0) {
 			if (rightStick < 0) {
 				drivetrainSub->drive(-leftStick + fabs(rightStick) * leftStick / 1.5, std::max(fabs(leftStick), fabs(rightStick)));
