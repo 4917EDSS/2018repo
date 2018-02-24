@@ -21,6 +21,8 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 	double angle = 0;
 	double startSpeed = 0;
 	double endSpeed = 0;
+	double accmulatedAng = 0;
+	double accmulatedDist = 0;
 	for (unsigned int i = 1; i < timestamps.size(); i++) {
 		if ((currentTime > timestamps[i - 1]) && (currentTime < timestamps[i])) {
 			time = currentTime - timestamps[i - 1];
@@ -29,14 +31,17 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 			dist = dis[i - 1];
 			startSpeed = actualSpeed[i - 1];
 			endSpeed = actualSpeed[i];
+		} else {
+			accmulatedAng += ang[i - 1];
+			accmulatedDist += dis[i - 1];
 		}
 	}
 	if (currentTime > timestamps[timestamps.size() - 1]){
 		pi.ang_vel = 0;
-		pi.ang = ang[ang.size() - 1];
+		pi.ang = ang[ang.size() - 1] + accmulatedAng;
 		pi.lin_accel = 0;
 		pi.lin_vel = 0;
-		pi.dis = dis[dis.size() - 1];
+		pi.dis = dis[dis.size() - 1] + accmulatedDist;
 		return pi;
 	}
 
@@ -45,8 +50,8 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 
 	double adjustedMaxVel = maxLinVel;
 
-	double disToMaxVel = 0.5 * pow(maxLinVel - startSpeed , 2) / maxLinAccel;
-	double disToEndVel = 0.5 * pow(maxLinVel - endSpeed, 2) / maxLinDecel;
+	double disToMaxVel = 0.5 * (pow(maxLinVel,2) - pow(startSpeed , 2)) / maxLinAccel;
+	double disToEndVel = 0.5 * (pow(maxLinVel,2) - pow(endSpeed, 2)) / maxLinDecel;
 	if (disToMaxVel + disToEndVel > dist) {
 		// Don't get to full speed, so triangle instead of trapezoid
 		// d_accel = (v^2-startSpeed^2)/(2*a_accel)
@@ -54,8 +59,8 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 		// d_total = (v^2-startSpeed^2)/(2*a_accel) + (v^2-endSpeed^2)/(2*a_decel)
 		// Rearranging for v gives
 		adjustedMaxVel = sqrt((2 * maxLinAccel * maxLinDecel) * (dist) + (maxLinDecel * pow(startSpeed, 2)) + (maxLinAccel * pow(endSpeed, 2)) / (maxLinDecel + maxLinAccel));
-		disToMaxVel = 0.5 * pow(adjustedMaxVel - startSpeed, 2) / maxLinAccel;
-		disToEndVel = 0.5 * pow(adjustedMaxVel - endSpeed, 2) / maxLinDecel;
+		disToMaxVel = 0.5 * (pow(adjustedMaxVel,2) - pow(startSpeed, 2)) / maxLinAccel;
+		disToEndVel = 0.5 * (pow(adjustedMaxVel,2) - pow(endSpeed, 2)) / maxLinDecel;
 	}
 	double timeToMaxVel = (adjustedMaxVel - startSpeed) / maxLinAccel;
 	double timeAtMaxVel = (dist - disToMaxVel - disToEndVel) / adjustedMaxVel;
@@ -76,8 +81,8 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 		pi.dis = (adjustedMaxVel * decelTime) - (0.5 * maxLinDecel * pow(decelTime, 2));
 	}
 
-	pi.lin_accel = (endSpeed - startSpeed) / totalTime; // assuming const accel
-	pi.lin_vel = pi.lin_accel * time + startSpeed;
+	pi.dis += accmulatedDist;
+	pi.ang += accmulatedAng;
 
 	return pi;
 }
@@ -85,7 +90,7 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 double SilkyMotionManager::getAngularTime(double angle) {
 	//have to do hard math
 	//assuming we can ignore acceleration, deceleration, and angular component
-	return (angle / maxAngVel);
+	return (fabs(angle) / maxAngVel);
 }
 
 double SilkyMotionManager::getLinearTime(double dis, double startSpeed, double endSpeed) {
@@ -93,8 +98,10 @@ double SilkyMotionManager::getLinearTime(double dis, double startSpeed, double e
 	//This means the left side will go "as fast as possible" in this model.
 	double adjustedMaxVel = maxLinVel;
 
-	double disToMaxVel = 0.5 * pow(maxLinVel - startSpeed , 2) / maxLinAccel;
-	double disToEndVel = 0.5 * pow(maxLinVel - endSpeed, 2) / maxLinDecel;
+	double disToMaxVel = 0.5 * (pow(maxLinVel,2) - pow(startSpeed , 2)) / maxLinAccel;
+	std::cout << "distomaxvel" << disToMaxVel << std::endl;
+	double disToEndVel = 0.5 * (pow(maxLinVel,2) - pow(endSpeed, 2)) / maxLinDecel;
+	std::cout << "disToEndVel" << disToEndVel << std::endl;
 	if (disToMaxVel + disToEndVel > dis) {
 		// Don't get to full speed, so triangle instead of trapezoid
 		// d_accel = (v^2-startSpeed^2)/(2*a_accel)
@@ -102,14 +109,16 @@ double SilkyMotionManager::getLinearTime(double dis, double startSpeed, double e
 		// d_total = (v^2-startSpeed^2)/(2*a_accel) + (v^2-endSpeed^2)/(2*a_decel)
 		// Rearranging for v gives
 		adjustedMaxVel = (sqrt(2 * maxLinAccel * maxLinDecel) * (dis) + (maxLinDecel * pow(startSpeed, 2)) + (maxLinAccel * pow(endSpeed, 2)) / (maxLinDecel + maxLinAccel));
-		disToMaxVel = 0.5 * pow(adjustedMaxVel - startSpeed, 2) / maxLinAccel;
-		disToEndVel = 0.5 * pow(adjustedMaxVel - endSpeed, 2) / maxLinDecel;
+		disToMaxVel = 0.5 * (pow(adjustedMaxVel,2) - pow(startSpeed, 2)) / maxLinAccel;
+		std::cout << "distomaxvel(updated)" << disToMaxVel << std::endl;
+		disToEndVel = 0.5 * (pow(adjustedMaxVel,2) - pow(endSpeed, 2)) / maxLinDecel;
+		std::cout << "disToEndVel(updated)" << disToEndVel << std::endl;
 	}
 	double timeToMaxVel = (adjustedMaxVel - startSpeed) / maxLinAccel;
 	double timeAtMaxVel = (dis - disToMaxVel - disToEndVel) / adjustedMaxVel;
 
 	double timeToEnd = (adjustedMaxVel - endSpeed) / maxLinDecel;
-
+	std::cout << "timeToEnd = " << timeToEnd << " timeToMaxVel = " << timeToMaxVel << " timeAtMaxVel" << timeAtMaxVel;
 	return timeToEnd + timeToMaxVel + timeAtMaxVel;
 }
 
@@ -133,6 +142,7 @@ double SilkyMotionManager::getActualSpeed(double dis, double ang, double startin
 }
 
 double SilkyMotionManager::getTimestamp(double dis, double ang, double startingSpeed, double endingSpeed, double prevTime) {
+	std::cout << getLinearTime(dis,startingSpeed, endingSpeed) << " _ " << dis << " " << startingSpeed << " " << endingSpeed << std::endl;
 	return prevTime + getAngularTime(ang) + getLinearTime(dis, startingSpeed, endingSpeed);
 }
 
@@ -178,16 +188,17 @@ SilkyMotionManager::SilkyMotionManager(std::vector<double> dis, std::vector<doub
 			lastTime(0) {
 		maxSpeed.resize(dis.size() + 1);
 		maxSpeed[maxSpeed.size() - 1] = 0;
-		for(unsigned int i = dis.size(); i>=0; i--){
+		for(int i = dis.size()-1; i>=0; i--){
 			maxSpeed[i] = getMaxSpeed(dis[i], ang[i], maxSpeed[i+1]);
 		}
 		actualSpeed.resize(dis.size() + 1);
 		actualSpeed[0] = 0;
 		timestamps.resize(dis.size() + 1);
 		timestamps[0] = 0;
-		for(unsigned int i = 1; i != dis.size(); i++){
-			actualSpeed[i] = getActualSpeed(dis[i], ang[i], actualSpeed[i-1], maxSpeed[i]);
-			timestamps[i] = getTimestamp(dis[i], ang[i], actualSpeed[i-1], actualSpeed[i], timestamps[i-1]);
+		for(unsigned int i = 1; i <= dis.size(); i++){
+			actualSpeed[i] = getActualSpeed(dis[i-1], ang[i-1], actualSpeed[i-1], maxSpeed[i]);
+			timestamps[i] = getTimestamp(dis[i-1], ang[i-1], actualSpeed[i-1], actualSpeed[i], timestamps[i-1]);
+			std::cout << actualSpeed[i] << " " << timestamps[i] << std::endl;
 		}
 }
 

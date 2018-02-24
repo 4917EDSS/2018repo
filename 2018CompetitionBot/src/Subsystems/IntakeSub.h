@@ -9,7 +9,8 @@ class IntakeSub : public Subsystem {
 private:
 	std::shared_ptr<TalonSRX> intakeMotorLeft;
 	std::shared_ptr<TalonSRX> intakeMotorRight;
-	std::shared_ptr<DigitalInput> intakeLimit;
+	std::shared_ptr<DigitalInput> intakeCloseLimit;
+	std::shared_ptr<DigitalInput> intakeFarLimit;
 	std::shared_ptr<frc::Solenoid> jawOpenSolenoid;
 	std::shared_ptr<frc::Solenoid> jawCloseSolenoid;
 	std::shared_ptr<frc::Ultrasonic> hcsr04;

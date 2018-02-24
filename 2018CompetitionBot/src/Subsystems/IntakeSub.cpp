@@ -9,7 +9,8 @@ constexpr double BOX_AT_JAWS_DISTANCE_MM = 600;
 IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 	intakeMotorLeft.reset(new TalonSRX(INTAKE_MOTOR_LEFT_CANID));
 	intakeMotorRight.reset(new TalonSRX(INTAKE_MOTOR_RIGHT_CANID));
-	intakeLimit.reset(new DigitalInput(INTAKE_LIMIT_SWITCH_DIO));
+	intakeCloseLimit.reset(new DigitalInput(INTAKE_LIMIT_CLOSE_DIO));
+	intakeFarLimit.reset(new DigitalInput(INTAKE_LIMIT_FAR_DIO));
 	intakeDistance.reset(new AnalogInput(INTAKE_DISTANCE_AI));
 	jawOpenSolenoid.reset(new frc::Solenoid(JAWS_OPEN_PCM_ID));
 	jawCloseSolenoid.reset(new frc::Solenoid(JAWS_CLOSE_PCM_ID));
@@ -32,7 +33,7 @@ void IntakeSub::intake(double leftSpeed, double rightSpeed) {
 }
 
 bool IntakeSub::isBoxIn() {
-	return !intakeLimit->Get();
+	return !intakeCloseLimit->Get();
 	/*if(getBoxDistance() < BOX_IN_DISTANCE_MM || !intakeLimit->Get()){
 		return true;
 	} else {
@@ -41,11 +42,7 @@ bool IntakeSub::isBoxIn() {
 }
 
 bool IntakeSub::isBoxAtJaws() {
-	if(getBoxDistance() < BOX_AT_JAWS_DISTANCE_MM){
-		return true;
-	} else {
-		return false;
-	}
+	return !intakeFarLimit->Get();
 }
 
 // Change values if sensor is changed

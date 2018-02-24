@@ -12,9 +12,9 @@ constexpr float DRIVE_BALANCE_D = 0.0;
 constexpr float DRIVE_DISTANCE_P = 0.004;
 constexpr float DRIVE_DISTANCE_I = 0.0;
 constexpr float DRIVE_DISTANCE_D = 0.002;
-constexpr float DRIVE_TURN_P = 0.03;
+constexpr float DRIVE_TURN_P = 0.032;
 constexpr float DRIVE_TURN_I = 0.0;
-constexpr float DRIVE_TURN_D = 0.017;
+constexpr float DRIVE_TURN_D = 0.019;
 
 DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 	leftMotor1.reset(new VictorSPX(DRIVE_MOTOR_LEFT1_CANID));
@@ -27,7 +27,7 @@ DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 	leftMotorEnc.reset(new frc::Encoder(DRIVE_MOTOR_LEFT_ENC1_DIO, DRIVE_MOTOR_LEFT_ENC2_DIO));
 	leftMotorEnc->SetDistancePerPulse(DRIVETRAIN_DIS_PER_PULSE * 4);
 	rightMotorEnc->SetDistancePerPulse(DRIVETRAIN_DIS_PER_PULSE * 4);
-	frontUltrasonic.reset(new frc::Ultrasonic(DRIVETRAIN_FRONT_ULTRASONIC_TRIG_DIO, DRIVETRAIN_FRONT_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
+	//frontUltrasonic.reset(new frc::Ultrasonic(DRIVETRAIN_FRONT_ULTRASONIC_TRIG_DIO, DRIVETRAIN_FRONT_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
 
 	turnBalancer.reset(new MotorBalancer());
 	driveBalancer.reset(new MotorBalancer());
@@ -148,11 +148,11 @@ void DrivetrainSub::driverDriveStraight(float speed) {
 }
 
 void DrivetrainSub::enableFrontUltrasonic(bool enable) {
-	frontUltrasonic->SetAutomaticMode(enable);
+	//frontUltrasonic->SetAutomaticMode(enable);
 }
 
 double DrivetrainSub::getFrontUltrasonicDist() {
-	return frontUltrasonic->GetRangeMM();
+	return 0.0;//frontUltrasonic->GetRangeMM();
 }
 
 void DrivetrainSub::setHighGear() {

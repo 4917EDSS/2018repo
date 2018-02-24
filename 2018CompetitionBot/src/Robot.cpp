@@ -34,6 +34,7 @@
 #include <Commands/AutoSwitchRightToLeftGrp.h>
 #include <Commands/AutoSwitchLeftToRightGrp.h>
 #include <Commands/DriveVisionSwitchCmd.h>
+#include <Commands/SilkyMotionCmd.h>
 
 
 class Robot: public frc::IterativeRobot {
@@ -135,6 +136,7 @@ public:
 		SmartDashboard::PutNumber("Elevator Encoder", CommandBase::elevatorSub->getElevatorEncoder());
 		SmartDashboard::PutNumber("Current Angle", CommandBase::drivetrainSub->getAngle());
 		SmartDashboard::PutBoolean("Is box in?", CommandBase::intakeSub->isBoxIn());
+		SmartDashboard::PutBoolean("Is box at jaws?", CommandBase::intakeSub->isBoxAtJaws());
 		SmartDashboard::PutNumber("Intake Distance", CommandBase::intakeSub->getBoxDistance());
 	}
 
@@ -148,10 +150,9 @@ public:
 		SmartDashboard::PutData("7.5m Drive Straight", new DriveStraightCmd(7500,0.0));
 		SmartDashboard::PutData("Reset Encoders", new ResetEncodersCmd());
 		SmartDashboard::PutData("Reset AHRS", new ResetAHRSCmd());
-		SmartDashboard::PutData("Victory Lap Auto", new AutoScaleLeftToRightGrp());
-		SmartDashboard::PutData("Drive until 100 mm", new DriveUntilDistanceCmd(100));
 		SmartDashboard::PutData("Drive to vision", new DriveVisionBoxCmd());
 		SmartDashboard::PutData("Drive to vision switch 1500mm", new DriveVisionSwitchCmd(1500));
+		SmartDashboard::PutData("SilkyMotionCmd", new SilkyMotionCmd(std::vector<double> {3001, 2001, 3000, 2000}, std::vector<double> {0, -90, 0, 180}));
 	}
 
 private:
