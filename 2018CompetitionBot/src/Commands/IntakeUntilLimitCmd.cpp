@@ -12,13 +12,19 @@ void IntakeUntilLimitCmd::Initialize() {
 	intakeSub->setJawsOpen();
 	intakeSub->intake(1.0);
 	jawsSetToSpring = false;
+	jawCounter = 0;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void IntakeUntilLimitCmd::Execute() {
 	if(!jawsSetToSpring && intakeSub->isBoxAtJaws()){
-		intakeSub->setJawsOnSpring();
-		jawsSetToSpring = true;
+		jawCounter++;
+		if(jawCounter >= 3) {
+			intakeSub->setJawsOnSpring();
+			jawsSetToSpring = true;
+		}
+	} else {
+		jawCounter = 0;
 	}
 }
 

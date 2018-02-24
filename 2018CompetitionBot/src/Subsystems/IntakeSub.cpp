@@ -4,7 +4,7 @@
 #include "iostream"
 
 constexpr double BOX_IN_DISTANCE_MM = 270;
-constexpr double BOX_AT_JAWS_DISTANCE_MM = 500;
+constexpr double BOX_AT_JAWS_DISTANCE_MM = 600;
 
 IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 	intakeMotorLeft.reset(new TalonSRX(INTAKE_MOTOR_LEFT_CANID));
