@@ -146,7 +146,7 @@ public:
 		SmartDashboard::PutData("300mm Drive straight", new DriveStraightCmd(300,0.0));
 		SmartDashboard::PutData("Drive Turn 45", new DriveTurnCmd(45));
 		SmartDashboard::PutData("Drive Turn 20", new DriveTurnCmd(20));
-		SmartDashboard::PutData("Drive Turn 90", new DriveTurnCmd(90));
+		SmartDashboard::PutData("Drive Turn -25", new DriveTurnCmd(-25));
 		SmartDashboard::PutData("7.5m Drive Straight", new DriveStraightCmd(7500,0.0));
 		SmartDashboard::PutData("Reset Encoders", new ResetEncodersCmd());
 		SmartDashboard::PutData("Reset AHRS", new ResetAHRSCmd());

@@ -29,9 +29,9 @@ AutoSwitchCenterToRightGrp::AutoSwitchCenterToRightGrp() {
 
 	AddParallel(new IntakeUntilLimitCmd());
 
-	AddSequential(new DriveStraightCmd(700,-25));
+	AddSequential(new DriveStraightCmd(600,-25));
 
-	AddSequential(new DriveStraightCmd(-700,-25));
+	AddSequential(new DriveStraightCmd(-600,-25));
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
