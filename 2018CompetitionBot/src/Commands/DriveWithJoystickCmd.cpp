@@ -33,7 +33,6 @@ void DriveWithJoystickCmd::Execute() {
 		if (wasDrivingStraight > 0) {
 			drivetrainSub->disableBalancerPID();
 			wasDrivingStraight = 0;
-			std::cout << "In Disable PID one" << std::endl;;
 		}
 		if (rightStick >= 0){
 			rightStick = std:: min(rightStick, maxPower);
@@ -46,7 +45,6 @@ void DriveWithJoystickCmd::Execute() {
 		if (wasDrivingStraight == 0) {
 			timeSinceDrivingStraight = RobotController::GetFPGATime();
 			wasDrivingStraight = 1;
-			std::cout << "In Enable PID" << std::endl;
 		}
 		if (((RobotController::GetFPGATime() - timeSinceDrivingStraight) >= AHRS_DELAY_TIME) && wasDrivingStraight == 1) {
 			drivetrainSub->resetAHRS();
@@ -65,7 +63,6 @@ void DriveWithJoystickCmd::Execute() {
 		if (wasDrivingStraight > 0) {
 			drivetrainSub->disableBalancerPID();
 			wasDrivingStraight = 0;
-			std::cout << "In Disable PID two" << std::endl;
 		}
 		if (leftStick >= 0){
 			leftStick = std:: min(leftStick, maxPower);

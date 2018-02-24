@@ -50,8 +50,8 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 
 	double adjustedMaxVel = maxLinVel;
 
-	double disToMaxVel = 0.5 * pow(maxLinVel - startSpeed , 2) / maxLinAccel;
-	double disToEndVel = 0.5 * pow(maxLinVel - endSpeed, 2) / maxLinDecel;
+	double disToMaxVel = 0.5 * (pow(maxLinVel,2) - pow(startSpeed , 2)) / maxLinAccel;
+	double disToEndVel = 0.5 * (pow(maxLinVel,2) - pow(endSpeed, 2)) / maxLinDecel;
 	if (disToMaxVel + disToEndVel > dist) {
 		// Don't get to full speed, so triangle instead of trapezoid
 		// d_accel = (v^2-startSpeed^2)/(2*a_accel)
@@ -59,8 +59,8 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 		// d_total = (v^2-startSpeed^2)/(2*a_accel) + (v^2-endSpeed^2)/(2*a_decel)
 		// Rearranging for v gives
 		adjustedMaxVel = sqrt((2 * maxLinAccel * maxLinDecel) * (dist) + (maxLinDecel * pow(startSpeed, 2)) + (maxLinAccel * pow(endSpeed, 2)) / (maxLinDecel + maxLinAccel));
-		disToMaxVel = 0.5 * pow(adjustedMaxVel - startSpeed, 2) / maxLinAccel;
-		disToEndVel = 0.5 * pow(adjustedMaxVel - endSpeed, 2) / maxLinDecel;
+		disToMaxVel = 0.5 * (pow(adjustedMaxVel,2) - pow(startSpeed, 2)) / maxLinAccel;
+		disToEndVel = 0.5 * (pow(adjustedMaxVel,2) - pow(endSpeed, 2)) / maxLinDecel;
 	}
 	double timeToMaxVel = (adjustedMaxVel - startSpeed) / maxLinAccel;
 	double timeAtMaxVel = (dist - disToMaxVel - disToEndVel) / adjustedMaxVel;
@@ -90,7 +90,7 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 double SilkyMotionManager::getAngularTime(double angle) {
 	//have to do hard math
 	//assuming we can ignore acceleration, deceleration, and angular component
-	return (angle / maxAngVel);
+	return (fabs(angle) / maxAngVel);
 }
 
 double SilkyMotionManager::getLinearTime(double dis, double startSpeed, double endSpeed) {
@@ -98,8 +98,10 @@ double SilkyMotionManager::getLinearTime(double dis, double startSpeed, double e
 	//This means the left side will go "as fast as possible" in this model.
 	double adjustedMaxVel = maxLinVel;
 
-	double disToMaxVel = 0.5 * pow(maxLinVel - startSpeed , 2) / maxLinAccel;
-	double disToEndVel = 0.5 * pow(maxLinVel - endSpeed, 2) / maxLinDecel;
+	double disToMaxVel = 0.5 * (pow(maxLinVel,2) - pow(startSpeed , 2)) / maxLinAccel;
+	std::cout << "distomaxvel" << disToMaxVel << std::endl;
+	double disToEndVel = 0.5 * (pow(maxLinVel,2) - pow(endSpeed, 2)) / maxLinDecel;
+	std::cout << "disToEndVel" << disToEndVel << std::endl;
 	if (disToMaxVel + disToEndVel > dis) {
 		// Don't get to full speed, so triangle instead of trapezoid
 		// d_accel = (v^2-startSpeed^2)/(2*a_accel)
@@ -107,14 +109,16 @@ double SilkyMotionManager::getLinearTime(double dis, double startSpeed, double e
 		// d_total = (v^2-startSpeed^2)/(2*a_accel) + (v^2-endSpeed^2)/(2*a_decel)
 		// Rearranging for v gives
 		adjustedMaxVel = (sqrt(2 * maxLinAccel * maxLinDecel) * (dis) + (maxLinDecel * pow(startSpeed, 2)) + (maxLinAccel * pow(endSpeed, 2)) / (maxLinDecel + maxLinAccel));
-		disToMaxVel = 0.5 * pow(adjustedMaxVel - startSpeed, 2) / maxLinAccel;
-		disToEndVel = 0.5 * pow(adjustedMaxVel - endSpeed, 2) / maxLinDecel;
+		disToMaxVel = 0.5 * (pow(adjustedMaxVel,2) - pow(startSpeed, 2)) / maxLinAccel;
+		std::cout << "distomaxvel(updated)" << disToMaxVel << std::endl;
+		disToEndVel = 0.5 * (pow(adjustedMaxVel,2) - pow(endSpeed, 2)) / maxLinDecel;
+		std::cout << "disToEndVel(updated)" << disToEndVel << std::endl;
 	}
 	double timeToMaxVel = (adjustedMaxVel - startSpeed) / maxLinAccel;
 	double timeAtMaxVel = (dis - disToMaxVel - disToEndVel) / adjustedMaxVel;
 
 	double timeToEnd = (adjustedMaxVel - endSpeed) / maxLinDecel;
-
+	std::cout << "timeToEnd = " << timeToEnd << " timeToMaxVel = " << timeToMaxVel << " timeAtMaxVel" << timeAtMaxVel;
 	return timeToEnd + timeToMaxVel + timeAtMaxVel;
 }
 
@@ -138,6 +142,7 @@ double SilkyMotionManager::getActualSpeed(double dis, double ang, double startin
 }
 
 double SilkyMotionManager::getTimestamp(double dis, double ang, double startingSpeed, double endingSpeed, double prevTime) {
+	std::cout << getLinearTime(dis,startingSpeed, endingSpeed) << " _ " << dis << " " << startingSpeed << " " << endingSpeed << std::endl;
 	return prevTime + getAngularTime(ang) + getLinearTime(dis, startingSpeed, endingSpeed);
 }
 

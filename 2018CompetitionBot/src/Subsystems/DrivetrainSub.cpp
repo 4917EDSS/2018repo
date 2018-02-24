@@ -12,9 +12,9 @@ constexpr float DRIVE_BALANCE_D = 0.0;
 constexpr float DRIVE_DISTANCE_P = 0.004;
 constexpr float DRIVE_DISTANCE_I = 0.0;
 constexpr float DRIVE_DISTANCE_D = 0.002;
-constexpr float DRIVE_TURN_P = 0.03;
+constexpr float DRIVE_TURN_P = 0.032;
 constexpr float DRIVE_TURN_I = 0.0;
-constexpr float DRIVE_TURN_D = 0.017;
+constexpr float DRIVE_TURN_D = 0.019;
 
 DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 	leftMotor1.reset(new VictorSPX(DRIVE_MOTOR_LEFT1_CANID));
