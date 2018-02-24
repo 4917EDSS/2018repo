@@ -15,31 +15,31 @@ AutoSwitchCenterToLeftGrp::AutoSwitchCenterToLeftGrp() {
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
-	AddSequential(new DriveTurnCmd(-24));
+	AddSequential(new DriveTurnCmd(-20));
 
-	AddSequential(new DriveStraightCmd(3000,-24));
+	AddSequential(new DriveStraightCmd(3000,-20));
 
-	AddSequential(new ReverseIntakeCmd(2));
-
-	AddSequential(new DriveStraightCmd(-1500,-24));
+	AddSequential(new ReverseIntakeCmd(0.75));
 
 	AddParallel(new ZeroElevatorCmd());
 
-	AddSequential(new DriveTurnCmd(24));
+	AddSequential(new DriveStraightCmd(-1500,-20));
+
+	AddSequential(new DriveTurnCmd(25));
 
 	AddParallel(new IntakeUntilLimitCmd());
 
-	AddSequential(new DriveStraightCmd(1000,0));
+	AddSequential(new DriveStraightCmd(700,25));
 
-	AddSequential(new DriveStraightCmd(-1000,0));
+	AddSequential(new DriveStraightCmd(-700,25));
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
-	AddSequential(new DriveTurnCmd(-24));
+	AddSequential(new DriveTurnCmd(-15));
 
-	AddSequential(new DriveStraightCmd(1500,-24));
+	AddSequential(new DriveStraightCmd(2000,-15));
 
-	AddSequential(new ReverseIntakeCmd(2));
+	AddSequential(new ReverseIntakeCmd(0.75));
 
 	// To run multiple commands at the same time,
 	// use AddParallel()
