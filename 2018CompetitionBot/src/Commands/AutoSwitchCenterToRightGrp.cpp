@@ -4,6 +4,7 @@
 #include "MoveElevatorToHeightCmd.h"
 #include "ReverseIntakeCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
+#include "Commands/IntakeUntilLimitCmd.h"
 
 AutoSwitchCenterToRightGrp::AutoSwitchCenterToRightGrp() {
 	// Add Commands here:
@@ -12,11 +13,31 @@ AutoSwitchCenterToRightGrp::AutoSwitchCenterToRightGrp() {
 	// these will run in order.
 	AddSequential(new ZeroElevatorCmd());
 
-	AddParallel(new MoveElevatorToHeightCmd(205));
+	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
 	AddSequential(new DriveTurnCmd(20)); // Need to just turn one side, other side wont be able to go back since on wall
 
 	AddSequential(new DriveStraightCmd(3000,20));
+
+	AddSequential(new ReverseIntakeCmd(2));
+
+	AddSequential(new DriveStraightCmd(-1500,20));
+
+	AddParallel(new ZeroElevatorCmd());
+
+	AddSequential(new DriveTurnCmd(-20));
+
+	AddParallel(new IntakeUntilLimitCmd());
+
+	AddSequential(new DriveStraightCmd(1000,0));
+
+	AddSequential(new DriveStraightCmd(-1000,0));
+
+	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+
+	AddSequential(new DriveTurnCmd(20));
+
+	AddSequential(new DriveStraightCmd(1500,20));
 
 	AddSequential(new ReverseIntakeCmd(2));
 
