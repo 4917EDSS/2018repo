@@ -20,7 +20,7 @@ void GeneralLogging::logPowerStuff() {
 	std::stringstream line;
 	line << "pdp channels V:" << pdp->GetVoltage() << " T:" << pdp->GetTemperature();
 	for(int i = 0; i < 16; i++) {
-		line << ", " << pdp->GetCurrent(i);
+//		line << ", " << pdp->GetCurrent(i);
 	}
 	logger.send(logger.POWER, "%s\n", line.str().c_str());
 }
