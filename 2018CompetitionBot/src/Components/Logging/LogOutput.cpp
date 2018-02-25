@@ -4,6 +4,7 @@
  *  Created on: Sep 8, 2017
  *      Author: 4917
  */
+#include <stdlib.h>
 #include <iostream>
 #include <fstream>
 #include <syslog.h>
@@ -50,6 +51,11 @@ namespace frc4917 {
 		// if the current configuration matches the new configuration.  If it doesn't then
 		// update it.
 
+		// IMPORTANT:  The /etc/syslog-ng.d/ folder must be opened up to writing by the lvuser
+		// Do this by issuing this command in a admin shell (login as 'admin', no password):
+		//		chmod 777 /etc/syslog-ng.d
+		// If the conf file doesn't exist, it will be created.
+
 		// Generate new file
 		std::string newContents;
 		newContents =
@@ -62,7 +68,7 @@ namespace frc4917 {
 				"log { source(src); destination(remote_log_server); };\n";
 
 		// Retrieve existing file
-		std::string fileContents;
+		std::string fileContents = "None";
 		std::ifstream inFile(SYSLOG_4917_CONFIG_FILE, std::ios::in | std::ios::binary);
 		if(inFile)
 		{
@@ -79,6 +85,7 @@ namespace frc4917 {
 			if(outFile) {
 				outFile << newContents;
 				outFile.close();
+				std::cout << "Syslog target IP address changed to " << ipAddress << ".  Reboot Rio to take effect\n";
 			}
 		}
 	}
