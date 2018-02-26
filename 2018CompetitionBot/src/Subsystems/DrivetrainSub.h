@@ -33,11 +33,13 @@ private:
 	std::shared_ptr<frc::PIDController> driveTurnPID;
 	std::shared_ptr<frc::PIDController> driveBalancePID;
 	std::shared_ptr<frc::PIDController> driveDistancePID;
-	std::shared_ptr<frc::Ultrasonic> frontUltrasonic;
+	std::shared_ptr<frc::Ultrasonic> frontRangefinder;
+	std::shared_ptr<frc::AnalogInput> rearRangefinder;
 	std::shared_ptr<frc::Solenoid> shifters;
 
 public:
 	DrivetrainSub();
+	void logPeriodicValues();
 	double getLeftEncoder();
 	double getRightEncoder();
 	double getLeftEncoderSpeed();
@@ -58,7 +60,7 @@ public:
 	double getAngle();
 	double getRate();
 	void driverDriveStraight(float speed);
-	void enableFrontUltrasonic(bool enable);
+	void enableFrontRangefinder(bool enable);
 	double getFrontUltrasonicDist();
 	void setHighGear();
 	void setLowGear();

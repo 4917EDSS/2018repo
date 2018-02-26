@@ -20,7 +20,7 @@ constexpr int INTAKE_MOTOR_RIGHT_CANID = 4;
 constexpr int ELEVATOR_MOTOR1_CANID = 1;
 constexpr int ELEVATOR_MOTOR2_CANID = 3;
 
-//DIOs
+//DIOs (0..9 are on RoboRio, 10..19 are on MXP expansion port)
 constexpr int DRIVE_MOTOR_LEFT_ENC1_DIO = 0;
 constexpr int DRIVE_MOTOR_LEFT_ENC2_DIO = 1;
 constexpr int DRIVE_MOTOR_RIGHT_ENC1_DIO = 2;
@@ -29,15 +29,16 @@ constexpr int ELEVATOR_MOTOR_ENC1_DIO = 4;
 constexpr int ELEVATOR_MOTOR_ENC2_DIO = 5;
 constexpr int INTAKE_LIMIT_CLOSE_DIO = 6;
 constexpr int INTAKE_LIMIT_FAR_DIO = 7;
-//constexpr int DRIVETRAIN_FRONT_ULTRASONIC_TRIG_DIO = 7;
-//constexpr int DRIVETRAIN_FRONT_ULTRASONIC_ECHO_DIO = 8;
+// constexpr int FREE_DIO = 8;
 constexpr int ELEVATOR_LOWER_LIMIT_DIO = 9;
-constexpr int ELEVATOR_UPPER_LIMIT_DIO = 10;
-constexpr int ELEVATOR_LIDAR_TRIG_DIO = 13;
-constexpr int ELEVATOR_LIDAR_ECHO_DIO = 14;
+constexpr int ELEVATOR_LIDAR_TRIG_DIO = 10;
+constexpr int ELEVATOR_LIDAR_ECHO_DIO = 11;
+constexpr int DRIVETRAIN_FRONT_ULTRASONIC_TRIG_DIO = 12;
+constexpr int DRIVETRAIN_FRONT_ULTRASONIC_ECHO_DIO = 13;
 
 //AIs
 constexpr int INTAKE_DISTANCE_AI = 0;
+constexpr int DRIVETRAIN_REAR_ULTRASONIC_AI = 1;
 
 // Pneumatic control module outputs
 constexpr int SHIFTERS_PCM_ID = 1;

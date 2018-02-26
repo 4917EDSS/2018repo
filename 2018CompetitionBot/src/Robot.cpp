@@ -9,7 +9,6 @@
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <Components/Logging/Log.h>
-#include <Components/Logging/GeneralLogging.h>
 #include <Components/LinearInterpolation.h>
 #include <Commands/DriveTurnCmd.h>
 #include <Commands/DriveStraightCmd.h>
@@ -35,6 +34,7 @@
 #include <Commands/AutoSwitchLeftToRightGrp.h>
 #include <Commands/DriveVisionSwitchCmd.h>
 #include <Commands/SilkyMotionCmd.h>
+#include <Components/Logging/GlobalLogging.h>
 
 
 class Robot: public frc::IterativeRobot {
@@ -48,7 +48,7 @@ public:
 		// Setup logging system
 		std::string syslogTargetAddress = (Preferences::GetInstance())->GetString("SyslogTargetAddress", "10.49.17.100");
 		logger.enableChannels(logger.WARNINGS | logger.ERRORS | logger.ASSERTS);	// These should stay on during competition
-		logger.enableChannels(logger.DEBUG | logger.DRIVETRAIN | logger.POWER );	// Should look at these during development
+		logger.enableChannels(logger.DEBUG | logger.DRIVETRAIN | logger.PERIODIC );	// Should look at these during development
 		//logger.addOutputPath(new frc4917::ConsoleOutput());						// Enable console output and/or
 		logger.addOutputPath(new frc4917::SyslogOutput(syslogTargetAddress));		// Enable syslog output
 		logger.send(logger.DEBUG, "Robot code started @ %f\n", GetTime());
@@ -105,7 +105,9 @@ public:
 
 	void AutonomousPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
-		logging.logPowerStuff();
+		globalLogging.logPeriodicValues();
+		CommandBase::drivetrainSub->logPeriodicValues();
+		CommandBase::elevatorSub->logPeriodicValues();
 	}
 
 	void TeleopInit() override {
@@ -123,8 +125,9 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 		UpdateSmartDashboard();
-		logging.logPowerStuff();
-		//std::cout<<lidarLite->getDistance()<<std::endl;
+		globalLogging.logPeriodicValues();
+		CommandBase::drivetrainSub->logPeriodicValues();
+		CommandBase::elevatorSub->logPeriodicValues();
 	}
 
 	void TestPeriodic() override {

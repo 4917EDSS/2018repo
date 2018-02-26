@@ -11,7 +11,7 @@ DriveUntilDistanceCmd::DriveUntilDistanceCmd(double distance) {
 
 // Called just before this Command runs the first time
 void DriveUntilDistanceCmd::Initialize() {
-	drivetrainSub->enableFrontUltrasonic(true);
+	drivetrainSub->enableFrontRangefinder(true);
 	drivetrainSub->drive(0.5, 0.5);
 }
 

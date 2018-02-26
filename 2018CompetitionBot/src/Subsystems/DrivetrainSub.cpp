@@ -23,11 +23,10 @@ DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 	rightMotor1.reset(new VictorSPX(DRIVE_MOTOR_RIGHT1_CANID));
 	rightMotor2.reset(new VictorSPX(DRIVE_MOTOR_RIGHT2_CANID));
 	rightMotor3.reset(new VictorSPX(DRIVE_MOTOR_RIGHT3_CANID));
-	rightMotorEnc.reset(new frc::Encoder(DRIVE_MOTOR_RIGHT_ENC1_DIO, DRIVE_MOTOR_RIGHT_ENC2_DIO));
 	leftMotorEnc.reset(new frc::Encoder(DRIVE_MOTOR_LEFT_ENC1_DIO, DRIVE_MOTOR_LEFT_ENC2_DIO));
+	rightMotorEnc.reset(new frc::Encoder(DRIVE_MOTOR_RIGHT_ENC1_DIO, DRIVE_MOTOR_RIGHT_ENC2_DIO));
 	leftMotorEnc->SetDistancePerPulse(DRIVETRAIN_DIS_PER_PULSE * 4);
 	rightMotorEnc->SetDistancePerPulse(DRIVETRAIN_DIS_PER_PULSE * 4);
-	//frontUltrasonic.reset(new frc::Ultrasonic(DRIVETRAIN_FRONT_ULTRASONIC_TRIG_DIO, DRIVETRAIN_FRONT_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
 
 	turnBalancer.reset(new MotorBalancer());
 	driveBalancer.reset(new MotorBalancer());
@@ -43,6 +42,35 @@ DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 											  turnBalancer.get()));
 	shifters.reset(new frc::Solenoid(SHIFTERS_PCM_ID));
 	setLowGear();
+
+	frontRangefinder.reset(new frc::Ultrasonic(DRIVETRAIN_FRONT_ULTRASONIC_TRIG_DIO, DRIVETRAIN_FRONT_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
+	frontRangefinder->SetAutomaticMode(true);
+
+	rearRangefinder.reset(new AnalogInput(DRIVETRAIN_REAR_ULTRASONIC_AI));
+}
+
+
+void DrivetrainSub::logPeriodicValues() {
+	// Prefix the line with "LP:" for log-periodic so we can filter on that
+	// Use tabs (\t) to separate fields to make it easy to import into a spreadsheet
+	logger.send(logger.PERIODIC, "LP:Drivetrain\t"
+			"Motor Percent\tL1\t%f\tL2\t%f\tL3\t%f\tR1\t%f\tR2\t%f\tR3\t%f\t"
+			"Motor Currents\tL1\t%f\tL2\t%f\tL3\t%f\tR1\t%f\tR2\t%f\tR3\t%f\t"
+			"Motor Encoder\tL\t%d\tR\t%d\tLRaw\t%d\tRRaw\t%d\t"
+			"AHRS\tYaw\t%f\tPitch\t%f\tRoll\t%f\t"
+			"Shifter\t%d\t"
+			"Distance\tFront\t%f\tRear\t%f\t"
+			"\n",
+			leftMotor1->GetMotorOutputPercent(), leftMotor2->GetMotorOutputPercent(), leftMotor3->GetMotorOutputPercent(),
+			rightMotor1->GetMotorOutputPercent(), rightMotor2->GetMotorOutputPercent(), rightMotor3->GetMotorOutputPercent(),
+			leftMotor1->GetOutputCurrent(), leftMotor2->GetOutputCurrent(), leftMotor3->GetOutputCurrent(),
+			rightMotor1->GetOutputCurrent(), rightMotor2->GetOutputCurrent(), rightMotor3->GetOutputCurrent(),
+			leftMotorEnc->Get(), rightMotorEnc->Get(), leftMotorEnc->GetRaw(), rightMotorEnc->GetRaw(),
+			ahrs->GetYaw(), ahrs->GetPitch(),ahrs->GetRoll(),
+			shifters->Get() ? 1 : 0,
+			frontRangefinder->GetRangeMM(),	rearRangefinder->GetValue()
+			);
+	return;
 }
 
 double DrivetrainSub::getLeftEncoderSpeed() {
@@ -147,19 +175,19 @@ void DrivetrainSub::driverDriveStraight(float speed) {
 	drive(speed + driveBalancer->GetDifference(), speed - driveBalancer->GetDifference());
 }
 
-void DrivetrainSub::enableFrontUltrasonic(bool enable) {
-	//frontUltrasonic->SetAutomaticMode(enable);
-}
-
-double DrivetrainSub::getFrontUltrasonicDist() {
-	return 0.0;//frontUltrasonic->GetRangeMM();
-}
-
 void DrivetrainSub::setHighGear() {
 	shifters->Set(true);
 }
 
 void DrivetrainSub::setLowGear() {
 	shifters->Set(false);
+}
+
+void DrivetrainSub::enableFrontRangefinder(bool enable) {
+	frontRangefinder->SetAutomaticMode(enable);
+}
+
+double DrivetrainSub::getFrontUltrasonicDist() {
+	return frontRangefinder->GetRangeMM();
 }
 

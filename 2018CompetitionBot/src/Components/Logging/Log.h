@@ -25,8 +25,8 @@ namespace frc4917 {
 		static constexpr unsigned long ASSERTS		= 0x00000004;		// For sections of code that should never execute
 		static constexpr unsigned long DEBUG		= 0x00000008;		// For general debugging (don't overuse, add new channels instead)
 		static constexpr unsigned long DRIVETRAIN	= 0x00000010;
-//		static constexpr unsigned long VISION		= 0x00000020;
-		static constexpr unsigned long POWER		= 0x00000040;
+		static constexpr unsigned long VISION		= 0x00000020;
+		static constexpr unsigned long PERIODIC		= 0x00000040;
 //		static constexpr unsigned long chan8		= 0x00000080;
 
 		Log();

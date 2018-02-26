@@ -15,7 +15,7 @@ private:
 	std::shared_ptr<frc::Encoder> elevatorMotorEnc;
 //	std::shared_ptr<frc::PIDController> liftPID;
 	std::shared_ptr<DigitalInput> lowerLimit;
-	std::shared_ptr<Ultrasonic> tinyLidar;
+	std::shared_ptr<frc::Ultrasonic> rangefinder;
 	double target;
 	bool finishedMove;
 	double lastLidarValue;
@@ -28,6 +28,7 @@ public:
 	static constexpr double SWITCH_BOX_HEIGHT = 216.5;
 	static constexpr double MAX_ELEVATOR_HEIGHT = 625;
 	ElevatorSub();
+	void logPeriodicValues();
 	void InitDefaultCommand();
 	void setElevatorMotor(double speed);
 	double getElevatorEncoder();

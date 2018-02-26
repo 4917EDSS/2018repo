@@ -13,12 +13,14 @@ constexpr float LIFT_TOLERANCE = 1;
 constexpr double SCALE_HEIGHT_SUDDEN_CHANGE_TOLERANCE = 400;
 
 ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
-	tinyLidar.reset(new frc::Ultrasonic(ELEVATOR_LIDAR_TRIG_DIO, ELEVATOR_LIDAR_ECHO_DIO));
 	elevatorMotor1.reset(new TalonSRX(ELEVATOR_MOTOR1_CANID));
 	elevatorMotor2.reset(new TalonSRX(ELEVATOR_MOTOR2_CANID));
 	elevatorMotorEnc.reset(new frc::Encoder(ELEVATOR_MOTOR_ENC1_DIO, ELEVATOR_MOTOR_ENC2_DIO));
 //	liftPID.reset(new PIDController(LIFT_P, LIFT_I, LIFT_D, elevatorMotorEnc.get(), elevatorMotor1.get()));
 	lowerLimit.reset(new DigitalInput(ELEVATOR_LOWER_LIMIT_DIO));
+	rangefinder.reset(new frc::Ultrasonic(ELEVATOR_LIDAR_TRIG_DIO, ELEVATOR_LIDAR_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
+	rangefinder->SetAutomaticMode(true);
+
 	target = 0;
 	finishedMove = true;
 	lastLidarValue = -1.0;
@@ -32,6 +34,25 @@ void ElevatorSub::InitDefaultCommand() {
 	SetDefaultCommand(new ElevatorWithJoystickCmd());
 }
 
+void ElevatorSub::logPeriodicValues() {
+	// Prefix the line with "LP:" for log-periodic so we can filter on that
+	// Use tabs (\t) to separate fields to make it easy to import into a spreadsheet
+	logger.send(logger.PERIODIC, "LP:Elevator\t"
+			"Motor Percent\t#1\t%f\t#2\t%f\t"
+			"Motor Currents\t#1\t%f\t#2\t%f\t"
+			"Motor Encoder\t%d\tRaw\t%d\t"
+			"Lower Limit\t%d\t"
+			"LIDAR Distance\t%f\t"
+			"\n",
+			elevatorMotor1->GetMotorOutputPercent(), elevatorMotor2->GetMotorOutputPercent(),
+			elevatorMotor1->GetOutputCurrent(), elevatorMotor2->GetOutputCurrent(),
+			elevatorMotorEnc->Get(), elevatorMotorEnc->GetRaw(),
+			lowerLimit->Get() ? 1 : 0,
+			rangefinder->GetRangeMM()
+			);
+	return;
+}
+
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 bool ElevatorSub::atScaleHeight(){
@@ -43,14 +64,14 @@ bool ElevatorSub::atScaleHeight(){
 	return false;
 }
 void ElevatorSub::startTinyLidar(){
-	tinyLidar->SetAutomaticMode(true);
+	rangefinder->SetAutomaticMode(true);
 	lastLidarValue = getLidarValue();
 }
 double ElevatorSub::getLidarValue(){
-	return tinyLidar->GetRangeMM();
+	return rangefinder->GetRangeMM();
 }
 void ElevatorSub::endTinyLidar(){
-	tinyLidar->SetAutomaticMode(false);
+	rangefinder->SetAutomaticMode(false);
 }
 bool ElevatorSub::isAtMaxDropHeight(){
 	if (getElevatorEncoder() >= SCALE_BOX_HIGH_HEIGHT){
