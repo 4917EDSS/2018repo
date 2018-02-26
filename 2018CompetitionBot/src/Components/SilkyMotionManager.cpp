@@ -9,9 +9,9 @@
 
 #include <cmath>
 #include <iostream>
+#include <algorithm>
 
-#include "SmartDashboard/SmartDashboard.h"
-#include "Components/SilkyMotionManager.h"
+#include "SilkyMotionManager.h"
 
 PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 	PathInfo pi; // dis, ang, lin_vel, lin_accel, ang_vel
@@ -24,13 +24,14 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 	double accmulatedAng = 0;
 	double accmulatedDist = 0;
 	for (unsigned int i = 1; i < timestamps.size(); i++) {
-		if ((currentTime > timestamps[i - 1]) && (currentTime < timestamps[i])) {
+		if ((currentTime >= timestamps[i - 1]) && (currentTime < timestamps[i])) {
 			time = currentTime - timestamps[i - 1];
 			totalTime = timestamps[i] - timestamps[i - 1];
 			angle = ang[i - 1];
 			dist = dis[i - 1];
 			startSpeed = actualSpeed[i - 1];
 			endSpeed = actualSpeed[i];
+      break;
 		} else {
 			accmulatedAng += ang[i - 1];
 			accmulatedDist += dis[i - 1];
@@ -58,7 +59,7 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 		// d_decel = (v^2-endSpeed^2)/(2*a_decel)
 		// d_total = (v^2-startSpeed^2)/(2*a_accel) + (v^2-endSpeed^2)/(2*a_decel)
 		// Rearranging for v gives
-		adjustedMaxVel = sqrt((2 * maxLinAccel * maxLinDecel) * (dist) + (maxLinDecel * pow(startSpeed, 2)) + (maxLinAccel * pow(endSpeed, 2)) / (maxLinDecel + maxLinAccel));
+		adjustedMaxVel = sqrt((2 * maxLinAccel * maxLinDecel * dist + (maxLinDecel * pow(startSpeed, 2)) + (maxLinAccel * pow(endSpeed, 2))) / (maxLinDecel + maxLinAccel));
 		disToMaxVel = 0.5 * (pow(adjustedMaxVel,2) - pow(startSpeed, 2)) / maxLinAccel;
 		disToEndVel = 0.5 * (pow(adjustedMaxVel,2) - pow(endSpeed, 2)) / maxLinDecel;
 	}
@@ -90,7 +91,7 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 double SilkyMotionManager::getAngularTime(double angle) {
 	//have to do hard math
 	//assuming we can ignore acceleration, deceleration, and angular component
-	return (fabs(angle) / maxAngVel);
+	return 0;//(fabs(angle) / maxAngVel);
 }
 
 double SilkyMotionManager::getLinearTime(double dis, double startSpeed, double endSpeed) {
@@ -99,26 +100,20 @@ double SilkyMotionManager::getLinearTime(double dis, double startSpeed, double e
 	double adjustedMaxVel = maxLinVel;
 
 	double disToMaxVel = 0.5 * (pow(maxLinVel,2) - pow(startSpeed , 2)) / maxLinAccel;
-	std::cout << "distomaxvel" << disToMaxVel << std::endl;
 	double disToEndVel = 0.5 * (pow(maxLinVel,2) - pow(endSpeed, 2)) / maxLinDecel;
-	std::cout << "disToEndVel" << disToEndVel << std::endl;
 	if (disToMaxVel + disToEndVel > dis) {
 		// Don't get to full speed, so triangle instead of trapezoid
 		// d_accel = (v^2-startSpeed^2)/(2*a_accel)
 		// d_decel = (v^2-endSpeed^2)/(2*a_decel)
 		// d_total = (v^2-startSpeed^2)/(2*a_accel) + (v^2-endSpeed^2)/(2*a_decel)
 		// Rearranging for v gives
-		adjustedMaxVel = (sqrt(2 * maxLinAccel * maxLinDecel) * (dis) + (maxLinDecel * pow(startSpeed, 2)) + (maxLinAccel * pow(endSpeed, 2)) / (maxLinDecel + maxLinAccel));
+		adjustedMaxVel = sqrt((2 * maxLinAccel * maxLinDecel * dis + (maxLinDecel * pow(startSpeed, 2)) + (maxLinAccel * pow(endSpeed, 2))) / (maxLinDecel + maxLinAccel));
 		disToMaxVel = 0.5 * (pow(adjustedMaxVel,2) - pow(startSpeed, 2)) / maxLinAccel;
-		std::cout << "distomaxvel(updated)" << disToMaxVel << std::endl;
 		disToEndVel = 0.5 * (pow(adjustedMaxVel,2) - pow(endSpeed, 2)) / maxLinDecel;
-		std::cout << "disToEndVel(updated)" << disToEndVel << std::endl;
 	}
 	double timeToMaxVel = (adjustedMaxVel - startSpeed) / maxLinAccel;
 	double timeAtMaxVel = (dis - disToMaxVel - disToEndVel) / adjustedMaxVel;
-
 	double timeToEnd = (adjustedMaxVel - endSpeed) / maxLinDecel;
-	std::cout << "timeToEnd = " << timeToEnd << " timeToMaxVel = " << timeToMaxVel << " timeAtMaxVel" << timeAtMaxVel;
 	return timeToEnd + timeToMaxVel + timeAtMaxVel;
 }
 
@@ -142,21 +137,8 @@ double SilkyMotionManager::getActualSpeed(double dis, double ang, double startin
 }
 
 double SilkyMotionManager::getTimestamp(double dis, double ang, double startingSpeed, double endingSpeed, double prevTime) {
-	std::cout << getLinearTime(dis,startingSpeed, endingSpeed) << " _ " << dis << " " << startingSpeed << " " << endingSpeed << std::endl;
-	return prevTime + getAngularTime(ang) + getLinearTime(dis, startingSpeed, endingSpeed);
-}
-
-void SilkyMotionManager::setFeedbackConstants(double dis_v, double dis_a, double dis_p, double dis_d,
-		double ang_v, double ang_a, double ang_p, double ang_d) {
-	this->dis_a = dis_a;
-	this->dis_v = dis_v;
-	this->dis_p = dis_p;
-	this->dis_d = dis_d;
-
-	this->ang_a = ang_a;
-	this->ang_v = ang_v;
-	this->ang_p = ang_p;
-	this->ang_d = ang_d;
+  // Ignoring angular time since it's basically impossible to restrain linear speed to non linear time
+	return prevTime + getLinearTime(dis, startingSpeed, endingSpeed);
 }
 
 std::pair<double, double> SilkyMotionManager::execute(double currentLeftPos, double currentRightPos){
@@ -171,19 +153,13 @@ void SilkyMotionManager::reset(){
 
 }
 
+double SilkyMotionManager::getTotalTime() {
+  return timestamps[timestamps.size() - 1];
+}
+
 SilkyMotionManager::SilkyMotionManager(std::vector<double> dis, std::vector<double> ang,
-			double maxLinAccel, double maxLinDecel, double maxLinVel,
-			double maxAngAccel, double maxAngDecel, double maxAngVel,
-			double stoppingDistanceTolerance, double stoppingSpeedTolerance,
-			double stoppingAngleTolerance) :
-			dis(dis), ang(ang), maxLinAccel(maxLinAccel), maxLinDecel(maxLinDecel), maxLinVel(maxLinVel),
-			maxAngAccel(maxAngAccel), maxAngDecel(maxAngDecel), maxAngVel(maxAngVel),
-			stoppingDistanceTolerance(stoppingDistanceTolerance),
-			stoppingSpeedTolerance(stoppingSpeedTolerance),
-			stoppingAngleTolerance(stoppingAngleTolerance),
-			dis_v(0), dis_a(0), dis_p(0), dis_d(0),
-			ang_v(0), ang_a(0), ang_p(0), ang_d(0),
-			lastDistanceError(0), lastAngleError(0),
+			double maxLinAccel, double maxLinDecel, double maxLinVel, double maxAngAccel) :
+			dis(dis), ang(ang), maxLinAccel(maxLinAccel), maxLinDecel(maxLinDecel), maxLinVel(maxLinVel), maxAngAccel(maxAngAccel),
 			startTime(-1),
 			lastTime(0) {
 		maxSpeed.resize(dis.size() + 1);
@@ -198,7 +174,6 @@ SilkyMotionManager::SilkyMotionManager(std::vector<double> dis, std::vector<doub
 		for(unsigned int i = 1; i <= dis.size(); i++){
 			actualSpeed[i] = getActualSpeed(dis[i-1], ang[i-1], actualSpeed[i-1], maxSpeed[i]);
 			timestamps[i] = getTimestamp(dis[i-1], ang[i-1], actualSpeed[i-1], actualSpeed[i], timestamps[i-1]);
-			std::cout << actualSpeed[i] << " " << timestamps[i] << std::endl;
 		}
 }
 
