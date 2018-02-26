@@ -12,7 +12,6 @@
 
 #include <vector>
 #include <utility>
-#include "WPILib.h"
 
 
 struct PathInfo {
@@ -30,18 +29,11 @@ private:
 	std::vector<double> timestamps;
 	std::vector<double> dis;
 	std::vector<double> ang;
-	double maxLinAccel, maxLinDecel, maxLinVel;
-	double maxAngAccel, maxAngDecel, maxAngVel;
+	double maxLinAccel, maxLinDecel, maxLinVel, maxAngAccel;
 	double stoppingDistanceTolerance, stoppingSpeedTolerance, stoppingAngleTolerance;
-	double dis_v, dis_a, dis_p, dis_d;
-	double ang_v, ang_a, ang_p, ang_d;
 
-	double lastDistanceError;
-	double lastAngleError;
 	double startTime;
 	double lastTime;
-
-	double getTimeSinceStart();
 
 	double getAngularTime(double angle);
 	double getLinearTime(double dis, double startSpeed, double endSpeed);
@@ -52,14 +44,10 @@ private:
 public:
 	PathInfo getCurrentPathInfo(double t);
 	SilkyMotionManager(std::vector<double> dis, std::vector<double> ang,
-			double maxLinAccel, double maxLinDecel, double maxLinVel,
-			double maxAngAccel, double maxAngDecel, double maxAngVel,
-			double stoppingDistanceTolerance, double stoppingSpeedTolerance,
-			double stoppingAngleTolerance);
+			double maxLinAccel, double maxLinDecel, double maxLinVel, double maxAngAccel);
 
+  double getTotalTime();
 
-	void setFeedbackConstants(double dis_v, double dis_a, double dis_p, double dis_d,
-			double ang_v, double ang_a, double ang_p, double ang_d);
 	std::pair<double, double> execute(double currentLeftPos, double currentRightPos); // returns left speed, right speed to set motors
 	bool isFinished(double leftPos, double leftVel, double rightPos, double rightVel, double angle);
 	void reset();

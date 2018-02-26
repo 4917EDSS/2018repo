@@ -2,9 +2,7 @@
 #include "iostream"
 
 SilkyMotionCmd::SilkyMotionCmd(std::vector<double> dis, std::vector<double> ang) : smm(dis, ang,
-		 MAX_LIN_ACCEL, MAX_LIN_DECEL, MAX_LIN_VEL,
-		 MAX_ANG_ACCEL, MAX_ANG_DECEL, MAX_ANG_VEL,
-		 STOPPING_DISTANCE_TOLERANCE, STOPPING_SPEED_TOLERANCE, STOPPING_ANGLE_TOLERANCE) {
+		 MAX_LIN_ACCEL, MAX_LIN_DECEL, MAX_LIN_VEL, MAX_ANG_ACCEL) {
 	Requires(drivetrainSub.get());
 }
 
