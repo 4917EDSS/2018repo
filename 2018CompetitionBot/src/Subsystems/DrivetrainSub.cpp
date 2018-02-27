@@ -158,6 +158,16 @@ void DrivetrainSub::PIDTurn() {
 	drive(turnBalancer->GetDifference(), -turnBalancer->GetDifference());
 }
 
+void DrivetrainSub::PIDWallTurn() {
+	drive(turnBalancer->GetDifference(), -turnBalancer->GetDifference());
+	if (turnBalancer->GetDifference() > 0.0 ){
+		drive(turnBalancer->GetDifference()*1.5,0);
+	}
+	else if (turnBalancer->GetDifference() <0.0){
+		drive(0, -turnBalancer->GetDifference()*1.5);
+	}
+}
+
 bool DrivetrainSub::isTurnFinished() {
 	return driveTurnPID->OnTarget();
 }

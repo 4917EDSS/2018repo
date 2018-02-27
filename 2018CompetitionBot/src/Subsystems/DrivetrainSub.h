@@ -64,6 +64,8 @@ public:
 	double getFrontUltrasonicDist();
 	void setHighGear();
 	void setLowGear();
+	void PIDWallTurn();
 };
+
 
 #endif  // DrivetrainSub_H
