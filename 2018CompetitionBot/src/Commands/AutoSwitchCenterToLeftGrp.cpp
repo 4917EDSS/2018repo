@@ -17,36 +17,34 @@ AutoSwitchCenterToLeftGrp::AutoSwitchCenterToLeftGrp() {
 
 	AddSequential(new DriveTurnCmd(-25));
 
-	AddSequential(new DriveStraightCmd(3000,-25));
+	AddSequential(new DriveStraightCmd(2750,-25));
 
-	AddSequential(new ReverseIntakeCmd(0.75));
+	AddSequential(new ReverseIntakeCmd(0.5));
 
 	AddParallel(new ZeroElevatorCmd());
 
-	AddSequential(new DriveStraightCmd(-1500,-25));
+	AddSequential(new DriveStraightCmd(-1250,-25));
 
 	AddSequential(new DriveTurnCmd(25));
 
 	AddParallel(new IntakeUntilLimitCmd());
 
-	AddSequential(new DriveStraightCmd(600,25));
+	AddSequential(new DriveStraightCmd(400,25));
 
-	AddSequential(new DriveStraightCmd(-600,25));
+	AddSequential(new DriveStraightCmd(-400,25));
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
 	AddSequential(new DriveTurnCmd(-25));
 
-	AddSequential(new DriveStraightCmd(2000,-25));
+	AddSequential(new DriveStraightCmd(1400,-25));
 
-	AddSequential(new ReverseIntakeCmd(0.75));
-
+	AddSequential(new ReverseIntakeCmd(0.5));
 	// To run multiple commands at the same time,
 	// use AddParallel()
 	// e.g. AddParallel(new Command1());
 	//      AddSequential(new Command2());
 	// Command1 and Command2 will run in parallel.
-
 	// A command group will require all of the subsystems that each member
 	// would require.
 	// e.g. if Command1 requires chassis, and Command2 requires arm,

@@ -17,9 +17,9 @@ AutoSwitchCenterToRightGrp::AutoSwitchCenterToRightGrp() {
 
 	AddSequential(new DriveTurnCmd(20)); // Need to just turn one side, other side wont be able to go back since on wall
 
-	AddSequential(new DriveStraightCmd(3000,20));
+	AddSequential(new DriveStraightCmd(2700,20));
 
-	AddSequential(new ReverseIntakeCmd(0.75));
+	AddSequential(new ReverseIntakeCmd(0.5));
 
 	AddParallel(new ZeroElevatorCmd());
 
@@ -37,9 +37,9 @@ AutoSwitchCenterToRightGrp::AutoSwitchCenterToRightGrp() {
 
 	AddSequential(new DriveTurnCmd(15));
 
-	AddSequential(new DriveStraightCmd(2000,15));
+	AddSequential(new DriveStraightCmd(1400,15));
 
-	AddSequential(new ReverseIntakeCmd(0.75));
+	AddSequential(new ReverseIntakeCmd(0.50));
 
 
 	// Deliver box
