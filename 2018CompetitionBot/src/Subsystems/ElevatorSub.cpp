@@ -50,6 +50,9 @@ void ElevatorSub::logPeriodicValues() {
 			lowerLimit->Get() ? 1 : 0,
 			rangefinder->GetRangeMM()
 			);
+
+	// Can add additional or easier-to-read periodic logging here
+	//	logger.send(logger.PERIODIC, "$Rangefinder = %f\n", rangefinder->GetRangeMM() );
 	return;
 }
 

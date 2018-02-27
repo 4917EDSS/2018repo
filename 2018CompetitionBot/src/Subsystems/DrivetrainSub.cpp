@@ -59,7 +59,7 @@ void DrivetrainSub::logPeriodicValues() {
 			"Motor Encoder\tL\t%d\tR\t%d\tLRaw\t%d\tRRaw\t%d\t"
 			"AHRS\tYaw\t%f\tPitch\t%f\tRoll\t%f\t"
 			"Shifter\t%d\t"
-			"Distance\tFront\t%f\tRear\t%f\t"
+			"Distance\tFront\t%f\tRear\t%d\t"
 			"\n",
 			leftMotor1->GetMotorOutputPercent(), leftMotor2->GetMotorOutputPercent(), leftMotor3->GetMotorOutputPercent(),
 			rightMotor1->GetMotorOutputPercent(), rightMotor2->GetMotorOutputPercent(), rightMotor3->GetMotorOutputPercent(),
@@ -70,6 +70,9 @@ void DrivetrainSub::logPeriodicValues() {
 			shifters->Get() ? 1 : 0,
 			frontRangefinder->GetRangeMM(),	rearRangefinder->GetValue()
 			);
+
+	// Can add additional or easier-to-read periodic logging here
+//	logger.send(logger.PERIODIC, "$Front Rangefinder = %f\n", frontRangefinder->GetRangeMM() );
 	return;
 }
 
