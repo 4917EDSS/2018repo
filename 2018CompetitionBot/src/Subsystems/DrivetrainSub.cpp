@@ -50,16 +50,20 @@ DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 }
 
 
+void DrivetrainSub::InitDefaultCommand() {
+	SetDefaultCommand(new DriveWithJoystickCmd());
+}
+
 void DrivetrainSub::logPeriodicValues() {
 	// Prefix the line with "LP:" for log-periodic so we can filter on that
-	// Use tabs (\t) to separate fields to make it easy to import into a spreadsheet
-	logger.send(logger.PERIODIC, "LP:Drivetrain\t"
-			"Motor Percent\tL1\t%f\tL2\t%f\tL3\t%f\tR1\t%f\tR2\t%f\tR3\t%f\t"
-			"Motor Currents\tL1\t%f\tL2\t%f\tL3\t%f\tR1\t%f\tR2\t%f\tR3\t%f\t"
-			"Motor Encoder\tL\t%d\tR\t%d\tLRaw\t%d\tRRaw\t%d\t"
-			"AHRS\tYaw\t%f\tPitch\t%f\tRoll\t%f\t"
-			"Shifter\t%d\t"
-			"Distance\tFront\t%f\tRear\t%d\t"
+	// Use commas to separate fields to make it easy to import into a spreadsheet
+	logger.send(logger.PERIODIC, "LP:Drivetrain,"
+			"Motor Percent,L1,%f,L2,%f,L3,%f,R1,%f,R2,%f,R3,%f,"
+			"Motor Currents,L1,%f,L2,%f,L3,%f,R1,%f,R2,%f,R3,%f,"
+			"Motor Encoder,L,%d,R,%d,LRaw,%d,RRaw,%d,"
+			"AHRS,Yaw,%f,Pitch,%f,Roll,%f,"
+			"Shifter,%d,"
+			"Distance,Front,%f,Rear,%d,"
 			"\n",
 			leftMotor1->GetMotorOutputPercent(), leftMotor2->GetMotorOutputPercent(), leftMotor3->GetMotorOutputPercent(),
 			rightMotor1->GetMotorOutputPercent(), rightMotor2->GetMotorOutputPercent(), rightMotor3->GetMotorOutputPercent(),
@@ -99,10 +103,6 @@ void DrivetrainSub::drive(double lSpeed, double rSpeed) {
 	rightMotor1->Set(ControlMode::PercentOutput, -rSpeed);
 	rightMotor2->Set(ControlMode::PercentOutput, rSpeed);
 	rightMotor3->Set(ControlMode::PercentOutput, -rSpeed);
-}
-
-void DrivetrainSub::InitDefaultCommand() {
-	SetDefaultCommand(new DriveWithJoystickCmd());
 }
 
 void DrivetrainSub::PIDDrive() {

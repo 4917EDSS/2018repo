@@ -108,6 +108,7 @@ public:
 		globalLogging.logPeriodicValues();
 		CommandBase::drivetrainSub->logPeriodicValues();
 		CommandBase::elevatorSub->logPeriodicValues();
+		//CommandBase::intakeSub->logPeriodicValues();  // TODO: Test
 	}
 
 	void TeleopInit() override {
@@ -128,6 +129,7 @@ public:
 		globalLogging.logPeriodicValues();
 		CommandBase::drivetrainSub->logPeriodicValues();
 		CommandBase::elevatorSub->logPeriodicValues();
+		//CommandBase::intakeSub->logPeriodicValues();	// TODO: Test
 	}
 
 	void TestPeriodic() override {

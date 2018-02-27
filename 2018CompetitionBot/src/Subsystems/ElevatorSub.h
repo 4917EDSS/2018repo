@@ -28,8 +28,8 @@ public:
 	static constexpr double SWITCH_BOX_HEIGHT = 216.5;
 	static constexpr double MAX_ELEVATOR_HEIGHT = 625;
 	ElevatorSub();
-	void logPeriodicValues();
 	void InitDefaultCommand();
+	void logPeriodicValues();
 	void setElevatorMotor(double speed);
 	double getElevatorEncoder();
 	void setElevatorMotorRaw(double speed);

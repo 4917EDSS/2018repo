@@ -20,10 +20,10 @@ void GlobalLogging::logPeriodicValues() {
 	std::stringstream line;
 
 	// Prefix the line with "LP:" for log-periodic so we can filter on that
-	// Use tabs (\t)to separate fields to make it easy to import into a spreadsheet
-	line << "LP:Global\tPDP\tVolt\t" << pdp->GetVoltage() << "Temp\t" << pdp->GetTemperature();
+	// Use commas to separate fields to make it easy to import into a spreadsheet
+	line << "LP:Global,PDP,Volt," << pdp->GetVoltage() << ",Temp," << pdp->GetTemperature();
 	for(int i = 0; i < 16; i++) {
-//		line << "\tCH" << i << " C\t" << pdp->GetCurrent(i);	// TODO: Fix. This gives a timeout error
+//		line << ",CH" << i << " C," << pdp->GetCurrent(i);	// TODO: Fix. This gives a timeout error
 	}
 
 	logger.send(logger.PERIODIC, "%s\n", line.str().c_str());

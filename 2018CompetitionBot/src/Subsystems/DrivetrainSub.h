@@ -39,12 +39,12 @@ private:
 
 public:
 	DrivetrainSub();
+	void InitDefaultCommand();
 	void logPeriodicValues();
 	double getLeftEncoder();
 	double getRightEncoder();
 	double getLeftEncoderSpeed();
 	double getRightEncoderSpeed();
-	void InitDefaultCommand();
 	void drive( double lSpeed, double rSpeed );
 	void disableBalancerPID();
 	void disableDistancePID();

@@ -14,12 +14,30 @@ IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 	intakeDistance.reset(new AnalogInput(INTAKE_DISTANCE_AI));
 	jawOpenSolenoid.reset(new frc::Solenoid(JAWS_OPEN_PCM_ID));
 	jawCloseSolenoid.reset(new frc::Solenoid(JAWS_CLOSE_PCM_ID));
-
-	//hcsr04.reset(new frc::Ultrasonic(INTAKE_ULTRASONIC_TRIG_DIO, INTAKE_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
 }
 
 void IntakeSub::InitDefaultCommand() {
 	SetDefaultCommand(new IntakeWithJoystickCmd());
+}
+
+void IntakeSub::logPeriodicValues() {
+	// Prefix the line with "LP:" for log-periodic so we can filter on that
+	// Use commas to separate fields to make it easy to import into a spreadsheet
+	logger.send(logger.PERIODIC, "LP:Intake,"
+			"Motor Percent,L,%f,R,%f,"
+			"Motor Currents,L,%f,R,%f,"
+			"Limit,Far,%d,Close,%d,Dist,%d,"
+			"Solenoid,Open,%d,Close,%d,"
+			"\n",
+			intakeMotorLeft->GetMotorOutputPercent(), intakeMotorRight->GetMotorOutputPercent(),
+			intakeMotorLeft->GetOutputCurrent(), intakeMotorRight->GetOutputCurrent(),
+			intakeCloseLimit->Get() ? 1 : 0, intakeFarLimit->Get() ? 1 : 0, intakeDistance->GetValue(),
+			jawOpenSolenoid->Get() ? 1 : 0, jawCloseSolenoid->Get() ? 1 : 0
+			);
+
+	// Can add additional or easier-to-read periodic logging here
+	//	logger.send(logger.PERIODIC, "$Rangefinder = %f\n", rangefinder->GetRangeMM() );
+	return;
 }
 
 //Positive is expelling the box, Negative is intaking the box
@@ -66,15 +84,6 @@ double IntakeSub::getBoxDistance() {
 			((MAX_DISTANCE_MM - MIN_DISTANCE_MM) *
 			 (intakeDistance->GetVoltage() - MAX_DISTANCE_VOLTAGE) /
 			 (MIN_DISTANCE_VOLTAGE - MAX_DISTANCE_VOLTAGE));
-}
-
-void IntakeSub::enableFrontUltrasonic(bool enable){
-	//hcsr04->SetAutomaticMode(enable);
-}
-
-double IntakeSub::getFrontUltrasonicDist(){
-	//return hcsr04->GetRangeMM();
-	return 0.0;
 }
 
 void IntakeSub::setJawsOpen() {

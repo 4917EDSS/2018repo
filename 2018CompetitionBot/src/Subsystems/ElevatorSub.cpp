@@ -36,13 +36,13 @@ void ElevatorSub::InitDefaultCommand() {
 
 void ElevatorSub::logPeriodicValues() {
 	// Prefix the line with "LP:" for log-periodic so we can filter on that
-	// Use tabs (\t) to separate fields to make it easy to import into a spreadsheet
-	logger.send(logger.PERIODIC, "LP:Elevator\t"
-			"Motor Percent\t#1\t%f\t#2\t%f\t"
-			"Motor Currents\t#1\t%f\t#2\t%f\t"
-			"Motor Encoder\t%d\tRaw\t%d\t"
-			"Lower Limit\t%d\t"
-			"LIDAR Distance\t%f\t"
+	// Use commas to separate fields to make it easy to import into a spreadsheet
+	logger.send(logger.PERIODIC, "LP:Elevator,"
+			"Motor Percent,#1,%f,#2,%f,"
+			"Motor Currents,#1,%f,#2,%f,"
+			"Motor Encoder,%d,Raw,%d,"
+			"Lower Limit,%d,"
+			"LIDAR Distance,%f,"
 			"\n",
 			elevatorMotor1->GetMotorOutputPercent(), elevatorMotor2->GetMotorOutputPercent(),
 			elevatorMotor1->GetOutputCurrent(), elevatorMotor2->GetOutputCurrent(),
