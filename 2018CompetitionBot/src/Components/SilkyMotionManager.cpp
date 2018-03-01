@@ -39,10 +39,10 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 	}
 	if (currentTime > timestamps[timestamps.size() - 1]){
 		pi.ang_vel = 0;
-		pi.ang = ang[ang.size() - 1] + accmulatedAng;
+		pi.ang = accmulatedAng;
 		pi.lin_accel = 0;
 		pi.lin_vel = 0;
-		pi.dis = dis[dis.size() - 1] + accmulatedDist;
+		pi.dis = accmulatedDist;
 		return pi;
 	}
 
@@ -74,12 +74,12 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 	} else if (time < (timeToMaxVel + timeAtMaxVel)) {
 		pi.lin_accel = 0;
 		pi.lin_vel = adjustedMaxVel;
-		pi.dis = adjustedMaxVel * (time - timeToMaxVel);
+		pi.dis = disToMaxVel + adjustedMaxVel * (time - timeToMaxVel);
 	} else {
 		pi.lin_accel = -maxLinDecel;
 		double decelTime = time - timeAtMaxVel - timeToMaxVel;
 		pi.lin_vel = adjustedMaxVel - (maxLinDecel * decelTime);
-		pi.dis = (adjustedMaxVel * decelTime) - (0.5 * maxLinDecel * pow(decelTime, 2));
+		pi.dis = disToMaxVel + (timeAtMaxVel * adjustedMaxVel) + (adjustedMaxVel * decelTime) - (0.5 * maxLinDecel * pow(decelTime, 2));
 	}
 
 	pi.dis += accmulatedDist;
@@ -120,8 +120,11 @@ double SilkyMotionManager::getLinearTime(double dis, double startSpeed, double e
 // Getting the absolute fastest we can start the current motion, given the absolute fastest we can be going at the end of the motion.
 // For now, using simplifying assumptions that it is just the lowest of (A) linear decel required and (B) max centripetal force
 double SilkyMotionManager::getMaxSpeed(double dis, double ang, double maxEndSpeed) {
-	double radius = dis/(ang*M_PI/180.0); // Converting to radians to get radius of curvature
+	double radius = dis/(fabs(ang)*M_PI/180.0); // Converting to radians to get radius of curvature
 	double angularMax = sqrt(maxAngAccel * radius);
+  if (ang == 0) {
+    angularMax = maxLinVel;
+  }
 
 	// vf^2 = vi^2 + 2*a*d
 	double linearMax = sqrt(pow(maxEndSpeed,2) + 2*maxLinDecel*dis);
