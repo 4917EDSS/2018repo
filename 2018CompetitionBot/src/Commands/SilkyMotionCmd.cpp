@@ -17,27 +17,25 @@ void SilkyMotionCmd::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void SilkyMotionCmd::Execute() {
-	PathInfo p = smm.getCurrentPathInfo(TimeSinceInitialized());
-	logger.send(logger.DEBUG, "%f, %f, %f, %f, %f, %f", p.ang, p.dis, p.lin_vel, p.lin_accel, p.ang_vel, TimeSinceInitialized());
 
 	double currError;
-	double currTime;
+	double currTime = TimeSinceInitialized();;
 	double errorDer;
 	double currAng;
 	double currDis;
 	double angErr;
 	double prevError;
 	double prevTime;
-	double accel;
-	double vel;
+	PathInfo p = smm.getCurrentPathInfo(currTime);
+	logger.send(logger.DEBUG, "%f, %f, %f, %f, %f, %f", p.ang, p.dis, p.lin_vel, p.lin_accel, p.ang_vel, TimeSinceInitialized());
 
 	currDis=(drivetrainSub->getLeftEncoder()+drivetrainSub->getRightEncoder())/2;
 	currError=p.dis-currDis;
 	errorDer=(currError-prevError)/(currTime-prevTime);
 	angErr=p.ang-currAng;
 
-	drivetrainSub->drive(P_DIS*currError+D_DIS*errorDer+A_DIS*p.lin_accel+V_DIS*p.lin_vel+P_ANG*angErr+V_ANG*ang_vel,
-			P_DIS*currError+D_DIS*errorDer+A_DIS*accel+V_DIS*p.lin_vel-P_ANG*angErr-V_ANG*p.ang_vel);
+	drivetrainSub->drive(P_DIS*currError+D_DIS*errorDer+A_DIS*p.lin_accel+V_DIS*p.lin_vel+P_ANG*angErr+V_ANG*p.ang_vel,
+			P_DIS*currError+D_DIS*errorDer+A_DIS*p.lin_accel+V_DIS*p.lin_vel-P_ANG*angErr-V_ANG*p.ang_vel);
 
 
 }
