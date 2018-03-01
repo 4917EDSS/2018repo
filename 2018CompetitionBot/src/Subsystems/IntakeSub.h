@@ -9,6 +9,7 @@ class IntakeSub : public Subsystem {
 private:
 	std::shared_ptr<TalonSRX> intakeMotorLeft;
 	std::shared_ptr<TalonSRX> intakeMotorRight;
+	std::shared_ptr<TalonSRX> armFolder;
 	std::shared_ptr<DigitalInput> intakeCloseLimit;
 	std::shared_ptr<DigitalInput> intakeFarLimit;
 	std::shared_ptr<frc::Solenoid> jawOpenSolenoid;
@@ -26,6 +27,7 @@ public:
 	void setJawsOpen();
 	void setJawsClose();
 	void setJawsOnSpring();
+	void foldArms(double speed);
 	double getBoxDistance();
 };
 

@@ -10,6 +10,9 @@
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/IntakeUntilLimitCmd.h"
 #include "Commands/ElevatorFullPowerDownCmd.h"
+#include "Commands/FoldArmsUpCmd.h"
+#include "Commands/FoldArmsDownCmd.h"
+
 
 OI::OI() {
 	// Process operator interface input here.
@@ -46,14 +49,17 @@ OI::OI() {
 	intakeBtn->WhenPressed(new IntakeUntilLimitCmd());
 	dropBox.reset(new frc::JoystickButton(operatorController.get(), DROP_BOX_BTN));
 	dropBox->WhileHeld(new DropBoxCmd());
-	holdBox.reset(new frc::JoystickButton(operatorController.get(), HOLD_BOX_BTN));
-	holdBox->WhileHeld(new HoldBoxCmd());
 	killEverythingO1.reset(new frc::JoystickButton(operatorController.get(), KILL_EVERYTHING_BTN_1));
 	killEverythingO1->WhenPressed(new KillEverythingCmd());
 	killEverythingO2.reset(new frc::JoystickButton(operatorController.get(), KILL_EVERYTHING_BTN_2));
 	killEverythingO2->WhenPressed(new KillEverythingCmd());
 	climbBtn.reset(new frc::JoystickButton(operatorController.get(), CLIMB_BTN));
 	climbBtn->WhileHeld(new ElevatorFullPowerDownCmd());
+	foldUpBtn.reset(new frc::JoystickButton(operatorController.get(), FOLD_UP_BTN));
+	foldUpBtn->WhileHeld(new FoldArmsUpCmd());
+	foldDownBtn.reset(new frc::JoystickButton(operatorController.get(), FOLD_DOWN_BTN));
+	foldDownBtn->WhileHeld(new FoldArmsDownCmd());
+
 
 }
 

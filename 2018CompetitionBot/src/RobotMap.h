@@ -17,6 +17,7 @@ constexpr int DRIVE_MOTOR_RIGHT2_CANID = 8;
 constexpr int DRIVE_MOTOR_RIGHT3_CANID = 10;
 constexpr int INTAKE_MOTOR_LEFT_CANID = 2;
 constexpr int INTAKE_MOTOR_RIGHT_CANID = 4;
+constexpr int ARM_FOLDER_CANID = 11;
 constexpr int ELEVATOR_MOTOR1_CANID = 1;
 constexpr int ELEVATOR_MOTOR2_CANID = 3;
 

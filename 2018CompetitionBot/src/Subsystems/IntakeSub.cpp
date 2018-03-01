@@ -9,6 +9,7 @@ constexpr double BOX_AT_JAWS_DISTANCE_MM = 600;
 IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 	intakeMotorLeft.reset(new TalonSRX(INTAKE_MOTOR_LEFT_CANID));
 	intakeMotorRight.reset(new TalonSRX(INTAKE_MOTOR_RIGHT_CANID));
+	armFolder.reset(new TalonSRX(ARM_FOLDER_CANID));
 	intakeCloseLimit.reset(new DigitalInput(INTAKE_LIMIT_CLOSE_DIO));
 	intakeFarLimit.reset(new DigitalInput(INTAKE_LIMIT_FAR_DIO));
 	intakeDistance.reset(new AnalogInput(INTAKE_DISTANCE_AI));
@@ -99,4 +100,8 @@ void IntakeSub::setJawsClose() {
 void IntakeSub::setJawsOnSpring() {
 	jawOpenSolenoid->Set(false);
 	jawCloseSolenoid->Set(false);
+}
+
+void IntakeSub::foldArms(double speed){
+	armFolder->Set(ControlMode::PercentOutput, speed);
 }
