@@ -46,7 +46,7 @@ public:
 	SilkyMotionManager(std::vector<double> dis, std::vector<double> ang,
 			double maxLinAccel, double maxLinDecel, double maxLinVel, double maxAngAccel);
 
-  double getTotalTime();
+	double getTotalTime();
 
 	std::pair<double, double> execute(double currentLeftPos, double currentRightPos); // returns left speed, right speed to set motors
 	bool isFinished(double leftPos, double leftVel, double rightPos, double rightVel, double angle);

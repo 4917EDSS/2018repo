@@ -160,7 +160,7 @@ public:
 		SmartDashboard::PutData("Reset AHRS", new ResetAHRSCmd());
 		SmartDashboard::PutData("Drive to vision", new DriveVisionBoxCmd());
 		SmartDashboard::PutData("Drive to vision switch 1500mm", new DriveVisionSwitchCmd(1500));
-		SmartDashboard::PutData("SilkyMotionCmd", new SilkyMotionCmd(std::vector<double> {3001, 2001, 3000, 2000}, std::vector<double> {0, -90, 0, 180}));
+		SmartDashboard::PutData("SilkyMotionCmd", new SilkyMotionCmd(std::vector<double> {1250, 1250, 1250, 1250}, std::vector<double> {0, 0, 0, 0}));
 		SmartDashboard::PutData("Wall Turn 45", new DriveTurnWallCmd(45));
 	}
 
