@@ -11,33 +11,38 @@ AutoSwitchCenterToRightGrp::AutoSwitchCenterToRightGrp() {
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
+	float heading = 0;
+
 	AddSequential(new ZeroElevatorCmd());
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
+	heading = 20;
 	AddSequential(new DriveTurnCmd(20)); // Need to just turn one side, other side wont be able to go back since on wall
 
-	AddSequential(new DriveStraightCmd(2700,20));
+	AddSequential(new DriveStraightCmd(2700,heading));
 
 	AddSequential(new ReverseIntakeCmd(0.5));
 
 	AddParallel(new ZeroElevatorCmd());
 
-	AddSequential(new DriveStraightCmd(-1500,20));
+	AddSequential(new DriveStraightCmd(-1500,heading));
 
-	AddSequential(new DriveTurnCmd(-25));
+	heading = -25;
+	AddSequential(new DriveTurnCmd(heading));
 
 	AddParallel(new IntakeUntilLimitCmd());
 
-	AddSequential(new DriveStraightCmd(600,-25));
+	AddSequential(new DriveStraightCmd(600,heading));
 
-	AddSequential(new DriveStraightCmd(-600,-25));
+	AddSequential(new DriveStraightCmd(-600,heading));
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
-	AddSequential(new DriveTurnCmd(15));
+	heading = 15;
+	AddSequential(new DriveTurnCmd(heading));
 
-	AddSequential(new DriveStraightCmd(1400,15));
+	AddSequential(new DriveStraightCmd(1400,heading));
 
 	AddSequential(new ReverseIntakeCmd(0.50));
 

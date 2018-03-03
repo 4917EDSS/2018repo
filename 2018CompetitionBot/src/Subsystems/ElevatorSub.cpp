@@ -20,6 +20,7 @@ ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
 	lowerLimit.reset(new DigitalInput(ELEVATOR_LOWER_LIMIT_DIO));
 	rangefinder.reset(new frc::Ultrasonic(ELEVATOR_LIDAR_TRIG_DIO, ELEVATOR_LIDAR_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
 	rangefinder->SetAutomaticMode(true);
+	climbBarSolenoid.reset(new frc::Solenoid(CLIMB_BAR_PCM_ID));
 
 	target = 0;
 	finishedMove = true;
@@ -163,4 +164,8 @@ double ElevatorSub::convertHeightToEncoder(double cm){
 	LinearInterpolation4917 encoderHeightTable(table);	// where x = encoder value and y = height in cm
 
 	return encoderHeightTable.computeX(cm);
+}
+
+void ElevatorSub::extendClimbBar() {
+	climbBarSolenoid->Set(true);
 }

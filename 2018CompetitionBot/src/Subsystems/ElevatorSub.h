@@ -16,6 +16,7 @@ private:
 //	std::shared_ptr<frc::PIDController> liftPID;
 	std::shared_ptr<DigitalInput> lowerLimit;
 	std::shared_ptr<frc::Ultrasonic> rangefinder;
+	std::shared_ptr<frc::Solenoid> climbBarSolenoid;
 	double target;
 	bool finishedMove;
 	double lastLidarValue;
@@ -27,6 +28,7 @@ public:
 	static constexpr double SCALE_BOX_LOW_HEIGHT = 500;
 	static constexpr double SWITCH_BOX_HEIGHT = 216.5;
 	static constexpr double MAX_ELEVATOR_HEIGHT = 625;
+	static constexpr double CARRY_HEIGHT = 20;
 	ElevatorSub();
 	void InitDefaultCommand();
 	void logPeriodicValues();
@@ -51,6 +53,7 @@ public:
 	bool isFinishedMove() {
 		return finishedMove;
 	}
+	void extendClimbBar();
 };
 
 #endif  // ElevatorSub_H

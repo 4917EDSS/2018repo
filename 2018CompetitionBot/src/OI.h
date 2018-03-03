@@ -29,6 +29,8 @@ constexpr int OPERATOR_CONTROLLER_PORT = 1;
 
 // Driver
 constexpr int HIGH_GEAR_BTN = 8;
+constexpr int RAISE_TO_CLIMB_POS_BTN = 2;
+constexpr int CLIMB_BAR_BTN = 3;
 
 // Operator
 constexpr int ROTATE_BOX_BTN = 0;
@@ -75,10 +77,8 @@ private:
     std::shared_ptr<frc::JoystickButton> killEverythingO2;
     std::shared_ptr<frc::JoystickButton> foldUpBtn;
     std::shared_ptr<frc::JoystickButton> foldDownBtn;
-
-
-
-
+    std::shared_ptr<frc::JoystickButton> raiseToClimbPosBtn;
+    std::shared_ptr<frc::JoystickButton> climbBarBtn;
 
 };
 
