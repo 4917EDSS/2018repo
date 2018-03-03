@@ -8,26 +8,30 @@
 
 
 AutoSwitchLeftToLeftGrp::AutoSwitchLeftToLeftGrp() {
+	float heading =0;
 
 	AddSequential(new ZeroElevatorCmd());
 
+	heading = 25;
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-	AddSequential(new DriveTurnCmd(25));
+	AddSequential(new DriveTurnCmd(heading));
 
-	AddSequential(new DriveStraightCmd(2800,25));
+	AddSequential(new DriveStraightCmd(2800,heading));
 
 	AddSequential(new ReverseIntakeCmd(0.5));
 
+	heading = 110;
 	AddParallel(new ZeroElevatorCmd);
-	AddSequential(new DriveTurnCmd(110));
+	AddSequential(new DriveTurnCmd(heading));
 
 	AddParallel(new IntakeUntilLimitCmd());
-	AddSequential(new DriveStraightCmd(1800,110));
+	AddSequential(new DriveStraightCmd(1800,heading));
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-	AddSequential(new DriveStraightCmd(-1700,110));
+	AddSequential(new DriveStraightCmd(-1700,heading));
 
-	AddSequential(new DriveTurnCmd(30));
+	heading = 30;
+	AddSequential(new DriveTurnCmd(heading));
 
 	AddSequential(new ReverseIntakeCmd(0.5));
 

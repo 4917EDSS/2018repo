@@ -10,11 +10,11 @@ AutoScaleLeftToLeftGrp::AutoScaleLeftToLeftGrp() {
 
 	AddSequential(new ZeroElevatorCmd());
 
-	AddParallel(new MoveElevatorToHeightCmd(20));
+	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));
 
 	AddSequential(new DriveStraightCmd(6500,heading));
 
-	AddParallel(new MoveElevatorToHeightCmd(500));
+	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 
 	heading = 45;
 	AddSequential(new DriveTurnCmd(heading));
