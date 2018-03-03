@@ -16,6 +16,7 @@ private:
 //	std::shared_ptr<frc::PIDController> liftPID;
 	std::shared_ptr<DigitalInput> lowerLimit;
 	std::shared_ptr<frc::Ultrasonic> rangefinder;
+	std::shared_ptr<frc::Solenoid> climbBarSolenoid;
 	double target;
 	bool finishedMove;
 	double lastLidarValue;
@@ -51,6 +52,7 @@ public:
 	bool isFinishedMove() {
 		return finishedMove;
 	}
+	void extendClimbBar();
 };
 
 #endif  // ElevatorSub_H
