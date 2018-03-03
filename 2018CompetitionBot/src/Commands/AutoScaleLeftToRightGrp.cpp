@@ -4,12 +4,26 @@
 #include "Commands/ZeroElevatorCmd.h"
 
 AutoScaleLeftToRightGrp::AutoScaleLeftToRightGrp() {
+
+	float heading = 0;
+
 	AddSequential(new ZeroElevatorCmd());
-	AddSequential(new DriveStraightCmd(6803,0.0));
-	AddSequential(new DriveTurnCmd(90));
-	AddSequential(new DriveStraightCmd(5799,90));
-	AddSequential(new DriveTurnCmd(-90));
-	AddSequential(new DriveStraightCmd(2395,0.0));
-	AddSequential(new DriveTurnCmd(-90));
-	AddSequential(new DriveStraightCmd(1075,-90));
+
+	AddSequential(new DriveStraightCmd(6803,heading));
+
+	heading = 90;
+	AddSequential(new DriveTurnCmd(heading));
+
+	AddSequential(new DriveStraightCmd(5799,heading));
+
+	heading = -90;
+	AddSequential(new DriveTurnCmd(heading));
+
+	heading = 0;
+	AddSequential(new DriveStraightCmd(2395,heading));
+
+	heading = -90;
+	AddSequential(new DriveTurnCmd(heading));
+
+	AddSequential(new DriveStraightCmd(1075,heading));
 }

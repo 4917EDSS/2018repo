@@ -8,9 +8,14 @@ AutoScaleRightToLeftGrp::AutoScaleRightToLeftGrp() {
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
+
+	float heading = 0;
 	AddSequential(new ZeroElevatorCmd());
-	AddSequential(new DriveStraightCmd(250,0));
-	AddSequential(new DriveTurnCmd(-90));
+
+	AddSequential(new DriveStraightCmd(250,heading));
+
+	heading = -90;
+	AddSequential(new DriveTurnCmd(heading));
 
 	/*AddSequential(new DriveStraightCmd(6171,0));
 		AddSequential(new DriveTurnCmd(-90));
