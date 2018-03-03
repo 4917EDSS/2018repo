@@ -11,35 +11,42 @@ AutoSwitchCenterToLeftGrp::AutoSwitchCenterToLeftGrp() {
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
+
+		float heading = 0;
+
 	AddSequential(new ZeroElevatorCmd());
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
-	AddSequential(new DriveTurnCmd(-25));
+	 heading = -25;
+	AddSequential(new DriveTurnCmd(heading));
 
-	AddSequential(new DriveStraightCmd(2750,-25));
+	AddSequential(new DriveStraightCmd(2750,heading));
 
 	AddSequential(new ReverseIntakeCmd(0.5));
 
 	AddParallel(new ZeroElevatorCmd());
 
-	AddSequential(new DriveStraightCmd(-1250,-25));
+	AddSequential(new DriveStraightCmd(-1250,heading));
 
-	AddSequential(new DriveTurnCmd(25));
+	heading = 25;
+	AddSequential(new DriveTurnCmd(heading));
 
 	AddParallel(new IntakeUntilLimitCmd());
 
-	AddSequential(new DriveStraightCmd(400,25));
+	AddSequential(new DriveStraightCmd(400,heading));
 
-	AddSequential(new DriveStraightCmd(-400,25));
+	AddSequential(new DriveStraightCmd(-400,heading));
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
-	AddSequential(new DriveTurnCmd(-25));
+	heading = -25;
+	AddSequential(new DriveTurnCmd(heading));
 
-	AddSequential(new DriveStraightCmd(1400,-25));
+	AddSequential(new DriveStraightCmd(1400,heading));
 
 	AddSequential(new ReverseIntakeCmd(0.5));
+
 	// To run multiple commands at the same time,
 	// use AddParallel()
 	// e.g. AddParallel(new Command1());

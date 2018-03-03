@@ -11,6 +11,7 @@ SilkyMotionCmd::SilkyMotionCmd(std::vector<double> dis, std::vector<double> ang)
 // Called just before this Command runs the first time
 void SilkyMotionCmd::Initialize() {
 	drivetrainSub->resetAHRS();
+	drivetrainSub->resetEncoders();
 	prevTime = 0;
 	prevError = 0;
 }
@@ -20,19 +21,17 @@ void SilkyMotionCmd::Initialize() {
 void SilkyMotionCmd::Execute() {
 	double currTime = TimeSinceInitialized();
 	PathInfo p = smm.getCurrentPathInfo(currTime);
-	//logger.send(logger.DEBUG, "%f, %f, %f, %f, %f, %f", p.ang, p.dis, p.lin_vel, p.lin_accel, p.ang_vel, TimeSinceInitialized());
 
 	double currDis=(drivetrainSub->getLeftEncoder()+drivetrainSub->getRightEncoder())/2;
 	double currError=p.dis-currDis;
 	double errorDer=(currError-prevError)/(currTime-prevTime);
 	double angErr=p.ang-drivetrainSub->getAngle();
-std::cout<< "current distance " << currDis<< " current error " << currError << " error derivative " << errorDer << " angle error " << angErr<< std::endl;
+
 	drivetrainSub->drive(P_DIS*currError+D_DIS*errorDer+A_DIS*p.lin_accel+V_DIS*p.lin_vel+P_ANG*angErr+V_ANG*p.ang_vel,
 			P_DIS*currError+D_DIS*errorDer+A_DIS*p.lin_accel+V_DIS*p.lin_vel-P_ANG*angErr-V_ANG*p.ang_vel);
-
+	logger.send(logger.DEBUG, "silk:,s %f, %f, %f, %f, %f, %f, %f, %f, %f", currTime, currError, angErr, P_DIS*currError, D_DIS*errorDer, A_DIS*p.lin_accel, V_DIS*p.lin_vel, P_ANG*angErr, V_ANG*p.ang_vel);
 	prevError = currError;
 	prevTime = currTime;
-
 
 }
 
