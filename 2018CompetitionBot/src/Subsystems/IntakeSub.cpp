@@ -23,12 +23,13 @@ void IntakeSub::InitDefaultCommand() {
 void IntakeSub::logPeriodicValues() {
 	// Prefix the line with "LP:" for log-periodic so we can filter on that
 	// Use commas to separate fields to make it easy to import into a spreadsheet
-	logger.send(logger.PERIODIC, "LP:Intake,"
+	logger.send(logger.PERIODIC, "%d,LP:Intake,"
 			"Motor Percent,L,%f,R,%f,"
 			"Motor Currents,L,%f,R,%f,"
 			"Limit,Far,%d,Close,%d,Dist,%d,"
 			"Solenoid,Open,%d,Close,%d,"
 			"\n",
+			(uint32_t)(frc::RobotController::GetFPGATime() & 0xFFFFFFFF),
 			intakeMotorLeft->GetMotorOutputPercent(), intakeMotorRight->GetMotorOutputPercent(),
 			intakeMotorLeft->GetOutputCurrent(), intakeMotorRight->GetOutputCurrent(),
 			intakeCloseLimit->Get() ? 1 : 0, intakeFarLimit->Get() ? 1 : 0, intakeDistance->GetValue(),
