@@ -31,7 +31,7 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 			dist = dis[i - 1];
 			startSpeed = actualSpeed[i - 1];
 			endSpeed = actualSpeed[i];
-      break;
+			break;
 		} else {
 			accmulatedAng += ang[i - 1];
 			accmulatedDist += dis[i - 1];

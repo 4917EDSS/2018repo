@@ -146,6 +146,7 @@ public:
 		SmartDashboard::PutBoolean("Is box in?", CommandBase::intakeSub->isBoxIn());
 		SmartDashboard::PutBoolean("Is box at jaws?", CommandBase::intakeSub->isBoxAtJaws());
 		SmartDashboard::PutNumber("Intake Distance", CommandBase::intakeSub->getBoxDistance());
+
 	}
 
 
@@ -160,8 +161,9 @@ public:
 		SmartDashboard::PutData("Reset AHRS", new ResetAHRSCmd());
 		SmartDashboard::PutData("Drive to vision", new DriveVisionBoxCmd());
 		SmartDashboard::PutData("Drive to vision switch 1500mm", new DriveVisionSwitchCmd(1500));
-		SmartDashboard::PutData("SilkyMotionCmd", new SilkyMotionCmd(std::vector<double> {1250, 1250, 1250, 1250}, std::vector<double> {0, 0, 0, 0}));
-		SmartDashboard::PutData("Wall Turn 45", new DriveTurnWallCmd(45));
+		SmartDashboard::PutData("SilkyMotionStraightCmd", new SilkyMotionCmd(std::vector<double> {1250, 1250, 1250, 1250}, std::vector<double> {0, 0, 0, 0}));
+		SmartDashboard::PutData("SilkyMotionTurnCmd", new SilkyMotionCmd(std::vector<double> {1750,1000 ,800 ,500 }, std::vector<double> {15, -40, 70 , -20}));
+
 	}
 
 

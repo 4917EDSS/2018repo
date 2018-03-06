@@ -12,14 +12,14 @@ AutoScaleRightToRightGrp::AutoScaleRightToRightGrp() {
 	float heading = 0;
 	AddSequential(new ZeroElevatorCmd());
 
-	AddParallel(new MoveElevatorToHeightCmd(200));
+	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));
 
 	AddSequential(new DriveStraightCmd(6500,heading));
 
 	heading = -45;
 	AddParallel(new DriveTurnCmd(heading));
 
-	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_MEDIUM_HEIGHT));
+	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 
 	AddSequential(new DriveStraightCmd(500,heading));
 
