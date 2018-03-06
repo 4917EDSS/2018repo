@@ -162,7 +162,7 @@ public:
 		SmartDashboard::PutData("Drive to vision", new DriveVisionBoxCmd());
 		SmartDashboard::PutData("Drive to vision switch 1500mm", new DriveVisionSwitchCmd(1500));
 		SmartDashboard::PutData("SilkyMotionStraightCmd", new SilkyMotionCmd(std::vector<double> {1250, 1250, 1250, 1250}, std::vector<double> {0, 0, 0, 0}));
-		SmartDashboard::PutData("SilkyMotionTurnCmd", new SilkyMotionCmd(std::vector<double> {1750,1000 ,800 ,500 }, std::vector<double> {15, -40, 70 , -20}));
+		SmartDashboard::PutData("SilkyMotionTurnCmd", new SilkyMotionCmd(std::vector<double> {1000,3000 ,1000 ,1000 }, std::vector<double> {90, 0, -90 , 0}));
 
 	}
 

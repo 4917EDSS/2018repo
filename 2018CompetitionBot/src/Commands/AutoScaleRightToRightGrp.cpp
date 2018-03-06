@@ -29,7 +29,7 @@ AutoScaleRightToRightGrp::AutoScaleRightToRightGrp() {
 
 	AddSequential(new ZeroElevatorCmd());
 
-	heading = -160
+	heading = -160;
 	AddSequential(new DriveTurnCmd(heading));
 
 	AddSequential(new DriveVisionBoxCmd());

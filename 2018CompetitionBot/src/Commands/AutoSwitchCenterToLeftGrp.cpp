@@ -40,7 +40,7 @@ AutoSwitchCenterToLeftGrp::AutoSwitchCenterToLeftGrp() {
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
-	heading = -25
+	heading = -25;
 	AddSequential(new DriveTurnCmd(heading));
 
 	AddSequential(new DriveStraightCmd(1400,heading));
