@@ -12,21 +12,13 @@ AutoSwitchCenterToLeftGrp::AutoSwitchCenterToLeftGrp() {
 	//      AddSequential(new Command2());
 	// these will run in order.
 
-<<<<<<< HEAD
-		float heading = 0;
 
-=======
 	float heading = 0;
->>>>>>> c2b4fdd585c9fd9c14cc3d6b14cf1c3c7eb901d7
 	AddSequential(new ZeroElevatorCmd());
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
-<<<<<<< HEAD
-	 heading = -25;
-=======
 	heading = -25;
->>>>>>> c2b4fdd585c9fd9c14cc3d6b14cf1c3c7eb901d7
 	AddSequential(new DriveTurnCmd(heading));
 
 	AddSequential(new DriveStraightCmd(2750,heading));

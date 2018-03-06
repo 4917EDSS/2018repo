@@ -5,7 +5,7 @@
 #include "Components/LinearInterpolation.h"
 #include <Components/Logging/Log.h>
 
-constexpr float ELEVATOR_POSITION_TOLERANCE = 15.0;
+constexpr float ELEVATOR_POSITION_TOLERANCE = 5.0;
 constexpr float LIFT_P = 1;
 constexpr float LIFT_I = 0;
 constexpr float LIFT_D = 0;
@@ -164,6 +164,10 @@ double ElevatorSub::convertHeightToEncoder(double cm){
 	LinearInterpolation4917 encoderHeightTable(table);	// where x = encoder value and y = height in cm
 
 	return encoderHeightTable.computeX(cm);
+}
+
+bool ElevatorSub::isFinishedMove(){
+	return finishedMove;
 }
 
 void ElevatorSub::extendClimbBar() {

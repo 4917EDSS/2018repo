@@ -50,9 +50,7 @@ public:
 //	bool PIDLiftIsFinished();
 	bool isElevatorDown();
 	double convertHeightToEncoder(double cm);
-	bool isFinishedMove() {
-		return finishedMove;
-	}
+	bool isFinishedMove();
 	void extendClimbBar();
 };
 
