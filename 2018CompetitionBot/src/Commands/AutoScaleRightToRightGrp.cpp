@@ -17,19 +17,20 @@ AutoScaleRightToRightGrp::AutoScaleRightToRightGrp() {
 	AddSequential(new DriveStraightCmd(6500,heading));
 
 	heading = -45;
-	AddParallel(new DriveTurnCmd(-45));
+	AddParallel(new DriveTurnCmd(heading));
 
 	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 
-	AddSequential(new DriveStraightCmd(500,-45));
+	AddSequential(new DriveStraightCmd(500,heading));
 
 	AddSequential(new ReverseIntakeCmd(1));
 
-	AddParallel(new DriveStraightCmd(-500,-45));
+	AddParallel(new DriveStraightCmd(-500,heading));
 
 	AddSequential(new ZeroElevatorCmd());
 
-	AddSequential(new DriveTurnCmd(-160));
+	heading = -160
+	AddSequential(new DriveTurnCmd(heading));
 
 	AddSequential(new DriveVisionBoxCmd());
 

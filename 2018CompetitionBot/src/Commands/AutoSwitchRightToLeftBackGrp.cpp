@@ -13,24 +13,25 @@ AutoSwitchRightToLeftBackGrp::AutoSwitchRightToLeftBackGrp() {
 	// these will run in order.
 
 	float heading = 0;
-	AddSequential(new ZeroElevatorCmd());
 
-	AddSequential(new DriveStraightCmd(5500,0.0));
+		AddSequential(new ZeroElevatorCmd());
 
-	heading = 90;
-	AddSequential(new DriveTurnCmd(heading));
+		AddSequential(new DriveStraightCmd(5500,heading));
 
-	AddSequential(new DriveStraightCmd(3700,heading));
+		heading = -90;
+		AddSequential(new DriveTurnCmd(heading));
 
-	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+		AddSequential(new DriveStraightCmd(3700,heading));
 
-	heading = 180;
-	AddSequential(new DriveTurnCmd(heading));
+		AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
-	AddSequential(new DriveStraightCmd(650,heading));
+		heading = -180;
+		AddSequential(new DriveTurnCmd(heading));
 
-	AddSequential(new ReverseIntakeCmd(1));
-}
+		AddSequential(new DriveStraightCmd(650,heading));
+
+		AddSequential(new ReverseIntakeCmd(1));
+	}
 
 	//Then go forward until it hits the switch
 

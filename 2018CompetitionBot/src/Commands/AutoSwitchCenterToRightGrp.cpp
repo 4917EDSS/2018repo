@@ -11,6 +11,7 @@ AutoSwitchCenterToRightGrp::AutoSwitchCenterToRightGrp() {
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
+
 	float heading = 0;
 
 	AddSequential(new ZeroElevatorCmd());
@@ -18,7 +19,7 @@ AutoSwitchCenterToRightGrp::AutoSwitchCenterToRightGrp() {
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
 	heading = 20;
-	AddSequential(new DriveTurnCmd(20)); // Need to just turn one side, other side wont be able to go back since on wall
+	AddSequential(new DriveTurnCmd(heading)); // Need to just turn one side, other side wont be able to go back since on wall
 
 	AddSequential(new DriveStraightCmd(2700,heading));
 

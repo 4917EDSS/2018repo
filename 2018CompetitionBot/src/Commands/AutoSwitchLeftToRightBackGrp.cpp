@@ -11,16 +11,20 @@ AutoSwitchLeftToRightBackGrp::AutoSwitchLeftToRightBackGrp() {
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
+
 	float heading = 0;
+
 	AddSequential(new ZeroElevatorCmd());
 
-	AddSequential(new DriveStraightCmd(5500,0.0));
+	AddSequential(new DriveStraightCmd(5500,heading));
+
 	heading = 90;
 	AddSequential(new DriveTurnCmd(heading));
 
 	AddSequential(new DriveStraightCmd(3700,heading));
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+
 	heading = 180;
 	AddSequential(new DriveTurnCmd(heading));
 

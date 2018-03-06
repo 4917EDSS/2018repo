@@ -46,7 +46,6 @@ AutoSwitchCenterToLeftGrp::AutoSwitchCenterToLeftGrp() {
 	AddSequential(new DriveStraightCmd(1400,heading));
 
 	AddSequential(new ReverseIntakeCmd(0.5));
-
 	// To run multiple commands at the same time,
 	// use AddParallel()
 	// e.g. AddParallel(new Command1());

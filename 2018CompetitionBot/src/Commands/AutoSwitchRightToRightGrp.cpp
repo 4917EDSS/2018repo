@@ -13,18 +13,25 @@ AutoSwitchRightToRightGrp::AutoSwitchRightToRightGrp() {
 
 
 //	If you start from the right corner:
+
 	float heading = 0;
-	AddSequential(new ZeroElevatorCmd());
 
-	heading = -15;
-	AddSequential(new DriveTurnCmd(heading));
-	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-	AddSequential(new DriveStraightCmd(2500,-45));
+		AddSequential(new ZeroElevatorCmd());
 
-	heading = 0;
-	AddSequential(new DriveTurnCmd(heading));
-	AddSequential(new DriveStraightCmd(500,heading));
-	AddSequential(new ReverseIntakeCmd(1));
+		heading = -15;
+		AddSequential(new DriveTurnCmd(heading));
+
+		AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+
+		AddSequential(new DriveStraightCmd(2500,heading));
+
+		heading = 0;
+		AddSequential(new DriveTurnCmd(0));
+
+		AddSequential(new DriveStraightCmd(500,0));
+
+		AddSequential(new ReverseIntakeCmd(1));
+
 
 
 	// A command group will require all of the subsystems that each member
