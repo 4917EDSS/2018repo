@@ -1,9 +1,9 @@
-#include "AutoScaleRightToLeftGrp.h"
+#include <Commands/AutoRightToLeftScaleGrp.h>
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
 
-AutoScaleRightToLeftGrp::AutoScaleRightToLeftGrp() {
+AutoRightToLeftScaleGrp::AutoRightToLeftScaleGrp() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

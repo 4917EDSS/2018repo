@@ -1,4 +1,4 @@
-#include <Commands/AutoSwitchLeftToRightBackGrp.h>
+#include <Commands/AutoLeftToRightSwitchGrp.h>
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
@@ -6,7 +6,7 @@
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/MoveElevatorToHeightCmd.h"
 
-AutoSwitchLeftToRightBackGrp::AutoSwitchLeftToRightBackGrp() {
+AutoLeftToRightSwitchGrp::AutoLeftToRightSwitchGrp() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
@@ -14,24 +14,24 @@ AutoSwitchLeftToRightBackGrp::AutoSwitchLeftToRightBackGrp() {
 
 	float heading = 0;
 
-	AddSequential(new ZeroElevatorCmd());
+		AddSequential(new ZeroElevatorCmd());
 
-	AddSequential(new DriveStraightCmd(5500,heading));
+		heading = 80;
+		AddSequential(new DriveTurnCmd(heading));
 
-	heading = 90;
-	AddSequential(new DriveTurnCmd(heading));
+		AddSequential(new DriveStraightCmd(4500,heading));
 
-	AddSequential(new DriveStraightCmd(3700,heading));
+		heading = 0;
+		AddSequential(new DriveTurnCmd(heading));
 
-	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+		AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
-	heading = 180;
-	AddSequential(new DriveTurnCmd(heading));
+		AddSequential(new DriveStraightCmd(1000,heading));
 
-	AddSequential(new DriveStraightCmd(650,heading));
+		AddSequential(new ReverseIntakeCmd(0.5));
 
-	AddSequential(new ReverseIntakeCmd(1));
-}
+		//AddSequential(new
+	}
 
 	//Then go forward until it hits the switch
 

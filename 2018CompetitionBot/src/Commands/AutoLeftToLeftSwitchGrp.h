@@ -3,9 +3,9 @@
 
 #include <WPILib.h>
 
-class AutoSwitchLeftToLeftGrp : public CommandGroup {
+class AutoLeftToLeftSwitchGrp : public CommandGroup {
 public:
-	AutoSwitchLeftToLeftGrp();
+	AutoLeftToLeftSwitchGrp();
 };
 
 #endif  // AutoLeftToLeftSwitchGrp_H

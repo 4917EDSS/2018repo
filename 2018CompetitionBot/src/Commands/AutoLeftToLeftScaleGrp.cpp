@@ -1,11 +1,11 @@
-#include <Commands/AutoScaleLeftToLeftGrp.h>
+#include <Commands/AutoLeftToLeftScaleGrp.h>
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
 #include "Commands/MoveElevatorToHeightCmd.h"
 #include "ReverseIntakeCmd.h"
 
-AutoScaleLeftToLeftGrp::AutoScaleLeftToLeftGrp() {
+AutoLeftToLeftScaleGrp::AutoLeftToLeftScaleGrp() {
 	float heading = 0;
 
 	AddSequential(new ZeroElevatorCmd());
