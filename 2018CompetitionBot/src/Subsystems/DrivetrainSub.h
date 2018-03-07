@@ -18,12 +18,12 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 	const float DRIVETRAIN_DIS_PER_PULSE = 3000.0/6150.0;
-	std::shared_ptr<VictorSPX> leftMotor1;
-	std::shared_ptr<VictorSPX> leftMotor2;
-	std::shared_ptr<VictorSPX> leftMotor3;
-	std::shared_ptr<VictorSPX> rightMotor1;
-	std::shared_ptr<VictorSPX> rightMotor2;
-	std::shared_ptr<VictorSPX> rightMotor3;
+	std::shared_ptr<WPI_VictorSPX> leftMotor1;
+	std::shared_ptr<WPI_VictorSPX> leftMotor2;
+	std::shared_ptr<WPI_VictorSPX> leftMotor3;
+	std::shared_ptr<WPI_VictorSPX> rightMotor1;
+	std::shared_ptr<WPI_VictorSPX> rightMotor2;
+	std::shared_ptr<WPI_VictorSPX> rightMotor3;
 	std::shared_ptr<frc::Encoder> leftMotorEnc;
 	std::shared_ptr<frc::Encoder> rightMotorEnc;
 	std::shared_ptr<AHRS> ahrs;
@@ -61,7 +61,7 @@ public:
 	double getRate();
 	void driverDriveStraight(float speed);
 	void enableFrontRangefinder(bool enable);
-	double getFrontUltrasonicDist();
+	double getFrontRangefinderDist();
 	void setHighGear();
 	void setLowGear();
 	void PIDWallTurn();

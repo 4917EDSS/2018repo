@@ -13,14 +13,24 @@ constexpr float LIFT_TOLERANCE = 1;
 constexpr double SCALE_HEIGHT_SUDDEN_CHANGE_TOLERANCE = 400;
 
 ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
-	elevatorMotor1.reset(new TalonSRX(ELEVATOR_MOTOR1_CANID));
-	elevatorMotor2.reset(new TalonSRX(ELEVATOR_MOTOR2_CANID));
+	elevatorMotor1.reset(new WPI_TalonSRX(ELEVATOR_MOTOR1_CANID));
+	elevatorMotor1->SetName("Elevator", "Motor1");
+
+	elevatorMotor2.reset(new WPI_TalonSRX(ELEVATOR_MOTOR2_CANID));
+	elevatorMotor2->SetName("Elevator", "Motor2");
+
 	elevatorMotorEnc.reset(new frc::Encoder(ELEVATOR_MOTOR_ENC1_DIO, ELEVATOR_MOTOR_ENC2_DIO));
-//	liftPID.reset(new PIDController(LIFT_P, LIFT_I, LIFT_D, elevatorMotorEnc.get(), elevatorMotor1.get()));
+	elevatorMotorEnc->SetName("Elevator", "Motor Enc");
+
 	lowerLimit.reset(new DigitalInput(ELEVATOR_LOWER_LIMIT_DIO));
+	lowerLimit->SetName("Elevator", "Lower Limit");
+
 	rangefinder.reset(new frc::Ultrasonic(ELEVATOR_LIDAR_TRIG_DIO, ELEVATOR_LIDAR_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
+	rangefinder->SetName("Elevator", "Rangefinder");
 	rangefinder->SetAutomaticMode(true);
+
 	climbBarSolenoid.reset(new frc::Solenoid(CLIMB_BAR_PCM_ID));
+	climbBarSolenoid->SetName("Elevator", "ClimbBar Deploy Solenoid");
 
 	target = 0;
 	finishedMove = true;
@@ -60,23 +70,27 @@ void ElevatorSub::logPeriodicValues() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 bool ElevatorSub::atScaleHeight(){
-	double currentLidarValue = getLidarValue();
+	double currentLidarValue = getRangfinderDist();
 	if (lastLidarValue - currentLidarValue >= SCALE_HEIGHT_SUDDEN_CHANGE_TOLERANCE){
 	return true;
 	}
 	lastLidarValue = currentLidarValue;
 	return false;
 }
-void ElevatorSub::startTinyLidar(){
+
+void ElevatorSub::startRangefinder(){
 	rangefinder->SetAutomaticMode(true);
-	lastLidarValue = getLidarValue();
+	lastLidarValue = getRangfinderDist();
 }
-double ElevatorSub::getLidarValue(){
+
+double ElevatorSub::getRangfinderDist(){
 	return rangefinder->GetRangeMM();
 }
-void ElevatorSub::endTinyLidar(){
+
+void ElevatorSub::stopRangefinder(){
 	rangefinder->SetAutomaticMode(false);
 }
+
 bool ElevatorSub::isAtMaxDropHeight(){
 	if (getElevatorEncoder() >= SCALE_BOX_HIGH_HEIGHT){
 		return true;
@@ -84,6 +98,7 @@ bool ElevatorSub::isAtMaxDropHeight(){
 
 	return false;
 }
+
 void ElevatorSub::setElevatorMotorRaw(double speed){
 	elevatorMotor1->Set(ControlMode::PercentOutput, -speed);
 	elevatorMotor2->Set(ControlMode::PercentOutput, -speed);
@@ -136,28 +151,6 @@ void ElevatorSub::update(){
 		}
 	}
 }
-
-//void ElevatorSub::enableLiftPID(float setPoint){
-//	std::cout<<"EnableLiftPID"<<std::endl;
-//	Preferences *prefs = Preferences::GetInstance();
-//	std::cout<<"EnableLiftPID - preferences"<<std::endl;
-//	liftPID->SetPID(prefs->GetFloat("LiftP", LIFT_P), prefs->GetFloat("LiftI", LIFT_I), prefs->GetFloat("LiftD", LIFT_D));
-//	std::cout<<"EnableLiftPID - setPID"<<std::endl;
-//	liftPID->SetAbsoluteTolerance(prefs->GetFloat("LiftTolerance", LIFT_TOLERANCE));
-//	std::cout<<"EnableLiftPID - setTol"<<std::endl;
-//	liftPID->SetSetpoint(setPoint);
-//	std::cout<<"EnableLiftPID - set point"<<std::endl;
-//	liftPID->Enable();
-//	std::cout<<"EnableLiftPID - enabled"<<std::endl;
-//}
-//
-//void ElevatorSub::disableLiftPID(){
-//	liftPID->Disable();
-//}
-//
-//bool ElevatorSub::PIDLiftIsFinished(){
-//	return liftPID->OnTarget();
-//}
 
 double ElevatorSub::convertHeightToEncoder(double cm){
 	std::vector<DataPoints> table = {{0, 22}, {82.5, 40}, {154.75, 60}, {219, 80}, {335, 118}, {465.25, 160}, {523.75, 180}, {643.75, 220}};
