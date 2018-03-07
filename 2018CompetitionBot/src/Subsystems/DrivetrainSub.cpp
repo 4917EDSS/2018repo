@@ -78,7 +78,7 @@ void DrivetrainSub::InitDefaultCommand() {
 void DrivetrainSub::logPeriodicValues() {
 	// Prefix the line with "LP:" for log-periodic so we can filter on that
 	// Use commas to separate fields to make it easy to import into a spreadsheet
-	logger.send(logger.PERIODIC, "LP:Drivetrain,"
+	logger.send(logger.PERIODIC, "%d,LP:Drivetrain,"
 			"Motor Percent,L1,%f,L2,%f,L3,%f,R1,%f,R2,%f,R3,%f,"
 			"Motor Currents,L1,%f,L2,%f,L3,%f,R1,%f,R2,%f,R3,%f,"
 			"Motor Encoder,L,%d,R,%d,LRaw,%d,RRaw,%d,"
@@ -86,6 +86,7 @@ void DrivetrainSub::logPeriodicValues() {
 			"Shifter,%d,"
 			"Distance,Front,%f,Rear,%d,"
 			"\n",
+			(uint32_t)(frc::RobotController::GetFPGATime() & 0xFFFFFFFF),
 			leftMotor1->GetMotorOutputPercent(), leftMotor2->GetMotorOutputPercent(), leftMotor3->GetMotorOutputPercent(),
 			rightMotor1->GetMotorOutputPercent(), rightMotor2->GetMotorOutputPercent(), rightMotor3->GetMotorOutputPercent(),
 			leftMotor1->GetOutputCurrent(), leftMotor2->GetOutputCurrent(), leftMotor3->GetOutputCurrent(),
