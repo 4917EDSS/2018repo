@@ -3,9 +3,9 @@
 
 #include <Commands/CommandGroup.h>
 
-class AutoSwitchRightToLeftGrp : public CommandGroup {
+class AutoRightToLeftSwitchGrp : public CommandGroup {
 public:
-	AutoSwitchRightToLeftGrp();
+	AutoRightToLeftSwitchGrp();
 };
 
 #endif  // AutoRightToLeftSwitchGrp_H

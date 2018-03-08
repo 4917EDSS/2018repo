@@ -7,14 +7,29 @@ constexpr double BOX_IN_DISTANCE_MM = 270;
 constexpr double BOX_AT_JAWS_DISTANCE_MM = 600;
 
 IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
-	intakeMotorLeft.reset(new TalonSRX(INTAKE_MOTOR_LEFT_CANID));
-	intakeMotorRight.reset(new TalonSRX(INTAKE_MOTOR_RIGHT_CANID));
-	armFolder.reset(new TalonSRX(ARM_FOLDER_CANID));
+	intakeMotorLeft.reset(new WPI_TalonSRX(INTAKE_MOTOR_LEFT_CANID));
+	intakeMotorLeft->SetName("Intake", "Left Motor");
+
+	intakeMotorRight.reset(new WPI_TalonSRX(INTAKE_MOTOR_RIGHT_CANID));
+	intakeMotorRight->SetName("Intake", "Right Motor");
+
+	armFolderMotor.reset(new WPI_TalonSRX(ARM_FOLDER_CANID));
+	armFolderMotor->SetName("Intake", "Arm Folder Motor");
+
 	intakeCloseLimit.reset(new DigitalInput(INTAKE_LIMIT_CLOSE_DIO));
+	intakeCloseLimit->SetName("Intake", "Intake Close Limit");
+
 	intakeFarLimit.reset(new DigitalInput(INTAKE_LIMIT_FAR_DIO));
+	intakeFarLimit->SetName("Intake", "Intake Far Limit");
+
 	intakeDistance.reset(new AnalogInput(INTAKE_DISTANCE_AI));
+	intakeDistance->SetName("Intake", "Intake Distance");
+
 	jawOpenSolenoid.reset(new frc::Solenoid(JAWS_OPEN_PCM_ID));
+	jawOpenSolenoid->SetName("Intake", "Jaw-open Solenoid");
+
 	jawCloseSolenoid.reset(new frc::Solenoid(JAWS_CLOSE_PCM_ID));
+	jawCloseSolenoid->SetName("Intake", "Jaw-close Solenoid");
 }
 
 void IntakeSub::InitDefaultCommand() {
@@ -24,12 +39,13 @@ void IntakeSub::InitDefaultCommand() {
 void IntakeSub::logPeriodicValues() {
 	// Prefix the line with "LP:" for log-periodic so we can filter on that
 	// Use commas to separate fields to make it easy to import into a spreadsheet
-	logger.send(logger.PERIODIC, "LP:Intake,"
+	logger.send(logger.PERIODIC, "%d,LP:Intake,"
 			"Motor Percent,L,%f,R,%f,"
 			"Motor Currents,L,%f,R,%f,"
 			"Limit,Far,%d,Close,%d,Dist,%d,"
 			"Solenoid,Open,%d,Close,%d,"
 			"\n",
+			(uint32_t)(frc::RobotController::GetFPGATime() & 0xFFFFFFFF),
 			intakeMotorLeft->GetMotorOutputPercent(), intakeMotorRight->GetMotorOutputPercent(),
 			intakeMotorLeft->GetOutputCurrent(), intakeMotorRight->GetOutputCurrent(),
 			intakeCloseLimit->Get() ? 1 : 0, intakeFarLimit->Get() ? 1 : 0, intakeDistance->GetValue(),
@@ -103,5 +119,5 @@ void IntakeSub::setJawsOnSpring() {
 }
 
 void IntakeSub::foldArms(double speed){
-	armFolder->Set(ControlMode::PercentOutput, speed);
+	armFolderMotor->Set(ControlMode::PercentOutput, speed);
 }

@@ -1,4 +1,4 @@
-#include <Commands/AutoSwitchCenterToRightGrp.h>
+#include <Commands/AutoCenterToRightSwitchGrp.h>
 #include "DriveStraightCmd.h"
 #include "DriveTurnCmd.h"
 #include "MoveElevatorToHeightCmd.h"
@@ -6,7 +6,7 @@
 #include "Commands/ZeroElevatorCmd.h"
 #include "Commands/IntakeUntilLimitCmd.h"
 
-AutoSwitchCenterToRightGrp::AutoSwitchCenterToRightGrp() {
+AutoCenterToRightSwitchGrp::AutoCenterToRightSwitchGrp() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

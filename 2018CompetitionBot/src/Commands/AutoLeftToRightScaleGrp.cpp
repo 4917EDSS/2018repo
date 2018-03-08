@@ -1,9 +1,9 @@
-#include "AutoScaleLeftToRightGrp.h"
+#include <Commands/AutoLeftToRightScaleGrp.h>
 #include <Commands/DriveStraightCmd.h>
 #include <Commands/DriveTurnCmd.h>
 #include "Commands/ZeroElevatorCmd.h"
 
-AutoScaleLeftToRightGrp::AutoScaleLeftToRightGrp() {
+AutoLeftToRightScaleGrp::AutoLeftToRightScaleGrp() {
 
 	float heading = 0;
 

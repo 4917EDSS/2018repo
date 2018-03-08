@@ -10,11 +10,10 @@ class ElevatorSub : public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	std::shared_ptr<TalonSRX> elevatorMotor1;
-	std::shared_ptr<TalonSRX> elevatorMotor2;
+	std::shared_ptr<WPI_TalonSRX> elevatorMotor1;
+	std::shared_ptr<WPI_TalonSRX> elevatorMotor2;
 	std::shared_ptr<frc::Encoder> elevatorMotorEnc;
-//	std::shared_ptr<frc::PIDController> liftPID;
-	std::shared_ptr<DigitalInput> lowerLimit;
+	std::shared_ptr<frc::DigitalInput> lowerLimit;
 	std::shared_ptr<frc::Ultrasonic> rangefinder;
 	std::shared_ptr<frc::Solenoid> climbBarSolenoid;
 	double target;
@@ -22,7 +21,6 @@ private:
 	double lastLidarValue;
 
 public:
-
 	static constexpr double SCALE_BOX_HIGH_HEIGHT = 626.75;
 	static constexpr double SCALE_BOX_MEDIUM_HEIGHT = 555;
 	static constexpr double SCALE_BOX_LOW_HEIGHT = 500;
@@ -40,19 +38,14 @@ public:
 	void elevatorMotorDown();
 	void update();
 	void setTarget(double newTarget);
-	void startTinyLidar();
-	double getLidarValue();
-	void endTinyLidar();
+	void startRangefinder();
+	double getRangfinderDist();
+	void stopRangefinder();
 	bool isAtMaxDropHeight();
 	bool atScaleHeight();
-//	void enableLiftPID(float setPoint);
-//	void disableLiftPID();
-//	bool PIDLiftIsFinished();
 	bool isElevatorDown();
 	double convertHeightToEncoder(double cm);
-	bool isFinishedMove() {
-		return finishedMove;
-	}
+	bool isFinishedMove();
 	void extendClimbBar();
 };
 

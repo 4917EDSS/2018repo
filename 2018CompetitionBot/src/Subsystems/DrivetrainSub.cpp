@@ -17,21 +17,49 @@ constexpr float DRIVE_TURN_I = 0.0;
 constexpr float DRIVE_TURN_D = 0.019;
 
 DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
-	leftMotor1.reset(new VictorSPX(DRIVE_MOTOR_LEFT1_CANID));
-	leftMotor2.reset(new VictorSPX(DRIVE_MOTOR_LEFT2_CANID));
-	leftMotor3.reset(new VictorSPX(DRIVE_MOTOR_LEFT3_CANID));
-	rightMotor1.reset(new VictorSPX(DRIVE_MOTOR_RIGHT1_CANID));
-	rightMotor2.reset(new VictorSPX(DRIVE_MOTOR_RIGHT2_CANID));
-	rightMotor3.reset(new VictorSPX(DRIVE_MOTOR_RIGHT3_CANID));
+	// Initialize the hardware
+	// Make sure to SetName in order to enable diagnostics view LiveWindow
+	leftMotor1.reset(new WPI_VictorSPX(DRIVE_MOTOR_LEFT1_CANID));
+	leftMotor1->SetName("Drivetrain", "Left Motor 1");
+	leftMotor2.reset(new WPI_VictorSPX(DRIVE_MOTOR_LEFT2_CANID));
+	leftMotor2->SetName("Drivetrain", "Left Motor 2");
+	leftMotor3.reset(new WPI_VictorSPX(DRIVE_MOTOR_LEFT3_CANID));
+	leftMotor3->SetName("Drivetrain", "Left Motor 3");
+
+	rightMotor1.reset(new WPI_VictorSPX(DRIVE_MOTOR_RIGHT1_CANID));
+	rightMotor1->SetName("Drivetrain", "Right Motor 1");
+	rightMotor2.reset(new WPI_VictorSPX(DRIVE_MOTOR_RIGHT2_CANID));
+	rightMotor2->SetName("Drivetrain", "Right Motor 2");
+	rightMotor3.reset(new WPI_VictorSPX(DRIVE_MOTOR_RIGHT3_CANID));
+	rightMotor3->SetName("Drivetrain", "Right Motor 3");
+
 	leftMotorEnc.reset(new frc::Encoder(DRIVE_MOTOR_LEFT_ENC1_DIO, DRIVE_MOTOR_LEFT_ENC2_DIO));
-	rightMotorEnc.reset(new frc::Encoder(DRIVE_MOTOR_RIGHT_ENC1_DIO, DRIVE_MOTOR_RIGHT_ENC2_DIO));
+	leftMotorEnc->SetName("Drivetrain", "Left Motor Enc");
 	leftMotorEnc->SetDistancePerPulse(DRIVETRAIN_DIS_PER_PULSE * 4);
+
+	rightMotorEnc.reset(new frc::Encoder(DRIVE_MOTOR_RIGHT_ENC1_DIO, DRIVE_MOTOR_RIGHT_ENC2_DIO));
+	rightMotorEnc->SetName("Drivetrain", "Right Motor Enc");
 	rightMotorEnc->SetDistancePerPulse(DRIVETRAIN_DIS_PER_PULSE * 4);
 
+	ahrs.reset(new AHRS(AHRSInterface));
+	ahrs->SetName("Drivetrain", "AHRS");
+
+	shifters.reset(new frc::Solenoid(SHIFTERS_PCM_ID));
+	shifters->SetName("Drivetrain", "Shifter");
+	setLowGear();
+
+	frontRangefinder.reset(new frc::Ultrasonic(DRIVETRAIN_FRONT_ULTRASONIC_TRIG_DIO, DRIVETRAIN_FRONT_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
+	frontRangefinder->SetName("Drivetrain", "Front Rangefinder");
+	frontRangefinder->SetAutomaticMode(true);
+
+	rearRangefinder.reset(new AnalogInput(DRIVETRAIN_REAR_ULTRASONIC_AI));
+	rearRangefinder->SetName("Drivetrain", "Rear Rangefinder");
+
+	// Initialize software controllers
 	turnBalancer.reset(new MotorBalancer());
 	driveBalancer.reset(new MotorBalancer());
 	distanceBalancer.reset(new MotorBalancer());
-	ahrs.reset(new AHRS(AHRSInterface));
+
 	driveBalancePID.reset(new PIDController(DRIVE_BALANCE_P, DRIVE_BALANCE_I, DRIVE_BALANCE_D, ahrs.get(), driveBalancer.get()));
 	driveDistancePID.reset(new PIDController(DRIVE_DISTANCE_P, DRIVE_DISTANCE_I, DRIVE_DISTANCE_D, leftMotorEnc.get(), distanceBalancer.get()));
 	Preferences *prefs = Preferences::GetInstance();
@@ -40,13 +68,6 @@ DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 											  prefs->GetFloat("DriveTurnD", DRIVE_TURN_D),
 											  ahrs.get(),
 											  turnBalancer.get()));
-	shifters.reset(new frc::Solenoid(SHIFTERS_PCM_ID));
-	setLowGear();
-
-	frontRangefinder.reset(new frc::Ultrasonic(DRIVETRAIN_FRONT_ULTRASONIC_TRIG_DIO, DRIVETRAIN_FRONT_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
-	frontRangefinder->SetAutomaticMode(true);
-
-	rearRangefinder.reset(new AnalogInput(DRIVETRAIN_REAR_ULTRASONIC_AI));
 }
 
 
@@ -57,7 +78,7 @@ void DrivetrainSub::InitDefaultCommand() {
 void DrivetrainSub::logPeriodicValues() {
 	// Prefix the line with "LP:" for log-periodic so we can filter on that
 	// Use commas to separate fields to make it easy to import into a spreadsheet
-	logger.send(logger.PERIODIC, "LP:Drivetrain,"
+	logger.send(logger.PERIODIC, "%d,LP:Drivetrain,"
 			"Motor Percent,L1,%f,L2,%f,L3,%f,R1,%f,R2,%f,R3,%f,"
 			"Motor Currents,L1,%f,L2,%f,L3,%f,R1,%f,R2,%f,R3,%f,"
 			"Motor Encoder,L,%d,R,%d,LRaw,%d,RRaw,%d,"
@@ -65,6 +86,7 @@ void DrivetrainSub::logPeriodicValues() {
 			"Shifter,%d,"
 			"Distance,Front,%f,Rear,%d,"
 			"\n",
+			(uint32_t)(frc::RobotController::GetFPGATime() & 0xFFFFFFFF),
 			leftMotor1->GetMotorOutputPercent(), leftMotor2->GetMotorOutputPercent(), leftMotor3->GetMotorOutputPercent(),
 			rightMotor1->GetMotorOutputPercent(), rightMotor2->GetMotorOutputPercent(), rightMotor3->GetMotorOutputPercent(),
 			leftMotor1->GetOutputCurrent(), leftMotor2->GetOutputCurrent(), leftMotor3->GetOutputCurrent(),
@@ -200,7 +222,7 @@ void DrivetrainSub::enableFrontRangefinder(bool enable) {
 	frontRangefinder->SetAutomaticMode(enable);
 }
 
-double DrivetrainSub::getFrontUltrasonicDist() {
+double DrivetrainSub::getFrontRangefinderDist() {
 	return frontRangefinder->GetRangeMM();
 }
 

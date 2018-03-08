@@ -3,9 +3,9 @@
 
 #include <Commands/CommandGroup.h>
 
-class AutoScaleLeftToRightGrp : public CommandGroup {
+class AutoLeftToRightScaleGrp : public CommandGroup {
 public:
-	AutoScaleLeftToRightGrp();
+	AutoLeftToRightScaleGrp();
 };
 
 #endif  // AutoScaleLeftToRightGrp_H

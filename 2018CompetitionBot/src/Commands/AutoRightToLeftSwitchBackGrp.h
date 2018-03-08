@@ -9,9 +9,9 @@
 
 #include <WPILib.h>
 
-class AutoSwitchRightToLeftBackGrp : public CommandGroup {
+class AutoRightToLeftSwitchBackGrp : public CommandGroup {
 
 public:
-		AutoSwitchRightToLeftBackGrp();
+		AutoRightToLeftSwitchBackGrp();
 };
 #endif

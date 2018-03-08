@@ -1,4 +1,4 @@
-#include <Commands/AutoSwitchLeftToLeftGrp.h>
+#include <Commands/AutoLeftToLeftSwitchGrp.h>
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
@@ -7,7 +7,7 @@
 #include "Commands/IntakeUntilLimitCmd.h"
 
 
-AutoSwitchLeftToLeftGrp::AutoSwitchLeftToLeftGrp() {
+AutoLeftToLeftSwitchGrp::AutoLeftToLeftSwitchGrp() {
 
 	float heading = 0;
 

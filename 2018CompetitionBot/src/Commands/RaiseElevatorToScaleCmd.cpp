@@ -8,7 +8,7 @@ RaiseElevatorToScaleCmd::RaiseElevatorToScaleCmd() {
 
 // Called just before this Command runs the first time
 void RaiseElevatorToScaleCmd::Initialize() {
-	elevatorSub->startTinyLidar();
+	elevatorSub->startRangefinder();
 	elevatorSub->setElevatorMotor(1.0);
 	// TO DO get an initial measurement, the initial measurement can be sonar off the back or lidar out the front.
 }
@@ -33,7 +33,7 @@ bool RaiseElevatorToScaleCmd::IsFinished() {
 // Called once after isFinished returns true
 void RaiseElevatorToScaleCmd::End() {
 	elevatorSub->setElevatorMotor(0.0);
-	elevatorSub->endTinyLidar();
+	elevatorSub->stopRangefinder();
 }
 
 // Called when another command which requires one or more of the same

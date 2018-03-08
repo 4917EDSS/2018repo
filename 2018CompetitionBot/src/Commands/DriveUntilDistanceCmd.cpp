@@ -22,7 +22,7 @@ void DriveUntilDistanceCmd::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveUntilDistanceCmd::IsFinished() {
-	if (drivetrainSub->getFrontUltrasonicDist() <= targetDistance){
+	if (drivetrainSub->getFrontRangefinderDist() <= targetDistance){
 		return true;
 	}
 	else {
