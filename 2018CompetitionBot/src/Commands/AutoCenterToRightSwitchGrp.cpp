@@ -5,6 +5,7 @@
 #include "ReverseIntakeCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
 #include "Commands/IntakeUntilLimitCmd.h"
+#include "Commands/TimedFoldArmsDownCmd.h"
 
 AutoCenterToRightSwitchGrp::AutoCenterToRightSwitchGrp() {
 	// Add Commands here:
@@ -13,7 +14,7 @@ AutoCenterToRightSwitchGrp::AutoCenterToRightSwitchGrp() {
 	// these will run in order.
 
 	float heading = 0;
-
+	AddParallel (new TimedFoldArmsDownCmd(TIME_TO_LOWER_ARMS));
 	AddSequential(new ZeroElevatorCmd());
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));

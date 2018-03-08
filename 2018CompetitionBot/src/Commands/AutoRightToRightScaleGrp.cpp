@@ -6,10 +6,13 @@
 #include "Commands/ZeroElevatorCmd.h"
 #include "Commands/DriveVisionBoxCmd.h"
 #include "Subsystems/ElevatorSub.h"
+#include "Commands/TimedFoldArmsDownCmd.h"
 
 AutoRightToRightScaleGrp::AutoRightToRightScaleGrp() {
 
 	float heading = 0;
+
+	AddParallel (new TimedFoldArmsDownCmd(TIME_TO_LOWER_ARMS));
 	AddSequential(new ZeroElevatorCmd());
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));

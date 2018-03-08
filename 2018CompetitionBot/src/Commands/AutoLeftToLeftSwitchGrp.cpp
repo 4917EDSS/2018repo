@@ -5,12 +5,13 @@
 #include "Commands/MoveElevatorToHeightCmd.h"
 #include "Commands/ReverseIntakeCmd.h"
 #include "Commands/IntakeUntilLimitCmd.h"
-
+#include "Commands/TimedFoldArmsDownCmd.h"
 
 AutoLeftToLeftSwitchGrp::AutoLeftToLeftSwitchGrp() {
 
 	float heading = 0;
 
+	AddParallel (new TimedFoldArmsDownCmd(TIME_TO_LOWER_ARMS));
 	AddSequential(new ZeroElevatorCmd());
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
