@@ -14,13 +14,11 @@ FoldArmsUpCmd::FoldArmsUpCmd() {
 
 // Called just before this Command runs the first time
 void FoldArmsUpCmd::Initialize() {
-	std::cout << "Initialize" << std::endl;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void FoldArmsUpCmd::Execute() {
 	intakeSub->foldArms(-1.0);
-	std::cout << "Execute" << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()
