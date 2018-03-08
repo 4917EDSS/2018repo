@@ -47,7 +47,7 @@ constexpr int JAWS_OPEN_PCM_ID = 2;
 constexpr int JAWS_CLOSE_PCM_ID = 3;
 constexpr int CLIMB_BAR_PCM_ID = 4;
 
-constexpr float TIME_TO_LOWER_ARMS =0.8;
+constexpr float TIME_TO_LOWER_ARMS = 0.85;
 // AHRS (i.e. navX) interface
 #define AHRSInterface	frc::SPI::kMXP
 
