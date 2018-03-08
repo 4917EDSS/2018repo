@@ -12,6 +12,7 @@
 #include "Commands/MoveElevatorToHeightCmd.h"
 #include "Commands/ReverseIntakeCmd.h"
 #include "Commands/IntakeUntilLimitCmd.h"
+#include "Commands/TimedFoldArmsDownCmd.h"
 
 AutoRightToLeftScaleToLeftSwitchGrp::AutoRightToLeftScaleToLeftSwitchGrp() {
 	// Add Commands here:
@@ -21,6 +22,7 @@ AutoRightToLeftScaleToLeftSwitchGrp::AutoRightToLeftScaleToLeftSwitchGrp() {
 
 	float heading=0;
 
+	AddParallel (new TimedFoldArmsDownCmd(TIME_TO_LOWER_ARMS));
 	AddSequential(new DriveStraightCmd(4000,heading));
 
 	heading=-70;

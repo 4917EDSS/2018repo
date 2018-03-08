@@ -5,6 +5,7 @@
 #include "Commands/ReverseIntakeCmd.h"
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/MoveElevatorToHeightCmd.h"
+#include "Commands/TimedFoldArmsDownCmd.h"
 
 AutoLeftToRightSwitchGrp::AutoLeftToRightSwitchGrp() {
 	// Add Commands here:
@@ -17,6 +18,8 @@ AutoLeftToRightSwitchGrp::AutoLeftToRightSwitchGrp() {
 		AddSequential(new ZeroElevatorCmd());
 
 		heading = 80;
+
+		AddParallel (new TimedFoldArmsDownCmd(TIME_TO_LOWER_ARMS));
 		AddSequential(new DriveTurnCmd(heading));
 
 		AddSequential(new DriveStraightCmd(4500,heading));
