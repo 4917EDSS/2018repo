@@ -15,7 +15,7 @@ const double A_DIS=0.3*(0.8/MAX_LIN_VEL);
 const double V_DIS=1*(0.8/MAX_LIN_VEL);
 const double P_ANG=0.039;
 //When we drove at these speeds we were at 0.3 power we got 50 degrees per second
-const double V_ANG=0.5*(0.3/50);
+const double V_ANG=0.6*(0.3/50);
 
 class SilkyMotionCmd : public CommandBase {
 public:
