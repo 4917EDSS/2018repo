@@ -11,11 +11,14 @@
 
 class TimedFoldArmsDownCmd : public CommandBase {
 public:
-	TimedFoldArmsDownCmd();
+	TimedFoldArmsDownCmd(double time);
 	void Initialize() override;
 	void Execute() override;
 	bool IsFinished() override;
 	void End() override;
 	void Interrupted() override;
+
+private:
+	double timeFolding;
 };
 

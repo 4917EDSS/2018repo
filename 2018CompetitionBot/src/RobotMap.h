@@ -52,21 +52,21 @@ constexpr int CLIMB_BAR_PCM_ID = 4;
 
 
 /* Limelight Values
- * Vision Cam:
+ * Vision Cam (Pipeline 1):
  * Exposure: 2
  * Red Balance: 1456
  * Blue Balance: 1472
  * Hue: 55 - 72
  * Saturation: 152 - 255
  * Value: 216 - 255
- * Drive Cam:
+ * Drive Cam (Pipeline 0):
  * Light must be off
- * Exposure: 90
+ * Exposure: 75
  * Red Balance: 1361
  * Blue Balance: 2500
  * Hue: 19 - 26
- * Saturation: 249 - 255
- * Value: 165 - 255
+ * Saturation: 200 - 255
+ * Value: 131 - 255
  *
  *
  *
