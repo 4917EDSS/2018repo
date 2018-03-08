@@ -34,7 +34,7 @@ constexpr int CLIMB_BAR_BTN = 3;
 
 // Operator
 constexpr int ROTATE_BOX_BTN = 0;
-constexpr int FOLD_UP_BTN = 1;
+constexpr int FOLD_DOWN_BTN = 1;
 constexpr int GROUND_INTAKE_BTN = 2;
 constexpr int INTAKE_BTN = 3;
 constexpr int DROP_BOX_BTN = 4;
@@ -43,7 +43,7 @@ constexpr int PLACE_BOX_HIGH_SCALE_BTN = 6;
 constexpr int PLACE_BOX_SWITCH_BTN = 7;
 constexpr int PLACE_BOX_MEDIUM_SCALE_BTN = 8;
 constexpr int CLIMB_BTN = 9;
-constexpr int FOLD_DOWN_BTN = 10;
+constexpr int FOLD_UP_BTN = 10;
 constexpr int KILL_EVERYTHING_BTN_1 = 11;
 constexpr int KILL_EVERYTHING_BTN_2 = 12;
 

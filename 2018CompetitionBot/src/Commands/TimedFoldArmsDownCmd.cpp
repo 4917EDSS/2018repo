@@ -13,7 +13,7 @@ void TimedFoldArmsDownCmd::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void TimedFoldArmsDownCmd::Execute() {
-	intakeSub->foldArms(1.0);
+	intakeSub->foldArms(-1.0);
 
 }
 
