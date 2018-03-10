@@ -9,7 +9,7 @@
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/MoveElevatorToHeightCmd.h"
 #include "Commands/ExtendClimbBarCmd.h"
-#include "Commands/TimedFoldArmsUpCmd.h"
+#include "Commands/FoldArmsUpCmd.h"
 
 ClimbGrp::ClimbGrp() {
 	// Add Commands here:
@@ -29,7 +29,7 @@ ClimbGrp::ClimbGrp() {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 
-	AddSequential(new TimedFoldArmsUpCmd(TIME_TO_LOWER_ARMS));
+	AddSequential(new FoldArmsUpCmd());
 
 	AddSequential(new ExtendClimbBarCmd());
 

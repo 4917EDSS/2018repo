@@ -30,6 +30,12 @@ IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 
 	jawCloseSolenoid.reset(new frc::Solenoid(JAWS_CLOSE_PCM_ID));
 	jawCloseSolenoid->SetName("Intake", "Jaw-close Solenoid");
+
+	armsUpperLimit.reset(new DigitalInput(ARMS_UPPER_LIMIT_DIO));
+	armsUpperLimit->SetName("Intake", "Arms Upper Limit");
+
+	armsLowerLimit.reset(new DigitalInput(ARMS_LOWER_LIMIT_DIO));
+	armsLowerLimit->SetName("Intake", "Arms Lower Limit");
 }
 
 void IntakeSub::InitDefaultCommand() {
@@ -119,5 +125,13 @@ void IntakeSub::setJawsOnSpring() {
 }
 
 void IntakeSub::foldArms(double speed){
-	armFolderMotor->Set(ControlMode::PercentOutput, speed);
+	armFolderMotor->Set(ControlMode::PercentOutput, -speed);
+}
+
+bool IntakeSub::isArmsUp() {
+	return !armsUpperLimit->Get();
+}
+
+bool IntakeSub::isArmsDown() {
+	return !armsLowerLimit->Get();
 }

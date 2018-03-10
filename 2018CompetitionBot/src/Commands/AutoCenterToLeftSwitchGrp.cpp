@@ -6,6 +6,7 @@
 #include "Commands/ZeroElevatorCmd.h"
 #include "Commands/IntakeUntilLimitCmd.h"
 #include "Commands/TimedFoldArmsDownCmd.h"
+#include "Subsystems/IntakeSub.h"
 
 AutoCenterToLeftSwitchGrp::AutoCenterToLeftSwitchGrp() {
 	// Add Commands here:
@@ -15,7 +16,7 @@ AutoCenterToLeftSwitchGrp::AutoCenterToLeftSwitchGrp() {
 
 
 	float heading = 0;
-	AddParallel (new TimedFoldArmsDownCmd(TIME_TO_LOWER_ARMS));
+	AddParallel (new TimedFoldArmsDownCmd(IntakeSub::TIME_TO_LOWER_ARMS));
 	AddSequential(new ZeroElevatorCmd());
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));

@@ -3,6 +3,7 @@
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
 #include "Commands/TimedFoldArmsDownCmd.h"
+#include "Subsystems/IntakeSub.h"
 
 AutoRightToLeftScaleGrp::AutoRightToLeftScaleGrp() {
 	// Add Commands here:
@@ -12,7 +13,7 @@ AutoRightToLeftScaleGrp::AutoRightToLeftScaleGrp() {
 
 	float heading = 0;
 
-	AddParallel (new TimedFoldArmsDownCmd(TIME_TO_LOWER_ARMS));
+	AddParallel (new TimedFoldArmsDownCmd(IntakeSub::TIME_TO_LOWER_ARMS));
 	AddSequential(new ZeroElevatorCmd());
 
 	AddSequential(new DriveStraightCmd(250,heading));

@@ -13,13 +13,14 @@ FoldArmsDownCmd::FoldArmsDownCmd() {
 
 // Called just before this Command runs the first time
 void FoldArmsDownCmd::Initialize() {
-
+	intakeSub->foldArms(-1.0);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void FoldArmsDownCmd::Execute() {
-	intakeSub->foldArms(-1.0);
-
+	if (intakeSub->isArmsDown()) {
+			intakeSub->foldArms(0.0);
+		}
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -30,7 +31,6 @@ bool FoldArmsDownCmd::IsFinished() {
 // Called once after isFinished returns true
 void FoldArmsDownCmd::End() {
 	intakeSub->foldArms(0.0);
-
 }
 
 // Called when another command which requires one or more of the same

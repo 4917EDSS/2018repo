@@ -30,7 +30,8 @@ constexpr int ELEVATOR_MOTOR_ENC1_DIO = 4;
 constexpr int ELEVATOR_MOTOR_ENC2_DIO = 5;
 constexpr int INTAKE_LIMIT_CLOSE_DIO = 6;
 constexpr int INTAKE_LIMIT_FAR_DIO = 7;
-// constexpr int FREE_DIO = 8;
+constexpr int ARMS_UPPER_LIMIT_DIO = 8;
+constexpr int ARMS_LOWER_LIMIT_DIO = 14;		//Actually Connect this limit switch to robot
 constexpr int ELEVATOR_LOWER_LIMIT_DIO = 9;
 constexpr int ELEVATOR_LIDAR_TRIG_DIO = 10;
 constexpr int ELEVATOR_LIDAR_ECHO_DIO = 11;
@@ -47,7 +48,6 @@ constexpr int JAWS_OPEN_PCM_ID = 2;
 constexpr int JAWS_CLOSE_PCM_ID = 3;
 constexpr int CLIMB_BAR_PCM_ID = 4;
 
-constexpr float TIME_TO_LOWER_ARMS = 0.85;
 // AHRS (i.e. navX) interface
 #define AHRSInterface	frc::SPI::kMXP
 

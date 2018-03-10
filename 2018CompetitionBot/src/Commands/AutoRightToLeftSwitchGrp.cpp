@@ -6,6 +6,7 @@
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/MoveElevatorToHeightCmd.h"
 #include "Commands/TimedFoldArmsDownCmd.h"
+#include "Subsystems/IntakeSub.h"
 
 AutoRightToLeftSwitchGrp::AutoRightToLeftSwitchGrp() {
 	// Add Commands here:
@@ -16,7 +17,7 @@ AutoRightToLeftSwitchGrp::AutoRightToLeftSwitchGrp() {
 
 	float heading = 0;
 
-		AddParallel (new TimedFoldArmsDownCmd(TIME_TO_LOWER_ARMS));
+		AddParallel (new TimedFoldArmsDownCmd(IntakeSub::TIME_TO_LOWER_ARMS));
 		AddSequential(new ZeroElevatorCmd());
 
 		heading = -75;
