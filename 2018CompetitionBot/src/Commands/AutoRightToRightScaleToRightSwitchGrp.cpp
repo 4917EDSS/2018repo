@@ -5,6 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include <Commands/FoldArmsDownCmd.h>
 #include "AutoRightToRightScaleToRightSwitchGrp.h"
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
@@ -12,7 +13,6 @@
 #include "Commands/MoveElevatorToHeightCmd.h"
 #include "Commands/ReverseIntakeCmd.h"
 #include "Commands/IntakeUntilLimitCmd.h"
-#include "Commands/TimedFoldArmsDownCmd.h"
 #include "Subsystems/IntakeSub.h"
 
 AutoRightToRightScaleToRightSwitch::AutoRightToRightScaleToRightSwitch() {
@@ -24,7 +24,7 @@ AutoRightToRightScaleToRightSwitch::AutoRightToRightScaleToRightSwitch() {
 
 	float heading = 0;
 
-	AddParallel (new TimedFoldArmsDownCmd(IntakeSub::TIME_TO_LOWER_ARMS));
+	AddParallel (new FoldArmsDownCmd());
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_MEDIUM_HEIGHT));
 	AddSequential(new DriveStraightCmd(6000, heading));
 

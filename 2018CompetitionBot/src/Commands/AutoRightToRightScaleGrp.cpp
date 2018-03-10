@@ -1,4 +1,5 @@
 #include <Commands/AutoRightToRightScaleGrp.h>
+#include <Commands/FoldArmsDownCmd.h>
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
 #include "MoveElevatorToHeightCmd.h"
@@ -6,14 +7,13 @@
 #include "Commands/ZeroElevatorCmd.h"
 #include "Commands/DriveVisionBoxCmd.h"
 #include "Subsystems/ElevatorSub.h"
-#include "Commands/TimedFoldArmsDownCmd.h"
 #include "Subsystems/IntakeSub.h"
 
 AutoRightToRightScaleGrp::AutoRightToRightScaleGrp() {
 
 	float heading = 0;
 
-	AddParallel (new TimedFoldArmsDownCmd(IntakeSub::TIME_TO_LOWER_ARMS));
+	AddParallel (new FoldArmsDownCmd());
 	AddSequential(new ZeroElevatorCmd());
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));

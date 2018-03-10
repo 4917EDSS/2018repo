@@ -31,11 +31,11 @@
 #include <Commands/DriveVisionBoxCmd.h>
 #include "Subsystems/DrivetrainSub.h"
 #include <networktables/NetworkTableInstance.h>
-#include <Commands/TimedFoldArmsDownCmd.h>
 #include <Commands/DriveVisionSwitchCmd.h>
 #include <Commands/SilkyMotionCmd.h>
 #include <Components/Logging/GlobalLogging.h>
 #include <Commands/DriveTurnWallCmd.h>
+#include <Commands/FoldArmsDownCmd.h>
 
 class Robot: public frc::IterativeRobot {
 public:

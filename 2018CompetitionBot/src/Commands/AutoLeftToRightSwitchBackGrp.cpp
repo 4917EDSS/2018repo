@@ -1,11 +1,11 @@
 #include <Commands/AutoLeftToRightSwitchBackGrp.h>
+#include <Commands/FoldArmsDownCmd.h>
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
 #include "Commands/ReverseIntakeCmd.h"
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/MoveElevatorToHeightCmd.h"
-#include "Commands/TimedFoldArmsDownCmd.h"
 #include "Subsystems/IntakeSub.h"
 
 AutoLeftToRightSwitchBackGrp::AutoLeftToRightSwitchBackGrp() {
@@ -16,7 +16,7 @@ AutoLeftToRightSwitchBackGrp::AutoLeftToRightSwitchBackGrp() {
 
 	float heading = 0;
 
-	AddParallel (new TimedFoldArmsDownCmd(IntakeSub::TIME_TO_LOWER_ARMS));
+	AddParallel (new FoldArmsDownCmd());
 	AddSequential(new ZeroElevatorCmd());
 
 	AddSequential(new DriveStraightCmd(5500,heading));

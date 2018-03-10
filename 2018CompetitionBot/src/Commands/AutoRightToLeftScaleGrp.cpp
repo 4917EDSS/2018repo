@@ -1,8 +1,8 @@
 #include <Commands/AutoRightToLeftScaleGrp.h>
+#include <Commands/FoldArmsDownCmd.h>
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
-#include "Commands/TimedFoldArmsDownCmd.h"
 #include "Subsystems/IntakeSub.h"
 #include "Commands/SilkyMotionCmd.h"
 #include "Commands/MoveElevatorToHeightCmd.h"
@@ -16,7 +16,7 @@ AutoRightToLeftScaleGrp::AutoRightToLeftScaleGrp() {
 	// these will run in order.
 
 
-	AddParallel (new TimedFoldArmsDownCmd(IntakeSub::TIME_TO_LOWER_ARMS));
+	AddParallel (new FoldArmsDownCmd());
 
 	AddSequential(new ZeroElevatorCmd());
 
