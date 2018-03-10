@@ -28,6 +28,7 @@ private:
 	std::vector<double> actualSpeed;
 	std::vector<double> timestamps;
 	std::vector<double> dis;
+  std::vector<bool> negatives;
 	std::vector<double> ang;
 	double maxLinAccel, maxLinDecel, maxLinVel, maxAngAccel;
 	double stoppingDistanceTolerance, stoppingSpeedTolerance, stoppingAngleTolerance;
@@ -38,7 +39,7 @@ private:
 	double getAngularTime(double angle);
 	double getLinearTime(double dis, double ang, double startSpeed, double endSpeed);
 
-	double getMaxSpeed(double dis, double ang, double maxEndSpeed);
+	double getMaxSpeed(double dis, double ang, double maxEndSpeed, bool isSwitching);
 	double getActualSpeed(double dis, double ang, double startingActualSpeed, double maxEndSpeed);
 	double getTimestamp(double dis, double ang, double startingSpeed, double endingSpeed, double prevTime);
 public:

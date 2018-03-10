@@ -15,7 +15,8 @@
 
 PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 	PathInfo pi; // dis, ang, lin_vel, lin_accel, ang_vel
-	double time = 0;
+  bool isNegative = false;
+  double time = 0;
 	double totalTime = 0;
 	double dist = 0;
 	double angle = 0;
@@ -31,10 +32,15 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 			dist = dis[i - 1];
 			startSpeed = actualSpeed[i - 1];
 			endSpeed = actualSpeed[i];
+      isNegative = negatives[i-1];
 			break;
 		} else {
 			accmulatedAng += ang[i - 1];
-			accmulatedDist += dis[i - 1];
+      if(negatives[i-1]){
+        accmulatedDist -= dis[i - 1];
+      }else{
+		  	accmulatedDist += dis[i - 1];
+      }
 		}
 	}
 	if (currentTime > timestamps[timestamps.size() - 1]){
@@ -87,6 +93,12 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 		pi.dis = disToMaxVel + (timeAtMaxVel * adjustedMaxVel) + (adjustedMaxVel * decelTime) - (0.5 * maxLinDecel * pow(decelTime, 2));
 	}
 
+  if(isNegative){
+    pi.lin_accel = -pi.lin_accel;
+    pi.lin_vel = -pi.lin_vel;
+    pi.dis = -pi.dis;
+  }
+
 	pi.dis += accmulatedDist;
 	pi.ang += accmulatedAng;
 
@@ -129,7 +141,11 @@ double SilkyMotionManager::getLinearTime(double dis, double ang, double startSpe
 
 // Getting the absolute fastest we can start the current motion, given the absolute fastest we can be going at the end of the motion.
 // For now, using simplifying assumptions that it is just the lowest of (A) linear decel required and (B) max centripetal force
-double SilkyMotionManager::getMaxSpeed(double dis, double ang, double maxEndSpeed) {
+double SilkyMotionManager::getMaxSpeed(double dis, double ang, double maxEndSpeed, bool isSwitching) {
+  if (isSwitching) {
+    return 0;
+  }
+
 	double radius = dis/(fabs(ang)*M_PI/180.0); // Converting to radians to get radius of curvature
 	double angularMax = sqrt(maxAngAccel * radius);
   if (ang == 0) {
@@ -177,15 +193,23 @@ double SilkyMotionManager::getTotalTime() {
   return timestamps[timestamps.size() - 1];
 }
 
-SilkyMotionManager::SilkyMotionManager(std::vector<double> dis, std::vector<double> ang,
+SilkyMotionManager::SilkyMotionManager(std::vector<double> d, std::vector<double> a,
 			double maxLinAccel, double maxLinDecel, double maxLinVel, double maxAngAccel) :
-			dis(dis), ang(ang), maxLinAccel(maxLinAccel), maxLinDecel(maxLinDecel), maxLinVel(maxLinVel), maxAngAccel(maxAngAccel),
+			dis(d), ang(a), maxLinAccel(maxLinAccel), maxLinDecel(maxLinDecel), maxLinVel(maxLinVel), maxAngAccel(maxAngAccel),
 			startTime(-1),
 			lastTime(0) {
 		maxSpeed.resize(dis.size() + 1);
+    negatives.resize(dis.size()+1);
 		maxSpeed[maxSpeed.size() - 1] = 0;
+		negatives[negatives.size() - 1] = dis[dis.size()-1] >= 0;
 		for(int i = dis.size()-1; i>=0; i--){
-			maxSpeed[i] = getMaxSpeed(dis[i], ang[i], maxSpeed[i+1]);
+      if(dis[i] < 0){
+        negatives[i]=true;
+        dis[i] = -dis[i];
+      } else{
+        negatives[i]=false;
+      }
+			maxSpeed[i] = getMaxSpeed(dis[i], ang[i], maxSpeed[i+1], negatives[i] != negatives[i+1]);
 		}
 		actualSpeed.resize(dis.size() + 1);
 		actualSpeed[0] = 0;
