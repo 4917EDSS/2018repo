@@ -27,7 +27,7 @@ void IntakeUntilLimitCmd::Execute() {
 	}
 
 	if(timeFromLastMove > 1) {
-		intakeSub->intake(1.0, 0.5);
+		intakeSub->intake(1.0, -0.2);
 	}
 
 }
