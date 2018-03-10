@@ -49,10 +49,15 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 	pi.ang_vel = angle / totalTime;
 	pi.ang = pi.ang_vel * time;
 
-	double adjustedMaxVel = maxLinVel;
+	double radius = dist/(fabs(angle)*M_PI/180.0); // Converting to radians to get radius of curvature
+	double angularMax = sqrt(maxAngAccel * radius);
+  if (angle == 0) {
+    angularMax = maxLinVel;
+  }
+	double adjustedMaxVel = angularMax;
 
-	double disToMaxVel = 0.5 * (pow(maxLinVel,2) - pow(startSpeed , 2)) / maxLinAccel;
-	double disToEndVel = 0.5 * (pow(maxLinVel,2) - pow(endSpeed, 2)) / maxLinDecel;
+	double disToMaxVel = 0.5 * (pow(adjustedMaxVel,2) - pow(startSpeed , 2)) / maxLinAccel;
+	double disToEndVel = 0.5 * (pow(adjustedMaxVel,2) - pow(endSpeed, 2)) / maxLinDecel;
 	if (disToMaxVel + disToEndVel > dist) {
 		// Don't get to full speed, so triangle instead of trapezoid
 		// d_accel = (v^2-startSpeed^2)/(2*a_accel)
@@ -94,13 +99,18 @@ double SilkyMotionManager::getAngularTime(double angle) {
 	return 0;//(fabs(angle) / maxAngVel);
 }
 
-double SilkyMotionManager::getLinearTime(double dis, double startSpeed, double endSpeed) {
+double SilkyMotionManager::getLinearTime(double dis, double ang, double startSpeed, double endSpeed) {
 	//Assuming no crazy curves in spline, and giving reasonable headroom for acceleration + speed. We will tell program "max" is actually lower than max, since we are only programming for the left side. If the right side needs to turn faster than the right, the combination of a smaller max and a reasonable curvature will allow it to get ahead.
 	//This means the left side will go "as fast as possible" in this model.
-	double adjustedMaxVel = maxLinVel;
+	double radius = dis/(fabs(ang)*M_PI/180.0); // Converting to radians to get radius of curvature
+	double angularMax = sqrt(maxAngAccel * radius);
+  if (ang == 0) {
+    angularMax = maxLinVel;
+  }
+  double adjustedMaxVel = angularMax;
 
-	double disToMaxVel = 0.5 * (pow(maxLinVel,2) - pow(startSpeed , 2)) / maxLinAccel;
-	double disToEndVel = 0.5 * (pow(maxLinVel,2) - pow(endSpeed, 2)) / maxLinDecel;
+	double disToMaxVel = 0.5 * (pow(adjustedMaxVel,2) - pow(startSpeed , 2)) / maxLinAccel;
+	double disToEndVel = 0.5 * (pow(adjustedMaxVel,2) - pow(endSpeed, 2)) / maxLinDecel;
 	if (disToMaxVel + disToEndVel > dis) {
 		// Don't get to full speed, so triangle instead of trapezoid
 		// d_accel = (v^2-startSpeed^2)/(2*a_accel)
@@ -136,12 +146,19 @@ double SilkyMotionManager::getMaxSpeed(double dis, double ang, double maxEndSpee
 double SilkyMotionManager::getActualSpeed(double dis, double ang, double startingActualSpeed, double maxEndSpeed) {
 	// vf^2 = vi^2 + 2*a*d
 	double maxAchievableSpeed = sqrt(pow(startingActualSpeed,2) + 2*maxLinAccel*dis);
-	return std::min(maxAchievableSpeed, maxEndSpeed);
+
+	double radius = dis/(fabs(ang)*M_PI/180.0); // Converting to radians to get radius of curvature
+	double angularMax = sqrt(maxAngAccel * radius);
+  if (ang == 0) {
+    angularMax = maxLinVel;
+  }
+
+	return std::min({maxAchievableSpeed, maxEndSpeed, angularMax});
 }
 
 double SilkyMotionManager::getTimestamp(double dis, double ang, double startingSpeed, double endingSpeed, double prevTime) {
   // Ignoring angular time since it's basically impossible to restrain linear speed to non linear time
-	return prevTime + getLinearTime(dis, startingSpeed, endingSpeed);
+	return prevTime + getLinearTime(dis, ang, startingSpeed, endingSpeed);
 }
 
 std::pair<double, double> SilkyMotionManager::execute(double currentLeftPos, double currentRightPos){
