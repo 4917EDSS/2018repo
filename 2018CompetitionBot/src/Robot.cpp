@@ -83,7 +83,7 @@ public:
 		CommandBase::drivetrainSub->setLowGear();
 		CommandBase::drivetrainSub->resetAHRS();
 		CommandBase::drivetrainSub->resetEncoders();
-		nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("pipeline").SetDouble(0.0);
+		nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("pipeline").SetDouble(1.0);
 		nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("ledMode").SetDouble(0.0);
 		std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 		if(gameData[0] == 'R' && gameData[1] == 'R'){

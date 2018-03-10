@@ -4,6 +4,10 @@
 #include "Commands/ZeroElevatorCmd.h"
 #include "Commands/TimedFoldArmsDownCmd.h"
 #include "Subsystems/IntakeSub.h"
+#include "Commands/SilkyMotionCmd.h"
+#include "Commands/MoveElevatorToHeightCmd.h"
+#include "ReverseIntakeCmd.h"
+#include "Commands/DelayedElevatorToHeightGrp.h"
 
 AutoRightToLeftScaleGrp::AutoRightToLeftScaleGrp() {
 	// Add Commands here:
@@ -11,24 +15,17 @@ AutoRightToLeftScaleGrp::AutoRightToLeftScaleGrp() {
 	//      AddSequential(new Command2());
 	// these will run in order.
 
-	float heading = 0;
 
 	AddParallel (new TimedFoldArmsDownCmd(IntakeSub::TIME_TO_LOWER_ARMS));
+
 	AddSequential(new ZeroElevatorCmd());
 
-	AddSequential(new DriveStraightCmd(250,heading));
+	AddParallel(new DelayedElevatorToHeightGrp(5,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 
-	heading = -90;
-	AddSequential(new DriveTurnCmd(heading));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {4380, 2000, 4000, 2200}, std::vector<double> {0, -90, 0, 150}));
 
-	/*AddSequential(new DriveStraightCmd(6171,0));
-		AddSequential(new DriveTurnCmd(-90));
-	AddSequential(new DriveStraightCmd(6147,-90));
-		AddSequential(new DriveTurnCmd(90));
-	AddSequential(new DriveStraightCmd(500,0));*/
-	// A command group will require all of the subsystems that each member
-	// would require.
-	// e.g. if Command1 requires chassis, and Command2 requires arm,
-	// a CommandGroup containing them would require both the chassis and the
-	// arm.
+
+	AddSequential(new ReverseIntakeCmd(0.5));
+
+
 }
