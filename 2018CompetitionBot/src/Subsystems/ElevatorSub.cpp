@@ -29,6 +29,7 @@ ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
 
 	rangefinder.reset(new frc::Ultrasonic(ELEVATOR_LIDAR_TRIG_DIO, ELEVATOR_LIDAR_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
 	rangefinder->SetName("Elevator", "Rangefinder");
+	rangefinder->SetAutomaticMode(false);
 
 	climbBarSolenoid.reset(new frc::Solenoid(CLIMB_BAR_PCM_ID));
 	climbBarSolenoid->SetName("Elevator", "ClimbBar Deploy Solenoid");
