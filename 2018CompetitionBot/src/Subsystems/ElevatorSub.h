@@ -19,6 +19,10 @@ private:
 	double target;
 	bool finishedMove;
 	double lastLidarValue;
+	bool isDoneFirstRangefinder;
+	double lastRangefinderValue;
+
+	void storeNewRangefinderValue(double distance);
 
 public:
 	static constexpr double SCALE_BOX_HIGH_HEIGHT = 626.75;
@@ -47,6 +51,9 @@ public:
 	double convertHeightToEncoder(double cm);
 	bool isFinishedMove();
 	void extendClimbBar();
+	void updateSensorsPeriodic();
+	double getFilteredRangefinderValue();
+	double getRawRangefinderValue();
 };
 
 #endif  // ElevatorSub_H

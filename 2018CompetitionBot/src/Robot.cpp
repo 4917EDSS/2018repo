@@ -126,10 +126,12 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 		UpdateSmartDashboard();
+		CommandBase::elevatorSub->updateSensorsPeriodic();
 		globalLogging.logPeriodicValues();
 		CommandBase::drivetrainSub->logPeriodicValues();
 		CommandBase::elevatorSub->logPeriodicValues();
 		//CommandBase::intakeSub->logPeriodicValues();	// TODO: Test
+
 	}
 
 	void TestPeriodic() override {
@@ -146,6 +148,8 @@ public:
 		SmartDashboard::PutBoolean("Is box in?", CommandBase::intakeSub->isBoxIn());
 		SmartDashboard::PutBoolean("Is box at jaws?", CommandBase::intakeSub->isBoxAtJaws());
 		SmartDashboard::PutNumber("Intake Distance", CommandBase::intakeSub->getBoxDistance());
+		SmartDashboard::PutNumber("Range finder filtered value", CommandBase::elevatorSub->getFilteredRangefinderValue());
+		SmartDashboard::PutNumber("Range finder RAW value", CommandBase::elevatorSub->getRawRangefinderValue());
 
 	}
 
@@ -162,7 +166,7 @@ public:
 		SmartDashboard::PutData("Drive to vision", new DriveVisionBoxCmd());
 		SmartDashboard::PutData("Drive to vision switch 1500mm", new DriveVisionSwitchCmd(1500));
 		SmartDashboard::PutData("SilkyMotionStraightCmd", new SilkyMotionCmd(std::vector<double> {1250, 1250, 1250, 1250}, std::vector<double> {0, 0, 0, 0}));
-		SmartDashboard::PutData("SilkyMotionTurnCmd", new SilkyMotionCmd(std::vector<double> {3500,2500 ,2500 ,4000 }, std::vector<double> {0, 90, 0 , -180}));
+		SmartDashboard::PutData("SilkyMotionTurnCmd", new SilkyMotionCmd(std::vector<double> {2000 ,4000, 4000}, std::vector<double> {-90, 0 , 180}));
 	}
 
 

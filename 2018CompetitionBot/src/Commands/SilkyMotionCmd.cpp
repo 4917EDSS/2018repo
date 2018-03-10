@@ -39,10 +39,16 @@ void SilkyMotionCmd::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool SilkyMotionCmd::IsFinished() {
-	if (TimeSinceInitialized() > smm.getTotalTime()) {
+	double currTime = TimeSinceInitialized();
+	if (currTime > smm.getTotalTime()+0.25) {
 		return true;
+	} else if (currTime >= smm.getTotalTime()){
+		PathInfo p = smm.getCurrentPathInfo(currTime);
+		double currDis=(drivetrainSub->getLeftEncoder()+drivetrainSub->getRightEncoder())/2;
+		if(fabs(p.dis - currDis) < DRIVE_DISTANCE_TOLERANCE && fabs(drivetrainSub->getLeftEncoderSpeed()) < DISTANCE_SPEED_TOLERANCE && fabs(p.ang - drivetrainSub->getAngle()) < DRIVE_TURN_TOLERANCE){
+			return true;
+		}
 	}
-
 	return false;
 }
 

@@ -7,7 +7,7 @@
 const double MAX_LIN_ACCEL=1500;
 const double MAX_LIN_DECEL=3000.0;
 const double MAX_LIN_VEL=2400;
-const double MAX_ANG_ACCEL=500.0;
+const double MAX_ANG_ACCEL=800.0;
 
 const double P_DIS=0.0075;
 const double D_DIS=0.000002;
