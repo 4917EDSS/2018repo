@@ -24,8 +24,13 @@ AutoRightToLeftScaleGrp::AutoRightToLeftScaleGrp() {
 
 	AddSequential(new SilkyMotionCmd(std::vector<double> {4380, 2000, 4000, 2200}, std::vector<double> {0, -90, 0, 150}));
 
-
 	AddSequential(new ReverseIntakeCmd(0.5));
+
+	AddSequential(new DriveStraightCmd(-500,60));
+
+	AddSequential(new ZeroElevatorCmd());
+
+
 
 
 }
