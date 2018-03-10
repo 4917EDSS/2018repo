@@ -13,6 +13,7 @@
 #include "Commands/ReverseIntakeCmd.h"
 #include "Commands/IntakeUntilLimitCmd.h"
 #include "Commands/TimedFoldArmsDownCmd.h"
+#include "Subsystems/IntakeSub.h"
 
 AutoRightToLeftScaleToLeftSwitchGrp::AutoRightToLeftScaleToLeftSwitchGrp() {
 	// Add Commands here:
@@ -22,7 +23,7 @@ AutoRightToLeftScaleToLeftSwitchGrp::AutoRightToLeftScaleToLeftSwitchGrp() {
 
 	float heading=0;
 
-	AddParallel (new TimedFoldArmsDownCmd(TIME_TO_LOWER_ARMS));
+	AddParallel (new TimedFoldArmsDownCmd(IntakeSub::TIME_TO_LOWER_ARMS));
 	AddSequential(new DriveStraightCmd(4000,heading));
 
 	heading=-70;

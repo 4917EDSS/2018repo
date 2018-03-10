@@ -126,10 +126,12 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 		UpdateSmartDashboard();
+		CommandBase::elevatorSub->updateSensorsPeriodic();
 		globalLogging.logPeriodicValues();
 		CommandBase::drivetrainSub->logPeriodicValues();
 		CommandBase::elevatorSub->logPeriodicValues();
 		//CommandBase::intakeSub->logPeriodicValues();	// TODO: Test
+
 	}
 
 	void TestPeriodic() override {
@@ -146,6 +148,8 @@ public:
 		SmartDashboard::PutBoolean("Is box in?", CommandBase::intakeSub->isBoxIn());
 		SmartDashboard::PutBoolean("Is box at jaws?", CommandBase::intakeSub->isBoxAtJaws());
 		SmartDashboard::PutNumber("Intake Distance", CommandBase::intakeSub->getBoxDistance());
+		SmartDashboard::PutNumber("Range finder filtered value", CommandBase::elevatorSub->getFilteredRangefinderValue());
+		SmartDashboard::PutNumber("Range finder RAW value", CommandBase::elevatorSub->getRawRangefinderValue());
 
 	}
 

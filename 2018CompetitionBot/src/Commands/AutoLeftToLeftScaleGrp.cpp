@@ -5,11 +5,12 @@
 #include "Commands/MoveElevatorToHeightCmd.h"
 #include "ReverseIntakeCmd.h"
 #include "Commands/TimedFoldArmsDownCmd.h"
+#include "Subsystems/IntakeSub.h"
 
 AutoLeftToLeftScaleGrp::AutoLeftToLeftScaleGrp() {
 	float heading = 0;
 
-	AddParallel (new TimedFoldArmsDownCmd(TIME_TO_LOWER_ARMS));
+	AddParallel (new TimedFoldArmsDownCmd(IntakeSub::TIME_TO_LOWER_ARMS));
 	AddSequential(new ZeroElevatorCmd());
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));
