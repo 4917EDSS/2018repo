@@ -21,7 +21,7 @@ constexpr int ARM_FOLDER_CANID = 11;
 constexpr int ELEVATOR_MOTOR1_CANID = 1;
 constexpr int ELEVATOR_MOTOR2_CANID = 3;
 
-//DIOs (0..9 are on RoboRio, 10..19 are on MXP expansion port)
+//DIOs (0..9 are on RoboRio, 10..13, 18..23 are on MXP expansion port)
 constexpr int DRIVE_MOTOR_LEFT_ENC1_DIO = 0;
 constexpr int DRIVE_MOTOR_LEFT_ENC2_DIO = 1;
 constexpr int DRIVE_MOTOR_RIGHT_ENC1_DIO = 2;
@@ -30,12 +30,16 @@ constexpr int ELEVATOR_MOTOR_ENC1_DIO = 4;
 constexpr int ELEVATOR_MOTOR_ENC2_DIO = 5;
 constexpr int INTAKE_LIMIT_CLOSE_DIO = 6;
 constexpr int INTAKE_LIMIT_FAR_DIO = 7;
-// constexpr int FREE_DIO = 8;
+constexpr int ARMS_UPPER_LIMIT_DIO = 8;
 constexpr int ELEVATOR_LOWER_LIMIT_DIO = 9;
+// Start of DIOs on the MXP expansion port
 constexpr int ELEVATOR_LIDAR_TRIG_DIO = 10;
 constexpr int ELEVATOR_LIDAR_ECHO_DIO = 11;
 constexpr int DRIVETRAIN_FRONT_ULTRASONIC_TRIG_DIO = 12;
 constexpr int DRIVETRAIN_FRONT_ULTRASONIC_ECHO_DIO = 13;
+// DIOs on the MXP port are not numbered consecutively, there is no 14 to 17
+constexpr int ARMS_LOWER_LIMIT_DIO = 18;
+// Last DIO is #23
 
 //AIs
 constexpr int INTAKE_DISTANCE_AI = 0;
@@ -47,7 +51,6 @@ constexpr int JAWS_OPEN_PCM_ID = 2;
 constexpr int JAWS_CLOSE_PCM_ID = 3;
 constexpr int CLIMB_BAR_PCM_ID = 4;
 
-constexpr float TIME_TO_LOWER_ARMS = 0.85;
 // AHRS (i.e. navX) interface
 #define AHRSInterface	frc::SPI::kMXP
 

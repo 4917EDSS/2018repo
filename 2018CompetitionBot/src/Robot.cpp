@@ -31,11 +31,11 @@
 #include <Commands/DriveVisionBoxCmd.h>
 #include "Subsystems/DrivetrainSub.h"
 #include <networktables/NetworkTableInstance.h>
-#include <Commands/TimedFoldArmsDownCmd.h>
 #include <Commands/DriveVisionSwitchCmd.h>
 #include <Commands/SilkyMotionCmd.h>
 #include <Components/Logging/GlobalLogging.h>
 #include <Commands/DriveTurnWallCmd.h>
+#include <Commands/FoldArmsDownCmd.h>
 
 class Robot: public frc::IterativeRobot {
 public:
@@ -83,7 +83,7 @@ public:
 		CommandBase::drivetrainSub->setLowGear();
 		CommandBase::drivetrainSub->resetAHRS();
 		CommandBase::drivetrainSub->resetEncoders();
-		nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("pipeline").SetDouble(0.0);
+		nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("pipeline").SetDouble(1.0);
 		nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("ledMode").SetDouble(0.0);
 		std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 		if(gameData[0] == 'R' && gameData[1] == 'R'){
@@ -126,10 +126,12 @@ public:
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
 		UpdateSmartDashboard();
+		CommandBase::elevatorSub->updateSensorsPeriodic();
 		globalLogging.logPeriodicValues();
 		CommandBase::drivetrainSub->logPeriodicValues();
 		CommandBase::elevatorSub->logPeriodicValues();
 		//CommandBase::intakeSub->logPeriodicValues();	// TODO: Test
+
 	}
 
 	void TestPeriodic() override {
@@ -146,6 +148,8 @@ public:
 		SmartDashboard::PutBoolean("Is box in?", CommandBase::intakeSub->isBoxIn());
 		SmartDashboard::PutBoolean("Is box at jaws?", CommandBase::intakeSub->isBoxAtJaws());
 		SmartDashboard::PutNumber("Intake Distance", CommandBase::intakeSub->getBoxDistance());
+		SmartDashboard::PutNumber("Range finder filtered value", CommandBase::elevatorSub->getFilteredRangefinderValue());
+		SmartDashboard::PutNumber("Range finder RAW value", CommandBase::elevatorSub->getRawRangefinderValue());
 
 	}
 
@@ -161,8 +165,8 @@ public:
 		SmartDashboard::PutData("Reset AHRS", new ResetAHRSCmd());
 		SmartDashboard::PutData("Drive to vision", new DriveVisionBoxCmd());
 		SmartDashboard::PutData("Drive to vision switch 1500mm", new DriveVisionSwitchCmd(1500));
-		SmartDashboard::PutData("SilkyMotionStraightCmd", new SilkyMotionCmd(std::vector<double> {1250, 1250, 1250, 1250}, std::vector<double> {0, 0, 0, 0}));
-		SmartDashboard::PutData("SilkyMotionTurnCmd", new SilkyMotionCmd(std::vector<double> {3500,2500 ,2500 ,4000 }, std::vector<double> {0, 90, 0 , -180}));
+		SmartDashboard::PutData("SilkyMotionStraightCmd", new SilkyMotionCmd(std::vector<double> {4800, 2200}, std::vector<double> {0, -40}));
+		SmartDashboard::PutData("SilkyMotionTurnCmd", new SilkyMotionCmd(std::vector<double> {4380, 2000, 4000, 2200}, std::vector<double> {0, -90, 0, 150}));
 	}
 
 

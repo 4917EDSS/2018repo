@@ -9,16 +9,13 @@
 
 #include "../CommandBase.h"
 
-class TimedFoldArmsUpCmd : public CommandBase {
+class FoldArmsUpHeldCmd : public CommandBase {
 public:
-	TimedFoldArmsUpCmd(double time);
+	FoldArmsUpHeldCmd();
 	void Initialize() override;
 	void Execute() override;
 	bool IsFinished() override;
 	void End() override;
 	void Interrupted() override;
-
-private:
-	double timeFolding;
 };
 

@@ -6,6 +6,7 @@
 class AutoLeftToLeftScaleGrp : public CommandGroup {
 public:
 	AutoLeftToLeftScaleGrp();
+\
 };
 
 #endif  // AutoScaleLeftGrp_H

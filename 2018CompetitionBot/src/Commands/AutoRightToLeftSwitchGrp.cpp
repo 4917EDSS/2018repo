@@ -1,11 +1,12 @@
 #include <Commands/AutoRightToLeftSwitchGrp.h>
+#include <Commands/FoldArmsDownCmd.h>
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
 #include "Commands/ReverseIntakeCmd.h"
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/MoveElevatorToHeightCmd.h"
-#include "Commands/TimedFoldArmsDownCmd.h"
+#include "Subsystems/IntakeSub.h"
 
 AutoRightToLeftSwitchGrp::AutoRightToLeftSwitchGrp() {
 	// Add Commands here:
@@ -16,7 +17,7 @@ AutoRightToLeftSwitchGrp::AutoRightToLeftSwitchGrp() {
 
 	float heading = 0;
 
-		AddParallel (new TimedFoldArmsDownCmd(TIME_TO_LOWER_ARMS));
+		AddParallel (new FoldArmsDownCmd());
 		AddSequential(new ZeroElevatorCmd());
 
 		heading = -75;

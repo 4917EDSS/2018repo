@@ -11,6 +11,8 @@ constexpr float LIFT_I = 0;
 constexpr float LIFT_D = 0;
 constexpr float LIFT_TOLERANCE = 1;
 constexpr double SCALE_HEIGHT_SUDDEN_CHANGE_TOLERANCE = 400;
+constexpr double RANGE_MAX_VALUE = 2000;
+constexpr double RANGE_MIN_VALUE = 30;
 
 ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
 	elevatorMotor1.reset(new WPI_TalonSRX(ELEVATOR_MOTOR1_CANID));
@@ -27,7 +29,7 @@ ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
 
 	rangefinder.reset(new frc::Ultrasonic(ELEVATOR_LIDAR_TRIG_DIO, ELEVATOR_LIDAR_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
 	rangefinder->SetName("Elevator", "Rangefinder");
-	rangefinder->SetAutomaticMode(true);
+	rangefinder->SetAutomaticMode(false);
 
 	climbBarSolenoid.reset(new frc::Solenoid(CLIMB_BAR_PCM_ID));
 	climbBarSolenoid->SetName("Elevator", "ClimbBar Deploy Solenoid");
@@ -35,6 +37,8 @@ ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
 	target = 0;
 	finishedMove = true;
 	lastLidarValue = -1.0;
+	isDoneFirstRangefinder = false;
+	lastRangefinderValue = 0.0;
 
 //	std::vector<DataPoints> table = {{100, 8}, {1000, 12}, {2000, 18}, {4000, 40}, {6000, 80}};
 //	LinearInterpolation4917 encoderHeightTable(table);	// where x = encoder value and y = height in inches
@@ -60,14 +64,25 @@ void ElevatorSub::logPeriodicValues() {
 			elevatorMotor1->GetOutputCurrent(), elevatorMotor2->GetOutputCurrent(),
 			elevatorMotorEnc->Get(), elevatorMotorEnc->GetRaw(),
 			lowerLimit->Get() ? 1 : 0,
-			rangefinder->GetRangeMM()
+			getFilteredRangefinderValue()
 			);
 
 	// Can add additional or easier-to-read periodic logging here
 	//	logger.send(logger.PERIODIC, "$Rangefinder = %f\n", rangefinder->GetRangeMM() );
 	return;
 }
+void ElevatorSub::updateSensorsPeriodic() {
+	if (!isDoneFirstRangefinder){
+		rangefinder->Ping();
+		isDoneFirstRangefinder = true;
+	}
 
+	if (rangefinder->IsRangeValid()){
+		storeNewRangefinderValue(rangefinder->GetRangeMM());
+		rangefinder->Ping();
+	}
+
+}
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 bool ElevatorSub::atScaleHeight(){
@@ -166,4 +181,18 @@ bool ElevatorSub::isFinishedMove(){
 
 void ElevatorSub::extendClimbBar() {
 	climbBarSolenoid->Set(true);
+}
+
+void ElevatorSub::storeNewRangefinderValue(double distance){
+	if ((distance > RANGE_MIN_VALUE) && (distance < RANGE_MAX_VALUE)) {
+		lastRangefinderValue = distance;
+	}
+	return;
+}
+
+double ElevatorSub::getFilteredRangefinderValue(){
+	return lastRangefinderValue;
+}
+double ElevatorSub::getRawRangefinderValue(){
+	return rangefinder->GetRangeMM();
 }

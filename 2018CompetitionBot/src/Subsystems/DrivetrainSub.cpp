@@ -50,7 +50,7 @@ DrivetrainSub::DrivetrainSub() : Subsystem("DrivetrainSub") {
 
 	frontRangefinder.reset(new frc::Ultrasonic(DRIVETRAIN_FRONT_ULTRASONIC_TRIG_DIO, DRIVETRAIN_FRONT_ULTRASONIC_ECHO_DIO, frc::Ultrasonic::kMilliMeters));
 	frontRangefinder->SetName("Drivetrain", "Front Rangefinder");
-	frontRangefinder->SetAutomaticMode(true);
+	frontRangefinder->SetAutomaticMode(false);
 
 	rearRangefinder.reset(new AnalogInput(DRIVETRAIN_REAR_ULTRASONIC_AI));
 	rearRangefinder->SetName("Drivetrain", "Rear Rangefinder");

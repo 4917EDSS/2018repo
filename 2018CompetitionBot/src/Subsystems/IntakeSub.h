@@ -15,8 +15,12 @@ private:
 	std::shared_ptr<frc::Solenoid> jawOpenSolenoid;
 	std::shared_ptr<frc::Solenoid> jawCloseSolenoid;
 	std::shared_ptr<frc::AnalogInput> intakeDistance;
+	std::shared_ptr<frc::DigitalInput> armsUpperLimit;
+	std::shared_ptr<frc::DigitalInput> armsLowerLimit;
 
 public:
+	static constexpr double TIME_TO_LOWER_ARMS = 0.85;
+
 	IntakeSub();
 	void InitDefaultCommand();
 	void logPeriodicValues();
@@ -29,6 +33,8 @@ public:
 	void setJawsOnSpring();
 	void foldArms(double speed);
 	double getBoxDistance();
+	bool isArmsUp();
+	bool isArmsDown();
 };
 
 #endif  // IntakeSub_H
