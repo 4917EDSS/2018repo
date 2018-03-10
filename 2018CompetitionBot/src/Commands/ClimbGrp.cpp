@@ -5,11 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include <Commands/FoldArmsUpCmd.h>
 #include "ClimbGrp.h"
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/MoveElevatorToHeightCmd.h"
 #include "Commands/ExtendClimbBarCmd.h"
-#include "Commands/FoldArmsUpCmd.h"
 
 ClimbGrp::ClimbGrp() {
 	// Add Commands here:

@@ -1,16 +1,16 @@
 #include <Commands/AutoLeftToLeftScaleGrp.h>
+#include <Commands/FoldArmsDownCmd.h>
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
 #include "Commands/MoveElevatorToHeightCmd.h"
 #include "ReverseIntakeCmd.h"
-#include "Commands/TimedFoldArmsDownCmd.h"
 #include "Subsystems/IntakeSub.h"
 
 AutoLeftToLeftScaleGrp::AutoLeftToLeftScaleGrp() {
 	float heading = 0;
 
-	AddParallel (new TimedFoldArmsDownCmd(IntakeSub::TIME_TO_LOWER_ARMS));
+	AddParallel (new FoldArmsDownCmd());
 	AddSequential(new ZeroElevatorCmd());
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));

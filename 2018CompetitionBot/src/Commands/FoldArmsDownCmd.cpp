@@ -1,11 +1,5 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
 
-#include "FoldArmsDownCmd.h"
+#include <Commands/FoldArmsDownCmd.h>
 
 FoldArmsDownCmd::FoldArmsDownCmd() {
 	Requires(intakeSub.get());
@@ -18,14 +12,11 @@ void FoldArmsDownCmd::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void FoldArmsDownCmd::Execute() {
-	if (intakeSub->isArmsDown()) {
-			intakeSub->foldArms(0.0);
-		}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool FoldArmsDownCmd::IsFinished() {
-	return false;
+	return intakeSub->isArmsDown();
 }
 
 // Called once after isFinished returns true
