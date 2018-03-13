@@ -11,11 +11,13 @@
 
 class FoldArmsDownCmd : public CommandBase {
 public:
-	FoldArmsDownCmd();
+	FoldArmsDownCmd(double time=0.7);
 	void Initialize() override;
 	void Execute() override;
 	bool IsFinished() override;
 	void End() override;
 	void Interrupted() override;
+private:
+	double timePassed;
 };
 

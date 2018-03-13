@@ -1,8 +1,9 @@
 
 #include <Commands/FoldArmsDownCmd.h>
 
-FoldArmsDownCmd::FoldArmsDownCmd() {
+FoldArmsDownCmd::FoldArmsDownCmd(double time) {
 	Requires(intakeSub.get());
+	timePassed=time;
 }
 
 // Called just before this Command runs the first time
@@ -16,7 +17,11 @@ void FoldArmsDownCmd::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool FoldArmsDownCmd::IsFinished() {
-	return intakeSub->isArmsDown();
+	if (TimeSinceInitialized()>timePassed){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 // Called once after isFinished returns true

@@ -16,7 +16,6 @@ private:
 	std::shared_ptr<frc::Solenoid> jawCloseSolenoid;
 	std::shared_ptr<frc::AnalogInput> intakeDistance;
 	std::shared_ptr<frc::DigitalInput> armsUpperLimit;
-	std::shared_ptr<frc::DigitalInput> armsLowerLimit;
 
 public:
 	static constexpr double TIME_TO_LOWER_ARMS = 0.85;

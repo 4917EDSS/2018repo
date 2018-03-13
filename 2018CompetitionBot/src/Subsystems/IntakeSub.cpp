@@ -34,8 +34,6 @@ IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 	armsUpperLimit.reset(new DigitalInput(ARMS_UPPER_LIMIT_DIO));
 	armsUpperLimit->SetName("Intake", "Arms Upper Limit");
 
-	armsLowerLimit.reset(new DigitalInput(ARMS_LOWER_LIMIT_DIO));
-	armsLowerLimit->SetName("Intake", "Arms Lower Limit");
 }
 
 void IntakeSub::InitDefaultCommand() {
@@ -130,8 +128,4 @@ void IntakeSub::foldArms(double speed){
 
 bool IntakeSub::isArmsUp() {
 	return !armsUpperLimit->Get();
-}
-
-bool IntakeSub::isArmsDown() {
-	return !armsLowerLimit->Get();
 }
