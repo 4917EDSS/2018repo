@@ -16,6 +16,7 @@
 #include <Commands/AutoRightToLeftScaleGrp.h>
 #include <Commands/AutoRightToLeftSwitchGrp.h>
 #include <Commands/AutoRightToRightScaleGrp.h>
+#include <Commands/AutoRightToRightSwitchToLeftScaleGrp.h>
 #include <Commands/AutoRightToRightSwitchGrp.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
@@ -209,6 +210,7 @@ private:
 		chooserRL->AddObject("L Scale", std::shared_ptr<frc::Command>(new AutoLeftToLeftScaleGrp()));
 		chooserRL->AddObject("R Scale", std::shared_ptr<frc::Command>(new AutoRightToLeftScaleGrp()));
 		chooserRL->AddObject("C Switch", std::shared_ptr<frc::Command>(new AutoCenterToRightSwitchGrp()));
+		chooserRL->AddObject("R Switch, Scale", std::shared_ptr<frc::Command>(new AutoRightToRightSwitchToLeftScaleGrp()));
 
 		SmartDashboard::PutData("Sw R Sc R", chooserRR.get());
 		SmartDashboard::PutData("Sw R Sc L", chooserRL.get());
