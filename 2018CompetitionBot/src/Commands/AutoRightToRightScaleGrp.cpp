@@ -8,6 +8,7 @@
 #include "Commands/DriveVisionBoxCmd.h"
 #include "Subsystems/ElevatorSub.h"
 #include "Subsystems/IntakeSub.h"
+#include "Commands/SilkyMotionCmd.h"
 
 AutoRightToRightScaleGrp::AutoRightToRightScaleGrp() {
 
@@ -18,23 +19,22 @@ AutoRightToRightScaleGrp::AutoRightToRightScaleGrp() {
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));
 
-	AddSequential(new DriveStraightCmd(6500,heading));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {6500,0}, std::vector<double> {0, -45}));
 
-	heading = -45;
-	AddParallel(new DriveTurnCmd(heading));
+	AddParallel(new DriveTurnCmd(-45));
 
 	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 
-	AddSequential(new DriveStraightCmd(500,heading));
+	AddSequential(new DriveStraightCmd(500,-45));
 
 	AddSequential(new ReverseIntakeCmd(1));
 
-	AddParallel(new DriveStraightCmd(-500,heading));
+	AddParallel(new SilkyMotionCmd(std::vector<double> {-500}, std::vector<double> {-45}));
 
 	AddSequential(new ZeroElevatorCmd());
 
 	heading = -160;
-	AddSequential(new DriveTurnCmd(heading));
+	AddSequential(new DriveTurnCmd(-160));
 
 	AddSequential(new DriveVisionBoxCmd());
 
