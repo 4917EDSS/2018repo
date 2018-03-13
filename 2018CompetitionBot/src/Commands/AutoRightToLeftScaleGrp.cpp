@@ -31,9 +31,11 @@ AutoRightToLeftScaleGrp::AutoRightToLeftScaleGrp() {
 
 	AddParallel(new DelayedElevatorToHeightGrp(0.5,0));
 
+	AddSequential(new SilkyMotionCmd(std::vector<double>{-1000,1500}, std::vector<double>{80, 50}));
 
 	AddParallel(new DelayedElevatorToHeightGrp(0.5,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 
+	AddSequential(new SilkyMotionCmd(std::vector<double>{-1500, 1000}, std::vector<double>{-50, -80}));
 
 	AddSequential(new ReverseIntakeCmd(0.45));
 
