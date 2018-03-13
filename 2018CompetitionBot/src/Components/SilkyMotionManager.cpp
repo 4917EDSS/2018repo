@@ -214,8 +214,9 @@ SilkyMotionManager::SilkyMotionManager(std::vector<double> d, std::vector<double
 		for(int i = dis.size()-1; i>=0; i--){
 			if (i==0) {
 				maxSpeed[i] = getMaxSpeed(dis[i], ang[i], maxSpeed[i+1], false);
+			} else {
+				maxSpeed[i] = getMaxSpeed(dis[i], ang[i], maxSpeed[i+1], negatives[i] != negatives[i-1]);
 			}
-			maxSpeed[i] = getMaxSpeed(dis[i], ang[i], maxSpeed[i+1], negatives[i] != negatives[i-1]);
 		}
 		actualSpeed.resize(dis.size() + 1);
 		actualSpeed[0] = 0;
