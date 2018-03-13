@@ -1,13 +1,7 @@
 #include "SilkyMotionCmd.h"
 #include "iostream"
 
-SilkyMotionCmd::SilkyMotionCmd(std::vector<double> dis, std::vector<double> ang) : smm(dis, ang, std::vector<double>(dis.size(), 1.0),
-		 MAX_LIN_ACCEL, MAX_LIN_DECEL, MAX_LIN_VEL, MAX_ANG_ACCEL) {
-	Requires(drivetrainSub.get());
-	prevTime = 0;
-	prevError = 0;
-}
-SilkyMotionCmd::SilkyMotionCmd(std::vector<double> dis, std::vector<double> ang, std::vector<double> aggressive) : smm(dis, ang, aggressive,
+SilkyMotionCmd::SilkyMotionCmd(std::vector<double> dis, std::vector<double> ang) : smm(dis, ang,
 		 MAX_LIN_ACCEL, MAX_LIN_DECEL, MAX_LIN_VEL, MAX_ANG_ACCEL) {
 	Requires(drivetrainSub.get());
 	prevTime = 0;

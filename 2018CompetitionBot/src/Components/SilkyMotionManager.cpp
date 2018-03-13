@@ -141,13 +141,13 @@ double SilkyMotionManager::getLinearTime(double dis, double ang, double startSpe
 
 // Getting the absolute fastest we can start the current motion, given the absolute fastest we can be going at the end of the motion.
 // For now, using simplifying assumptions that it is just the lowest of (A) linear decel required and (B) max centripetal force
-double SilkyMotionManager::getMaxSpeed(double dis, double ang, double maxEndSpeed, bool isSwitching, double agressiveness) {
+double SilkyMotionManager::getMaxSpeed(double dis, double ang, double maxEndSpeed, bool isSwitching) {
   if (isSwitching) {
     return 0;
   }
 
 	double radius = dis/(fabs(ang)*M_PI/180.0); // Converting to radians to get radius of curvature
-	double angularMax = sqrt(maxAngAccel * radius*agressiveness);
+	double angularMax = sqrt(maxAngAccel * radius);
   if (ang == 0) {
     angularMax = maxLinVel;
   }
@@ -193,7 +193,7 @@ double SilkyMotionManager::getTotalTime() {
   return timestamps[timestamps.size() - 1];
 }
 
-SilkyMotionManager::SilkyMotionManager(std::vector<double> d, std::vector<double> a, std::vector<double> agressive,
+SilkyMotionManager::SilkyMotionManager(std::vector<double> d, std::vector<double> a,
 			double maxLinAccel, double maxLinDecel, double maxLinVel, double maxAngAccel) :
 			dis(d), ang(a), maxLinAccel(maxLinAccel), maxLinDecel(maxLinDecel), maxLinVel(maxLinVel), maxAngAccel(maxAngAccel),
 			startTime(-1),
@@ -213,9 +213,9 @@ SilkyMotionManager::SilkyMotionManager(std::vector<double> d, std::vector<double
 
 		for(int i = dis.size()-1; i>=0; i--){
 			if (i==0) {
-				maxSpeed[i] = getMaxSpeed(dis[i], ang[i], maxSpeed[i+1], false, agressive[i]);
+				maxSpeed[i] = getMaxSpeed(dis[i], ang[i], maxSpeed[i+1], false);
 			} else {
-				maxSpeed[i] = getMaxSpeed(dis[i], ang[i], maxSpeed[i+1], negatives[i] != negatives[i-1], agressive[i]);
+				maxSpeed[i] = getMaxSpeed(dis[i], ang[i], maxSpeed[i+1], negatives[i] != negatives[i-1]);
 			}
 		}
 		actualSpeed.resize(dis.size() + 1);

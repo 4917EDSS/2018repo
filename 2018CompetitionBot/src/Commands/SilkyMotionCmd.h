@@ -20,7 +20,6 @@ const double V_ANG=0.8*(0.3/50);
 class SilkyMotionCmd : public CommandBase {
 public:
 	SilkyMotionCmd(std::vector<double> dis, std::vector<double> ang);
-	SilkyMotionCmd(std::vector<double> dis, std::vector<double> ang, std::vector<double> aggressive);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
