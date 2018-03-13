@@ -36,11 +36,11 @@ AutoCenterToLeftSwitchGrp::AutoCenterToLeftSwitchGrp() {
 
 	AddParallel(new ZeroElevatorCmd());
 	AddParallel(new IntakeUntilLimitCmd());
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-1000, 500}, std::vector<double> {0, 40}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-1000, 500, -700}, std::vector<double> {0, 40, -20}));
 	//AddSequential(new DriveStraightCmd(-400,heading));
 
 
-	AddSequential(new SilkyMotionCmd(std::vector<double> {1000}, std::vector<double> {0}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {1100}, std::vector<double> {-20}));
 	//AddSequential(new DriveStraightCmd(1400,heading));
 
 

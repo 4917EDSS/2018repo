@@ -51,7 +51,7 @@ AutoCenterToRightSwitchGrp::AutoCenterToRightSwitchGrp() {
 
 		AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
-		AddSequential(new SilkyMotionCmd(std::vector<double> {1700}, std::vector<double> {25}));
+		AddSequential(new SilkyMotionCmd(std::vector<double> {1700}, std::vector<double> {50}));
 
 		AddSequential(new ReverseIntakeCmd(0.50));
 
