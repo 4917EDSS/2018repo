@@ -15,40 +15,41 @@ AutoCenterToLeftSwitchGrp::AutoCenterToLeftSwitchGrp() {
 	//      AddSequential(new Command2());
 	// these will run in order.
 
-
-	float heading = 0;
 	AddParallel (new FoldArmsDownCmd());
 	AddSequential(new ZeroElevatorCmd());
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
-	heading = -30;
-	AddSequential(new SilkyMotionCmd(std::vector<double> {1500, 1250}, std::vector<double> {heading, 0}));
-
-	//AddSequential(new DriveStraightCmd(2750,heading));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {1500, 1300}, std::vector<double> {-35, 10}));
 
 	AddSequential(new ReverseIntakeCmd(0.5));
 
 	AddParallel(new ZeroElevatorCmd());
 
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-850, -400}, std::vector<double> {0, 30}));
-	//AddSequential(new DriveStraightCmd(-1250,heading));
-
-	//AddSequential(new DriveTurnCmd(heading));   //Towards second box
-
 	AddParallel(new IntakeUntilLimitCmd());
 
-	AddSequential(new DriveStraightCmd(400,heading));
-
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-300, -300}, std::vector<double> {45, -45}));
-	//AddSequential(new DriveStraightCmd(-400,heading));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-2000, 1100}, std::vector<double> {0, 45}));  //Took second box
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-1100, 2000}, std::vector<double> {-45, 0}));	//!
+	AddSequential(new ReverseIntakeCmd(0.5));                                                           //Dropped second box
 
-	AddSequential(new DriveStraightCmd(1000,0));
+	AddParallel(new ZeroElevatorCmd());
+	AddParallel(new IntakeUntilLimitCmd());
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-1000, 500}, std::vector<double> {0, 40}));
+	//AddSequential(new DriveStraightCmd(-400,heading));
+
+
+	AddSequential(new SilkyMotionCmd(std::vector<double> {1000}, std::vector<double> {0}));
 	//AddSequential(new DriveStraightCmd(1400,heading));
 
-	AddSequential(new ReverseIntakeCmd(0.5));
+
+
+
+
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-900, 500}, std::vector<double> {-10, 45}));
+
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-500, 900}, std::vector<double> {-45, 10}));
 	// To run multiple commands at the same time,
 	// use AddParallel()
 	// e.g. AddParallel(new Command1());
