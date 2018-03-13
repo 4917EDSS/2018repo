@@ -8,34 +8,37 @@
 #include "Commands/DriveVisionBoxCmd.h"
 #include "Subsystems/ElevatorSub.h"
 #include "Subsystems/IntakeSub.h"
+#include "Commands/SilkyMotionCmd.h"
+#include "Commands/IntakeUntilLimitCmd.h"
 
 AutoRightToRightScaleGrp::AutoRightToRightScaleGrp() {
-
-	float heading = 0;
 
 	AddParallel (new FoldArmsDownCmd());
 	AddSequential(new ZeroElevatorCmd());
 
-	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));
+	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));
 
-	AddSequential(new DriveStraightCmd(6500,heading));
+	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 
-	heading = -45;
-	AddParallel(new DriveTurnCmd(heading));
-
-	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
-
-	AddSequential(new DriveStraightCmd(500,heading));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {6500,1000}, std::vector<double> {0, -45}));
 
 	AddSequential(new ReverseIntakeCmd(1));
 
-	AddParallel(new DriveStraightCmd(-500,heading));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-500}, std::vector<double> {-45}));
 
 	AddSequential(new ZeroElevatorCmd());
 
-	heading = -160;
-	AddSequential(new DriveTurnCmd(heading));
+	AddParallel(new SilkyMotionCmd(std::vector<double> {500}, std::vector<double> {-160}));
 
-	AddSequential(new DriveVisionBoxCmd());
+	AddSequential(new IntakeUntilLimitCmd());
+
+	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
+
+	AddSequential(new SilkyMotionCmd(std::vector<double> {500}, std::vector<double> {160}));
+
+
+
+
+
 
 }
