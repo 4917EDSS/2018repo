@@ -199,17 +199,23 @@ SilkyMotionManager::SilkyMotionManager(std::vector<double> d, std::vector<double
 			startTime(-1),
 			lastTime(0) {
 		maxSpeed.resize(dis.size() + 1);
-    negatives.resize(dis.size()+1);
+		negatives.resize(dis.size());
 		maxSpeed[maxSpeed.size() - 1] = 0;
-		negatives[negatives.size() - 1] = dis[dis.size()-1] >= 0;
+
+		for (unsigned int i = 0; i<dis.size(); i++){
+			if(dis[i] < 0){
+				negatives[i]=true;
+				dis[i] = -dis[i];
+			} else{
+				negatives[i]=false;
+			}
+		}
+
 		for(int i = dis.size()-1; i>=0; i--){
-      if(dis[i] < 0){
-        negatives[i]=true;
-        dis[i] = -dis[i];
-      } else{
-        negatives[i]=false;
-      }
-			maxSpeed[i] = getMaxSpeed(dis[i], ang[i], maxSpeed[i+1], negatives[i] != negatives[i+1]);
+			if (i==0) {
+				maxSpeed[i] = getMaxSpeed(dis[i], ang[i], maxSpeed[i+1], false);
+			}
+			maxSpeed[i] = getMaxSpeed(dis[i], ang[i], maxSpeed[i+1], negatives[i] != negatives[i-1]);
 		}
 		actualSpeed.resize(dis.size() + 1);
 		actualSpeed[0] = 0;

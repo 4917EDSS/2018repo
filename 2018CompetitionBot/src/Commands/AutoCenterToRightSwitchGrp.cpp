@@ -7,6 +7,7 @@
 #include "Commands/ZeroElevatorCmd.h"
 #include "Commands/IntakeUntilLimitCmd.h"
 #include "Subsystems/IntakeSub.h"
+#include "Commands/SilkyMotionCmd.h"
 
 AutoCenterToRightSwitchGrp::AutoCenterToRightSwitchGrp() {
 	// Add Commands here:
@@ -21,31 +22,22 @@ AutoCenterToRightSwitchGrp::AutoCenterToRightSwitchGrp() {
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
 	heading = 20;
-	AddSequential(new DriveTurnCmd(heading)); // Need to just turn one side, other side wont be able to go back since on wall
-
-	AddSequential(new DriveStraightCmd(2700,heading));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {1300, 1400}, std::vector<double> {25, 0}));
 
 	AddSequential(new ReverseIntakeCmd(0.5));
 
 	AddParallel(new ZeroElevatorCmd());
 
-	AddSequential(new DriveStraightCmd(-1500,heading));
-
-	heading = -25;
-	AddSequential(new DriveTurnCmd(heading));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-900, -900}, std::vector<double> {10, -25}));
 
 	AddParallel(new IntakeUntilLimitCmd());
 
-	AddSequential(new DriveStraightCmd(600,heading));
 
-	AddSequential(new DriveStraightCmd(-600,heading));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {900, -900}, std::vector<double> {-15,20}));
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
-	heading = 15;
-	AddSequential(new DriveTurnCmd(heading));
-
-	AddSequential(new DriveStraightCmd(1400,heading));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {1000, 1000}, std::vector<double> {10, -10}));
 
 	AddSequential(new ReverseIntakeCmd(0.50));
 
