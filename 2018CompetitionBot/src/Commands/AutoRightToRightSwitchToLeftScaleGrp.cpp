@@ -27,14 +27,14 @@ AutoRightToRightSwitchToLeftScaleGrp::AutoRightToRightSwitchToLeftScaleGrp() {
 	AddParallel (new FoldArmsDownCmd());
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 
-	AddSequential(new SilkyMotionCmd(std::vector<double> {3500,350}, std::vector<double> {0,-90}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {3000,1050}, std::vector<double> {0,-90}));
 
 	AddSequential(new ReverseIntakeCmd(0.5));
 
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-2900}, std::vector<double> {-90}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-2000,300}, std::vector<double> {-135,45}));
 	AddParallel(new ZeroElevatorCmd());
 	AddParallel(new IntakeUntilLimitCmd());
-	AddSequential(new SilkyMotionCmd(std::vector<double> {1500,600}, std::vector<double> {60,-30}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {1300,500}, std::vector<double> {40,35}));
 
 	AddParallel(new DelayedElevatorToHeightGrp(2,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 
