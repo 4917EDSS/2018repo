@@ -6,6 +6,8 @@
 #include "Commands/ReverseIntakeCmd.h"
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/MoveElevatorToHeightCmd.h"
+#include "Commands/IntakeUntilLimitCmd.h"
+#include "Commands/SilkyMotionCmd.h"
 #include "Subsystems/IntakeSub.h"
 
 AutoRightToLeftSwitchGrp::AutoRightToLeftSwitchGrp() {
@@ -15,24 +17,23 @@ AutoRightToLeftSwitchGrp::AutoRightToLeftSwitchGrp() {
 	// these will run in order.
 
 
-	float heading = 0;
+//	float heading = 0;
 
 		AddParallel (new FoldArmsDownCmd());
 		AddSequential(new ZeroElevatorCmd());
 
-		heading = -75;
-		AddSequential(new DriveTurnCmd(heading));
+		AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+		AddSequential(new SilkyMotionCmd(std::vector<double> {1500, 3000, 1300}, std::vector<double> {-90, 0, 90}));
+		AddSequential(new ReverseIntakeCmd(0.5));
+
+		AddParallel(new ZeroElevatorCmd());
+		AddParallel(new IntakeUntilLimitCmd());
+		AddSequential(new SilkyMotionCmd(std::vector<double> {-2000, 1100}, std::vector<double> {0, 45}));
 
 		AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+		AddSequential(new SilkyMotionCmd(std::vector<double> {-1100, 2000}, std::vector<double> {-45, 0}));
+		AddSequential(new ReverseIntakeCmd(0.5));
 
-		AddSequential(new DriveStraightCmd(4500,heading));
-
-		heading = 0;
-		AddSequential(new DriveTurnCmd(heading));
-
-		AddSequential(new DriveStraightCmd(1000,heading));
-
-		AddSequential(new ReverseIntakeCmd(1));
 	}
 
 	//Then go forward until it hits the switch

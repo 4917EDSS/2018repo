@@ -5,7 +5,9 @@
 #include "Commands/ZeroElevatorCmd.h"
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/MoveElevatorToHeightCmd.h"
+#include "Commands/IntakeUntilLimitCmd.h"
 #include "Commands/ReverseIntakeCmd.h"
+#include "Commands/SilkyMotionCmd.h"
 #include "Subsystems/IntakeSub.h"
 
 AutoRightToRightSwitchGrp::AutoRightToRightSwitchGrp() {
@@ -17,26 +19,22 @@ AutoRightToRightSwitchGrp::AutoRightToRightSwitchGrp() {
 
 //	If you start from the right corner:
 
-	float heading = 0;
+//	float heading = 0;
 
 		AddParallel (new FoldArmsDownCmd());
 		AddSequential(new ZeroElevatorCmd());
 
-		heading = -15;
-		AddSequential(new DriveTurnCmd(heading));
+		AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+		AddSequential(new SilkyMotionCmd(std::vector<double> {1500, 1300}, std::vector<double> {-35, 10}));
+		AddSequential(new ReverseIntakeCmd(0.5));
+
+		AddParallel(new ZeroElevatorCmd());
+		AddParallel(new IntakeUntilLimitCmd());
+		AddSequential(new SilkyMotionCmd(std::vector<double> {-2000, 1100}, std::vector<double> {0, -45}));
 
 		AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-
-		AddSequential(new DriveStraightCmd(2500,heading));
-
-		heading = 0;
-		AddSequential(new DriveTurnCmd(0));
-
-		AddSequential(new DriveStraightCmd(500,0));
-
-		AddSequential(new ReverseIntakeCmd(1));
-
-
+		AddSequential(new SilkyMotionCmd(std::vector<double> {-1100, 2000}, std::vector<double> {45, 0}));
+		AddSequential(new ReverseIntakeCmd(0.5));
 
 	// A command group will require all of the subsystems that each member
 	// would require.
