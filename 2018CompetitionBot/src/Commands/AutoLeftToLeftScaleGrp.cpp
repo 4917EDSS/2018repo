@@ -16,7 +16,7 @@ AutoLeftToLeftScaleGrp::AutoLeftToLeftScaleGrp() {
 
 	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));
 
-	AddParallel(new DelayedElevatorToHeightGrp(0.75,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
+	AddParallel(new DelayedElevatorToHeightGrp(0,0.75,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 
 	AddSequential(new SilkyMotionCmd(std::vector<double> {6000,1000}, std::vector<double> {0, -45}));
 

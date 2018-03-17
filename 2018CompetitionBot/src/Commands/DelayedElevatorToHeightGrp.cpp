@@ -8,8 +8,9 @@
 #include "DelayedElevatorToHeightGrp.h"
 #include "Commands/MoveElevatorToHeightCmd.h"
 
-DelayedElevatorToHeightGrp::DelayedElevatorToHeightGrp(double time, double height) {
+DelayedElevatorToHeightGrp::DelayedElevatorToHeightGrp(double initialHeight, double time, double finalHeight) {
+	AddSequential(new MoveElevatorToHeightCmd(initialHeight));
 	AddSequential(new WaitCommand (time));
-	AddSequential(new MoveElevatorToHeightCmd(height));
+	AddSequential(new MoveElevatorToHeightCmd(finalHeight));
 
 }

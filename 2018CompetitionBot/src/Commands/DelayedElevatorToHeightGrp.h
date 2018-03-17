@@ -5,7 +5,7 @@
 
 class DelayedElevatorToHeightGrp : public CommandGroup {
 public:
-	DelayedElevatorToHeightGrp(double time, double height);
+	DelayedElevatorToHeightGrp(double initialHeight, double time, double finalHeight);
 
 };
 #endif
