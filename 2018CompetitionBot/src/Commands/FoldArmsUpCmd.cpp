@@ -7,7 +7,7 @@ FoldArmsUpCmd::FoldArmsUpCmd() {
 
 // Called just before this Command runs the first time
 void FoldArmsUpCmd::Initialize() {
-	intakeSub->foldArms(1.0);
+	intakeSub->foldArms(0.5);
 }
 
 // Called repeatedly when this Command is scheduled to run
