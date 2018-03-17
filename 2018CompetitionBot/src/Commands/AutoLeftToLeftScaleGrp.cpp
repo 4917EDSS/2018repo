@@ -14,28 +14,29 @@ AutoLeftToLeftScaleGrp::AutoLeftToLeftScaleGrp() {
 
 
 	AddParallel (new FoldArmsDownCmd());
+		AddSequential(new ZeroElevatorCmd());
 
-	AddParallel(new DelayedElevatorToHeightGrp(ElevatorSub::CARRY_HEIGHT,4.75,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
+		AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));
 
-	AddSequential(new SilkyMotionCmd(std::vector<double> {4210, 2300, 3340, 1300}, std::vector<double> {0, 90, 0, -120}));
+		AddParallel(new DelayedElevatorToHeightGrp(0,ElevatorSub::SWITCH_BOX_HEIGHT));
+		AddSequential(new SilkyMotionCmd(std::vector<double> {5200, 1000}, std::vector<double> {0, 25}));
 
-	AddSequential(new ReverseIntakeCmd(0.4));
+		AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 
-	AddParallel(new IntakeUntilLimitCmd());
+		AddSequential(new SilkyMotionCmd(std::vector<double> {550}, std::vector<double> {15}));
 
-	AddParallel(new DelayedElevatorToHeightGrp(0.5,0.0));
+		AddSequential(new ReverseIntakeCmd(0.4));
 
-	AddSequential(new SilkyMotionCmd(std::vector<double>{-1000,1600}, std::vector<double>{-80, -45}));
+		AddParallel(new ZeroElevatorCmd());
+		AddParallel(new IntakeUntilLimitCmd());
+		AddSequential(new SilkyMotionCmd(std::vector<double> {-500, 1950}, std::vector<double> {45, 90}));
 
-	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
+		AddParallel(new SilkyMotionCmd(std::vector<double> {-1500}, std::vector<double> {-90}));
+		AddSequential(new DelayedElevatorToHeightGrp(0, 0,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 
-	AddSequential(new SilkyMotionCmd(std::vector<double>{-1600, 1000}, std::vector<double>{45, 70}));
 
-	AddSequential(new ReverseIntakeCmd(0.1));
-
-	AddParallel(new DelayedElevatorToHeightGrp(0.5,0));
-
-	AddSequential(new SilkyMotionCmd(std::vector<double>{-700}, std::vector<double>{0}));
+		AddSequential(new SilkyMotionCmd(std::vector<double> {500}, std::vector<double> {-45}));
+		AddSequential(new ReverseIntakeCmd(0.4));
 
 
 
