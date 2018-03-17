@@ -31,7 +31,7 @@ AutoRightToRightSwitchToLeftScaleGrp::AutoRightToRightSwitchToLeftScaleGrp() {
 
 	AddSequential(new ReverseIntakeCmd(0.5));
 
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-2000,300}, std::vector<double> {-135,45}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-3500,300}, std::vector<double> {-135,45}));
 	AddParallel(new ZeroElevatorCmd());
 	AddParallel(new IntakeUntilLimitCmd());
 	AddSequential(new SilkyMotionCmd(std::vector<double> {1300,500}, std::vector<double> {40,35}));
