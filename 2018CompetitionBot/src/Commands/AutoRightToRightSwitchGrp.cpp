@@ -30,10 +30,10 @@ AutoRightToRightSwitchGrp::AutoRightToRightSwitchGrp() {
 
 		AddParallel(new ZeroElevatorCmd());
 		AddParallel(new IntakeUntilLimitCmd());
-		AddSequential(new SilkyMotionCmd(std::vector<double> {-2000, 1500}, std::vector<double> {0, -45}));
+		AddSequential(new SilkyMotionCmd(std::vector<double> {-2000, 2500}, std::vector<double> {0, -45}));
 
 		AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-		AddSequential(new SilkyMotionCmd(std::vector<double> {-1500, 2000}, std::vector<double> {45, 0}));
+		AddSequential(new SilkyMotionCmd(std::vector<double> {-2500, 2000}, std::vector<double> {40, 0}));
 		AddSequential(new ReverseIntakeCmd(0.5));
 
 	// A command group will require all of the subsystems that each member
