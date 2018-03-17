@@ -19,9 +19,9 @@ AutoRightToRightScaleGrp::AutoRightToRightScaleGrp() {
 
 	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));
 
-	AddParallel(new DelayedElevatorToHeightGrp(0,0.75,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
+	AddParallel(new DelayedElevatorToHeightGrp(0, 0.75,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 
-	AddSequential(new SilkyMotionCmd(std::vector<double> {5800, 1000}, std::vector<double> {0, -45}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {5500, 1200}, std::vector<double> {0, -45}));
 
 	AddSequential(new ReverseIntakeCmd(0.4));
 
@@ -30,7 +30,7 @@ AutoRightToRightScaleGrp::AutoRightToRightScaleGrp() {
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-500, 1000}, std::vector<double> {-45, -25}));
 
 
-	AddParallel(new DelayedElevatorToHeightGrp(0,0.75,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
+	AddParallel(new DelayedElevatorToHeightGrp(0, 0.75,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-1000, 500}, std::vector<double> {25, 45}));
 
 	AddSequential(new ReverseIntakeCmd(0.4));
