@@ -144,6 +144,7 @@ bool ElevatorSub::isElevatorDown() {
 			return false;
 		}
 	}
+	debounceCounter=0;
 	return lowerLimit->Get();
 }
 
