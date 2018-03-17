@@ -8,7 +8,7 @@ FoldArmsDownCmd::FoldArmsDownCmd(double time) {
 
 // Called just before this Command runs the first time
 void FoldArmsDownCmd::Initialize() {
-	intakeSub->foldArms(-1.0);
+	intakeSub->foldArms(-0.5);
 }
 
 // Called repeatedly when this Command is scheduled to run
