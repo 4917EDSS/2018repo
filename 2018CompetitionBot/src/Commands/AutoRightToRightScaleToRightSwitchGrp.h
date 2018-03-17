@@ -9,8 +9,8 @@
 
 #include <Commands/CommandGroup.h>
 
-class AutoRightToRightScaleToRightSwitch : public frc::CommandGroup {
+class AutoRightToRightScaleToRightSwitchGrp : public frc::CommandGroup {
 public:
-	AutoRightToRightScaleToRightSwitch();
+	AutoRightToRightScaleToRightSwitchGrp();
 };
 
