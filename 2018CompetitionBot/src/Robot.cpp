@@ -193,27 +193,27 @@ private:
 		chooserRR->AddObject("R Switch", std::shared_ptr<frc::Command>(new AutoRightToRightSwitchGrp()));
 		chooserRR->AddObject("L Scale", std::shared_ptr<frc::Command>(new AutoLeftToRightScaleGrp()));
 		chooserRR->AddObject("R Scale", std::shared_ptr<frc::Command>(new AutoRightToRightScaleGrp()));
-		chooserRR->AddObject("C Switch", std::shared_ptr<frc::Command>(new AutoCenterToRightSwitchGrp()));
+		chooserRR->AddObject("C Switch (RR)", std::shared_ptr<frc::Command>(new AutoCenterToRightSwitchGrp()));
 		chooserRR->AddObject("R Scale, Switch", std::shared_ptr<frc::Command>(new AutoRightToRightScaleToRightSwitchGrp()));
 
 		chooserLR->AddDefault("L Switch", std::shared_ptr<frc::Command>(new AutoLeftToLeftSwitchGrp()));
 		chooserLR->AddObject("R Switch", std::shared_ptr<frc::Command>(new AutoRightToLeftSwitchGrp()));
 		chooserLR->AddObject("L Scale", std::shared_ptr<frc::Command>(new AutoLeftToRightScaleGrp()));
 		chooserLR->AddObject("R Scale", std::shared_ptr<frc::Command>(new AutoRightToRightScaleGrp()));
-		chooserLR->AddObject("C Switch", std::shared_ptr<frc::Command>(new AutoCenterToLeftSwitchGrp()));
+		chooserLR->AddObject("C Switch (LR)", std::shared_ptr<frc::Command>(new AutoCenterToLeftSwitchGrp()));
 
 		chooserLL->AddDefault("L Switch", std::shared_ptr<frc::Command>(new AutoLeftToLeftSwitchGrp()));
 		chooserLL->AddObject("R Switch", std::shared_ptr<frc::Command>(new AutoRightToLeftSwitchGrp()));
 		chooserLL->AddObject("L Scale", std::shared_ptr<frc::Command>(new AutoLeftToLeftScaleGrp()));
 		chooserLL->AddObject("R Scale", std::shared_ptr<frc::Command>(new AutoRightToLeftScaleGrp()));
-		chooserLL->AddObject("C Switch", std::shared_ptr<frc::Command>(new AutoCenterToLeftSwitchGrp()));
+		chooserLL->AddObject("C Switch (LL)", std::shared_ptr<frc::Command>(new AutoCenterToLeftSwitchGrp()));
 		chooserLL->AddObject("R Scale, Switch", std::shared_ptr<frc::Command>(new AutoRightToLeftScaleToLeftSwitchGrp));
 
 		chooserRL->AddDefault("L Switch", std::shared_ptr<frc::Command>(new AutoLeftToRightSwitchGrp()));
 		chooserRL->AddObject("R Switch", std::shared_ptr<frc::Command>(new AutoRightToRightSwitchGrp()));
 		chooserRL->AddObject("L Scale", std::shared_ptr<frc::Command>(new AutoLeftToLeftScaleGrp()));
 		chooserRL->AddObject("R Scale", std::shared_ptr<frc::Command>(new AutoRightToLeftScaleGrp()));
-		chooserRL->AddObject("C Switch", std::shared_ptr<frc::Command>(new AutoCenterToRightSwitchGrp()));
+		chooserRL->AddObject("C Switch (RL)", std::shared_ptr<frc::Command>(new AutoCenterToRightSwitchGrp()));
 		chooserRL->AddObject("R Switch, Scale", std::shared_ptr<frc::Command>(new AutoRightToRightSwitchToLeftScaleGrp()));
 
 		SmartDashboard::PutData("Sw R Sc R", chooserRR.get());
