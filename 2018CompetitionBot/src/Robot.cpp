@@ -18,6 +18,8 @@
 #include <Commands/AutoRightToRightScaleGrp.h>
 #include <Commands/AutoRightToRightSwitchToLeftScaleGrp.h>
 #include <Commands/AutoRightToRightSwitchGrp.h>
+#include <Commands/AutoRightToLeftScaletoLeftSwitchGrp.h>
+#include <Commands/AutoRightToRightScaleToRightSwitchGrp.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <Components/Logging/Log.h>
@@ -192,6 +194,7 @@ private:
 		chooserRR->AddObject("L Scale", std::shared_ptr<frc::Command>(new AutoLeftToRightScaleGrp()));
 		chooserRR->AddObject("R Scale", std::shared_ptr<frc::Command>(new AutoRightToRightScaleGrp()));
 		chooserRR->AddObject("C Switch", std::shared_ptr<frc::Command>(new AutoCenterToRightSwitchGrp()));
+		chooserRR->AddObject("R Scale, Switch", std::shared_ptr<frc::Command>(new AutoRightToRightScaleToRightSwitchGrp()));
 
 		chooserLR->AddDefault("L Switch", std::shared_ptr<frc::Command>(new AutoLeftToLeftSwitchGrp()));
 		chooserLR->AddObject("R Switch", std::shared_ptr<frc::Command>(new AutoRightToLeftSwitchGrp()));
@@ -204,6 +207,7 @@ private:
 		chooserLL->AddObject("L Scale", std::shared_ptr<frc::Command>(new AutoLeftToLeftScaleGrp()));
 		chooserLL->AddObject("R Scale", std::shared_ptr<frc::Command>(new AutoRightToLeftScaleGrp()));
 		chooserLL->AddObject("C Switch", std::shared_ptr<frc::Command>(new AutoCenterToLeftSwitchGrp()));
+		chooserLL->AddObject("R Scale, Switch", std::shared_ptr<frc::Command>(new AutoRightToLeftScaleToLeftSwitchGrp));
 
 		chooserRL->AddDefault("L Switch", std::shared_ptr<frc::Command>(new AutoLeftToRightSwitchGrp()));
 		chooserRL->AddObject("R Switch", std::shared_ptr<frc::Command>(new AutoRightToRightSwitchGrp()));

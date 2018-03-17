@@ -5,8 +5,8 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include <Commands/AutoRightToRightScaleToRightSwitchGrp.h>
 #include <Commands/FoldArmsDownCmd.h>
-#include "AutoRightToRightScaleToRightSwitchGrp.h"
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
@@ -15,7 +15,7 @@
 #include "Commands/IntakeUntilLimitCmd.h"
 #include "Subsystems/IntakeSub.h"
 
-AutoRightToRightScaleToRightSwitch::AutoRightToRightScaleToRightSwitch() {
+AutoRightToRightScaleToRightSwitchGrp::AutoRightToRightScaleToRightSwitchGrp() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
