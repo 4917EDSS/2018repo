@@ -30,7 +30,7 @@ AutoRightToLeftScaleGrp::AutoRightToLeftScaleGrp() {
 
 	AddSequential(new SilkyMotionCmd(std::vector<double>{-1450, 1000}, std::vector<double>{-45, -80}));
 
-	AddSequential(new ReverseIntakeCmd(0.2));
+	AddSequential(new ReverseIntakeCmd(0.1));
 
 	AddParallel(new DelayedElevatorToHeightGrp(0.5,0));
 
