@@ -8,6 +8,7 @@
 #include "Subsystems/IntakeSub.h"
 #include "Commands/SilkyMotionCmd.h"
 #include "Commands/DelayedElevatorToHeightGrp.h"
+#include "Commands/IntakeUntilLimitCmd.h"
 
 AutoLeftToLeftScaleGrp::AutoLeftToLeftScaleGrp() {
 
