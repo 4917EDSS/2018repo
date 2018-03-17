@@ -36,6 +36,10 @@ AutoRightToRightSwitchGrp::AutoRightToRightSwitchGrp() {
 		AddSequential(new SilkyMotionCmd(std::vector<double> {-2500, 2000}, std::vector<double> {50, 0}));
 		AddSequential(new ReverseIntakeCmd(0.5));
 
+		AddParallel(new ZeroElevatorCmd());
+		AddParallel(new IntakeUntilLimitCmd());
+		AddSequential(new SilkyMotionCmd(std::vector<double> {-2000, 2500}, std::vector<double> {0, -45}));
+
 	// A command group will require all of the subsystems that each member
 	// would require.
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
