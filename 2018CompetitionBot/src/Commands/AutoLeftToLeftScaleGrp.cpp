@@ -6,23 +6,25 @@
 #include "Commands/MoveElevatorToHeightCmd.h"
 #include "ReverseIntakeCmd.h"
 #include "Subsystems/IntakeSub.h"
+#include "Commands/SilkyMotionCmd.h"
+#include "Commands/DelayedElevatorToHeightGrp.h"
 
 AutoLeftToLeftScaleGrp::AutoLeftToLeftScaleGrp() {
-	float heading = 0;
 
 	AddParallel (new FoldArmsDownCmd());
 	AddSequential(new ZeroElevatorCmd());
 
-	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));
+	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));
 
-	AddSequential(new DriveStraightCmd(6500,heading));
+	AddParallel(new DelayedElevatorToHeightGrp(0.75,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 
-	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
-
-	heading = 45;
-	AddSequential(new DriveTurnCmd(heading));
-
-	AddSequential(new DriveStraightCmd(500,heading));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {6000,1000}, std::vector<double> {0, -45}));
 
 	AddSequential(new ReverseIntakeCmd(1));
+
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-500}, std::vector<double> {-45}));
+
+	AddSequential(new ZeroElevatorCmd());
+
+
 }

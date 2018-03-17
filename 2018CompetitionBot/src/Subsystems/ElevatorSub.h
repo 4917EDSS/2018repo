@@ -21,7 +21,7 @@ private:
 	double lastLidarValue;
 	bool isDoneFirstRangefinder;
 	double lastRangefinderValue;
-
+	int debounceCounter;
 	void storeNewRangefinderValue(double distance);
 
 public:

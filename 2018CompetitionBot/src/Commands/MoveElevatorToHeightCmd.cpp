@@ -1,5 +1,6 @@
 #include <Commands/MoveElevatorToHeightCmd.h>
 
+
 MoveElevatorToHeightCmd::MoveElevatorToHeightCmd(double height) : height(height) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
@@ -14,12 +15,20 @@ void MoveElevatorToHeightCmd::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void MoveElevatorToHeightCmd::Execute() {
-	elevatorSub->update();
+	if (height==0){
+		elevatorSub->setElevatorMotor(-1.0);
+	}else{
+		elevatorSub->update();
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool MoveElevatorToHeightCmd::IsFinished() {
-	return elevatorSub->isFinishedMove();
+	if (height==0){
+		return elevatorSub->isElevatorDown();
+	}else{
+		return elevatorSub->isFinishedMove();
+	}
 }
 
 // Called once after isFinished returns true
