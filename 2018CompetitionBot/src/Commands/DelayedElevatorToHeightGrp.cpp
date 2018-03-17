@@ -14,3 +14,8 @@ DelayedElevatorToHeightGrp::DelayedElevatorToHeightGrp(double initialHeight, dou
 	AddSequential(new MoveElevatorToHeightCmd(finalHeight));
 
 }
+DelayedElevatorToHeightGrp::DelayedElevatorToHeightGrp(double time, double finalHeight) {
+	AddSequential(new WaitCommand (time));
+	AddSequential(new MoveElevatorToHeightCmd(finalHeight));
+
+}
