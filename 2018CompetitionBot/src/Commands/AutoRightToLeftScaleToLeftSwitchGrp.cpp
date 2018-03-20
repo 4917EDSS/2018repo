@@ -14,6 +14,8 @@
 #include "Commands/ReverseIntakeCmd.h"
 #include "Commands/IntakeUntilLimitCmd.h"
 #include "Subsystems/IntakeSub.h"
+#include "Commands/SilkyMotionCmd.h"
+#include "Commands/DelayedElevatorToHeightGrp.h"
 
 AutoRightToLeftScaleToLeftSwitchGrp::AutoRightToLeftScaleToLeftSwitchGrp() {
 	AddParallel (new FoldArmsDownCmd());

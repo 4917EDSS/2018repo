@@ -12,7 +12,7 @@
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/IntakeUntilLimitCmd.h"
 #include "Commands/ElevatorFullPowerDownCmd.h"
-#include "Commands/RaiseToClimbPosCmd.h"
+#include "Commands/PrepareToClimbGrp.h"
 #include "Commands/ClimbGrp.h"
 
 
@@ -30,8 +30,8 @@ OI::OI() {
 	killEverythingD1->WhenPressed(new KillEverythingCmd());
 	killEverythingD2.reset(new frc::JoystickButton(driverController.get(), KILL_EVERYTHING_BTN_2));
 	killEverythingD2->WhenPressed(new KillEverythingCmd());
-	raiseToClimbPosBtn.reset(new JoystickButton(driverController.get(), RAISE_TO_CLIMB_POS_BTN));
-	raiseToClimbPosBtn->WhenPressed(new RaiseToClimbPosCmd());
+	prepareToClimbBtn.reset(new JoystickButton( driverController.get(),PREPARE_TO_CLIMB_BTN));
+	prepareToClimbBtn->WhenPressed(new PrepareToClimbGrp());
 	climbBarBtn.reset(new JoystickButton(driverController.get(), CLIMB_BAR_BTN));
 	climbBarBtn->WhenPressed(new ClimbGrp());
 

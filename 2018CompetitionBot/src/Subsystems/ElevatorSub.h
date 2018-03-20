@@ -51,6 +51,7 @@ public:
 	double convertHeightToEncoder(double cm);
 	bool isFinishedMove();
 	void extendClimbBar();
+	void retractClimbBar();
 	void updateSensorsPeriodic();
 	double getFilteredRangefinderValue();
 	double getRawRangefinderValue();

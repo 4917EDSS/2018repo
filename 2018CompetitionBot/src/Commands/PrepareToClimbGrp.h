@@ -7,16 +7,10 @@
 
 #pragma once
 
+#include <Commands/CommandGroup.h>
 
-#include "../CommandBase.h"
-
-class RaiseToClimbPosCmd : public CommandBase {
+class PrepareToClimbGrp : public frc::CommandGroup {
 public:
-	RaiseToClimbPosCmd();
-	void Initialize() override;
-	void Execute() override;
-	bool IsFinished() override;
-	void End() override;
-	void Interrupted() override;
+	PrepareToClimbGrp();
 };
 

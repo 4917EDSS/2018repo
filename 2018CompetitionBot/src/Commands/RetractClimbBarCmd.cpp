@@ -5,43 +5,39 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include <Commands/RaiseToClimbPosCmd.h>
-#include "OI.h"
+#include "RetractClimbBarCmd.h"
 
-RaiseToClimbPosCmd::RaiseToClimbPosCmd() {
+RetractClimbBarCmd::RetractClimbBarCmd() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(intakeSub.get());
+	Requires(elevatorSub.get());
+
 }
 
 // Called just before this Command runs the first time
-void RaiseToClimbPosCmd::Initialize() {
-	intakeSub->setJawsOpen();
-	intakeSub->foldArms(-1.0);
+void RetractClimbBarCmd::Initialize() {
+	elevatorSub->retractClimbBar();
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void RaiseToClimbPosCmd::Execute() {
+void RetractClimbBarCmd::Execute() {
+
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool RaiseToClimbPosCmd::IsFinished() {
-	if(TimeSinceInitialized() > 0.25) {
-		return true;
-	} else {
-		return false;
-	}
-
+bool RetractClimbBarCmd::IsFinished() {
+	return true;
 }
 
 // Called once after isFinished returns true
-void RaiseToClimbPosCmd::End() {
-	intakeSub->foldArms(0.0);
+void RetractClimbBarCmd::End() {
+
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void RaiseToClimbPosCmd::Interrupted() {
-	End();
+void RetractClimbBarCmd::Interrupted() {
+
 }

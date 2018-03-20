@@ -5,18 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include <Commands/FoldArmsUpCmd.h>
-#include "ClimbGrp.h"
-#include "Subsystems/ElevatorSub.h"
-#include "Commands/MoveElevatorToHeightCmd.h"
-#include "Commands/ExtendClimbBarCmd.h"
+#pragma once
 
-ClimbGrp::ClimbGrp() {
+#include "../CommandBase.h"
 
-	AddSequential(new FoldArmsUpCmd());
+class RetractClimbBarCmd : public CommandBase {
+public:
+	RetractClimbBarCmd();
+	void Initialize() override;
+	void Execute() override;
+	bool IsFinished() override;
+	void End() override;
+	void Interrupted() override;
+};
 
-	AddSequential(new ExtendClimbBarCmd());
-
-	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_LOW_HEIGHT));
-
-}

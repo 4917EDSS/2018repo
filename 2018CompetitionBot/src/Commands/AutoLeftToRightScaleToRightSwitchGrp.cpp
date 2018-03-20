@@ -6,6 +6,16 @@
 /*----------------------------------------------------------------------------*/
 
 #include "AutoLeftToRightScaleToRightSwitchGrp.h"
+#include <Commands/FoldArmsDownCmd.h>
+#include "Commands/DriveStraightCmd.h"
+#include "Commands/DriveTurnCmd.h"
+#include "Commands/ZeroElevatorCmd.h"
+#include "Commands/MoveElevatorToHeightCmd.h"
+#include "ReverseIntakeCmd.h"
+#include "Subsystems/IntakeSub.h"
+#include "Commands/SilkyMotionCmd.h"
+#include "Commands/DelayedElevatorToHeightGrp.h"
+#include "Commands/IntakeUntilLimitCmd.h"
 
 AutoLeftToRightScaleToRightSwitchGrp::AutoLeftToRightScaleToRightSwitchGrp() {
 	AddParallel (new FoldArmsDownCmd());
