@@ -16,40 +16,19 @@
 #include "Subsystems/IntakeSub.h"
 
 AutoRightToLeftScaleToLeftSwitchGrp::AutoRightToLeftScaleToLeftSwitchGrp() {
-
-	float heading=0;
-
 	AddParallel (new FoldArmsDownCmd());
-	AddSequential(new DriveStraightCmd(4000,heading));
+	AddParallel(new DelayedElevatorToHeightGrp(ElevatorSub::CARRY_HEIGHT,4.75,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {4210, 2300, 3340, 1300}, std::vector<double> {0, -90, 0, 120}));
 
-	heading=-70;
-	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_MEDIUM_HEIGHT));
-	AddSequential(new DriveTurnCmd(heading));
-
-	AddSequential(new DriveStraightCmd(2000,heading));
-
-	AddSequential(new ReverseIntakeCmd(0.5));
-
-	heading = -180;
-	AddSequential(new DriveTurnCmd(heading));
-
-	AddSequential(new ZeroElevatorCmd());
+	AddSequential(new ReverseIntakeCmd(0.4));
 
 	AddParallel(new IntakeUntilLimitCmd());
-	AddSequential(new DriveStraightCmd(1500,heading));
+	AddParallel(new DelayedElevatorToHeightGrp(0.5,0.0));
+	AddSequential(new SilkyMotionCmd(std::vector<double>{-1000,1600}, std::vector<double>{80, 45}));
 
-	AddParallel(new DriveStraightCmd(-100,heading));
-	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+	AddSequential(new SilkyMotionCmd(std::vector<double>{400}, std::vector<double>{0}));
 
-	// To run multiple commands at the same time,
-	// use AddParallel()
-	// e.g. AddParallel(new Command1());
-	//      AddSequential(new Command2());
-	// Command1 and Command2 will run in parallel.
+	AddSequential(new ReverseIntakeCmd(0.4));
 
-	// A command group will require all of the subsystems that each member
-	// would require.
-	// e.g. if Command1 requires chassis, and Command2 requires arm,
-	// a CommandGroup containing them would require both the chassis and the
-	// arm.
 }
