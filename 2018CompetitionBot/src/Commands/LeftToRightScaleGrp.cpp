@@ -5,29 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include "LeftToRightScaleGrp.h"
+#include <Commands/AutoRightToRightScaleGrp.h>
 #include <Commands/FoldArmsDownCmd.h>
-#include "AutoRightToLeftScaleToLeftSwitchGrp.h"
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
+#include "MoveElevatorToHeightCmd.h"
+#include "ReverseIntakeCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
-#include "Commands/MoveElevatorToHeightCmd.h"
-#include "Commands/ReverseIntakeCmd.h"
-#include "Commands/IntakeUntilLimitCmd.h"
+#include "Commands/DriveVisionBoxCmd.h"
+#include "Subsystems/ElevatorSub.h"
 #include "Subsystems/IntakeSub.h"
 #include "Commands/SilkyMotionCmd.h"
+#include "Commands/IntakeUntilLimitCmd.h"
 #include "Commands/DelayedElevatorToHeightGrp.h"
-#include "Commands/RightToLeftScaleGrp.h"
 
-AutoRightToLeftScaleToLeftSwitchGrp::AutoRightToLeftScaleToLeftSwitchGrp() {
-	AddSequential(new RightToLeftScaleGrp());
+LeftToRightScaleGrp::LeftToRightScaleGrp() {
 
-	AddParallel(new IntakeUntilLimitCmd());
-	AddParallel(new DelayedElevatorToHeightGrp(0.5,0.0));
-	AddSequential(new SilkyMotionCmd(std::vector<double>{-1000,1600}, std::vector<double>{80, 45}));
-
-	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-	AddSequential(new SilkyMotionCmd(std::vector<double>{400}, std::vector<double>{0}));
+	AddParallel (new FoldArmsDownCmd());
+	AddParallel(new DelayedElevatorToHeightGrp(ElevatorSub::CARRY_HEIGHT,4.75,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {4210, 2300, 3340, 1300}, std::vector<double> {0, 90, 0, -120}));
 
 	AddSequential(new ReverseIntakeCmd(0.4));
-
 }

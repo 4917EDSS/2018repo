@@ -14,47 +14,19 @@
 #include "Commands/ReverseIntakeCmd.h"
 #include "Commands/IntakeUntilLimitCmd.h"
 #include "Subsystems/IntakeSub.h"
+#include "Commands/DelayedElevatorToHeightGrp.h"
+#include "Commands/SilkyMotionCmd.h"
+#include "Commands/RightToRightScaleGrp.h"
 
 AutoRightToRightScaleToRightSwitchGrp::AutoRightToRightScaleToRightSwitchGrp() {
-	// Add Commands here:
-	// e.g. AddSequential(new Command1());
-	//      AddSequential(new Command2());
-	// these will run in order.
+	AddSequential(new RightToRightScaleGrp());
 
+	AddParallel(new DelayedElevatorToHeightGrp(0.5, 0));
+	AddParallel(new IntakeUntilLimitCmd());
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-500, 1950}, std::vector<double> {-45, -90}));
 
-	float heading = 0;
+	AddParallel(new SilkyMotionCmd(std::vector<double> {200}, std::vector<double> {0}));
+	AddSequential(new DelayedElevatorToHeightGrp(0,ElevatorSub::SWITCH_BOX_HEIGHT));
 
-	AddParallel (new FoldArmsDownCmd());
-	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_MEDIUM_HEIGHT));
-	AddSequential(new DriveStraightCmd(6000, heading));
-
-	heading=-20;
-	AddSequential(new DriveTurnCmd(heading));
-
-	AddSequential(new ReverseIntakeCmd(0.5));
-
-	heading=-160;
-	AddParallel((new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT)));
-	AddSequential(new DriveTurnCmd(heading));
-
-	AddParallel(new DriveStraightCmd(2000,heading));
-	AddSequential(new IntakeUntilLimitCmd());
-
-	AddParallel(new DriveStraightCmd(-100,heading));
-	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-
-	AddSequential(new ReverseIntakeCmd(0.5));
-
-
-	// To run multiple commands at the same time,
-	// use AddParallel()
-	// e.g. AddParallel(new Command1());
-	//      AddSequential(new Command2());
-	// Command1 and Command2 will run in parallel.
-
-	// A command group will require all of the subsystems that each member
-	// would require.
-	// e.g. if Command1 requires chassis, and Command2 requires arm,
-	// a CommandGroup containing them would require both the chassis and the
-	// arm.
+	AddSequential(new ReverseIntakeCmd(0.4));
 }

@@ -6,22 +6,28 @@
 /*----------------------------------------------------------------------------*/
 
 #include "AutoLeftToLeftScaleToLeftSwitchGrp.h"
+#include <Commands/AutoLeftToLeftScaleGrp.h>
+#include <Commands/FoldArmsDownCmd.h>
+#include "Commands/DriveStraightCmd.h"
+#include "Commands/DriveTurnCmd.h"
+#include "Commands/ZeroElevatorCmd.h"
+#include "Commands/MoveElevatorToHeightCmd.h"
+#include "ReverseIntakeCmd.h"
+#include "Subsystems/IntakeSub.h"
+#include "Commands/SilkyMotionCmd.h"
+#include "Commands/DelayedElevatorToHeightGrp.h"
+#include "Commands/IntakeUntilLimitCmd.h"
+#include "Commands/LeftToLeftScaleGrp.h"
 
 AutoLeftToLeftScaleToLeftSwitchGrp::AutoLeftToLeftScaleToLeftSwitchGrp() {
-	// Add Commands here:
-	// e.g. AddSequential(new Command1());
-	//      AddSequential(new Command2());
-	// these will run in order.
+	AddSequential(new LeftToLeftScaleGrp());
 
-	// To run multiple commands at the same time,
-	// use AddParallel()
-	// e.g. AddParallel(new Command1());
-	//      AddSequential(new Command2());
-	// Command1 and Command2 will run in parallel.
+	AddParallel(new DelayedElevatorToHeightGrp(0.5, 0));
+	AddParallel(new IntakeUntilLimitCmd());
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-500, 1950}, std::vector<double> {45, 90}));
 
-	// A command group will require all of the subsystems that each member
-	// would require.
-	// e.g. if Command1 requires chassis, and Command2 requires arm,
-	// a CommandGroup containing them would require both the chassis and the
-	// arm.
+	AddParallel(new SilkyMotionCmd(std::vector<double> {200}, std::vector<double> {0}));
+	AddSequential(new DelayedElevatorToHeightGrp(0,ElevatorSub::SWITCH_BOX_HEIGHT));
+
+	AddSequential(new ReverseIntakeCmd(0.4));
 }

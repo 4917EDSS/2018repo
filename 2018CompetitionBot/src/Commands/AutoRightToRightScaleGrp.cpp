@@ -11,25 +11,12 @@
 #include "Commands/SilkyMotionCmd.h"
 #include "Commands/IntakeUntilLimitCmd.h"
 #include "Commands/DelayedElevatorToHeightGrp.h"
+#include "Commands/RightToRightScaleGrp.h"
 
 AutoRightToRightScaleGrp::AutoRightToRightScaleGrp() {
-	//TODO: We need to make the first box drop off a single silky, using silky(vector, vector, decel), with decel ~2000
+	AddSequential(new RightToRightScaleGrp());
 
-	AddParallel (new FoldArmsDownCmd());
-	AddSequential(new ZeroElevatorCmd());
-
-	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));
-
-	AddParallel(new DelayedElevatorToHeightGrp(0,ElevatorSub::SWITCH_BOX_HEIGHT));
-	AddSequential(new SilkyMotionCmd(std::vector<double> {5200, 1000}, std::vector<double> {0, -35}));
-
-	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
-
-	AddSequential(new SilkyMotionCmd(std::vector<double> {400}, std::vector<double> {-10}));
-
-	AddSequential(new ReverseIntakeCmd(0.4));
-
-	AddParallel(new ZeroElevatorCmd());
+	AddParallel(new DelayedElevatorToHeightGrp(0.5, 0));
 	AddParallel(new IntakeUntilLimitCmd());
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-500, 1500}, std::vector<double> {-45, -90}));
 

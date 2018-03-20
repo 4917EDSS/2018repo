@@ -9,24 +9,13 @@
 #include "Commands/SilkyMotionCmd.h"
 #include "Commands/DelayedElevatorToHeightGrp.h"
 #include "Commands/IntakeUntilLimitCmd.h"
+#include "Commands/LeftToLeftScaleGrp.h"
 
 AutoLeftToLeftScaleGrp::AutoLeftToLeftScaleGrp() {
 //TODO: We need to make the first box drop off a single silky
-	AddParallel (new FoldArmsDownCmd());
-	AddSequential(new ZeroElevatorCmd());
+	AddSequential(new LeftToLeftScaleGrp());
 
-	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::CARRY_HEIGHT));
-
-	AddParallel(new DelayedElevatorToHeightGrp(0,ElevatorSub::SWITCH_BOX_HEIGHT));
-	AddSequential(new SilkyMotionCmd(std::vector<double> {5200, 1000}, std::vector<double> {0, 35}));
-
-	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
-
-	AddSequential(new SilkyMotionCmd(std::vector<double> {550}, std::vector<double> {15}));
-
-	AddSequential(new ReverseIntakeCmd(0.4));
-
-	AddParallel(new ZeroElevatorCmd());
+	AddParallel(new DelayedElevatorToHeightGrp(0.5, 0));
 	AddParallel(new IntakeUntilLimitCmd());
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-500, 1950}, std::vector<double> {45, 90}));
 
