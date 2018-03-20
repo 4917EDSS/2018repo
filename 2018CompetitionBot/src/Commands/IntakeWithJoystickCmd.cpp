@@ -16,7 +16,7 @@ void IntakeWithJoystickCmd::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void IntakeWithJoystickCmd::Execute() {
 	std::shared_ptr<frc::Joystick> operatorJoystick = oi->getOperatorController();
-
+	intakeSub->isBoxIn();
 	double horizontalStick = operatorJoystick->GetX();
 	double verticalStick = operatorJoystick->GetY();
 

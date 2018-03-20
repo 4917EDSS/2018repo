@@ -14,6 +14,7 @@ private:
 	std::shared_ptr<DigitalInput> intakeFarLimit;
 	std::shared_ptr<frc::Solenoid> jawOpenSolenoid;
 	std::shared_ptr<frc::Solenoid> jawCloseSolenoid;
+	std::shared_ptr<frc::Solenoid> mastLights;
 	std::shared_ptr<frc::AnalogInput> intakeDistance;
 	std::shared_ptr<frc::DigitalInput> armsUpperLimit;
 

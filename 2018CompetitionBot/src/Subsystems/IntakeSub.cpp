@@ -34,6 +34,8 @@ IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 	armsUpperLimit.reset(new DigitalInput(ARMS_UPPER_LIMIT_DIO));
 	armsUpperLimit->SetName("Intake", "Arms Upper Limit");
 
+	mastLights.reset(new frc::Solenoid(MAST_LIGHTS_PCM_ID));
+	mastLights->SetName("Intake", "Mast LIghts");
 }
 
 void IntakeSub::InitDefaultCommand() {
@@ -72,12 +74,15 @@ void IntakeSub::intake(double leftSpeed, double rightSpeed) {
 }
 
 bool IntakeSub::isBoxIn() {
-	return !intakeCloseLimit->Get();
-	/*if(getBoxDistance() < BOX_IN_DISTANCE_MM || !intakeLimit->Get()){
+	if (!intakeCloseLimit->Get()){
+		mastLights->Set(true);
 		return true;
-	} else {
+	}else{
+		mastLights->Set(false);
 		return false;
-	}*/
+	}
+
+
 }
 
 bool IntakeSub::isBoxAtJaws() {
