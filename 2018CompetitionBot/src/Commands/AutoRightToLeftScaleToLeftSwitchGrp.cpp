@@ -16,10 +16,6 @@
 #include "Subsystems/IntakeSub.h"
 
 AutoRightToLeftScaleToLeftSwitchGrp::AutoRightToLeftScaleToLeftSwitchGrp() {
-	// Add Commands here:
-	// e.g. AddSequential(new Command1());
-	//      AddSequential(new Command2());
-	// these will run in order.
 
 	float heading=0;
 

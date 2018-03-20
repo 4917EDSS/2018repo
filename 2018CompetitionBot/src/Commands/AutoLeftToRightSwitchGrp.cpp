@@ -6,44 +6,25 @@
 #include "Commands/ReverseIntakeCmd.h"
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/MoveElevatorToHeightCmd.h"
-#include "Subsystems/IntakeSub.h"
+#include "Commands/IntakeUntilLimitCmd.h"
+#include "Commands/SilkyMotionCmd.h"
 
 AutoLeftToRightSwitchGrp::AutoLeftToRightSwitchGrp() {
-	// Add Commands here:
-	// e.g. AddSequential(new Command1());
-	//      AddSequential(new Command2());
-	// these will run in order.
+	//TODO: this auto does NOT dodge a third robot
+	AddParallel (new FoldArmsDownCmd());
+	AddSequential(new ZeroElevatorCmd());
 
-	float heading = 0;
+	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {1500, 3000, 1300}, std::vector<double> {90, 0, -90}));
 
-		AddSequential(new ZeroElevatorCmd());
+	AddSequential(new ReverseIntakeCmd(0.4));
 
-		heading = 80;
+	AddParallel(new ZeroElevatorCmd());
+	AddParallel(new IntakeUntilLimitCmd());
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-2000, 1100}, std::vector<double> {0, -45}));
 
-		AddParallel (new FoldArmsDownCmd());
-		AddSequential(new DriveTurnCmd(heading));
-
-		AddSequential(new DriveStraightCmd(4500,heading));
-
-		heading = 0;
-		AddSequential(new DriveTurnCmd(heading));
-
-		AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-
-		AddSequential(new DriveStraightCmd(1000,heading));
-
-		AddSequential(new ReverseIntakeCmd(0.5));
-
-		//AddSequential(new
-	}
-
-	//Then go forward until it hits the switch
-
-
-
-	// A command group will require all of the subsystems that each member
-	// would require.
-	// e.g. if Command1 requires chassis, and Command2 requires arm,
-	// a CommandGroup containing them would require both the chassis and the
-	// arm.
+	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-1100, 2000}, std::vector<double> {45, 0}));
+	AddSequential(new ReverseIntakeCmd(0.5));
+}
 

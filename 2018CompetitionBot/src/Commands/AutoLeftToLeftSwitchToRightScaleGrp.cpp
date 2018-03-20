@@ -5,8 +5,8 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include "AutoLeftToLeftSwitchToRightScaleGrp.h"
 #include <Commands/FoldArmsDownCmd.h>
-#include "AutoRightToRightSwitchToLeftScaleGrp.h"
 #include "Commands/DriveStraightCmd.h"
 #include "Commands/DriveTurnCmd.h"
 #include "Commands/ZeroElevatorCmd.h"
@@ -18,22 +18,22 @@
 #include "Commands/DelayedElevatorToHeightGrp.h"
 #include "Subsystems/ElevatorSub.h"
 
-AutoRightToRightSwitchToLeftScaleGrp::AutoRightToRightSwitchToLeftScaleGrp() {
+AutoLeftToLeftSwitchToRightScaleGrp::AutoLeftToLeftSwitchToRightScaleGrp() {
 	AddParallel (new FoldArmsDownCmd());
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-	AddSequential(new SilkyMotionCmd(std::vector<double> {3000,1050}, std::vector<double> {0,-90}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {3000,1050}, std::vector<double> {0,90}));
 
 	AddSequential(new ReverseIntakeCmd(0.5));
 
 	//TODO: what is going on here????
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-2700,-5500,}, std::vector<double> {-180,0}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-2700,-5500,}, std::vector<double> {180,0}));
 
 	AddParallel(new DelayedElevatorToHeightGrp(ElevatorSub::CARRY_HEIGHT, 3,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
 	AddParallel(new ZeroElevatorCmd());
 	AddParallel(new IntakeUntilLimitCmd());
-	AddSequential(new SilkyMotionCmd(std::vector<double> {1000}, std::vector<double> {55}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {1000}, std::vector<double> {-55}));
 
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-1300,800}, std::vector<double> {0,-65}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-1300,800}, std::vector<double> {0,65}));
 
 	AddSequential(new ReverseIntakeCmd(0.5));
 }

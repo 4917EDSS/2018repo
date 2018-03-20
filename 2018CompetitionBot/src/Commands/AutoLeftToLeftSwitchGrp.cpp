@@ -16,6 +16,7 @@ AutoLeftToLeftSwitchGrp::AutoLeftToLeftSwitchGrp() {
 	// first dropoff
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 	AddSequential(new SilkyMotionCmd(std::vector<double> {1600, 1400}, std::vector<double> {35, -10}));
+
 	AddSequential(new ReverseIntakeCmd(0.5));
 	// grab a second box
 	AddParallel(new ZeroElevatorCmd());
@@ -24,6 +25,7 @@ AutoLeftToLeftSwitchGrp::AutoLeftToLeftSwitchGrp() {
 	// second dropoff
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-2500, 2000}, std::vector<double> {-60, 0}));
+
 	AddSequential(new ReverseIntakeCmd(0.5));
 	// grab a third box
 	AddParallel(new ZeroElevatorCmd());

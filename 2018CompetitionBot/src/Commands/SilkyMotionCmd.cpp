@@ -8,6 +8,13 @@ SilkyMotionCmd::SilkyMotionCmd(std::vector<double> dis, std::vector<double> ang)
 	prevError = 0;
 }
 
+SilkyMotionCmd::SilkyMotionCmd(std::vector<double> dis, std::vector<double> ang, double decel) : smm(dis, ang,
+		 MAX_LIN_ACCEL, decel, MAX_LIN_VEL, MAX_ANG_ACCEL) {
+	Requires(drivetrainSub.get());
+	prevTime = 0;
+	prevError = 0;
+}
+
 // Called just before this Command runs the first time
 void SilkyMotionCmd::Initialize() {
 	drivetrainSub->resetAHRS();

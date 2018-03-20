@@ -11,19 +11,13 @@
 #include "Subsystems/IntakeSub.h"
 
 AutoRightToRightSwitchGrp::AutoRightToRightSwitchGrp() {
-	// Add Commands here:
-	// e.g. AddSequential(new Command1());
-	//      AddSequential(new Command2());
-	// these will run in order.
-
-
 //	If you start from the right corner:
-
 		AddParallel (new FoldArmsDownCmd());
 		AddSequential(new ZeroElevatorCmd());
 
 		AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 		AddSequential(new SilkyMotionCmd(std::vector<double> {1500, 1300}, std::vector<double> {-35, 10}));
+
 		AddSequential(new ReverseIntakeCmd(0.5));
 
 		AddParallel(new ZeroElevatorCmd());
@@ -32,6 +26,7 @@ AutoRightToRightSwitchGrp::AutoRightToRightSwitchGrp() {
 
 		AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 		AddSequential(new SilkyMotionCmd(std::vector<double> {-2500, 2000}, std::vector<double> {50, 0}));
+
 		AddSequential(new ReverseIntakeCmd(0.5));
 
 		AddParallel(new ZeroElevatorCmd());
@@ -41,9 +36,4 @@ AutoRightToRightSwitchGrp::AutoRightToRightSwitchGrp() {
 		AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 		AddSequential(new SilkyMotionCmd(std::vector<double> {-1000}, std::vector<double> {50}));
 
-	// A command group will require all of the subsystems that each member
-	// would require.
-	// e.g. if Command1 requires chassis, and Command2 requires arm,
-	// a CommandGroup containing them would require both the chassis and the
-	// arm.
 }
