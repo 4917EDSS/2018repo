@@ -29,7 +29,7 @@ public:
 	static constexpr double SCALE_BOX_MEDIUM_HEIGHT = 555;
 	static constexpr double SCALE_BOX_LOW_HEIGHT = 500;
 	static constexpr double SWITCH_BOX_HEIGHT = 216.5;
-	static constexpr double MAX_ELEVATOR_HEIGHT = 625;
+	static constexpr double MAX_ELEVATOR_HEIGHT = 728;
 	static constexpr double CARRY_HEIGHT = 20;
 	ElevatorSub();
 	void InitDefaultCommand();
