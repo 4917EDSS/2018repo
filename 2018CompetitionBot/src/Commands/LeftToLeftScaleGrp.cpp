@@ -25,7 +25,7 @@ LeftToLeftScaleGrp::LeftToLeftScaleGrp() {
 	AddSequential(new ZeroElevatorCmd());
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
-	AddSequential(new SilkyMotionCmd(std::vector<double> {4400, 2200}, std::vector<double> {0, 40}, 2000));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {4400, 2200}, std::vector<double> {0, 35}, 2000));
 
 	AddSequential(new ReverseIntakeCmd(0.4));
 }
