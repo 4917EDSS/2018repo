@@ -14,9 +14,9 @@
 
 PrepareToClimbGrp::PrepareToClimbGrp() {
 
-	AddSequential(new FoldArmsUpCmd());
+	AddParallel(new FoldArmsUpCmd());
 
 	AddSequential(new RetractClimbBarCmd());
 
-	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
+	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::CLIMB_HEIGHT));
 }

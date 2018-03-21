@@ -16,7 +16,7 @@ void FoldArmsUpCmd::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool FoldArmsUpCmd::IsFinished() {
-	if(TimeSinceInitialized() > 1.0) {
+	if(TimeSinceInitialized() > 2.0) {
 		return true;
 	} else {
 		return intakeSub->isArmsUp();
