@@ -14,12 +14,10 @@
 
 ClimbGrp::ClimbGrp() {
 
-	AddSequential(new FoldArmsUpCmd());
-
 	AddSequential(new ExtendClimbBarCmd());
 
 	AddSequential(new WaitCommand(1));
 
-	AddSequential(new MoveElevatorToHeightCmd(ElevatorSub::SCALE_BOX_LOW_HEIGHT));
+
 
 }
