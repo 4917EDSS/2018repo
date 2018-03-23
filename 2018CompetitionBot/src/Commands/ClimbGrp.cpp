@@ -16,8 +16,5 @@ ClimbGrp::ClimbGrp() {
 
 	AddSequential(new ExtendClimbBarCmd());
 
-	AddSequential(new WaitCommand(1));
-
-
 
 }
