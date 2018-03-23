@@ -50,6 +50,7 @@ constexpr int SHIFTERS_PCM_ID = 1;
 constexpr int JAWS_OPEN_PCM_ID = 2;
 constexpr int JAWS_CLOSE_PCM_ID = 3;
 constexpr int CLIMB_BAR_PCM_ID = 4;
+constexpr int CLIMB_BAR_IN_PCM_ID = 5;
 constexpr int MAST_LIGHTS_PCM_ID = 7;
 
 // AHRS (i.e. navX) interface

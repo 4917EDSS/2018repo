@@ -16,6 +16,7 @@ private:
 	std::shared_ptr<frc::DigitalInput> lowerLimit;
 	std::shared_ptr<frc::Ultrasonic> rangefinder;
 	std::shared_ptr<frc::Solenoid> climbBarSolenoid;
+	std::shared_ptr<frc::Solenoid> climbBarInSolenoid;
 	double target;
 	bool finishedMove;
 	double lastLidarValue;

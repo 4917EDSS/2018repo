@@ -33,6 +33,12 @@ ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
 
 	climbBarSolenoid.reset(new frc::Solenoid(CLIMB_BAR_PCM_ID));
 	climbBarSolenoid->SetName("Elevator", "ClimbBar Deploy Solenoid");
+	climbBarSolenoid->Set(false);
+
+
+	climbBarInSolenoid.reset(new frc::Solenoid(CLIMB_BAR_IN_PCM_ID));
+	climbBarInSolenoid->SetName("Elevator", "ClimbBar Retract Solenoid");
+	climbBarInSolenoid->Set(false);
 
 	target = 0;
 	finishedMove = true;
@@ -189,11 +195,13 @@ bool ElevatorSub::isFinishedMove(){
 }
 
 void ElevatorSub::extendClimbBar() {
+	climbBarInSolenoid->Set(false);
 	climbBarSolenoid->Set(true);
 }
 
 void ElevatorSub::retractClimbBar(){
 	climbBarSolenoid->Set(false);
+	climbBarInSolenoid->Set(true);
 }
 
 void ElevatorSub::storeNewRangefinderValue(double distance){
