@@ -40,7 +40,7 @@ AutoCenterToRightSwitchGrp::AutoCenterToRightSwitchGrp() {
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-850, -900}, std::vector<double> {10, -25}));
 
 	AddParallel(new IntakeUntilLimitCmd());
-	AddSequential(new SilkyMotionCmd(std::vector<double> {900, -1200}, std::vector<double> {-25,10}));	//took box 3, reversing
+	AddSequential(new SilkyMotionCmd(std::vector<double> {1200, -1200}, std::vector<double> {-25,10}));	//took box 3, reversing
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 	AddSequential(new SilkyMotionCmd(std::vector<double> {1700}, std::vector<double> {50}));

@@ -28,7 +28,7 @@ public:
 	static constexpr double SCALE_BOX_HIGH_HEIGHT = 626.75;
 	static constexpr double SCALE_BOX_MEDIUM_HEIGHT = 555;
 	static constexpr double SCALE_BOX_LOW_HEIGHT = 500;
-	static constexpr double SWITCH_BOX_HEIGHT = 216.5;
+	static constexpr double SWITCH_BOX_HEIGHT = 220.6;
 	static constexpr double MAX_ELEVATOR_HEIGHT = 728;
 	static constexpr double CLIMB_HEIGHT = 502.25;
 	static constexpr double CARRY_HEIGHT = 20;
