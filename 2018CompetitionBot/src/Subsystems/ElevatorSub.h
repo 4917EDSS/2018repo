@@ -34,6 +34,7 @@ public:
 	static constexpr double CLIMB_HEIGHT = 502.25;
 	static constexpr double CARRY_HEIGHT = 20;
 	ElevatorSub();
+	void init();
 	void InitDefaultCommand();
 	void logPeriodicValues();
 	void setElevatorMotor(double speed);

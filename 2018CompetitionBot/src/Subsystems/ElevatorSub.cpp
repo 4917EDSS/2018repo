@@ -50,6 +50,12 @@ ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
 //	LinearInterpolation4917 encoderHeightTable(table);	// where x = encoder value and y = height in inches
 }
 
+void ElevatorSub::init() {
+	climbBarSolenoid->Set(false);
+	climbBarInSolenoid->Set(false);
+}
+
+
 void ElevatorSub::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	SetDefaultCommand(new ElevatorWithJoystickCmd());

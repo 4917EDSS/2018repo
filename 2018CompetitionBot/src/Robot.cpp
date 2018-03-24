@@ -86,6 +86,7 @@ public:
 		CommandBase::drivetrainSub->setLowGear();
 		CommandBase::drivetrainSub->resetAHRS();
 		CommandBase::drivetrainSub->resetEncoders();
+		CommandBase::elevatorSub->init();
 		nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("pipeline").SetDouble(1.0);
 		nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("ledMode").SetDouble(0.0);
 		std::string gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
@@ -124,6 +125,7 @@ public:
 		}
 		nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("pipeline").SetDouble(0.0);
 		nt::NetworkTableInstance::GetDefault().GetTable("limelight")->GetEntry("ledMode").SetDouble(1.0);
+		CommandBase::elevatorSub->init();
 	}
 
 	void TeleopPeriodic() override {
