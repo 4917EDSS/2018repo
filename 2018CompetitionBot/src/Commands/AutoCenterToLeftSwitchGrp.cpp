@@ -27,16 +27,16 @@ AutoCenterToLeftSwitchGrp::AutoCenterToLeftSwitchGrp() {
 
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-2000}, std::vector<double> {-5}));  //Took second box
 	AddParallel(new IntakeUntilLimitCmd());
-	AddSequential(new SilkyMotionCmd(std::vector<double>{1100}, std::vector<double>{51}));
+	AddSequential(new SilkyMotionCmd(std::vector<double>{1100}, std::vector<double>{53}));
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-1100, 2150}, std::vector<double> {-51, 5}));	//!
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-1100, 2150}, std::vector<double> {-53, 5}));	//!
 
 	AddSequential(new ReverseIntakeCmd(0.4));     //Dropped second box
 
 	AddParallel(new ZeroElevatorCmd());
 
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-1000}, std::vector<double> {0}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-1050}, std::vector<double> {0}));
 	AddParallel(new IntakeUntilLimitCmd());
 	AddSequential(new SilkyMotionCmd(std::vector<double> {500, -700}, std::vector<double> {40, -25}));
 
