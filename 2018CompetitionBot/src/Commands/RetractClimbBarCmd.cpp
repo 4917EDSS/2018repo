@@ -10,8 +10,6 @@
 RetractClimbBarCmd::RetractClimbBarCmd() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(elevatorSub.get());
-
 }
 
 // Called just before this Command runs the first time
@@ -24,11 +22,16 @@ void RetractClimbBarCmd::Initialize() {
 void RetractClimbBarCmd::Execute() {
 
 
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool RetractClimbBarCmd::IsFinished() {
-	return true;
+	if (TimeSinceInitialized()>3){
+		elevatorSub->setClimbBarNeutral();
+		return true;
+	}
+	return false;
 }
 
 // Called once after isFinished returns true

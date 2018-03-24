@@ -55,6 +55,7 @@ public:
 	bool isFinishedMove();
 	void extendClimbBar();
 	void retractClimbBar();
+	void setClimbBarNeutral();
 	void updateSensorsPeriodic();
 	double getFilteredRangefinderValue();
 	double getRawRangefinderValue();

@@ -210,6 +210,12 @@ void ElevatorSub::retractClimbBar(){
 	climbBarInSolenoid->Set(true);
 }
 
+void ElevatorSub::setClimbBarNeutral(){
+	climbBarSolenoid->Set(false);
+	climbBarInSolenoid->Set(false);
+
+}
+
 void ElevatorSub::storeNewRangefinderValue(double distance){
 	if ((distance > RANGE_MIN_VALUE) && (distance < RANGE_MAX_VALUE)) {
 		lastRangefinderValue = distance;
