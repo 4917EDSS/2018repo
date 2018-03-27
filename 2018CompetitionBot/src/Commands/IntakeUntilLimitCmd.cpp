@@ -31,6 +31,7 @@ void IntakeUntilLimitCmd::Execute() {
 		if(timeSinceBoxAtJaws > 1) {
 			intakeSub->setJawsOpen();
 			jawsSetToSpring = false;
+			intakeSub->intake(1.0);
 		}
 	}
 
