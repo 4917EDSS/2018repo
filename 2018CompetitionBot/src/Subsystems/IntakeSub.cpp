@@ -36,6 +36,7 @@ IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 
 	mastLights.reset(new frc::Solenoid(MAST_LIGHTS_PCM_ID));
 	mastLights->SetName("Intake", "Mast LIghts");
+	mastLights->Set(true);
 }
 
 void IntakeSub::InitDefaultCommand() {

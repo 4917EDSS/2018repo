@@ -1,6 +1,7 @@
 #include <memory>
 #include <iostream>
 #include <string>
+#include "Subsystems/IntakeSub.h"
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
 #include <IterativeRobot.h>

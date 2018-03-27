@@ -148,7 +148,7 @@ void ElevatorSub::setElevatorMotor(double speed){
 }
 
 bool ElevatorSub::isElevatorDown() {
-	if ((elevatorMotorEnc->GetDistance()>SWITCH_BOX_HEIGHT)&&(lowerLimit->Get())){
+	if ((elevatorMotorEnc->GetDistance()>SWITCH_BOX_HEIGHT)&&(!lowerLimit->Get())){
 		debounceCounter++;
 		if (debounceCounter>4){
 			return true;
@@ -157,7 +157,7 @@ bool ElevatorSub::isElevatorDown() {
 		}
 	}
 	debounceCounter=0;
-	return lowerLimit->Get();
+	return !lowerLimit->Get();
 }
 
 double ElevatorSub::getElevatorEncoder() {
