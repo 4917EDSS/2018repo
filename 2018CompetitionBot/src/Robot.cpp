@@ -45,6 +45,7 @@ class Robot: public frc::IterativeRobot {
 public:
 
 	void RobotInit() override {
+		CommandBase::intakeSub->TurnLightsOn();
 		// chooser.AddObject("My Auto", new MyAutoCommand());
 		SetSmartDashboardDriverContent();
 		SetSmartDashboardAutoOptions();
@@ -64,11 +65,12 @@ public:
 	 * the robot is disabled.
 	 */
 	void DisabledInit() override {
-
+		CommandBase::intakeSub->TurnLightsOn();
 	}
 
 	void DisabledPeriodic() override {
-		frc::Scheduler::GetInstance()->Run();
+		//frc::Scheduler::GetInstance()->Run();
+		CommandBase::intakeSub->TurnLightsOn();
 	}
 
 	/**

@@ -36,7 +36,6 @@ IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 
 	mastLights.reset(new frc::Solenoid(MAST_LIGHTS_PCM_ID));
 	mastLights->SetName("Intake", "Mast LIghts");
-	mastLights->Set(true);
 }
 
 void IntakeSub::InitDefaultCommand() {
@@ -134,4 +133,7 @@ void IntakeSub::foldArms(double speed){
 
 bool IntakeSub::isArmsUp() {
 	return !armsUpperLimit->Get();
+}
+void IntakeSub::TurnLightsOn(){
+	mastLights->Set(true);
 }
