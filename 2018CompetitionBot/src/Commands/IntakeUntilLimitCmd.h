@@ -16,6 +16,7 @@ public:
 private:
 	bool jawsSetToSpring;
 	int lastMoveTime = 0;
+	int lastAtJaws = 0;
 };
 
 #endif  // IntakeeUntilDistanceCmd_H
