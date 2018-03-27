@@ -33,7 +33,7 @@ AutoCenterToLeftSwitchToLeftScale::AutoCenterToLeftSwitchToLeftScale() {
 
 	AddParallel(new ZeroElevatorCmd());
 
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-1000,-1000}, std::vector<double> {-45,45}));  //Took second box
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-1000,-1000}, std::vector<double> {-20,45}));  //Took second box
 
 	AddParallel(new IntakeUntilLimitCmd());
 	AddSequential(new SilkyMotionCmd(std::vector<double>{1000}, std::vector<double>{0}));

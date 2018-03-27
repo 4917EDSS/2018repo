@@ -34,13 +34,13 @@ AutoCenterToLeftSwitchToRightScaleGrp::AutoCenterToLeftSwitchToRightScaleGrp() {
 
 		AddParallel(new ZeroElevatorCmd());
 
-		AddSequential(new SilkyMotionCmd(std::vector<double> {-1000,-1000}, std::vector<double> {-45,45}));  //Took second box
+		AddSequential(new SilkyMotionCmd(std::vector<double> {-1000,-1000}, std::vector<double> {-20,45}));  //Took second box
 
 		AddParallel(new IntakeUntilLimitCmd());
 		AddSequential(new SilkyMotionCmd(std::vector<double>{1000}, std::vector<double>{0}));
 
-		AddParallel(new DelayedElevatorToHeightGrp(ElevatorSub::CARRY_HEIGHT, 4,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
-		AddSequential(new SilkyMotionCmd(std::vector<double> {-3000, -1500, -800, 1200}, std::vector<double> {-180,0, -30, -40}));  //Took second box
+		AddParallel(new DelayedElevatorToHeightGrp(ElevatorSub::CARRY_HEIGHT, 3,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
+		AddSequential(new SilkyMotionCmd(std::vector<double> {-3000, -2500, -800, 1200}, std::vector<double> {180, 0, 30, 50}));  //Took second box
 
 		AddSequential(new ReverseIntakeCmd(0.4));
 }
