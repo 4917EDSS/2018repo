@@ -74,7 +74,7 @@ void IntakeSub::intake(double leftSpeed, double rightSpeed) {
 }
 
 bool IntakeSub::isBoxIn() {
-	if (!intakeCloseLimit->Get()){
+	if (!intakeCloseLimit->Get() && !intakeFarLimit->Get()){
 		mastLights->Set(true);
 		return true;
 	}else{
@@ -133,4 +133,7 @@ void IntakeSub::foldArms(double speed){
 
 bool IntakeSub::isArmsUp() {
 	return !armsUpperLimit->Get();
+}
+void IntakeSub::TurnLightsOn(){
+	mastLights->Set(true);
 }

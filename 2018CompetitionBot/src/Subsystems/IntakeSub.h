@@ -35,6 +35,7 @@ public:
 	double getBoxDistance();
 	bool isArmsUp();
 	bool isArmsDown();
+	void TurnLightsOn();
 };
 
 #endif  // IntakeSub_H

@@ -18,12 +18,21 @@ void IntakeUntilLimitCmd::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void IntakeUntilLimitCmd::Execute() {
 	double timeFromLastMove = 0;
+	double timeSinceBoxAtJaws = 0;
+
 	if(intakeSub->isBoxAtJaws()){
+		lastAtJaws = TimeSinceInitialized();
 		timeFromLastMove = TimeSinceInitialized() - lastMoveTime;
 		intakeSub->setJawsOnSpring();
 		jawsSetToSpring = true;
 	} else {
 		lastMoveTime = TimeSinceInitialized();
+		timeSinceBoxAtJaws = TimeSinceInitialized() - lastAtJaws;
+		if(timeSinceBoxAtJaws > 1) {
+			intakeSub->setJawsOpen();
+			jawsSetToSpring = false;
+			intakeSub->intake(1.0);
+		}
 	}
 
 	if(timeFromLastMove > 2) {
