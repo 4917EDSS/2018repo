@@ -75,7 +75,7 @@ void IntakeSub::intake(double leftSpeed, double rightSpeed) {
 }
 
 bool IntakeSub::isBoxIn() {
-	if (!intakeCloseLimit->Get() && !intakeFarLimit->Get){
+	if (!intakeCloseLimit->Get() && !intakeFarLimit->Get()){
 		mastLights->Set(true);
 		return true;
 	}else{
