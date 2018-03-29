@@ -8,13 +8,13 @@
 #include "RetractClimbBarCmd.h"
 
 RetractClimbBarCmd::RetractClimbBarCmd() {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
+	Requires(intakeSub.get());
 }
 
 // Called just before this Command runs the first time
 void RetractClimbBarCmd::Initialize() {
 	elevatorSub->retractClimbBar();
+	intakeSub->setJawsOnSpring();
 
 }
 
