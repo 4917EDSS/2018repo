@@ -30,18 +30,18 @@ AutoCenterToLeftSwitchGrp::AutoCenterToLeftSwitchGrp() {
 	AddSequential(new SilkyMotionCmd(std::vector<double>{600}, std::vector<double>{53}));
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-600, 1500}, std::vector<double> {-53, 5}));	//!
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-600, 1600}, std::vector<double> {-53, 5}));	//!
 
 	AddSequential(new ReverseIntakeCmd(0.4));     //Dropped second box
 
 	AddParallel(new ZeroElevatorCmd());
 
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-1050}, std::vector<double> {0}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-1150}, std::vector<double> {0}));
 	AddParallel(new IntakeUntilLimitCmd());
 	AddSequential(new SilkyMotionCmd(std::vector<double> {500, -700}, std::vector<double> {40, -25}));
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-	AddSequential(new SilkyMotionCmd(std::vector<double> {1100}, std::vector<double> {-25}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {1100, 300}, std::vector<double> {-25, 10}));
 
 	AddSequential(new ReverseIntakeCmd(0.50));
 
