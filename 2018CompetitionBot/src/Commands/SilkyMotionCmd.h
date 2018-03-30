@@ -11,7 +11,7 @@ const double MAX_ANG_ACCEL=800.0;
 
 const double P_DIS=0.0075;
 const double D_DIS=0.000002;
-const double A_DIS=0.3*(0.8/2650);
+const double A_DIS=0.3*(0.8/2650); //2650 IS OLD MAX_LIN_VEL
 const double V_DIS=1*(0.8/2650);
 const double P_ANG=0.039;
 //When we drove at these speeds we were at 0.3 power we got 50 degrees per second
