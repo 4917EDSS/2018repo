@@ -41,7 +41,6 @@ void SilkyMotionCmd::Execute() {
 	SmartDashboard::PutNumber("Angle Error: ", angErr);
 	prevError = currError;
 	prevTime = currTime;
-
 }
 
 // Make this return true when this Command no longer needs to run execute()
