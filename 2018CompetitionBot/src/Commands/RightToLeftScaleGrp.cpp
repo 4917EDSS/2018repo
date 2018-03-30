@@ -23,7 +23,7 @@
 RightToLeftScaleGrp::RightToLeftScaleGrp() {
 	AddParallel (new FoldArmsDownCmd());
 	AddParallel(new DelayedElevatorToHeightGrp(ElevatorSub::CARRY_HEIGHT,4.75,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
-	AddSequential(new SilkyMotionCmd(std::vector<double> {4210, 2300, 3340, 1300}, std::vector<double> {0, -90, 0, 120}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {4160, 2300, 3390, 1300}, std::vector<double> {0, -90, 0, 120}));
 
 	AddSequential(new WaitCommand(1));
 
