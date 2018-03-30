@@ -1,5 +1,7 @@
 #include "SilkyMotionCmd.h"
-#include "iostream"
+#include <iostream>
+#include <algorithm>
+#include <math.h>
 
 SilkyMotionCmd::SilkyMotionCmd(std::vector<double> dis, std::vector<double> ang) : smm(dis, ang,
 		 MAX_LIN_ACCEL, MAX_LIN_DECEL, MAX_LIN_VEL, MAX_ANG_ACCEL) {
@@ -33,9 +35,20 @@ void SilkyMotionCmd::Execute() {
 	double currError=p.dis-currDis;
 	double errorDer=(currError-prevError)/(currTime-prevTime);
 	double angErr=p.ang-drivetrainSub->getAngle();
+	
+	double forward = P_DIS*currError+D_DIS*errorDer+A_DIS*p.lin_accel+V_DIS*p.lin_vel;
+	if (fabs(forward) > 1.0) {
+		std::cout << "SATURATION ON DRIVE FORWARD: " << forward << std::endl;
+		std::cout << "P " << P_DIS*currError << " D " << D_DIS*errorDer<< " A " << A_DIS*p.lin_accel<< " V " << V_DIS*p.lin_vel << std::endl;
+		if (forward > 1.0) {
+			forward = 1.0;
+		} else if (forward < -1.0) {
+			forward = -1.0;
+		}
+	}
 
-	drivetrainSub->drive(P_DIS*currError+D_DIS*errorDer+A_DIS*p.lin_accel+V_DIS*p.lin_vel+P_ANG*angErr+V_ANG*p.ang_vel,
-			P_DIS*currError+D_DIS*errorDer+A_DIS*p.lin_accel+V_DIS*p.lin_vel-P_ANG*angErr-V_ANG*p.ang_vel);
+	drivetrainSub->drive(forward + P_ANG*angErr + V_ANG*p.ang_vel,
+			     forward - P_ANG*angErr - V_ANG*p.ang_vel);
 	logger.send(logger.DEBUG, "silk:, %f, %f, %f, %f, %f, %f, %f, %f, %f", currTime, currError, angErr, P_DIS*currError, D_DIS*errorDer, A_DIS*p.lin_accel, V_DIS*p.lin_vel, P_ANG*angErr, V_ANG*p.ang_vel);
 	SmartDashboard::PutNumber("Current Error: ", currError);
 	SmartDashboard::PutNumber("Angle Error: ", angErr);
