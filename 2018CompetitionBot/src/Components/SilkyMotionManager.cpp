@@ -57,7 +57,7 @@ PathInfo SilkyMotionManager::getCurrentPathInfo(double currentTime) {
 
 	double radius = dist/(fabs(angle)*M_PI/180.0); // Converting to radians to get radius of curvature
 	double angularMax = sqrt(maxAngAccel * radius);
-  if (angle == 0) {
+  if ((angle == 0) || (angularMax > maxLinVel)) {
     angularMax = maxLinVel;
   }
 	double adjustedMaxVel = angularMax;
@@ -116,7 +116,7 @@ double SilkyMotionManager::getLinearTime(double dis, double ang, double startSpe
 	//This means the left side will go "as fast as possible" in this model.
 	double radius = dis/(fabs(ang)*M_PI/180.0); // Converting to radians to get radius of curvature
 	double angularMax = sqrt(maxAngAccel * radius);
-  if (ang == 0) {
+  if ((ang == 0) || (angularMax > maxLinVel))  {
     angularMax = maxLinVel;
   }
   double adjustedMaxVel = angularMax;
