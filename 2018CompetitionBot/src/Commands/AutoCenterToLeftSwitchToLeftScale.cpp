@@ -46,13 +46,9 @@ AutoCenterToLeftSwitchToLeftScale::AutoCenterToLeftSwitchToLeftScale() {
 
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-1150}, std::vector<double> {0}));
 	AddParallel(new IntakeUntilLimitCmd());
-	AddSequential(new SilkyMotionCmd(std::vector<double> {500, -700}, std::vector<double> {40, -25}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {500, -700}, std::vector<double> {40, -35}));
 
-	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-	AddSequential(new SilkyMotionCmd(std::vector<double> {1100, 300}, std::vector<double> {-25, 10}));
-
-	AddSequential(new ReverseIntakeCmd(0.50));
-
+	AddSequential(new SilkyMotionCmd(std::vector<double> {3000}, std::vector<double> {-80})); //driving left
 
 }
 
