@@ -38,7 +38,7 @@ AutoCenterToLeftSwitchGrp::AutoCenterToLeftSwitchGrp() {
 
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-1150}, std::vector<double> {0}));
 	AddParallel(new IntakeUntilLimitCmd());
-	AddSequential(new SilkyMotionCmd(std::vector<double> {500, -700}, std::vector<double> {40, -25}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {550, -700}, std::vector<double> {40, -25}));
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 	AddSequential(new SilkyMotionCmd(std::vector<double> {1100, 400}, std::vector<double> {-25, 10}));
