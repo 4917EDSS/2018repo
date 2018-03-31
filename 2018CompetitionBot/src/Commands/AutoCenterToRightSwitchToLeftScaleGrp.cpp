@@ -28,19 +28,34 @@ AutoCenterToRightToLeftScaleGrp::AutoCenterToRightToLeftScaleGrp() {
 	AddSequential(new ZeroElevatorCmd());
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-	AddSequential(new SilkyMotionCmd(std::vector<double> {1500, 1300}, std::vector<double> {35, -10}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {1300, 1500}, std::vector<double> {25, 0}));
 
 	AddSequential(new ReverseIntakeCmd(0.4));
 
 	AddParallel(new ZeroElevatorCmd());
-
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-1000,-1000}, std::vector<double> {20,-45}));  //Took second box
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-1400,-400}, std::vector<double> {10,-20}));
 
 	AddParallel(new IntakeUntilLimitCmd());
-	AddSequential(new SilkyMotionCmd(std::vector<double>{1000}, std::vector<double>{0}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {850, -600}, std::vector<double> {-35,30}));		//Took second box, reversing
 
-	AddParallel(new DelayedElevatorToHeightGrp(ElevatorSub::CARRY_HEIGHT, 3,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-3000, -1500, -800, 1200}, std::vector<double> {-180,0, -30, -40}));  //Took second box
+	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {775, 875}, std::vector<double> {20, -20}));		//Drop second box
 
 	AddSequential(new ReverseIntakeCmd(0.4));
+
+	//box 3:
+	AddParallel(new ZeroElevatorCmd());
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-850, -300}, std::vector<double> {5, -20}));
+
+	AddParallel(new IntakeUntilLimitCmd());
+	AddSequential(new SilkyMotionCmd(std::vector<double> {700, -900}, std::vector<double> {-25,20}));	//took box 3, reversing
+
+	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {1350}, std::vector<double> {28}));
+
+	AddSequential(new ReverseIntakeCmd(0.50)); // Deliver box
+
+	AddParallel(new DelayedElevatorToHeightGrp(0.5,0));
+	AddSequential(new SilkyMotionCmd(std::vector<double>{-1000}, std::vector<double>{0}));
+
 }
