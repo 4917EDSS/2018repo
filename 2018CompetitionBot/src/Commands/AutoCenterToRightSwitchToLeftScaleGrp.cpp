@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include <Commands/AutoCenterToRightToLeftScaleGrp.h>
+#include <Commands/AutoCenterToRightSwitchToLeftScaleGrp.h>
 #include <Commands/FoldArmsDownCmd.h>
 #include "Commands/DriveStraightCmd.h"
 #include "DriveTurnCmd.h"
@@ -18,7 +18,7 @@
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/DelayedElevatorToHeightGrp.h"
 
-AutoCenterToRightToLeftScaleGrp::AutoCenterToRightToLeftScaleGrp() {
+AutoCenterToRightSwitchToLeftScaleGrp::AutoCenterToRightSwitchToLeftScaleGrp() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

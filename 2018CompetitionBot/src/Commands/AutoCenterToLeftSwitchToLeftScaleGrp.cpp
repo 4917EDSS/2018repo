@@ -4,7 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-#include <Commands/AutoCenterToLeftSwitchToLeftScale.h>
+#include <Commands/AutoCenterToLeftSwitchToLeftScaleGrp.h>
 #include <Commands/FoldArmsDownCmd.h>
 #include "Commands/DriveStraightCmd.h"
 #include "DriveTurnCmd.h"
@@ -17,7 +17,7 @@
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/DelayedElevatorToHeightGrp.h"
 
-AutoCenterToLeftSwitchToLeftScale::AutoCenterToLeftSwitchToLeftScale() {
+AutoCenterToLeftSwitchToLeftScaleGrp::AutoCenterToLeftSwitchToLeftScaleGrp() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

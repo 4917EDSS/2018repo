@@ -5,12 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#ifndef AutoCentreToLeftSwitchToLeftScale_H
+#define AutoCentreToLeftSwitchToLeftScale_H
+#include <Commands/AutoCenterToLeftSwitchToLeftScaleGrp.h>
+#include <WPILib.h>
 
-#include <Commands/CommandGroup.h>
 
-class AutoCenterToRightToLeftScaleGrp : public frc::CommandGroup {
+class AutoCenterToLeftSwitchToLeftScaleGrp: public CommandGroup {
 public:
-	AutoCenterToRightToLeftScaleGrp();
+	AutoCenterToLeftSwitchToLeftScaleGrp();
 };
+
+#endif  // AutoScaleLeftGrp_H
 
