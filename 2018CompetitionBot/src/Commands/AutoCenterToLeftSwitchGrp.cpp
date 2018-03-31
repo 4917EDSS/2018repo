@@ -27,7 +27,7 @@ AutoCenterToLeftSwitchGrp::AutoCenterToLeftSwitchGrp() {
 
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-1630}, std::vector<double> {-10}));  //Took second box
 	AddParallel(new IntakeUntilLimitCmd());
-	AddSequential(new SilkyMotionCmd(std::vector<double>{600}, std::vector<double>{53}));
+	AddSequential(new SilkyMotionCmd(std::vector<double>{600}, std::vector<double>{53})); //Might need a bit more to the right, intaking kicks robot a bit
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-600, 1600}, std::vector<double> {-53, 5}));	//!
