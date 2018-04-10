@@ -20,6 +20,8 @@ constexpr int INTAKE_MOTOR_RIGHT_CANID = 4;
 constexpr int ARM_FOLDER_CANID = 11;
 constexpr int ELEVATOR_MOTOR1_CANID = 1;
 constexpr int ELEVATOR_MOTOR2_CANID = 3;
+constexpr int ELEVATOR_MOTOR3_CANID = 12;
+constexpr int ELEVATOR_MOTOR4_CANID = 13;
 
 //DIOs (0..9 are on RoboRio, 10..13, 18..23 are on MXP expansion port)
 constexpr int DRIVE_MOTOR_LEFT_ENC1_DIO = 0;

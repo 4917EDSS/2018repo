@@ -5,12 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#include "CenterToRightSwitch2BoxesGrp.h"
 
-#include <Commands/CommandGroup.h>
-
-class Auto : public frc::CommandGroup {
-public:
-	Auto();
-};
-
+CenterToRightSwitch2BoxesGrp::CenterToRightSwitch2BoxesGrp() {
+}
