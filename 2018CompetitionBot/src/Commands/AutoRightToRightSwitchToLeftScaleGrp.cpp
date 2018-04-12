@@ -25,7 +25,7 @@ AutoRightToRightSwitchToLeftScaleGrp::AutoRightToRightSwitchToLeftScaleGrp() {
 
 	AddSequential(new ReverseIntakeCmd(0.5));
 
-	//TODO: what is going on here????
+	/*//TODO: what is going on here????
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-2700,-5500}, std::vector<double> {-180,0}));
 
 	AddParallel(new DelayedElevatorToHeightGrp(ElevatorSub::CARRY_HEIGHT, 3,ElevatorSub::SCALE_BOX_HIGH_HEIGHT));
@@ -35,5 +35,5 @@ AutoRightToRightSwitchToLeftScaleGrp::AutoRightToRightSwitchToLeftScaleGrp() {
 
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-1300,800}, std::vector<double> {0,-65}));
 
-	AddSequential(new ReverseIntakeCmd(0.5));
+	AddSequential(new ReverseIntakeCmd(0.5));*/
 }
