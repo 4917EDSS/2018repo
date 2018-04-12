@@ -17,14 +17,14 @@ void IntakeWithJoystickCmd::Initialize() {
 void IntakeWithJoystickCmd::Execute() {
 	std::shared_ptr<frc::Joystick> operatorJoystick = oi->getOperatorController();
 	intakeSub->isBoxIn();
-	double horizontalStick = operatorJoystick->GetX();
+//	double horizontalStick = operatorJoystick->GetX();
 	double verticalStick = operatorJoystick->GetY();
 
-	if (horizontalStick > 0.6){
+/*	if (horizontalStick > 0.6){
 		intakeSub->intake(-horizontalStick/2.0, horizontalStick);
 	} else if (horizontalStick < -0.6){
 		intakeSub->intake(-horizontalStick, horizontalStick/2.0);
-	} else {
+	} else*/ {
 		intakeSub->intake(pow(verticalStick,3));
 		if(verticalStick<-0.1){
 			intakeSub->setJawsOnSpring();
