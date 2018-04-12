@@ -7,8 +7,13 @@
 
 #include "AutoBaselineGrp.h"
 #include "SilkyMotionCmd.h"
+#include "FoldArmsDownCmd.h"
+#include "ZeroElevatorCmd.h"
 
 AutoBaselineGrp::AutoBaselineGrp() {
+	AddParallel (new FoldArmsDownCmd());
+	AddSequential(new ZeroElevatorCmd());
 	AddSequential(new SilkyMotionCmd(std::vector<double> {2900}, std::vector<double> {0}));
+
 
 }
