@@ -17,6 +17,8 @@ CenterToLeftSwitch2BoxesGrp::CenterToLeftSwitch2BoxesGrp() {
 	AddSequential(new SilkyMotionCmd(std::vector<double> {1500, 1300}, std::vector<double> {-35, 10}));
 
 	AddParallel(new ReverseIntakeCmd(0.4));
+	AddSequential(new WaitCommand(0.1));
+
 
 	AddParallel(new ZeroElevatorCmd());
 
@@ -28,6 +30,8 @@ CenterToLeftSwitch2BoxesGrp::CenterToLeftSwitch2BoxesGrp() {
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-600, 1600}, std::vector<double> {-53, 5}));	//!
 
 	AddParallel(new ReverseIntakeCmd(0.4));     //Dropped second box
+	AddSequential(new WaitCommand(0.1));
+
 
 	AddParallel(new ZeroElevatorCmd());
 

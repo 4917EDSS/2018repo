@@ -59,7 +59,7 @@ void SilkyMotionCmd::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool SilkyMotionCmd::IsFinished() {
 	double currTime = TimeSinceInitialized();
-	if (currTime > smm.getTotalTime()+0.25) {
+	if (currTime > smm.getTotalTime()+0.1) {
 		return true;
 	} else if (currTime >= smm.getTotalTime()){
 		PathInfo p = smm.getCurrentPathInfo(currTime);
