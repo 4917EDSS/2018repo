@@ -16,37 +16,10 @@
 #include "Commands/SilkyMotionCmd.h"
 #include "Subsystems/ElevatorSub.h"
 #include "Commands/DelayedElevatorToHeightGrp.h"
+#include "CenterToLeftSwitch2BoxesGrp.h"
 
 AutoCenterToLeftSwitchToLeftScaleGrp::AutoCenterToLeftSwitchToLeftScaleGrp() {
-	// Add Commands here:
-	// e.g. AddSequential(new Command1());
-	//      AddSequential(new Command2());
-	// these will run in order.
-
-	AddParallel (new FoldArmsDownCmd());
-	AddSequential(new ZeroElevatorCmd());
-
-	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-	AddSequential(new SilkyMotionCmd(std::vector<double> {1500, 1300}, std::vector<double> {-35, 10}));
-
-	AddSequential(new ReverseIntakeCmd(0.4));
-
-	AddParallel(new ZeroElevatorCmd());
-
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-1630}, std::vector<double> {-10}));  //Took second box
-	AddParallel(new IntakeUntilLimitCmd());
-	AddSequential(new SilkyMotionCmd(std::vector<double>{600}, std::vector<double>{53}));
-
-	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-600, 1600}, std::vector<double> {-53, 5}));	//!
-
-	AddSequential(new ReverseIntakeCmd(0.4));     //Dropped second box
-
-	AddParallel(new ZeroElevatorCmd());
-
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-1150}, std::vector<double> {0}));
-	AddParallel(new IntakeUntilLimitCmd());
-	AddSequential(new SilkyMotionCmd(std::vector<double> {500, -700}, std::vector<double> {40, -35}));
+	AddSequential (new CenterToLeftSwitch2BoxesGrp());
 
 	AddSequential(new SilkyMotionCmd(std::vector<double> {3000}, std::vector<double> {-80})); //driving left
 
