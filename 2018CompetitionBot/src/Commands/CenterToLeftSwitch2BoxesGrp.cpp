@@ -37,5 +37,5 @@ CenterToLeftSwitch2BoxesGrp::CenterToLeftSwitch2BoxesGrp() {
 
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-1250}, std::vector<double> {-5})); //backing to 3rd box
 	AddParallel(new IntakeUntilLimitCmd());													// getting 3rd box
-	AddSequential(new SilkyMotionCmd(std::vector<double> {550, -700}, std::vector<double> {40, -25}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {600, -750}, std::vector<double> {40, -25}));
 }
