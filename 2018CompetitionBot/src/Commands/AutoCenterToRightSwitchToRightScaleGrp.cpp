@@ -22,5 +22,5 @@
 AutoCenterToRightSwitchToRightScaleGrp::AutoCenterToRightSwitchToRightScaleGrp() {
 	AddSequential (new CenterToRightSwitch2BoxesGrp());
 
-	AddSequential(new SilkyMotionCmd(std::vector<double> {1500,2000}, std::vector<double> {75, -45}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {1500,2000}, std::vector<double> {75, -90}));
 }
