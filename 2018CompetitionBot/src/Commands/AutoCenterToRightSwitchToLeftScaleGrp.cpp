@@ -23,6 +23,6 @@ AutoCenterToRightSwitchToLeftScaleGrp::AutoCenterToRightSwitchToLeftScaleGrp() {
 	AddSequential (new CenterToRightSwitch2BoxesGrp());
 
 	// Driving to left
-	AddSequential(new SilkyMotionCmd(std::vector<double> {3000}, std::vector<double> {-80}));
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-500, 2000, 2000}, std::vector<double> {-40, -40, 90}));
 
 }
