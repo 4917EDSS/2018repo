@@ -8,6 +8,7 @@
 #include "Commands/IntakeUntilLimitCmd.h"
 #include "Subsystems/IntakeSub.h"
 #include "Commands/SilkyMotionCmd.h"
+#include "Commands/DelayedElevatorToHeightGrp.h"
 
 CenterToLeftSwitch2BoxesGrp::CenterToLeftSwitch2BoxesGrp() {
 	AddParallel (new FoldArmsDownCmd());
@@ -20,7 +21,7 @@ CenterToLeftSwitch2BoxesGrp::CenterToLeftSwitch2BoxesGrp() {
 	AddSequential(new WaitCommand(0.1));
 
 
-	AddParallel(new ZeroElevatorCmd());
+	AddParallel(new DelayedElevatorToHeightGrp(0.5, 0.0));
 
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-840, -840}, std::vector<double> {-15, 5}));  //Took second box
 	AddParallel(new IntakeUntilLimitCmd());
@@ -33,7 +34,7 @@ CenterToLeftSwitch2BoxesGrp::CenterToLeftSwitch2BoxesGrp() {
 	AddSequential(new WaitCommand(0.1));
 
 
-	AddParallel(new ZeroElevatorCmd());
+	AddParallel(new DelayedElevatorToHeightGrp(0.5, 0.0));
 
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-1250}, std::vector<double> {-5})); //backing to 3rd box
 	AddParallel(new IntakeUntilLimitCmd());													// getting 3rd box

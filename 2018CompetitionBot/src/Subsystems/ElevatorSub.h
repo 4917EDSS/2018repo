@@ -12,13 +12,14 @@ private:
 	// for methods that implement subsystem capabilities
 	std::shared_ptr<WPI_TalonSRX> elevatorMotor1;
 	std::shared_ptr<WPI_TalonSRX> elevatorMotor2;
+	std::shared_ptr<WPI_TalonSRX> elevatorMotor3;
+	std::shared_ptr<WPI_TalonSRX> elevatorMotor4;
 	std::shared_ptr<frc::Encoder> elevatorMotorEnc;
 	std::shared_ptr<frc::DigitalInput> lowerLimit;
 	std::shared_ptr<frc::Ultrasonic> rangefinder;
 	std::shared_ptr<frc::Solenoid> climbBarSolenoid;
 	std::shared_ptr<frc::Solenoid> climbBarInSolenoid;
 	double target;
-	bool finishedMove;
 	double lastLidarValue;
 	bool isDoneFirstRangefinder;
 	double lastRangefinderValue;

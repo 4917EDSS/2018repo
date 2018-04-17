@@ -24,7 +24,7 @@ CenterToRightSwitch2BoxesGrp::CenterToRightSwitch2BoxesGrp() {
 
 	AddSequential(new WaitCommand(0.1));
 
-	AddParallel(new ZeroElevatorCmd());
+	AddParallel(new DelayedElevatorToHeightGrp(0.5, 0.0));
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-1400,-400}, std::vector<double> {10,-20}));
 
 	AddParallel(new IntakeUntilLimitCmd());
@@ -38,7 +38,7 @@ CenterToRightSwitch2BoxesGrp::CenterToRightSwitch2BoxesGrp() {
 
 
 	//box 3:
-	AddParallel(new ZeroElevatorCmd());
+	AddParallel(new DelayedElevatorToHeightGrp(0.5, 0.0));
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-850, -300}, std::vector<double> {5, -20}));
 
 	AddParallel(new IntakeUntilLimitCmd());

@@ -20,6 +20,7 @@ void ElevatorWithJoystickCmd::Execute() {
 
 	elevatorSub->setElevatorMotor(-verticalStick);
 
+	//might want to reduce sensitivity
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -21,6 +21,12 @@ ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
 	elevatorMotor2.reset(new WPI_TalonSRX(ELEVATOR_MOTOR2_CANID));
 	elevatorMotor2->SetName("Elevator", "Motor2");
 
+	elevatorMotor3.reset(new WPI_TalonSRX(ELEVATOR_MOTOR3_CANID));
+	elevatorMotor3->SetName("Elevator", "Motor3");
+
+	elevatorMotor4.reset(new WPI_TalonSRX(ELEVATOR_MOTOR4_CANID));
+	elevatorMotor4->SetName("Elevator", "Motor4");
+
 	elevatorMotorEnc.reset(new frc::Encoder(ELEVATOR_MOTOR_ENC1_DIO, ELEVATOR_MOTOR_ENC2_DIO));
 	elevatorMotorEnc->SetName("Elevator", "Motor Enc");
 
@@ -41,7 +47,6 @@ ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
 	climbBarInSolenoid->Set(false);
 
 	target = 0;
-	finishedMove = true;
 	lastLidarValue = -1.0;
 	isDoneFirstRangefinder = false;
 	lastRangefinderValue = 0.0;
@@ -130,6 +135,8 @@ bool ElevatorSub::isAtMaxDropHeight(){
 void ElevatorSub::setElevatorMotorRaw(double speed){
 	elevatorMotor1->Set(ControlMode::PercentOutput, -speed);
 	elevatorMotor2->Set(ControlMode::PercentOutput, -speed);
+	elevatorMotor3->Set(ControlMode::PercentOutput, -speed);
+	elevatorMotor4->Set(ControlMode::PercentOutput, -speed);
 }
 
 void ElevatorSub::setElevatorMotor(double speed){
@@ -138,11 +145,11 @@ void ElevatorSub::setElevatorMotor(double speed){
 		resetElevatorEncoder();
 	}
 	else if (getElevatorEncoder() < 50 && speed < 0){
-		speed = std::max(speed, -0.25);
+		speed = std::max(speed, -0.2);
 	}
 
-	else if (getElevatorEncoder() > MAX_ELEVATOR_HEIGHT - 20 && speed > 0){
-		speed = std::min(speed, 0.4);
+	else if (getElevatorEncoder() > MAX_ELEVATOR_HEIGHT - 35 && speed > 0){
+		speed = std::min(speed, 0.35);
 	}
 	setElevatorMotorRaw(speed);
 }
@@ -170,23 +177,10 @@ void ElevatorSub::resetElevatorEncoder() {
 
 void ElevatorSub::setTarget(double newTarget) {
 	target = newTarget;
-	finishedMove = false;
 }
 
 void ElevatorSub::update(){
-	if (!finishedMove) {
-		double currentPosition = getElevatorEncoder();
-		if (currentPosition < target - ELEVATOR_POSITION_TOLERANCE){
-			setElevatorMotor(1.0);
-		}
-		else if (currentPosition > target + ELEVATOR_POSITION_TOLERANCE){
-			setElevatorMotor(-1.0);
-		}
-		else{
-			setElevatorMotor(0.0);
-			finishedMove = true;
-		}
-	}
+	setElevatorMotor((target - getElevatorEncoder()) * 0.01);
 }
 
 double ElevatorSub::convertHeightToEncoder(double cm){
@@ -197,7 +191,11 @@ double ElevatorSub::convertHeightToEncoder(double cm){
 }
 
 bool ElevatorSub::isFinishedMove(){
-	return finishedMove;
+	if(fabs(target - getElevatorEncoder()) < ELEVATOR_POSITION_TOLERANCE && fabs(elevatorMotorEnc->GetRate()) < 45) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 void ElevatorSub::extendClimbBar() {
