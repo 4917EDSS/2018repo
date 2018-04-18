@@ -17,10 +17,9 @@ void ElevatorWithJoystickCmd::Execute() {
 	std::shared_ptr<frc::Joystick> operatorJoystick = oi->getOperatorController();
 
 	double verticalStick = operatorJoystick->GetRawAxis(OPERATOR_ELEVATOR_AXIS);
-
-	elevatorSub->setElevatorMotor(-verticalStick);
-
-	//might want to reduce sensitivity
+	verticalStick = pow(verticalStick, 3);
+	elevatorSub->setElevatorMotor((-verticalStick) + 0.04);
+	// WE SHOULDN"T SEND POSITIVE POWER AT BOTTOM
 }
 
 // Make this return true when this Command no longer needs to run execute()
