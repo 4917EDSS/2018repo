@@ -23,7 +23,7 @@ void ElevatorWithJoystickCmd::Execute() {
 		elevatorSub->setElevatorMotor(-verticalStick);
 	} else {
 		if (verticalStick > -0.01 && verticalStick < 0.01){
-			elevatorSub->setElevatorMotor(0.04);
+			elevatorSub->setElevatorMotor(0.04001);
 		} else {
 			elevatorSub->setElevatorMotor((-verticalStick) + 0.04);
 		}
