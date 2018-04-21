@@ -133,6 +133,7 @@ bool ElevatorSub::isAtMaxDropHeight(){
 }
 
 void ElevatorSub::setElevatorMotorRaw(double speed){
+	std::cout << speed << std::endl;
 	elevatorMotor1->Set(ControlMode::PercentOutput, speed);
 	elevatorMotor2->Set(ControlMode::PercentOutput, speed);
 	elevatorMotor3->Set(ControlMode::PercentOutput, speed);
@@ -140,11 +141,12 @@ void ElevatorSub::setElevatorMotorRaw(double speed){
 }
 
 void ElevatorSub::setElevatorMotor(double speed){
+
 	if (isElevatorDown() && speed < 0){
 		speed = 0;
 		resetElevatorEncoder();
 	}
-	else if (getElevatorEncoder() < 75 && speed < 0){
+	else if (getElevatorEncoder() < 30 && speed < 0){
 		speed = std::max(speed, -0.1);
 	}
 	else if (getElevatorEncoder() < 150 && speed < 0){
@@ -153,8 +155,13 @@ void ElevatorSub::setElevatorMotor(double speed){
 	else if (getElevatorEncoder() > MAX_ELEVATOR_HEIGHT - 35 && speed > 0){
 		speed = std::min(speed, 0.3);
 	}
-	else if (speed < -0.8){
-		speed = -0.8;
+	else if (speed < -0.65){
+		if (elevatorMotorEnc->GetRate() < -100){
+			speed = std::max(speed, -0.8);
+		}
+		else{
+			speed = -0.65;
+		}
 	}
 
 
