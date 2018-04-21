@@ -25,7 +25,7 @@ void ElevatorWithJoystickCmd::Execute() {
 	} else {
 		elevatorSub->setElevatorMotor((-verticalStick) + 0.04);
 	}
-
+}
 
 // Make this return true when this Command no longer needs to run execute()
 bool ElevatorWithJoystickCmd::IsFinished() {

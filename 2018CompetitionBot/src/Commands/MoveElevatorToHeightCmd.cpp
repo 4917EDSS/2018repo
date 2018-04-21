@@ -47,6 +47,7 @@ void MoveElevatorToHeightCmd::End() {
 	} else {
 		elevatorSub->setElevatorMotor(0.04);
 	}
+}
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void MoveElevatorToHeightCmd::Interrupted() {
