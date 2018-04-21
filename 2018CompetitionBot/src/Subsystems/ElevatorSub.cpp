@@ -153,6 +153,12 @@ void ElevatorSub::setElevatorMotor(double speed){
 	else if (getElevatorEncoder() > MAX_ELEVATOR_HEIGHT - 35 && speed > 0){
 		speed = std::min(speed, 0.3);
 	}
+	else if (speed < -0.8){
+		speed = -0.8;
+	}
+
+
+
 	setElevatorMotorRaw(speed);
 }
 

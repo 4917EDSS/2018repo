@@ -25,10 +25,15 @@ void MoveElevatorToHeightCmd::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool MoveElevatorToHeightCmd::IsFinished() {
-	if (height==0){
-		return elevatorSub->isElevatorDown();
-	}else{
-		return elevatorSub->isFinishedMove();
+	if (TimeSinceInitialized() > 2.0){
+		return true;
+	}
+	else{
+		if (height==0){
+			return elevatorSub->isElevatorDown();
+		}else{
+			return elevatorSub->isFinishedMove();
+		}
 	}
 }
 
