@@ -36,10 +36,15 @@ bool MoveElevatorToHeightCmd::IsFinished() {
 void MoveElevatorToHeightCmd::End() {
 //	elevatorSub->disableLiftPID();
 	elevatorSub->setElevatorMotor(0.0);
-}
 
+	if (elevatorSub->isElevatorDown()){
+		elevatorSub->setElevatorMotor(0.0);
+	} else {
+		elevatorSub->setElevatorMotor(0.04);
+	}
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void MoveElevatorToHeightCmd::Interrupted() {
 	End();
-}
+
+	}
