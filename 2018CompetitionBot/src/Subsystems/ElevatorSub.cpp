@@ -133,7 +133,6 @@ bool ElevatorSub::isAtMaxDropHeight(){
 }
 
 void ElevatorSub::setElevatorMotorRaw(double speed){
-	std::cout << speed << "motor rate " << elevatorMotorEnc->GetRate() << std::endl;
 	elevatorMotor1->Set(ControlMode::PercentOutput, speed);
 	elevatorMotor2->Set(ControlMode::PercentOutput, speed);
 	elevatorMotor3->Set(ControlMode::PercentOutput, speed);
