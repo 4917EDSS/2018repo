@@ -20,10 +20,10 @@ ElevatorSub::ElevatorSub() : Subsystem("ElevatorSub") {
 
 	elevatorMotor2.reset(new WPI_TalonSRX(ELEVATOR_MOTOR2_CANID));
 	elevatorMotor2->SetName("Elevator", "Motor2");
-
+	//Make victor!!!!!!!!
 	elevatorMotor3.reset(new WPI_TalonSRX(ELEVATOR_MOTOR3_CANID));
 	elevatorMotor3->SetName("Elevator", "Motor3");
-
+	//Make victor!!!!!!!!
 	elevatorMotor4.reset(new WPI_TalonSRX(ELEVATOR_MOTOR4_CANID));
 	elevatorMotor4->SetName("Elevator", "Motor4");
 

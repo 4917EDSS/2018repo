@@ -9,7 +9,8 @@ class IntakeSub : public Subsystem {
 private:
 	std::shared_ptr<WPI_TalonSRX> intakeMotorLeft;
 	std::shared_ptr<WPI_TalonSRX> intakeMotorRight;
-	std::shared_ptr<WPI_VictorSPX> armFolderMotor;
+	//change to victor
+	std::shared_ptr<WPI_TalonSRX> armFolderMotor;
 	std::shared_ptr<DigitalInput> intakeCloseLimit;
 	std::shared_ptr<DigitalInput> intakeFarLimit;
 	std::shared_ptr<frc::Solenoid> jawOpenSolenoid;
