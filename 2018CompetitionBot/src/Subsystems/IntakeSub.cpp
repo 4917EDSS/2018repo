@@ -13,7 +13,9 @@ IntakeSub::IntakeSub() : Subsystem("IntakeSub") {
 	intakeMotorRight.reset(new WPI_TalonSRX(INTAKE_MOTOR_RIGHT_CANID));
 	intakeMotorRight->SetName("Intake", "Right Motor");
 
-	armFolderMotor.reset(new WPI_VictorSPX(ARM_FOLDER_CANID));
+
+	//Make this a victor!!!!!!!!!!!
+	armFolderMotor.reset(new WPI_TalonSRX(ARM_FOLDER_CANID));
 	armFolderMotor->SetName("Intake", "Arm Folder Motor");
 
 	intakeCloseLimit.reset(new DigitalInput(INTAKE_LIMIT_CLOSE_DIO));
