@@ -19,13 +19,18 @@ void ElevatorWithJoystickCmd::Execute() {
 	double verticalStick = operatorJoystick->GetRawAxis(OPERATOR_ELEVATOR_AXIS);
 	verticalStick = pow(verticalStick, 3);
 
-	elevatorSub->isElevatorDown();
 	if (elevatorSub->isElevatorDown()){
 		elevatorSub->setElevatorMotor(-verticalStick);
 	} else {
-		elevatorSub->setElevatorMotor((-verticalStick) + 0.04);
+		if (verticalStick > -0.01 && verticalStick < 0.01){
+			elevatorSub->setElevatorMotor(0.04);
+		} else {
+			elevatorSub->setElevatorMotor((-verticalStick) + 0.04);
+		}
 	}
 }
+
+
 
 // Make this return true when this Command no longer needs to run execute()
 bool ElevatorWithJoystickCmd::IsFinished() {
