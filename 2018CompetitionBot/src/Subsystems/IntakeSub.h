@@ -10,7 +10,7 @@ private:
 	std::shared_ptr<WPI_TalonSRX> intakeMotorLeft;
 	std::shared_ptr<WPI_TalonSRX> intakeMotorRight;
 	//change to victor
-	std::shared_ptr<WPI_TalonSRX> armFolderMotor;
+	std::shared_ptr<WPI_VictorSPX> armFolderMotor;
 	std::shared_ptr<DigitalInput> intakeCloseLimit;
 	std::shared_ptr<DigitalInput> intakeFarLimit;
 	std::shared_ptr<frc::Solenoid> jawOpenSolenoid;
