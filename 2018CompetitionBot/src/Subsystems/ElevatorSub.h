@@ -12,8 +12,8 @@ private:
 	// for methods that implement subsystem capabilities
 	std::shared_ptr<WPI_TalonSRX> elevatorMotor1;
 	std::shared_ptr<WPI_TalonSRX> elevatorMotor2;
-	std::shared_ptr<WPI_TalonSRX> elevatorMotor3;
-	std::shared_ptr<WPI_TalonSRX> elevatorMotor4;
+	std::shared_ptr<WPI_VictorSPX> elevatorMotor3;
+	std::shared_ptr<WPI_VictorSPX> elevatorMotor4;
 	std::shared_ptr<frc::Encoder> elevatorMotorEnc;
 	std::shared_ptr<frc::DigitalInput> lowerLimit;
 	std::shared_ptr<frc::Ultrasonic> rangefinder;
