@@ -14,6 +14,7 @@
 #include "Commands/ElevatorFullPowerDownCmd.h"
 #include "Commands/PrepareToClimbGrp.h"
 #include "Commands/ClimbGrp.h"
+#include "Commands/ResetElevatorCmd.h"
 
 
 OI::OI() {
@@ -34,6 +35,8 @@ OI::OI() {
 	prepareToClimbBtn->WhenPressed(new PrepareToClimbGrp());
 	climbBarBtn.reset(new JoystickButton(driverController.get(), CLIMB_BAR_BTN));
 	climbBarBtn->WhenPressed(new ClimbGrp());
+	resetElevatorBtn.reset(new JoystickButton(driverController.get(), RESET_ELEVATOR_BTN));
+	resetElevatorBtn->WhenPressed(new ResetElevatorCmd());
 
 	operatorController.reset(new frc::Joystick(OPERATOR_CONTROLLER_PORT));
 	operatorController->SetXChannel(0);

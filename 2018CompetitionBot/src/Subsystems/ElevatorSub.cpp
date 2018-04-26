@@ -137,30 +137,34 @@ void ElevatorSub::setElevatorMotorRaw(double speed){
 	elevatorMotor2->Set(ControlMode::PercentOutput, speed);
 	elevatorMotor3->Set(ControlMode::PercentOutput, speed);
 	elevatorMotor4->Set(ControlMode::PercentOutput, speed);
+	//std::cout<<speed<<std::endl;//get rid of this
 }
 
 void ElevatorSub::setElevatorMotor(double speed){
 
 	if (isElevatorDown() && speed < 0){
 		speed = 0;
-		resetElevatorEncoder();
+		//resetElevatorEncoder();
 	}
 	else if (getElevatorEncoder() < 30 && speed < 0){
-		speed = std::max(speed, -0.1);
+		speed = std::max(speed, -0.12);
 	}
-	else if (getElevatorEncoder() < 150 && speed < 0){
-		speed = std::max(speed, -0.2);
+	else if (getElevatorEncoder() < 130 && speed < 0){
+		speed = std::max(speed, -0.25);
 	}
 	else if (getElevatorEncoder() > MAX_ELEVATOR_HEIGHT - 35 && speed > 0){
 		speed = std::min(speed, 0.3);
 	}
-	else if (speed < -0.65){
-		if (elevatorMotorEnc->GetRate() < -200){
-			speed = std::max(speed, -0.8);
+	else if (speed < -0.6){
+		if (elevatorMotorEnc->GetRate() < -150){
+			speed = std::max(speed, -0.75);
 		}
 		else{
-			speed = -0.65;
+			speed = -0.6;
 		}
+	}
+	else if (speed > 0.9){
+		speed = 0.9;
 	}
 
 
@@ -169,16 +173,7 @@ void ElevatorSub::setElevatorMotor(double speed){
 }
 
 bool ElevatorSub::isElevatorDown() {
-	if ((elevatorMotorEnc->GetDistance()>100)&&(!lowerLimit->Get())){
-		debounceCounter++;
-		if (debounceCounter>4){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	debounceCounter=0;
-	return !lowerLimit->Get();
+	return !lowerLimit->Get() && getElevatorEncoder() < 20;
 }
 
 double ElevatorSub::getElevatorEncoder() {

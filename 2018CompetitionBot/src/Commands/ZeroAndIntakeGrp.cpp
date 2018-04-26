@@ -6,7 +6,7 @@
 ZeroAndIntakeGrp::ZeroAndIntakeGrp() {
 	AddSequential(new ZeroElevatorCmd());
 	AddSequential(new IntakeUntilLimitCmd());
-	AddSequential(new WaitCommand(0.2));
+	AddSequential(new WaitCommand(0.3));
 	AddSequential(new MoveElevatorToHeightCmd(60));
 	// TODO: add raise height
 }

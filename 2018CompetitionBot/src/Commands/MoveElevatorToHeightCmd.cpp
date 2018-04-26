@@ -40,7 +40,6 @@ bool MoveElevatorToHeightCmd::IsFinished() {
 // Called once after isFinished returns true
 void MoveElevatorToHeightCmd::End() {
 //	elevatorSub->disableLiftPID();
-	elevatorSub->setElevatorMotor(0.0);
 
 	if (elevatorSub->isElevatorDown()){
 		elevatorSub->setElevatorMotor(0.0);
@@ -53,4 +52,4 @@ void MoveElevatorToHeightCmd::End() {
 void MoveElevatorToHeightCmd::Interrupted() {
 	End();
 
-	}
+}
