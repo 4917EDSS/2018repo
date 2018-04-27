@@ -25,6 +25,8 @@ AutoRightToRightSwitchToLeftScaleGrp::AutoRightToRightSwitchToLeftScaleGrp() {
 
 	AddSequential(new ReverseIntakeCmd(0.5));
 
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-400}, std::vector<double> {0}));
+	AddSequential(new MoveElevatorToHeightCmd(0));
 	/*//TODO: what is going on here????
 	AddSequential(new SilkyMotionCmd(std::vector<double> {-2700,-5500}, std::vector<double> {-180,0}));
 

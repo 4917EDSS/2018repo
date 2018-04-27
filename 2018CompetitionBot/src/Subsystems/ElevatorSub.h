@@ -27,11 +27,11 @@ private:
 	void storeNewRangefinderValue(double distance);
 
 public:
-	static constexpr double AUTO_FIRST_BOX_HEIGHT = 656.75;
-	static constexpr double SCALE_BOX_HIGH_HEIGHT = 626.75;
-	static constexpr double SCALE_BOX_MEDIUM_HEIGHT = 555;
-	static constexpr double SCALE_BOX_LOW_HEIGHT = 500;
-	static constexpr double SWITCH_BOX_HEIGHT = 235.6;
+	static constexpr double AUTO_FIRST_BOX_HEIGHT = 680.00;
+	static constexpr double SCALE_BOX_HIGH_HEIGHT = 666.00;
+	static constexpr double SCALE_BOX_MEDIUM_HEIGHT = 573.00;
+	static constexpr double SCALE_BOX_LOW_HEIGHT = 480.00;
+	static constexpr double SWITCH_BOX_HEIGHT = 250.00;
 	static constexpr double MAX_ELEVATOR_HEIGHT = 728;
 	static constexpr double CLIMB_HEIGHT = 502.25;
 	static constexpr double CARRY_HEIGHT = 20;
