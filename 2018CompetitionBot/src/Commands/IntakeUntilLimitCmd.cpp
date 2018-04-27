@@ -55,5 +55,6 @@ void IntakeUntilLimitCmd::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void IntakeUntilLimitCmd::Interrupted() {
+	intakeSub->setJawsOnSpring();
 	intakeSub->intake(0.0);
 }
