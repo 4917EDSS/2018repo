@@ -28,7 +28,7 @@ CenterToLeftSwitch2BoxesGrp::CenterToLeftSwitch2BoxesGrp() {
 	AddSequential(new SilkyMotionCmd(std::vector<double>{650}, std::vector<double>{53})); //Might need a bit more to the right, intaking kicks robot a bit
 
 	AddParallel(new MoveElevatorToHeightCmd(ElevatorSub::SWITCH_BOX_HEIGHT));
-	AddSequential(new SilkyMotionCmd(std::vector<double> {-600, 800, 900}, std::vector<double> {-53, 0, 10}));	//!
+	AddSequential(new SilkyMotionCmd(std::vector<double> {-650, 850, 900}, std::vector<double> {-53, 0, 10}));	//!
 
 	AddParallel(new ReverseIntakeCmd(0.6));     //Dropped second box
 	AddSequential(new WaitCommand(0.1));
