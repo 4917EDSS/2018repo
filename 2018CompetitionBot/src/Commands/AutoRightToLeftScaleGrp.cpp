@@ -14,7 +14,7 @@
 AutoRightToLeftScaleGrp::AutoRightToLeftScaleGrp() {
 	AddSequential(new RightToLeftScaleGrp());
 
-	AddParallel(new IntakeUntilLimitCmd());
+	/*AddParallel(new IntakeUntilLimitCmd());
 	AddParallel(new DelayedElevatorToHeightGrp(0.5,0.0));
 	AddSequential(new SilkyMotionCmd(std::vector<double>{-800,2700}, std::vector<double>{50, 100}));
 
@@ -25,6 +25,6 @@ AutoRightToLeftScaleGrp::AutoRightToLeftScaleGrp() {
 
 	AddParallel(new DelayedElevatorToHeightGrp(0.5,0));
 	AddSequential(new SilkyMotionCmd(std::vector<double>{-700}, std::vector<double>{0}));
-
+	*/
 
 }

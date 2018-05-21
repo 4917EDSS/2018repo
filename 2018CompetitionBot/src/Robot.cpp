@@ -203,18 +203,18 @@ private:
 		chooserRR->AddObject("L Switch", std::shared_ptr<frc::Command>(new AutoLeftToRightSwitchGrp()));
 		chooserRR->AddObject("R Switch", std::shared_ptr<frc::Command>(new AutoRightToRightSwitchGrp()));
 		chooserRR->AddObject("L Scale", std::shared_ptr<frc::Command>(new AutoLeftToRightScaleGrp()));
-		chooserRR->AddObject("R Scale", std::shared_ptr<frc::Command>(new AutoRightToRightScaleGrp()));
+		chooserRR->AddDefault("R Scale", std::shared_ptr<frc::Command>(new AutoRightToRightScaleGrp()));
 		chooserRR->AddObject("C Switch (RR)", std::shared_ptr<frc::Command>(new AutoCenterToRightSwitchToRightScaleGrp()));
 		chooserRR->AddObject("R Scale, Switch", std::shared_ptr<frc::Command>(new AutoRightToRightScaleToRightSwitchGrp()));
-		chooserRR->AddDefault("C Switch, Scale", std::shared_ptr<frc::Command>(new AutoCenterToRightSwitchToRightScaleGrp()));
+		chooserRR->AddObject("C Switch, Scale", std::shared_ptr<frc::Command>(new AutoCenterToRightSwitchToRightScaleGrp()));
 		chooserRR->AddObject("Baseline", std::shared_ptr<frc::Command>(new AutoBaselineGrp()));
 
 		chooserLR->AddObject("L Switch", std::shared_ptr<frc::Command>(new AutoLeftToLeftSwitchGrp()));
 		chooserLR->AddObject("R Switch", std::shared_ptr<frc::Command>(new AutoRightToLeftSwitchGrp()));
 		chooserLR->AddObject("L Scale", std::shared_ptr<frc::Command>(new AutoLeftToRightScaleGrp()));
-		chooserLR->AddObject("R Scale", std::shared_ptr<frc::Command>(new AutoRightToRightScaleGrp()));
+		chooserLR->AddDefault("R Scale", std::shared_ptr<frc::Command>(new AutoRightToRightScaleGrp()));
 		chooserLR->AddObject("C Switch (LR)", std::shared_ptr<frc::Command>(new AutoCenterToLeftSwitchGrp()));
-		chooserLR->AddDefault("C Switch, Scale", std::shared_ptr<frc::Command>(new AutoCenterToLeftSwitchToRightScaleGrp()));
+		chooserLR->AddObject("C Switch, Scale", std::shared_ptr<frc::Command>(new AutoCenterToLeftSwitchToRightScaleGrp()));
 		chooserLR->AddObject("Baseline", std::shared_ptr<frc::Command>(new AutoBaselineGrp()));
 
 
@@ -222,20 +222,20 @@ private:
 		chooserLL->AddObject("L Switch", std::shared_ptr<frc::Command>(new AutoLeftToLeftSwitchGrp()));
 		chooserLL->AddObject("R Switch", std::shared_ptr<frc::Command>(new AutoRightToLeftSwitchGrp()));
 		chooserLL->AddObject("L Scale", std::shared_ptr<frc::Command>(new AutoLeftToLeftScaleGrp()));
-		chooserLL->AddObject("R Scale", std::shared_ptr<frc::Command>(new AutoRightToLeftScaleGrp()));
+		chooserLL->AddDefault("R Scale", std::shared_ptr<frc::Command>(new AutoRightToLeftScaleGrp()));
 		chooserLL->AddObject("C Switch (LL)", std::shared_ptr<frc::Command>(new AutoCenterToLeftSwitchGrp()));
 		chooserLL->AddObject("R Scale, Switch", std::shared_ptr<frc::Command>(new AutoRightToLeftScaleToLeftSwitchGrp()));
-		chooserLL->AddDefault("C Switch, Scale", std::shared_ptr<frc::Command>(new AutoCenterToLeftSwitchToLeftScaleGrp()));
+		chooserLL->AddObject("C Switch, Scale", std::shared_ptr<frc::Command>(new AutoCenterToLeftSwitchToLeftScaleGrp()));
 		chooserLL->AddObject("Baseline", std::shared_ptr<frc::Command>(new AutoBaselineGrp()));
 
 
 		chooserRL->AddObject("L Switch", std::shared_ptr<frc::Command>(new AutoLeftToRightSwitchGrp()));
 		chooserRL->AddObject("R Switch", std::shared_ptr<frc::Command>(new AutoRightToRightSwitchGrp()));
 		chooserRL->AddObject("L Scale", std::shared_ptr<frc::Command>(new AutoLeftToLeftScaleGrp()));
-		chooserRL->AddObject("R Scale", std::shared_ptr<frc::Command>(new AutoRightToLeftScaleGrp()));
+		chooserRL->AddDefault("R Scale", std::shared_ptr<frc::Command>(new AutoRightToLeftScaleGrp()));
 		chooserRL->AddObject("C Switch (RL)", std::shared_ptr<frc::Command>(new AutoCenterToRightSwitchGrp()));
 		chooserRL->AddObject("R Switch, Scale", std::shared_ptr<frc::Command>(new AutoRightToRightSwitchToLeftScaleGrp()));
-		chooserRL->AddDefault("C Switch, Scale", std::shared_ptr<frc::Command>(new AutoCenterToRightSwitchToLeftScaleGrp()));
+		chooserRL->AddObject("C Switch, Scale", std::shared_ptr<frc::Command>(new AutoCenterToRightSwitchToLeftScaleGrp()));
 		chooserRL->AddObject("Baseline", std::shared_ptr<frc::Command>(new AutoBaselineGrp()));
 
 

@@ -22,10 +22,13 @@
 
 RightToLeftScaleGrp::RightToLeftScaleGrp() {
 	AddParallel (new FoldArmsDownCmd());
+	AddParallel(new DelayedElevatorToHeightGrp(ElevatorSub::CARRY_HEIGHT,5.75,ElevatorSub::SWITCH_BOX_HEIGHT));
+	AddSequential (new SilkyMotionCmd(std::vector<double>{4160, 2300, 1000}, std::vector<double>{0, -90, 0}));
+	/*AddParallel (new FoldArmsDownCmd());
 	AddParallel(new DelayedElevatorToHeightGrp(ElevatorSub::CARRY_HEIGHT,5.75,ElevatorSub::AUTO_FIRST_BOX_HEIGHT));
 	AddSequential(new SilkyMotionCmd(std::vector<double> {4160, 2300, 3090, 1900}, std::vector<double> {0, -90, 0, 120}));
 
 	AddSequential(new WaitCommand(1));
 
-	AddSequential(new ReverseIntakeCmd(0.4));
+	AddSequential(new ReverseIntakeCmd(0.4));*/
 }
