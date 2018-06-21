@@ -29,6 +29,8 @@ public:
 	static std::unique_ptr<IntakeSub> intakeSub;
 	static std::unique_ptr<ElevatorSub> elevatorSub;
 	static std::unique_ptr<OI> oi;
+
+	static bool isDemoMode;
 };
 
 #endif  // COMMAND_BASE_H

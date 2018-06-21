@@ -19,6 +19,11 @@ void ElevatorWithJoystickCmd::Execute() {
 	double verticalStick = operatorJoystick->GetRawAxis(OPERATOR_ELEVATOR_AXIS);
 	verticalStick = pow(verticalStick, 3);
 
+	// Demo mode slows down the elevator for inexperienced users
+	if (CommandBase::isDemoMode) {
+		verticalStick /= 2;
+	}
+
 	if (elevatorSub->isElevatorDown()){
 		elevatorSub->setElevatorMotor(-verticalStick);
 	} else {

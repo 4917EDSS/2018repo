@@ -15,6 +15,7 @@
 #include "Commands/PrepareToClimbGrp.h"
 #include "Commands/ClimbGrp.h"
 #include "Commands/ResetElevatorCmd.h"
+#include "Commands/ToggleDemoModeCmd.h"
 
 
 OI::OI() {
@@ -37,6 +38,8 @@ OI::OI() {
 	climbBarBtn->WhenPressed(new ClimbGrp());
 	resetElevatorBtn.reset(new JoystickButton(driverController.get(), RESET_ELEVATOR_BTN));
 	resetElevatorBtn->WhenPressed(new ResetElevatorCmd());
+	toggleDemoModeBtn.reset(new JoystickButton(driverController.get(), TOGGLE_DEMO_MODE_BTN));
+	toggleDemoModeBtn->WhenPressed(new ToggleDemoModeCmd());
 
 	operatorController.reset(new frc::Joystick(OPERATOR_CONTROLLER_PORT));
 	operatorController->SetXChannel(0);

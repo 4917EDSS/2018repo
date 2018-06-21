@@ -24,8 +24,16 @@ void IntakeWithJoystickCmd::Execute() {
 		intakeSub->intake(-horizontalStick/2.0, horizontalStick);
 	} else if (horizontalStick < -0.6){
 		intakeSub->intake(-horizontalStick, horizontalStick/2.0);
-	} else*/ {
-		intakeSub->intake(pow(verticalStick,3));
+	} else*/
+	{
+		double scaledVerticalStick = pow(verticalStick,3);
+
+		// Demo mode slows down the intake so inexperienced users can use it
+		if (CommandBase::isDemoMode) {
+			scaledVerticalStick /= 2;
+		}
+
+		intakeSub->intake(scaledVerticalStick);
 		if(verticalStick<-0.1){
 			intakeSub->setJawsOnSpring();
 		}

@@ -31,6 +31,7 @@ constexpr int OPERATOR_CONTROLLER_PORT = 1;
 constexpr int HIGH_GEAR_BTN = 8;
 constexpr int PREPARE_TO_CLIMB_BTN = 2;
 constexpr int CLIMB_BAR_BTN = 3;
+constexpr int TOGGLE_DEMO_MODE_BTN = 9;
 constexpr int RESET_ELEVATOR_BTN = 10;
 
 // Operator
@@ -81,6 +82,7 @@ private:
     std::shared_ptr<frc::JoystickButton> prepareToClimbBtn;
     std::shared_ptr<frc::JoystickButton> climbBarBtn;
     std::shared_ptr<frc::JoystickButton> resetElevatorBtn;
+    std::shared_ptr<frc::JoystickButton> toggleDemoModeBtn;
 };
 
 #endif  // OI_H

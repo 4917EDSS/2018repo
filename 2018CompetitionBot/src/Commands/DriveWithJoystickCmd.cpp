@@ -23,6 +23,12 @@ void DriveWithJoystickCmd::Execute() {
 	if (heightPercentage <= 0.1){
 		maxPower = 1;
 	}
+
+	// Demo mode slows down the driving so inexperienced users can drive the robot
+	if (CommandBase::isDemoMode) {
+		maxPower = std::min(maxPower, 0.5);
+	}
+
 	double rightStick = driverJoystick->GetZ();
 	double leftStick = driverJoystick->GetY();
 	rightStick = pow(rightStick, 3);
